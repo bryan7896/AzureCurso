@@ -1,0 +1,2238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#38bdf8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="AI-901 Trainer" />
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icon.svg" />
+  <link rel="manifest" href="./manifest.json" />
+  <title>AI-901 Trainer</title>
+  <style>/* estilos/main.css — AI-901 Trainer — tema oscuro, acentos azul cielo */
+
+:root {
+  --bg: #060a13;
+  --bg-elev: #0c1424;
+  --bg-card: #101b30;
+  --bg-card-hover: #142138;
+  --border: #1f2f4d;
+  --border-soft: #182640;
+  --text: #e7edf9;
+  --text-dim: #8ea0c2;
+  --text-faint: #5b6c8c;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --accent-soft: rgba(56, 189, 248, 0.12);
+  --accent-glow: rgba(56, 189, 248, 0.35);
+  --success: #34d399;
+  --success-soft: rgba(52, 211, 153, 0.12);
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.12);
+  --warning: #fbbf24;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+  --radius-pill: 999px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background:
+    radial-gradient(circle at 15% 0%, rgba(56, 189, 248, 0.08), transparent 45%),
+    radial-gradient(circle at 85% 100%, rgba(14, 165, 233, 0.06), transparent 40%),
+    var(--bg);
+  min-height: 100vh;
+}
+
+button, input, select, textarea { font-family: inherit; }
+
+/* ---------- Layout general ---------- */
+
+.app-container {
+  max-width: 720px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen { display: none; padding: 16px; padding-bottom: 40px; }
+.screen.active { display: block; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: rgba(6, 10, 19, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.marca-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #041423;
+  font-size: 0.85rem;
+}
+
+.marca-titulo { font-weight: 700; font-size: 1rem; letter-spacing: 0.2px; }
+.marca-sub { font-size: 0.7rem; color: var(--text-faint); }
+
+/* ---------- Botones ---------- */
+
+.btn {
+  appearance: none;
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  border-radius: var(--radius-pill);
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+.btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.btn-solido {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #041423;
+  border: none;
+}
+.btn-solido:hover:not(:disabled) { filter: brightness(1.08); box-shadow: 0 0 0 4px var(--accent-glow); }
+
+.btn-peligro { border-color: var(--danger); color: var(--danger); }
+.btn-peligro:hover:not(:disabled) { background: var(--danger-soft); box-shadow: 0 0 0 4px rgba(248, 113, 113, 0.25); }
+
+.btn-icono {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+.btn-icono:hover { border-color: var(--accent); color: var(--accent); }
+
+.full { width: 100%; justify-content: center; }
+
+/* ---------- Secciones (pantalla principal) ---------- */
+
+.bloque-dominio { margin-bottom: 28px; }
+
+.bloque-dominio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.bloque-dominio-header h2 { font-size: 1.05rem; margin: 0; }
+.bloque-dominio-peso { font-size: 0.78rem; color: var(--text-faint); }
+
+.grid-secciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.tarjeta-seccion {
+  text-align: left;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tarjeta-seccion:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+.tarjeta-seccion.bloqueada { opacity: 0.4; cursor: not-allowed; }
+
+.tarjeta-seccion-top { display: flex; justify-content: space-between; align-items: center; }
+.tarjeta-seccion-id {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+.tarjeta-seccion-icono { font-size: 1rem; }
+.tarjeta-seccion-titulo { font-size: 0.88rem; font-weight: 600; line-height: 1.3; }
+.tarjeta-seccion-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-faint);
+}
+.tarjeta-seccion-estado { color: var(--text-dim); }
+
+/* ---------- Lecciones ---------- */
+
+.lecciones-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.lecciones-acciones { display: flex; gap: 8px; }
+
+.grid-lecciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 12px;
+}
+
+.caja-leccion {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 8px;
+  cursor: pointer;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.caja-leccion:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-2px); }
+.caja-leccion.actual { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+.caja-leccion.completada { border-color: var(--success); }
+.caja-leccion.bloqueada { opacity: 0.35; cursor: not-allowed; }
+
+.caja-leccion-numero { font-size: 1.1rem; font-weight: 800; }
+.caja-leccion-barra { width: 100%; height: 4px; background: var(--border); border-radius: var(--radius-pill); overflow: hidden; }
+.caja-leccion-barra-fill { height: 100%; background: var(--accent); }
+.caja-leccion-info { font-size: 0.68rem; color: var(--text-faint); }
+
+.aviso-vacio { text-align: center; color: var(--text-faint); padding: 40px 16px; font-size: 0.9rem; }
+
+/* ---------- Modal ---------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 6, 12, 0.75);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+  padding: 0;
+}
+.modal-overlay.modal-activo { display: flex; }
+
+@media (min-width: 600px) {
+  .modal-overlay { align-items: center; }
+}
+
+.modal-tarjeta {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 480px;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 20px;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 600px) {
+  .modal-tarjeta { border-radius: var(--radius-lg); }
+}
+
+.modal-ajustes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.modal-cerrar {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.ajustes-seccion { margin-bottom: 20px; }
+.ajustes-seccion h4 { font-size: 0.8rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px; }
+.ajustes-fila { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.ajustes-nota { font-size: 0.75rem; color: var(--text-dim); margin-top: 8px; }
+
+.btn-ajustes {
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  border-radius: var(--radius-pill);
+  padding: 9px 16px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-ajustes:hover { background: var(--accent-soft); }
+.btn-ajustes.full { width: 100%; justify-content: center; display: flex; margin-top: 6px; }
+
+.select-ajustes {
+  flex: 1;
+  min-width: 160px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 9px 10px;
+  font-size: 0.82rem;
+}
+
+/* ---------- Toast ---------- */
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--bg-elev);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  opacity: 0;
+  transition: all 0.25s ease;
+  z-index: 200;
+  pointer-events: none;
+  max-width: 90vw;
+  text-align: center;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- Scrollbar sutil ---------- */
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: var(--radius-pill); }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ---------- Ejercicio: pregunta + opciones (comunes a los 5 tipos) ---------- */
+
+.pregunta-prompt {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.opciones-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.opciones-vf { flex-direction: row; }
+.opciones-vf .opcion-btn { flex: 1; text-align: center; }
+
+.opcion-btn {
+  text-align: left;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  color: var(--text);
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.opcion-btn:hover { border-color: var(--accent); }
+.opcion-btn.seleccionada { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 3px var(--accent-glow); }
+
+.opcion-check { margin-right: 4px; }
+
+.ejercicio-acciones { display: flex; justify-content: center; margin-top: 10px; }
+.ejercicio-acciones .btn { min-width: 200px; justify-content: center; }
+
+/* ---------- Emparejamiento (pairs) ---------- */
+
+.emparejar-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.emparejar-col { display: flex; flex-direction: column; gap: 8px; }
+.opcion-emparejar { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; padding: 10px; }
+.opcion-emparejar.activo { border-color: var(--warning); box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25); }
+.opcion-emparejar.pareado { border-color: var(--success); background: var(--success-soft); }
+.emparejar-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--success); color: #052b1c; font-size: 0.68rem; font-weight: 800; flex-shrink: 0;
+}
+
+/* ---------- Secuencia (ordenar con flechas) ---------- */
+
+.secuencia-lista { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.secuencia-fila {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md);
+  padding: 10px 12px;
+}
+.secuencia-numero {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; flex-shrink: 0;
+}
+.secuencia-texto { flex: 1; font-size: 0.88rem; }
+.secuencia-flechas { display: flex; gap: 4px; }
+.btn-mini { width: 30px; height: 30px; font-size: 0.85rem; }
+
+/* ---------- Dropdown ---------- */
+
+.dropdown-texto { line-height: 2.2; }
+.dropdown-select {
+  background: var(--bg-card); border: 1.5px solid var(--accent); color: var(--accent);
+  border-radius: var(--radius-sm); padding: 4px 8px; font-size: 0.88rem; margin: 0 2px;
+}
+
+/* ---------- Modal de feedback ---------- */
+
+.modal-feedback.feedback-correcto { border-top: 3px solid var(--success); }
+.modal-feedback.feedback-incorrecto { border-top: 3px solid var(--danger); }
+.feedback-encabezado { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.feedback-icono { font-size: 1.6rem; }
+.feedback-titulo { font-size: 1.1rem; font-weight: 700; }
+.feedback-explicacion { color: var(--text-dim); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px; }
+.modal-botones { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+
+/* ---------- Aprendizaje: teoría, logros, práctica ---------- */
+
+.teoria-bloque { margin-bottom: 18px; }
+.teoria-bloque h3 { font-size: 0.95rem; margin: 0 0 8px; color: var(--accent); }
+.teoria-cuerpo { font-size: 0.88rem; line-height: 1.6; color: var(--text-dim); }
+
+.logros-bloque { margin: 22px 0; padding: 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.logros-bloque h4 { margin: 0 0 10px; font-size: 0.85rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+.logro-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; font-size: 0.88rem; cursor: pointer; }
+.logro-item input { margin-top: 3px; accent-color: var(--accent); }
+
+.practica-bloque { margin: 18px 0; padding: 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.practica-bloque h4 { margin: 0 0 4px; font-size: 0.85rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ---------- Banner de estado de sección ---------- */
+
+.banner-estado {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 16px; font-size: 0.85rem;
+}
+.banner-exito { background: var(--success-soft); border: 1px solid var(--success); color: var(--success); }
+.banner-alerta { background: var(--danger-soft); border: 1px solid var(--danger); color: var(--danger); }
+</style>
+</head>
+<body>
+<div class="app-container">
+
+  <div class="topbar">
+    <div class="marca">
+      <div class="marca-logo">AI</div>
+      <div>
+        <div class="marca-titulo">AI-901 Trainer</div>
+        <div class="marca-sub">0.2.0 (Parte 2 — motor de ejercicios)</div>
+      </div>
+    </div>
+    <button class="btn-icono" id="btnAjustes" aria-label="Ajustes">⚙️</button>
+  </div>
+
+  <div id="pantallaSecciones" class="screen active">
+    <div id="seccionesContainer"></div>
+  </div>
+
+  <div id="pantallaLecciones" class="screen">
+    <div class="lecciones-header">
+      <button class="btn-icono" id="btnVolverSecciones" aria-label="Volver">←</button>
+      <h2 id="leccionesTitulo" style="flex:1;font-size:1rem;margin:0;"></h2>
+      <div class="lecciones-acciones">
+        <button class="btn" id="btnAbrirAprendizaje">💡 Aprendizaje</button>
+        <button class="btn" id="btnCopiarReporteSeccion" disabled>📋 Reporte</button>
+      </div>
+    </div>
+    <div id="leccionesContainer" class="grid-lecciones"></div>
+  </div>
+
+  <div id="pantallaEjercicio" class="screen">
+    <div class="lecciones-header">
+      <button class="btn-icono" id="btnVolverLecciones" aria-label="Volver">←</button>
+      <span id="ejercicioTag" style="color:var(--text-dim);font-size:0.85rem;"></span>
+    </div>
+    <div id="ejercicioContainer"></div>
+  </div>
+
+  <div id="pantallaAprendizaje" class="screen">
+    <div class="lecciones-header">
+      <button class="btn-icono" id="btnVolverDeAprendizaje" aria-label="Volver">←</button>
+      <h2 style="flex:1;font-size:1rem;margin:0;">💡 Aprendizaje</h2>
+    </div>
+    <div id="aprendizajeContainer"></div>
+  </div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script type="module">
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("./service-worker.js")
+        .then((reg) => console.log("✅ Service worker registrado:", reg.scope))
+        .catch((err) => console.log("⚠️ Service worker falló:", err));
+    });
+  }
+
+// motor/temario.js
+//
+// Configuración ESTÁTICA del temario oficial AI-901. No contiene ni un solo
+// ejercicio: solo metadatos (título, dominio, total esperado, rutas de los
+// .json). Gracias a esto, el mapa de secciones se puede pintar completo
+// (con sus "(Vacío)") aunque datos/*.json todavía no tengan contenido.
+
+export const DOMINIOS = [
+  {
+    id: 1,
+    titulo: "Identificar conceptos y capacidades de IA",
+    pesoOficial: "40–45%",
+    totalEjercicios: 425,
+  },
+  {
+    id: 2,
+    titulo: "Implementar soluciones con Microsoft Foundry",
+    pesoOficial: "55–60%",
+    totalEjercicios: 575,
+  },
+];
+
+export const SECCIONES = [
+  { id: "1.1", dominio: 1, titulo: "IA responsable (Responsible AI)", totalEjercicios: 110 },
+  { id: "1.2", dominio: 1, titulo: "Modelos y deployments", totalEjercicios: 90 },
+  { id: "1.3", dominio: 1, titulo: "Cargas de trabajo de IA (AI Workloads)", totalEjercicios: 225 },
+  { id: "2.1", dominio: 2, titulo: "Generative AI + Agents", totalEjercicios: 190 },
+  { id: "2.2", dominio: 2, titulo: "Text + Speech", totalEjercicios: 115 },
+  { id: "2.3", dominio: 2, titulo: "Computer Vision + Image Generation", totalEjercicios: 115 },
+  { id: "2.4", dominio: 2, titulo: "Information Extraction + Content Understanding", totalEjercicios: 155 },
+];
+
+export function getSeccion(id) {
+  return SECCIONES.find((s) => s.id === id) || null;
+}
+
+export function getDominio(id) {
+  return DOMINIOS.find((d) => d.id === id) || null;
+}
+
+export function seccionesDeDominio(dominioId) {
+  return SECCIONES.filter((s) => s.dominio === dominioId);
+}
+
+export function rutaInformacion(seccionId) {
+  return `datos/${seccionId}-informacion.json`;
+}
+
+export function rutaEjercicios(seccionId) {
+  return `datos/${seccionId}-ejercicios.json`;
+}
+
+// ---- Reglas de negocio del examen / la app (ajustables en un solo lugar) ----
+
+export const UMBRAL_APROBACION_PCT = 90; // % mínimo sobre el 100% de la sección
+export const RETRY_FAILED_RATIO = 1.0; // 100% de los ejercicios fallados
+export const RETRY_REFUERZO_RATIO = 0.3; // 30% de los ejercicios ya aprobados
+export const TAMANO_MAX_LECCION = 10; // "caja" de máximo 10 ejercicios
+export const LECCIONES_PARA_HABILITAR_REPORTE = 5; // desde la lección 5 en adelante
+
+
+// motor/storage.js
+//
+// Estado global de la app + persistencia en localStorage (100% offline,
+// sin backend). También contiene la lógica de "intento" de una sección:
+// cómo se arma la primera tanda de lecciones y cómo se arma la tanda de
+// reintento (100% de los fallados + 30% de refuerzo, ponderado hacia el
+// subtema que más se falló).
+//
+// Lo que NO vive aquí (llega en la Parte 2): renderizar cada tipo de
+// ejercicio, calificarlo, el modal de Continuar/Repasar, y la función que
+// CIERRA un intento (calcula el % final y decide aprobado/reintento).
+// Esos módulos usan las funciones de aquí (obtenerIntentoActual,
+// generarReintento, registrarResultadoEjercicio, etc.).
+
+// NOTA: no se importa nada de temario.js con `import` — build.py concatena
+// todos los módulos de motor/ en un único <script type="module">, así que
+// SECCIONES, rutaInformacion, rutaEjercicios, RETRY_REFUERZO_RATIO y
+// TAMANO_MAX_LECCION (definidos en temario.js, que se concatena ANTES que
+// este archivo) ya están disponibles como variables del mismo scope.
+
+const STORAGE_KEY = "ai901_trainer_v1";
+
+export const AppState = {
+  seccionActivaId: null,
+  leccionActivaIndex: 0,
+  secciones: {}, // seccionId -> ver seccionVacia()
+};
+
+function seccionVacia() {
+  return {
+    cargada: false, // true una vez se consultó el .json (o falló al consultarlo)
+    info: null, // contenido de {id}-informacion.json
+    ejercicios: [], // banco completo de {id}-ejercicios.json
+    progreso: {
+      aprendizajeVisto: false,
+      logrosMarcados: {}, // logroId -> true
+      errorBank: {}, // exerciseId -> { vecesFallado, ultimaRespuesta, resuelto }
+      intentos: [], // historial de intentos ya cerrados (resumen)
+      intentoActual: null, // intento en curso (ver crearLeccionesDesdeIds)
+      ultimoResultadoDetalle: {}, // exerciseId -> true/false, del último intento cerrado
+      historialIntentoActual: [], // detalle fila x fila para el reporte (se reinicia con cada intento nuevo)
+      estado: "no-iniciado", // no-iniciado | en-progreso | aprobado | requiere-reintento
+      mejorPuntajePct: 0,
+      leccionesCompletadas: 0, // para habilitar el botón de reporte (>=5)
+      practicaActual: null, // cola de los 30 ejercicios de Aprendizaje (no calificables, ver practica.js)
+    },
+  };
+}
+
+export function getSeccionState(id) {
+  if (!AppState.secciones[id]) AppState.secciones[id] = seccionVacia();
+  return AppState.secciones[id];
+}
+
+export function seccionTieneDatos(id) {
+  const s = AppState.secciones[id];
+  return !!(s && s.cargada && s.ejercicios.length > 0);
+}
+
+// ------------------------------------------------------------
+// Persistencia
+// ------------------------------------------------------------
+
+export function guardar() {
+  try {
+    const data = { secciones: AppState.secciones, lastUpdated: new Date().toISOString() };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    console.warn("No se pudo guardar el progreso:", e);
+  }
+}
+
+let _saveTimer = null;
+export function guardarConDebounce() {
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(guardar, 400);
+}
+
+export function cargarDeStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    AppState.secciones = data.secciones || {};
+    return true;
+  } catch (e) {
+    console.warn("No se pudo leer el progreso guardado:", e);
+    return false;
+  }
+}
+
+// ------------------------------------------------------------
+// Carga de datos (fetch on demand, solo la primera vez por sección)
+// ------------------------------------------------------------
+
+/**
+ * Asegura que una sección tenga sus datos cargados en memoria.
+ * Si ya estaba cargada (this session o restaurada de localStorage) y no
+ * se fuerza, NO vuelve a consultar el .json — así se respeta la regla:
+ * "si tiene data no consulta nuevamente el json, si no tiene data, sí".
+ */
+export async function asegurarDatosSeccion(seccionId, { forzar = false } = {}) {
+  const estado = getSeccionState(seccionId);
+  if (estado.cargada && !forzar) return estado;
+
+  try {
+    const [infoResp, ejResp] = await Promise.all([
+      fetch(rutaInformacion(seccionId), { cache: "no-store" }),
+      fetch(rutaEjercicios(seccionId), { cache: "no-store" }),
+    ]);
+    const info = infoResp.ok ? await infoResp.json() : null;
+    const ejData = ejResp.ok ? await ejResp.json() : null;
+    const nuevos = (ejData && ejData.exercises) || [];
+
+    estado.ejercicios = forzar && estado.ejercicios.length
+      ? mergeEjercicios(estado.ejercicios, nuevos)
+      : nuevos;
+    estado.info = info;
+    estado.cargada = true;
+  } catch (e) {
+    console.warn(`No se pudo cargar la sección ${seccionId}:`, e);
+    estado.cargada = true; // evita reintentos infinitos automáticos en cada render
+  }
+  guardarConDebounce();
+  return estado;
+}
+
+// Suma ejercicios nuevos (por id) sin perder errorBank/intentos de los que
+// ya existían — usado por "🔍 Analizar" en Ajustes cuando vas rellenando
+// los .json poco a poco.
+function mergeEjercicios(actuales, nuevos) {
+  const idsActuales = new Set(actuales.map((e) => e.id));
+  const agregados = nuevos.filter((e) => !idsActuales.has(e.id));
+  return [...actuales, ...agregados];
+}
+
+/** Re-consulta TODOS los .json de datos/, sin importar si ya estaban cargados. */
+export async function analizarTodo() {
+  const resultados = [];
+  for (const s of SECCIONES) {
+    const antes = getSeccionState(s.id).ejercicios.length;
+    const estado = await asegurarDatosSeccion(s.id, { forzar: true });
+    resultados.push({ id: s.id, titulo: s.titulo, total: estado.ejercicios.length, nuevos: estado.ejercicios.length - antes });
+  }
+  guardar();
+  return resultados;
+}
+
+// ------------------------------------------------------------
+// Utilidades
+// ------------------------------------------------------------
+
+function barajar(arr) {
+  const copia = [...arr];
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+}
+
+// Cada lección es una "cola" única de posiciones (no dos arrays separados):
+// así [Repasar] simplemente EMPUJA una copia excluida al final de la misma
+// cola, y el puntero (indiceActual) avanza en línea recta hasta agotarla
+// — sin importar cuánto haya crecido mientras tanto.
+function crearLeccionesDesdeIds(ids) {
+  const lecciones = [];
+  for (let i = 0; i < ids.length; i += TAMANO_MAX_LECCION) {
+    const grupo = ids.slice(i, i + TAMANO_MAX_LECCION);
+    lecciones.push({
+      cola: grupo.map((id) => ({ exerciseId: id, excluido: false })),
+      indiceActual: 0,
+      completada: false,
+      resultados: {}, // posicion (índice en cola) -> { exerciseId, correcto, excluido }
+    });
+  }
+  return lecciones;
+}
+
+// ------------------------------------------------------------
+// Intento actual de una sección (1er intento y reintento)
+// ------------------------------------------------------------
+
+export function obtenerIntentoActual(seccionId) {
+  const estado = getSeccionState(seccionId);
+  if (!estado.progreso.intentoActual) {
+    const ids = barajar(estado.ejercicios.map((e) => e.id));
+    estado.progreso.intentoActual = {
+      numero: estado.progreso.intentos.length + 1,
+      esReintento: false,
+      generadoEn: new Date().toISOString(),
+      lecciones: crearLeccionesDesdeIds(ids),
+    };
+    estado.progreso.historialIntentoActual = [];
+    estado.progreso.estado = "en-progreso";
+    guardarConDebounce();
+  }
+  return estado.progreso.intentoActual;
+}
+
+// Arma la tanda de reintento: 100% de los fallados + 30% de refuerzo,
+// ponderado hacia los subtemas donde más se falló (ver muestraPonderada).
+export function generarReintento(seccionId) {
+  const estado = getSeccionState(seccionId);
+  const detalle = estado.progreso.ultimoResultadoDetalle || {};
+  const ids = construirIdsReintento(estado.ejercicios, detalle);
+
+  estado.progreso.intentoActual = {
+    numero: estado.progreso.intentos.length + 1,
+    esReintento: true,
+    generadoEn: new Date().toISOString(),
+    lecciones: crearLeccionesDesdeIds(ids),
+  };
+  estado.progreso.historialIntentoActual = [];
+  estado.progreso.estado = "en-progreso";
+  guardarConDebounce();
+  return estado.progreso.intentoActual;
+}
+
+function construirIdsReintento(todosEjercicios, resultadosFinales) {
+  const porId = new Map(todosEjercicios.map((e) => [e.id, e]));
+  const falladosIds = Object.keys(resultadosFinales).filter((id) => resultadosFinales[id] === false);
+  const aprobadosIds = Object.keys(resultadosFinales).filter((id) => resultadosFinales[id] === true);
+
+  const fallosPorSubtema = {};
+  falladosIds.forEach((id) => {
+    const sub = porId.get(id)?.subtopic || porId.get(id)?.topic || "_general";
+    fallosPorSubtema[sub] = (fallosPorSubtema[sub] || 0) + 1;
+  });
+
+  const cantidadRefuerzo = Math.round(aprobadosIds.length * RETRY_REFUERZO_RATIO);
+  const refuerzo = muestraPonderadaPorSubtema(aprobadosIds, porId, fallosPorSubtema, cantidadRefuerzo);
+
+  return barajar([...falladosIds, ...refuerzo]);
+}
+
+// Elige `cantidad` ids de `passedIds` sin reemplazo, dando más probabilidad
+// a los que pertenecen a un subtema con más fallos (así el 30% de refuerzo
+// se concentra en lo que más te costó, en vez de ser puramente al azar).
+function muestraPonderadaPorSubtema(passedIds, porId, fallosPorSubtema, cantidad) {
+  if (cantidad <= 0 || passedIds.length === 0) return [];
+  const pool = passedIds.map((id) => {
+    const sub = porId.get(id)?.subtopic || porId.get(id)?.topic || "_general";
+    return { id, peso: (fallosPorSubtema[sub] || 0) + 1 };
+  });
+  const elegidos = [];
+  const disponibles = [...pool];
+  for (let i = 0; i < cantidad && disponibles.length; i++) {
+    const total = disponibles.reduce((s, x) => s + x.peso, 0);
+    let r = Math.random() * total;
+    let idx = 0;
+    for (; idx < disponibles.length - 1; idx++) {
+      r -= disponibles[idx].peso;
+      if (r <= 0) break;
+    }
+    elegidos.push(disponibles[idx].id);
+    disponibles.splice(idx, 1);
+  }
+  return elegidos;
+}
+
+// ------------------------------------------------------------
+// Reset / exportar / importar
+// ------------------------------------------------------------
+
+export function reiniciarProgresoSeccion(seccionId) {
+  const estado = getSeccionState(seccionId);
+  const { ejercicios, info } = estado;
+  AppState.secciones[seccionId] = { ...seccionVacia(), cargada: true, ejercicios, info };
+  guardar();
+}
+
+export function reiniciarTodoElProgreso() {
+  Object.keys(AppState.secciones).forEach((id) => reiniciarProgresoSeccion(id));
+}
+
+export function exportarProgreso() {
+  return JSON.stringify({ secciones: AppState.secciones, exportadoEn: new Date().toISOString() }, null, 2);
+}
+
+export function importarProgreso(jsonText) {
+  const data = JSON.parse(jsonText);
+  if (!data || !data.secciones) throw new Error("El archivo no tiene el formato esperado.");
+  AppState.secciones = data.secciones;
+  guardar();
+}
+
+
+// motor/registro-tipos.js
+//
+// Punto único donde se conecta cada `exercise.type` con su renderizador y
+// su función de calificación (definidos en tipos-ejercicio/*.js). Así el
+// motor de sesión (sesion.js / practica.js) nunca necesita un switch por
+// tipo: solo llama renderEjercicio() / calificarEjercicio().
+//
+// NOTA: sin `import` — build.py concatena motor/ y tipos-ejercicio/ en el
+// mismo <script>, y las funciones (declaradas con `function`) quedan
+// disponibles por hoisting sin importar el orden de concatenación.
+
+const REGISTRO_TIPOS = {
+  "single-select": { render: renderSingleSelect, calificar: calificarSingleSelect },
+  "multi-select": { render: renderMultiSelect, calificar: calificarMultiSelect },
+  "true-false": { render: renderTrueFalse, calificar: calificarTrueFalse },
+  "matching": { render: renderMatching, calificar: calificarMatching },
+  "dropdown": { render: renderDropdown, calificar: calificarDropdown },
+};
+
+function renderEjercicio(exercise, container, onListo) {
+  const entrada = REGISTRO_TIPOS[exercise?.type];
+  if (!entrada) {
+    container.innerHTML = `<p class="aviso-vacio">⚠️ Tipo de ejercicio desconocido: "${exercise?.type}"</p>`;
+    return;
+  }
+  entrada.render(exercise, container, onListo);
+}
+
+function calificarEjercicio(exercise, respuestaUsuario) {
+  const entrada = REGISTRO_TIPOS[exercise?.type];
+  if (!entrada) return { correcto: false };
+  return entrada.calificar(exercise, respuestaUsuario);
+}
+
+
+// motor/reporte.js
+//
+// Formatea la respuesta del usuario y la respuesta esperada de un ejercicio
+// (para el reporte y para el modal de feedback) y arma el texto final del
+// reporte de sección con el formato:
+//
+//   Temario: 1.1 IA responsable (Responsible AI)
+//   Equidad: 30%
+//   Confiabilidad y seguridad: 100%
+//   ...
+//
+//   Respuestas equivocadas:
+//   Equidad, ejercicio 3:
+//   {pregunta}
+//   Tu respuesta: {...}
+//   Respuesta esperada: {...}
+
+function formatearRespuestaUsuario(exercise, respuesta) {
+  switch (exercise.type) {
+    case "single-select": {
+      const opt = (exercise.options || []).find((o) => o.id === respuesta);
+      return opt ? opt.text : "(sin respuesta)";
+    }
+    case "multi-select": {
+      const ids = respuesta || [];
+      const textos = (exercise.options || []).filter((o) => ids.includes(o.id)).map((o) => o.text);
+      return textos.length ? textos.join(", ") : "(sin selección)";
+    }
+    case "true-false": {
+      const labels = exercise.labels || { affirmative: "Verdadero", negative: "Falso" };
+      return respuesta ? labels.affirmative : labels.negative;
+    }
+    case "matching": {
+      if (exercise.mode === "sequence") {
+        const orden = respuesta || [];
+        return orden.map((id) => (exercise.items || []).find((i) => i.id === id)?.text || id).join(" → ");
+      }
+      const pares = respuesta || [];
+      return pares
+        .map((p) => {
+          const l = (exercise.leftItems || []).find((i) => i.id === p.leftId)?.text || p.leftId;
+          const r = (exercise.rightItems || []).find((i) => i.id === p.rightId)?.text || p.rightId;
+          return `${l} = ${r}`;
+        })
+        .join(" · ");
+    }
+    case "dropdown": {
+      const blanks = respuesta || [];
+      return blanks.map((b) => b.selected || "(vacío)").join(", ");
+    }
+    default:
+      return String(respuesta ?? "");
+  }
+}
+
+function formatearRespuestaEsperada(exercise) {
+  switch (exercise.type) {
+    case "single-select": {
+      const opt = (exercise.options || []).find((o) => o.id === exercise.correctOptionId);
+      return opt ? opt.text : exercise.correctOptionId;
+    }
+    case "multi-select":
+      return (exercise.options || [])
+        .filter((o) => (exercise.correctOptionIds || []).includes(o.id))
+        .map((o) => o.text)
+        .join(", ");
+    case "true-false": {
+      const labels = exercise.labels || { affirmative: "Verdadero", negative: "Falso" };
+      return exercise.correctAnswer ? labels.affirmative : labels.negative;
+    }
+    case "matching": {
+      if (exercise.mode === "sequence") {
+        return (exercise.correctOrder || []).map((id) => (exercise.items || []).find((i) => i.id === id)?.text || id).join(" → ");
+      }
+      return (exercise.correctPairs || [])
+        .map((p) => {
+          const l = (exercise.leftItems || []).find((i) => i.id === p.leftId)?.text || p.leftId;
+          const r = (exercise.rightItems || []).find((i) => i.id === p.rightId)?.text || p.rightId;
+          return `${l} = ${r}`;
+        })
+        .join(" · ");
+    }
+    case "dropdown":
+      return (exercise.blanks || []).map((b) => b.correctOption).join(", ");
+    default:
+      return "";
+  }
+}
+
+function construirReporteSeccion(seccionId) {
+  const estado = getSeccionState(seccionId);
+  const meta = getSeccion(seccionId);
+  const historial = estado.progreso.historialIntentoActual || [];
+
+  const porSubtema = {};
+  const orden = [];
+  historial.forEach((h) => {
+    if (!porSubtema[h.subtema]) {
+      porSubtema[h.subtema] = { total: 0, correctos: 0, items: [] };
+      orden.push(h.subtema);
+    }
+    porSubtema[h.subtema].total++;
+    if (h.correcto) porSubtema[h.subtema].correctos++;
+    porSubtema[h.subtema].items.push(h);
+  });
+
+  const lineas = [`Temario: ${seccionId} ${meta ? meta.titulo : ""}`];
+
+  if (!historial.length) {
+    lineas.push("", "(Todavía no hay ejercicios respondidos en esta sección)");
+    return lineas.join("\n");
+  }
+
+  orden.forEach((sub) => {
+    const d = porSubtema[sub];
+    const pct = d.total ? Math.round((d.correctos / d.total) * 100) : 0;
+    lineas.push(`${sub}: ${pct}%`);
+  });
+
+  lineas.push("", "Respuestas equivocadas:");
+  let huboFallos = false;
+  orden.forEach((sub) => {
+    const d = porSubtema[sub];
+    d.items.forEach((h, idx) => {
+      if (h.correcto) return;
+      huboFallos = true;
+      lineas.push(`${sub}, ejercicio ${idx + 1}:`);
+      lineas.push(h.pregunta);
+      lineas.push(`Tu respuesta: ${h.respuestaUsuarioTexto}`);
+      lineas.push(`Respuesta esperada: ${h.respuestaEsperadaTexto}`);
+      lineas.push("");
+    });
+  });
+  if (!huboFallos) lineas.push("🎉 Ninguna (por ahora).");
+
+  return lineas.join("\n");
+}
+
+function copiarReporteSeccion(seccionId) {
+  const texto = construirReporteSeccion(seccionId);
+  navigator.clipboard
+    ?.writeText(texto)
+    .then(() => window._toast?.("📋 Reporte copiado al portapapeles"))
+    .catch(() => window._toast?.("No se pudo copiar automáticamente — revisa la consola"));
+  return texto;
+}
+
+
+// motor/sesion.js
+//
+// Ejecuta UNA lección calificable dentro de un intento de sección.
+//
+// Flujo por ejercicio:
+//   1) obtenerItemActual()      -> qué mostrar
+//   2) procesarRespuesta()      -> califica pero NO compromete nada todavía
+//      (se guarda en memoria como "pendiente" hasta que el usuario elige)
+//   3a) confirmarContinuar()    -> compromete el resultado tal cual salió,
+//       actualiza errorBank + historial (para el reporte) y avanza
+//   3b) confirmarRepasar()      -> compromete el resultado como EXCLUIDO
+//       de la calificación, agrega una copia al final de la cola, y avanza
+//
+// Al completarse la última lección del intento, se cierra automáticamente
+// (verificarCierreIntento): calcula el % final sobre las posiciones NO
+// excluidas de TODAS las lecciones y decide aprobado / requiere-reintento.
+
+function obtenerItemActual(seccionId, leccionIndex) {
+  const estado = getSeccionState(seccionId);
+  const leccion = estado.progreso.intentoActual?.lecciones?.[leccionIndex];
+  if (!leccion || leccion.indiceActual >= leccion.cola.length) return null;
+  const item = leccion.cola[leccion.indiceActual];
+  const exercise = estado.ejercicios.find((e) => e.id === item.exerciseId);
+  return { item, exercise, posicion: leccion.indiceActual, leccion, esRepaso: item.excluido };
+}
+
+// Califica la respuesta pero no toca errorBank/historial ni avanza el
+// puntero — eso solo pasa al confirmar Continuar o Repasar en el modal.
+function procesarRespuesta(seccionId, leccionIndex, respuestaUsuario) {
+  const actual = obtenerItemActual(seccionId, leccionIndex);
+  if (!actual) return null;
+  const resultado = calificarEjercicio(actual.exercise, respuestaUsuario);
+  return {
+    correcto: resultado.correcto,
+    respuestaUsuario,
+    exercise: actual.exercise,
+    posicion: actual.posicion,
+  };
+}
+
+function confirmarContinuar(seccionId, leccionIndex, pendiente) {
+  const estado = getSeccionState(seccionId);
+  const leccion = estado.progreso.intentoActual.lecciones[leccionIndex];
+  const item = leccion.cola[pendiente.posicion];
+
+  leccion.resultados[pendiente.posicion] = {
+    exerciseId: item.exerciseId,
+    correcto: pendiente.correcto,
+    excluido: item.excluido,
+  };
+
+  if (!item.excluido) {
+    actualizarErrorBank(estado, item.exerciseId, pendiente.correcto, pendiente.respuestaUsuario);
+    estado.progreso.historialIntentoActual.push({
+      exerciseId: pendiente.exercise.id,
+      subtema: pendiente.exercise.subtopic || pendiente.exercise.topic || "General",
+      pregunta: pendiente.exercise.prompt,
+      correcto: pendiente.correcto,
+      respuestaUsuarioTexto: formatearRespuestaUsuario(pendiente.exercise, pendiente.respuestaUsuario),
+      respuestaEsperadaTexto: formatearRespuestaEsperada(pendiente.exercise),
+    });
+  }
+
+  return avanzarPuntero(seccionId, leccionIndex);
+}
+
+function confirmarRepasar(seccionId, leccionIndex, pendiente) {
+  const estado = getSeccionState(seccionId);
+  const leccion = estado.progreso.intentoActual.lecciones[leccionIndex];
+  const item = leccion.cola[pendiente.posicion];
+
+  // Se compromete EXCLUIDO de la calificación (aunque haya sido correcto o
+  // incorrecto), y se agrega una copia al final para volver a verlo.
+  leccion.resultados[pendiente.posicion] = {
+    exerciseId: item.exerciseId,
+    correcto: pendiente.correcto,
+    excluido: true,
+  };
+  leccion.cola.push({ exerciseId: item.exerciseId, excluido: true });
+
+  return avanzarPuntero(seccionId, leccionIndex);
+}
+
+function actualizarErrorBank(estado, exerciseId, correcto, respuestaUsuario) {
+  const eb = estado.progreso.errorBank;
+  if (!correcto) {
+    const prev = eb[exerciseId] || { vecesFallado: 0 };
+    eb[exerciseId] = { vecesFallado: prev.vecesFallado + 1, ultimaRespuesta: respuestaUsuario, resuelto: false };
+  } else if (eb[exerciseId]) {
+    eb[exerciseId].resuelto = true;
+  }
+}
+
+// Devuelve { cierre: null } si la lección/el intento siguen abiertos, o
+// { cierre: { pct, aprobado } } si esta fue la última lección y el intento
+// se acaba de cerrar.
+function avanzarPuntero(seccionId, leccionIndex) {
+  const estado = getSeccionState(seccionId);
+  const leccion = estado.progreso.intentoActual.lecciones[leccionIndex];
+  leccion.indiceActual += 1;
+
+  let cierre = null;
+  if (leccion.indiceActual >= leccion.cola.length && !leccion.completada) {
+    leccion.completada = true;
+    estado.progreso.leccionesCompletadas += 1;
+    cierre = verificarCierreIntento(seccionId);
+  }
+  guardarConDebounce();
+  return { terminoLeccion: leccion.completada, cierre };
+}
+
+function verificarCierreIntento(seccionId) {
+  const estado = getSeccionState(seccionId);
+  const intento = estado.progreso.intentoActual;
+  const todasCompletas = intento.lecciones.every((l) => l.completada);
+  if (!todasCompletas) return null;
+
+  let total = 0;
+  let aciertos = 0;
+  const detalle = {};
+  intento.lecciones.forEach((leccion) => {
+    leccion.cola.forEach((item, i) => {
+      // OJO: se decide por resultados[i].excluido (lo que de verdad se
+      // comprometió al confirmar), no por item.excluido (que solo marca
+      // "esta posición es una copia reinsertada por [Repasar]"). Un ítem
+      // ORIGINAL marcado como [Repasar] tiene item.excluido=false pero
+      // resultados[i].excluido=true — y ese es el que debe excluirse.
+      const r = leccion.resultados[i];
+      if (!r || r.excluido) return;
+      total++;
+      if (r.correcto) aciertos++;
+      detalle[item.exerciseId] = !!r.correcto;
+    });
+  });
+
+  const pct = total ? Math.round((aciertos / total) * 100) : 0;
+  const aprobado = pct >= UMBRAL_APROBACION_PCT;
+
+  estado.progreso.ultimoResultadoDetalle = detalle;
+  estado.progreso.intentos.push({
+    numero: intento.numero,
+    esReintento: intento.esReintento,
+    pct,
+    aprobado,
+    cerradoEn: new Date().toISOString(),
+  });
+  estado.progreso.mejorPuntajePct = Math.max(estado.progreso.mejorPuntajePct, pct);
+  estado.progreso.estado = aprobado ? "aprobado" : "requiere-reintento";
+  guardar();
+
+  return { pct, aprobado };
+}
+
+
+// motor/practica.js
+//
+// Todo lo de la sección "💡 Aprendizaje": teoría, logros autoreportados
+// (checklist, sin verificación automática — el usuario marca "ya lo hice")
+// y los ejercicios de práctica NO calificables. Reutilizan renderEjercicio/
+// calificarEjercicio y el modal de feedback, pero [Repasar] aquí solo
+// reordena dentro de la misma cola de práctica: nunca toca errorBank,
+// historial de reporte, ni el % de la sección.
+
+function renderAprendizaje(seccionId, callbacks) {
+  const estado = getSeccionState(seccionId);
+  const cont = document.getElementById("aprendizajeContainer");
+  if (!cont) return;
+
+  const info = estado.info;
+  if (!info) {
+    cont.innerHTML = `<p class="aviso-vacio">Esta sección todavía no tiene contenido de aprendizaje.</p>`;
+    return;
+  }
+
+  const teoria = (info.learningContent?.sections || [])
+    .map(
+      (s) => `
+        <div class="teoria-bloque">
+          ${s.heading ? `<h3>${escHTML(s.heading)}</h3>` : ""}
+          <div class="teoria-cuerpo">${formatearMarkdownBasico(s.body || "")}</div>
+        </div>
+      `
+    )
+    .join("");
+
+  const logros = (info.achievements || [])
+    .map((logro) => {
+      const marcado = !!estado.progreso.logrosMarcados[logro.id];
+      return `
+        <label class="logro-item">
+          <input type="checkbox" data-logro="${logro.id}" ${marcado ? "checked" : ""}>
+          <span>${escHTML(logro.texto)}</span>
+        </label>
+      `;
+    })
+    .join("");
+
+  const totalPractica = (info.practiceExercises || []).length;
+  const practicaEnCurso = estado.progreso.practicaActual;
+  const yaEmpezada = practicaEnCurso && practicaEnCurso.indiceActual < practicaEnCurso.cola.length;
+  const yaCompleta = practicaEnCurso && practicaEnCurso.indiceActual >= practicaEnCurso.cola.length && practicaEnCurso.cola.length > 0;
+
+  cont.innerHTML = `
+    ${info.learningContent?.title ? `<h2>${escHTML(info.learningContent.title)}</h2>` : ""}
+    ${teoria || `<p class="aviso-vacio">Sin contenido de teoría todavía.</p>`}
+
+    ${logros ? `<div class="logros-bloque"><h4>🏅 Logros de esta sección</h4>${logros}</div>` : ""}
+
+    <div class="practica-bloque">
+      <h4>✏️ Práctica (no calificable)</h4>
+      <p class="ajustes-nota">${totalPractica} ejercicio(s) de refuerzo.</p>
+      <button class="btn btn-solido full" id="btnIniciarPractica" ${totalPractica === 0 ? "disabled" : ""}>
+        ${yaCompleta ? "🔁 Repetir práctica" : yaEmpezada ? "▶ Continuar práctica" : "▶ Comenzar práctica"}
+      </button>
+    </div>
+  `;
+
+  cont.querySelectorAll("[data-logro]").forEach((chk) => {
+    chk.addEventListener("change", () => {
+      estado.progreso.logrosMarcados[chk.dataset.logro] = chk.checked;
+      guardarConDebounce();
+    });
+  });
+
+  cont.querySelector("#btnIniciarPractica")?.addEventListener("click", () => {
+    if (yaCompleta) estado.progreso.practicaActual = null; // repetir desde cero
+    callbacks.onIniciarPractica(seccionId);
+  });
+}
+
+// Un formateo muy básico (negritas **x** y saltos de línea) — el contenido
+// de aprendizaje es texto plano/markdown simple, no HTML arbitrario.
+function formatearMarkdownBasico(texto) {
+  return escHTML(texto)
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\n/g, "<br>");
+}
+
+// ------------------------------------------------------------
+// Cola de práctica (no calificable)
+// ------------------------------------------------------------
+
+function asegurarPracticaActual(seccionId) {
+  const estado = getSeccionState(seccionId);
+  if (!estado.progreso.practicaActual) {
+    const ids = (estado.info?.practiceExercises || []).map((e) => e.id);
+    estado.progreso.practicaActual = {
+      cola: ids.map((id) => ({ exerciseId: id })),
+      indiceActual: 0,
+    };
+    guardarConDebounce();
+  }
+  return estado.progreso.practicaActual;
+}
+
+function obtenerItemPractica(seccionId) {
+  const estado = getSeccionState(seccionId);
+  const practica = estado.progreso.practicaActual;
+  if (!practica || practica.indiceActual >= practica.cola.length) return null;
+  const item = practica.cola[practica.indiceActual];
+  const exercise = (estado.info?.practiceExercises || []).find((e) => e.id === item.exerciseId);
+  return { exercise, posicion: practica.indiceActual };
+}
+
+function procesarRespuestaPractica(seccionId, respuestaUsuario) {
+  const actual = obtenerItemPractica(seccionId);
+  if (!actual) return null;
+  const resultado = calificarEjercicio(actual.exercise, respuestaUsuario);
+  return { correcto: resultado.correcto, exercise: actual.exercise, posicion: actual.posicion };
+}
+
+function avanzarPunteroPractica(seccionId) {
+  const estado = getSeccionState(seccionId);
+  const practica = estado.progreso.practicaActual;
+  practica.indiceActual += 1;
+  guardarConDebounce();
+  return practica.indiceActual >= practica.cola.length;
+}
+
+function repasarItemPractica(seccionId) {
+  const estado = getSeccionState(seccionId);
+  const practica = estado.progreso.practicaActual;
+  const item = practica.cola[practica.indiceActual];
+  practica.cola.push({ exerciseId: item.exerciseId });
+  return avanzarPunteroPractica(seccionId);
+}
+
+
+// motor/modal.js
+//
+// Modal que se muestra DESPUÉS de responder cualquier ejercicio (de los 5
+// tipos, calificable o no). Siempre ofrece [Continuar] y [Repasar] — el
+// usuario puede mandar a repasar incluso una respuesta correcta.
+
+function mostrarModalFeedback({ exercise, correcto, onContinuar, onRepasar }) {
+  const existente = document.querySelector(".modal-overlay");
+  if (existente) existente.remove();
+
+  const modal = document.createElement("div");
+  modal.className = "modal-overlay modal-activo";
+  modal.innerHTML = `
+    <div class="modal-tarjeta modal-feedback ${correcto ? "feedback-correcto" : "feedback-incorrecto"}">
+      <div class="feedback-encabezado">
+        <span class="feedback-icono">${correcto ? "✅" : "❌"}</span>
+        <span class="feedback-titulo">${correcto ? "¡Correcto!" : "No era esa"}</span>
+      </div>
+      <p class="feedback-explicacion">${escHTML(exercise?.explanation || "")}</p>
+      <div class="modal-botones">
+        <button class="btn" id="btnRepasar">🔁 Repasar</button>
+        <button class="btn btn-solido" id="btnContinuar">Continuar ▶</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const cerrar = () => modal.remove();
+  modal.querySelector("#btnContinuar").addEventListener("click", () => { cerrar(); onContinuar?.(); });
+  modal.querySelector("#btnRepasar").addEventListener("click", () => { cerrar(); onRepasar?.(); });
+}
+
+
+// motor/mapa.js
+//
+// Dos vistas:
+//  1) renderSecciones(): pantalla principal, agrupada por dominio (1 y 2),
+//     con cada sección mostrando su total oficial y si está "(Vacío)".
+//  2) renderLecciones(): dentro de una sección, la caja de lecciones
+//     (máx. 10 ejercicios cada una) + acceso a "Aprendizaje" + botón de
+//     reporte (habilitado desde la lección 5).
+//
+// Este módulo solo pinta HTML y dispara callbacks; toda la lógica de datos
+// vive en storage.js.
+
+// NOTA: sin `import` — este archivo se concatena después de temario.js y
+// storage.js (ver MOTOR_JS_FILES en build.py), así que DOMINIOS,
+// seccionesDeDominio, getSeccion, LECCIONES_PARA_HABILITAR_REPORTE,
+// getSeccionState y seccionTieneDatos ya existen en el mismo scope.
+
+function iconoEstadoSeccion(estado, tieneDatos) {
+  if (!tieneDatos) return "🔒";
+  if (estado === "aprobado") return "✅";
+  if (estado === "requiere-reintento") return "🔁";
+  if (estado === "en-progreso") return "▶️";
+  return "🟦";
+}
+
+function etiquetaEstadoSeccion(estado, tieneDatos, mejorPuntajePct) {
+  if (!tieneDatos) return "Vacío";
+  if (estado === "aprobado") return `Aprobada · ${mejorPuntajePct}%`;
+  if (estado === "requiere-reintento") return `Reintentar · ${mejorPuntajePct}%`;
+  if (estado === "en-progreso") return "En progreso";
+  return "Disponible";
+}
+
+export function renderSecciones(callbacks) {
+  const cont = document.getElementById("seccionesContainer");
+  if (!cont) return;
+
+  const bloques = DOMINIOS.map((dominio) => {
+    const secciones = seccionesDeDominio(dominio.id);
+    const tarjetas = secciones
+      .map((s) => {
+        const estadoSeccion = getSeccionState(s.id);
+        const tieneDatos = seccionTieneDatos(s.id);
+        const cargando = !estadoSeccion.cargada;
+        const icono = iconoEstadoSeccion(estadoSeccion.progreso.estado, tieneDatos);
+        const etiqueta = cargando ? "Cargando…" : etiquetaEstadoSeccion(estadoSeccion.progreso.estado, tieneDatos, estadoSeccion.progreso.mejorPuntajePct);
+        const bloqueada = !tieneDatos;
+
+        return `
+          <button class="tarjeta-seccion ${bloqueada ? "bloqueada" : ""}" data-seccion="${s.id}" ${bloqueada ? "disabled" : ""}>
+            <div class="tarjeta-seccion-top">
+              <span class="tarjeta-seccion-id">${s.id}</span>
+              <span class="tarjeta-seccion-icono">${icono}</span>
+            </div>
+            <div class="tarjeta-seccion-titulo">${escHTML(s.titulo)}</div>
+            <div class="tarjeta-seccion-meta">
+              <span>${s.totalEjercicios} ejercicios</span>
+              <span class="tarjeta-seccion-estado">${etiqueta}</span>
+            </div>
+          </button>
+        `;
+      })
+      .join("");
+
+    return `
+      <section class="bloque-dominio">
+        <header class="bloque-dominio-header">
+          <h2>${dominio.id}. ${escHTML(dominio.titulo)}</h2>
+          <span class="bloque-dominio-peso">${dominio.pesoOficial} · ${dominio.totalEjercicios} preguntas</span>
+        </header>
+        <div class="grid-secciones">${tarjetas}</div>
+      </section>
+    `;
+  }).join("");
+
+  cont.innerHTML = bloques;
+
+  cont.querySelectorAll(".tarjeta-seccion[data-seccion]").forEach((btn) => {
+    btn.addEventListener("click", () => callbacks.onAbrirSeccion(btn.dataset.seccion));
+  });
+}
+
+export function renderLecciones(seccionId, callbacks) {
+  const cont = document.getElementById("leccionesContainer");
+  if (!cont) return;
+
+  const estado = getSeccionState(seccionId);
+  const intento = estado.progreso.intentoActual;
+  const lecciones = intento?.lecciones || [];
+
+  let primeraNoCompletada = lecciones.findIndex((l) => !l.completada);
+  if (primeraNoCompletada === -1) primeraNoCompletada = lecciones.length;
+
+  const cajas = lecciones
+    .map((l, idx) => {
+      const originales = l.cola.map((item, i) => ({ ...item, i })).filter((item) => !item.excluido);
+      const total = originales.length; // cuántos ejercicios "cuenta" nominalmente esta lección (fijo, no cambia con [Repasar])
+      const hechos = originales.filter((item) => l.resultados[item.i] !== undefined).length; // para la barra de progreso
+      // aciertos: igual que en verificarCierreIntento (sesion.js) — se basa
+      // en resultados[i].excluido (lo comprometido), no en item.excluido,
+      // porque un ítem ORIGINAL marcado [Repasar] queda excluido del
+      // puntaje aunque su posición en `cola` siga con excluido=false.
+      const aciertos = originales.filter((item) => {
+        const r = l.resultados[item.i];
+        return r && !r.excluido && r.correcto;
+      }).length;
+      const completada = l.completada;
+      const actual = idx === primeraNoCompletada;
+      const bloqueada = idx > primeraNoCompletada;
+      const pct = total ? Math.round((hechos / total) * 100) : 0;
+
+      return `
+        <button class="caja-leccion ${completada ? "completada" : ""} ${actual ? "actual" : ""} ${bloqueada ? "bloqueada" : ""}"
+                data-leccion="${idx}" ${bloqueada ? "disabled" : ""}>
+          <div class="caja-leccion-numero">${idx + 1}</div>
+          <div class="caja-leccion-barra"><div class="caja-leccion-barra-fill" style="width:${pct}%"></div></div>
+          <div class="caja-leccion-info">
+            ${completada ? `✅ ${aciertos}/${total}` : bloqueada ? "🔒" : `${total} ejercicios`}
+          </div>
+        </button>
+      `;
+    })
+    .join("");
+
+  const meta = getSeccion(seccionId);
+  const nombreSeccion = document.getElementById("leccionesTitulo");
+  if (nombreSeccion) nombreSeccion.textContent = `${seccionId} · ${meta ? meta.titulo : ""}`;
+
+  const reporteHabilitado = estado.progreso.leccionesCompletadas >= LECCIONES_PARA_HABILITAR_REPORTE;
+  const btnReporte = document.getElementById("btnCopiarReporteSeccion");
+  if (btnReporte) btnReporte.disabled = !reporteHabilitado;
+
+  const banner = renderBannerEstadoSeccion(estado, seccionId, callbacks);
+
+  cont.innerHTML = banner + (lecciones.length
+    ? `<div class="grid-lecciones">${cajas}</div>`
+    : `<div class="aviso-vacio">Esta sección todavía no tiene ejercicios cargados.</div>`);
+
+  cont.querySelectorAll(".caja-leccion[data-leccion]").forEach((btn) => {
+    btn.addEventListener("click", () => callbacks.onAbrirLeccion(seccionId, parseInt(btn.dataset.leccion, 10)));
+  });
+
+  const btnReintentar = cont.querySelector("#btnGenerarReintento");
+  if (btnReintentar) {
+    btnReintentar.addEventListener("click", () => callbacks.onGenerarReintento(seccionId));
+  }
+}
+
+function renderBannerEstadoSeccion(estado, seccionId, callbacks) {
+  const p = estado.progreso;
+  if (p.estado === "aprobado") {
+    return `<div class="banner-estado banner-exito">✅ Sección aprobada con ${p.mejorPuntajePct}%</div>`;
+  }
+  if (p.estado === "requiere-reintento") {
+    const ultimo = p.intentos[p.intentos.length - 1];
+    const pct = ultimo ? ultimo.pct : p.mejorPuntajePct;
+    return `
+      <div class="banner-estado banner-alerta">
+        <span>🔁 No alcanzaste el 90% (obtuviste ${pct}%). Genera un reintento con lo que fallaste.</span>
+        <button class="btn btn-solido" id="btnGenerarReintento">Generar reintento</button>
+      </div>
+    `;
+  }
+  return "";
+}
+
+function escHTML(str) {
+  const div = document.createElement("div");
+  div.textContent = String(str ?? "");
+  return div.innerHTML;
+}
+
+
+// motor/ajustes.js
+//
+// Modal de configuración (⚙️). Incluye:
+//  - 🔍 Analizar: re-consulta TODOS los .json de datos/ (para cuando vas
+//    agregando ejercicios poco a poco) y muestra cuántos nuevos encontró.
+//  - Reiniciar el progreso de una sección puntual, o de todas.
+//  - Exportar / importar el progreso completo como archivo .json.
+
+// NOTA: sin `import` — este archivo se concatena al final de motor/ (ver
+// MOTOR_JS_FILES en build.py), así que SECCIONES (temario.js), AppState,
+// analizarTodo, reiniciarProgresoSeccion, reiniciarTodoElProgreso,
+// exportarProgreso, importarProgreso (storage.js) y escHTML (mapa.js) ya
+// existen en el mismo scope.
+
+export function mostrarModalAjustes({ onCambios }) {
+  const existente = document.querySelector(".modal-overlay");
+  if (existente) existente.remove();
+
+  const opcionesSecciones = SECCIONES.map((s) => `<option value="${s.id}">${s.id} · ${escHTML(s.titulo)}</option>`).join("");
+
+  const modal = document.createElement("div");
+  modal.className = "modal-overlay modal-activo";
+  modal.innerHTML = `
+    <div class="modal-tarjeta modal-ajustes">
+      <div class="modal-ajustes-header">
+        <h3>⚙️ Ajustes</h3>
+        <button class="modal-cerrar" id="ajustesCerrar" aria-label="Cerrar">✕</button>
+      </div>
+
+      <div class="ajustes-seccion">
+        <h4>Datos</h4>
+        <button class="btn-ajustes" id="btnAnalizar">🔍 Analizar archivos de datos/</button>
+        <p class="ajustes-nota" id="analizarResultado"></p>
+      </div>
+
+      <div class="ajustes-seccion">
+        <h4>Progreso</h4>
+        <div class="ajustes-fila">
+          <select id="selectSeccionReset" class="select-ajustes">${opcionesSecciones}</select>
+          <button class="btn-ajustes btn-peligro" id="btnResetSeccion">Reiniciar sección</button>
+        </div>
+        <button class="btn-ajustes btn-peligro full" id="btnResetTodo">🗑️ Reiniciar todo el progreso</button>
+      </div>
+
+      <div class="ajustes-seccion">
+        <h4>Respaldo</h4>
+        <div class="ajustes-fila">
+          <button class="btn-ajustes" id="btnExportar">⬇️ Exportar progreso</button>
+          <button class="btn-ajustes" id="btnImportar">⬆️ Importar progreso</button>
+        </div>
+        <input type="file" id="inputImportar" accept="application/json" style="display:none;">
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const cerrar = () => modal.remove();
+  modal.querySelector("#ajustesCerrar").addEventListener("click", cerrar);
+  modal.addEventListener("click", (e) => { if (e.target === modal) cerrar(); });
+
+  modal.querySelector("#btnAnalizar").addEventListener("click", async (e) => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
+    btn.textContent = "🔍 Analizando…";
+    const resultados = await analizarTodo();
+    btn.disabled = false;
+    btn.textContent = "🔍 Analizar archivos de datos/";
+    const totalNuevos = resultados.reduce((sum, r) => sum + Math.max(0, r.nuevos), 0);
+    const resumen = resultados
+      .filter((r) => r.total > 0)
+      .map((r) => `${r.id}: ${r.total} ejercicio(s)${r.nuevos > 0 ? ` (+${r.nuevos} nuevos)` : ""}`)
+      .join(" · ") || "Todos los archivos siguen vacíos.";
+    document.getElementById("analizarResultado").textContent =
+      totalNuevos > 0 ? `✅ ${resumen}` : resumen;
+    onCambios?.();
+  });
+
+  modal.querySelector("#btnResetSeccion").addEventListener("click", () => {
+    const id = document.getElementById("selectSeccionReset").value;
+    if (confirm(`¿Reiniciar todo el progreso de ${id}? Esto no se puede deshacer.`)) {
+      reiniciarProgresoSeccion(id);
+      onCambios?.();
+      cerrar();
+    }
+  });
+
+  modal.querySelector("#btnResetTodo").addEventListener("click", () => {
+    if (confirm("¿Reiniciar TODO el progreso de la app? Esto no se puede deshacer.")) {
+      reiniciarTodoElProgreso();
+      onCambios?.();
+      cerrar();
+    }
+  });
+
+  modal.querySelector("#btnExportar").addEventListener("click", () => {
+    const contenido = exportarProgreso();
+    const blob = new Blob([contenido], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ai901-progreso-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  const inputImportar = modal.querySelector("#inputImportar");
+  modal.querySelector("#btnImportar").addEventListener("click", () => inputImportar.click());
+  inputImportar.addEventListener("change", async () => {
+    const file = inputImportar.files?.[0];
+    if (!file) return;
+    try {
+      const texto = await file.text();
+      importarProgreso(texto);
+      onCambios?.();
+      cerrar();
+      window._toast?.("✅ Progreso importado");
+    } catch (err) {
+      window._toast?.("❌ Archivo inválido: " + err.message);
+    }
+  });
+}
+// escHTML ya está definida en mapa.js (mismo scope tras la concatenación).
+
+
+// tipos-ejercicio/single-select.js
+// Selección múltiple con ÚNICA respuesta correcta.
+
+function renderSingleSelect(exercise, container, onListo) {
+  let seleccion = null;
+
+  const pintar = () => {
+    container.innerHTML = `
+      <div class="pregunta-prompt">${escHTML(exercise.prompt)}</div>
+      <div class="opciones-lista">
+        ${(exercise.options || [])
+          .map(
+            (o) => `
+          <button type="button" class="opcion-btn ${seleccion === o.id ? "seleccionada" : ""}" data-id="${escHTML(o.id)}">
+            ${escHTML(o.text)}
+          </button>`
+          )
+          .join("")}
+      </div>
+      <div class="ejercicio-acciones">
+        <button type="button" class="btn btn-solido" id="btnComprobar" ${seleccion ? "" : "disabled"}>✅ Comprobar</button>
+      </div>
+    `;
+
+    container.querySelectorAll(".opcion-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        seleccion = btn.dataset.id;
+        pintar();
+      });
+    });
+    container.querySelector("#btnComprobar")?.addEventListener("click", () => {
+      if (seleccion) onListo(seleccion);
+    });
+  };
+
+  pintar();
+}
+
+function calificarSingleSelect(exercise, respuesta) {
+  return { correcto: respuesta === exercise.correctOptionId };
+}
+
+
+// tipos-ejercicio/multi-select.js
+// Selección múltiple con VARIAS respuestas correctas.
+
+function renderMultiSelect(exercise, container, onListo) {
+  const seleccion = new Set();
+
+  const pintar = () => {
+    container.innerHTML = `
+      <div class="pregunta-prompt">${escHTML(exercise.prompt)}</div>
+      <p class="ajustes-nota">Selecciona todas las que apliquen.</p>
+      <div class="opciones-lista">
+        ${(exercise.options || [])
+          .map(
+            (o) => `
+          <button type="button" class="opcion-btn opcion-multi ${seleccion.has(o.id) ? "seleccionada" : ""}" data-id="${escHTML(o.id)}">
+            <span class="opcion-check">${seleccion.has(o.id) ? "☑" : "☐"}</span> ${escHTML(o.text)}
+          </button>`
+          )
+          .join("")}
+      </div>
+      <div class="ejercicio-acciones">
+        <button type="button" class="btn btn-solido" id="btnComprobar" ${seleccion.size ? "" : "disabled"}>✅ Comprobar</button>
+      </div>
+    `;
+
+    container.querySelectorAll(".opcion-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.id;
+        if (seleccion.has(id)) seleccion.delete(id);
+        else seleccion.add(id);
+        pintar();
+      });
+    });
+    container.querySelector("#btnComprobar")?.addEventListener("click", () => {
+      if (seleccion.size) onListo([...seleccion]);
+    });
+  };
+
+  pintar();
+}
+
+function calificarMultiSelect(exercise, respuesta) {
+  const esperado = new Set(exercise.correctOptionIds || []);
+  const dado = new Set(respuesta || []);
+  if (esperado.size !== dado.size) return { correcto: false };
+  for (const id of esperado) if (!dado.has(id)) return { correcto: false };
+  return { correcto: true };
+}
+
+
+// tipos-ejercicio/true-false.js
+// Verdadero/Falso o Sí/No (mismo tipo, cambia solo el texto de los botones).
+
+function renderTrueFalse(exercise, container, onListo) {
+  let seleccion = null; // true | false | null
+  const labels = exercise.labels || { affirmative: "Verdadero", negative: "Falso" };
+
+  const pintar = () => {
+    container.innerHTML = `
+      <div class="pregunta-prompt">${escHTML(exercise.statement || exercise.prompt)}</div>
+      <div class="opciones-lista opciones-vf">
+        <button type="button" class="opcion-btn ${seleccion === true ? "seleccionada" : ""}" data-val="true">${escHTML(labels.affirmative)}</button>
+        <button type="button" class="opcion-btn ${seleccion === false ? "seleccionada" : ""}" data-val="false">${escHTML(labels.negative)}</button>
+      </div>
+      <div class="ejercicio-acciones">
+        <button type="button" class="btn btn-solido" id="btnComprobar" ${seleccion === null ? "disabled" : ""}>✅ Comprobar</button>
+      </div>
+    `;
+
+    container.querySelectorAll(".opcion-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        seleccion = btn.dataset.val === "true";
+        pintar();
+      });
+    });
+    container.querySelector("#btnComprobar")?.addEventListener("click", () => {
+      if (seleccion !== null) onListo(seleccion);
+    });
+  };
+
+  pintar();
+}
+
+function calificarTrueFalse(exercise, respuesta) {
+  return { correcto: !!respuesta === !!exercise.correctAnswer };
+}
+
+
+// tipos-ejercicio/matching.js
+//
+// Dos modos:
+//  - "pairs": relacionar dos columnas — se implementa como TOCAR para
+//    conectar (más confiable en móvil que un drag & drop real con mouse/touch
+//    mezclados) en vez de arrastrar.
+//  - "sequence": ordenar pasos — se implementa con flechas ▲▼ por ítem en
+//    vez de arrastrar, para evitar los bugs típicos de drag-and-drop táctil
+//    en una sola pasada de HTML/JS sin librerías.
+
+function renderMatching(exercise, container, onListo) {
+  if (exercise.mode === "sequence") return renderMatchingSequence(exercise, container, onListo);
+  return renderMatchingPairs(exercise, container, onListo);
+}
+
+function calificarMatching(exercise, respuesta) {
+  if (exercise.mode === "sequence") {
+    const esperado = exercise.correctOrder || [];
+    const dado = respuesta || [];
+    if (esperado.length !== dado.length) return { correcto: false };
+    for (let i = 0; i < esperado.length; i++) if (esperado[i] !== dado[i]) return { correcto: false };
+    return { correcto: true };
+  }
+  const esperado = exercise.correctPairs || [];
+  const dado = respuesta || [];
+  if (esperado.length !== dado.length) return { correcto: false };
+  const mapaEsperado = new Map(esperado.map((p) => [p.leftId, p.rightId]));
+  for (const p of dado) if (mapaEsperado.get(p.leftId) !== p.rightId) return { correcto: false };
+  return { correcto: true };
+}
+
+// ---------------- modo "sequence" (ordenar con flechas) ----------------
+
+function renderMatchingSequence(exercise, container, onListo) {
+  let orden = barajarLocal((exercise.items || []).map((i) => i.id));
+
+  const mover = (idx, delta) => {
+    const j = idx + delta;
+    if (j < 0 || j >= orden.length) return;
+    [orden[idx], orden[j]] = [orden[j], orden[idx]];
+    pintar();
+  };
+
+  const pintar = () => {
+    const filas = orden
+      .map((id, idx) => {
+        const item = (exercise.items || []).find((i) => i.id === id);
+        return `
+          <div class="secuencia-fila">
+            <span class="secuencia-numero">${idx + 1}</span>
+            <span class="secuencia-texto">${escHTML(item ? item.text : id)}</span>
+            <span class="secuencia-flechas">
+              <button type="button" class="btn-icono btn-mini" data-mover="${idx}" data-delta="-1" ${idx === 0 ? "disabled" : ""}>▲</button>
+              <button type="button" class="btn-icono btn-mini" data-mover="${idx}" data-delta="1" ${idx === orden.length - 1 ? "disabled" : ""}>▼</button>
+            </span>
+          </div>
+        `;
+      })
+      .join("");
+
+    container.innerHTML = `
+      <div class="pregunta-prompt">${escHTML(exercise.prompt)}</div>
+      <div class="secuencia-lista">${filas}</div>
+      <div class="ejercicio-acciones">
+        <button type="button" class="btn btn-solido" id="btnComprobar">✅ Comprobar</button>
+      </div>
+    `;
+
+    container.querySelectorAll("[data-mover]").forEach((btn) => {
+      btn.addEventListener("click", () => mover(parseInt(btn.dataset.mover, 10), parseInt(btn.dataset.delta, 10)));
+    });
+    container.querySelector("#btnComprobar")?.addEventListener("click", () => onListo([...orden]));
+  };
+
+  pintar();
+}
+
+// ---------------- modo "pairs" (tocar para conectar) ----------------
+
+function renderMatchingPairs(exercise, container, onListo) {
+  const pares = {}; // leftId -> rightId
+  let leftActivo = null;
+  const rightBarajado = barajarLocal((exercise.rightItems || []).map((i) => i.id));
+
+  const badgePara = (leftId) => {
+    const idx = Object.keys(pares).indexOf(leftId);
+    return idx === -1 ? null : idx + 1;
+  };
+
+  const clic = (lado, id) => {
+    if (lado === "left") {
+      if (pares[id] !== undefined) {
+        delete pares[id]; // togglea: si ya estaba pareado, lo libera
+        leftActivo = null;
+      } else {
+        leftActivo = id;
+      }
+    } else {
+      const rightYaUsado = Object.values(pares).includes(id);
+      if (rightYaUsado) {
+        const leftDeEse = Object.keys(pares).find((l) => pares[l] === id);
+        delete pares[leftDeEse];
+      } else if (leftActivo) {
+        pares[leftActivo] = id;
+        leftActivo = null;
+      }
+    }
+    pintar();
+  };
+
+  const pintar = () => {
+    const izquierda = (exercise.leftItems || [])
+      .map((item) => {
+        const badge = badgePara(item.id);
+        const activo = leftActivo === item.id;
+        return `
+          <button type="button" class="opcion-btn opcion-emparejar ${badge ? "pareado" : ""} ${activo ? "activo" : ""}" data-lado="left" data-id="${escHTML(item.id)}">
+            ${badge ? `<span class="emparejar-badge">${badge}</span>` : ""} ${escHTML(item.text)}
+          </button>
+        `;
+      })
+      .join("");
+
+    const derecha = rightBarajado
+      .map((id) => {
+        const item = (exercise.rightItems || []).find((i) => i.id === id);
+        const badge = badgePara(Object.keys(pares).find((l) => pares[l] === id));
+        return `
+          <button type="button" class="opcion-btn opcion-emparejar ${badge ? "pareado" : ""}" data-lado="right" data-id="${escHTML(id)}">
+            ${badge ? `<span class="emparejar-badge">${badge}</span>` : ""} ${escHTML(item ? item.text : id)}
+          </button>
+        `;
+      })
+      .join("");
+
+    const totalIzq = (exercise.leftItems || []).length;
+    const completo = Object.keys(pares).length === totalIzq;
+
+    container.innerHTML = `
+      <div class="pregunta-prompt">${escHTML(exercise.prompt)}</div>
+      <p class="ajustes-nota">Toca un elemento de la izquierda y luego su pareja a la derecha.</p>
+      <div class="emparejar-columnas">
+        <div class="emparejar-col">${izquierda}</div>
+        <div class="emparejar-col">${derecha}</div>
+      </div>
+      <div class="ejercicio-acciones">
+        <button type="button" class="btn btn-solido" id="btnComprobar" ${completo ? "" : "disabled"}>✅ Comprobar</button>
+      </div>
+    `;
+
+    container.querySelectorAll("[data-lado]").forEach((btn) => {
+      btn.addEventListener("click", () => clic(btn.dataset.lado, btn.dataset.id));
+    });
+    container.querySelector("#btnComprobar")?.addEventListener("click", () => {
+      if (completo) onListo(Object.entries(pares).map(([leftId, rightId]) => ({ leftId, rightId })));
+    });
+  };
+
+  pintar();
+}
+
+function barajarLocal(arr) {
+  const copia = [...arr];
+  for (let i = copia.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copia[i], copia[j]] = [copia[j], copia[i]];
+  }
+  return copia;
+}
+
+
+// tipos-ejercicio/dropdown.js
+// Completar un enunciado eligiendo de listas desplegables ({{id}} en textWithBlanks).
+
+function renderDropdown(exercise, container, onListo) {
+  const seleccionadas = {}; // blankId -> valor
+
+  const construirTexto = () => {
+    let html = escHTML(exercise.textWithBlanks || "");
+    (exercise.blanks || []).forEach((blank) => {
+      const opciones = blank.options
+        .map((op) => `<option value="${escHTML(op)}" ${seleccionadas[blank.id] === op ? "selected" : ""}>${escHTML(op)}</option>`)
+        .join("");
+      const select = `<select class="dropdown-select" data-blank="${escHTML(blank.id)}">
+        <option value="" ${!seleccionadas[blank.id] ? "selected" : ""}>—</option>
+        ${opciones}
+      </select>`;
+      html = html.replace(`{{${blank.id}}}`, select);
+    });
+    return html;
+  };
+
+  const pintar = () => {
+    const todasLlenas = (exercise.blanks || []).every((b) => !!seleccionadas[b.id]);
+    container.innerHTML = `
+      <div class="pregunta-prompt dropdown-texto">${construirTexto()}</div>
+      <div class="ejercicio-acciones">
+        <button type="button" class="btn btn-solido" id="btnComprobar" ${todasLlenas ? "" : "disabled"}>✅ Comprobar</button>
+      </div>
+    `;
+
+    container.querySelectorAll(".dropdown-select").forEach((sel) => {
+      sel.addEventListener("change", () => {
+        seleccionadas[sel.dataset.blank] = sel.value;
+        pintar();
+      });
+    });
+    container.querySelector("#btnComprobar")?.addEventListener("click", () => {
+      if (todasLlenas) {
+        onListo((exercise.blanks || []).map((b) => ({ id: b.id, selected: seleccionadas[b.id] })));
+      }
+    });
+  };
+
+  pintar();
+}
+
+function calificarDropdown(exercise, respuesta) {
+  const dado = new Map((respuesta || []).map((b) => [b.id, b.selected]));
+  for (const blank of exercise.blanks || []) {
+    if (dado.get(blank.id) !== blank.correctOption) return { correcto: false };
+  }
+  return { correcto: true };
+}
+
+
+
+  const $ = (sel) => document.querySelector(sel);
+
+  function toast(msg) {
+    const t = $("#toast");
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+  }
+  window._toast = toast;
+
+  const pantallas = {
+    secciones: document.getElementById("pantallaSecciones"),
+    lecciones: document.getElementById("pantallaLecciones"),
+    ejercicio: document.getElementById("pantallaEjercicio"),
+    aprendizaje: document.getElementById("pantallaAprendizaje"),
+  };
+
+  function mostrarPantalla(nombre) {
+    Object.entries(pantallas).forEach(([k, el]) => el?.classList.toggle("active", k === nombre));
+  }
+
+  // "leccion" | "practica" — decide a dónde vuelve la flecha ← de la
+  // pantalla de ejercicio, y cuál handler recibe la respuesta.
+  let modoEjercicio = "leccion";
+
+  const callbacksLecciones = { onAbrirLeccion: abrirLeccion, onGenerarReintento: generarReintentoUI };
+  const callbacksAprendizaje = { onIniciarPractica: iniciarPracticaUI };
+
+  function refrescarSecciones() {
+    renderSecciones({ onAbrirSeccion: abrirSeccion });
+  }
+
+  async function abrirSeccion(seccionId) {
+    await asegurarDatosSeccion(seccionId);
+    if (!seccionTieneDatos(seccionId)) {
+      toast("📭 Esta sección todavía no tiene ejercicios cargados");
+      refrescarSecciones();
+      return;
+    }
+    AppState.seccionActivaId = seccionId;
+    obtenerIntentoActual(seccionId);
+    renderLecciones(seccionId, callbacksLecciones);
+    mostrarPantalla("lecciones");
+  }
+
+  function generarReintentoUI(seccionId) {
+    generarReintento(seccionId);
+    renderLecciones(seccionId, callbacksLecciones);
+  }
+
+  // ---------------- Lección calificable ----------------
+
+  function abrirLeccion(seccionId, leccionIndex) {
+    AppState.seccionActivaId = seccionId;
+    AppState.leccionActivaIndex = leccionIndex;
+    modoEjercicio = "leccion";
+    mostrarPantalla("ejercicio");
+    mostrarSiguienteEjercicio(seccionId);
+  }
+
+  function mostrarSiguienteEjercicio(seccionId) {
+    const leccionIndex = AppState.leccionActivaIndex;
+    const actual = obtenerItemActual(seccionId, leccionIndex);
+    const tagEl = document.getElementById("ejercicioTag");
+    const cont = document.getElementById("ejercicioContainer");
+    if (!actual) {
+      renderLecciones(seccionId, callbacksLecciones);
+      mostrarPantalla("lecciones");
+      return;
+    }
+    if (tagEl) tagEl.textContent = "Sección " + seccionId + " · Lección " + (leccionIndex + 1) + (actual.esRepaso ? " · repaso" : "");
+    renderEjercicio(actual.exercise, cont, (respuesta) => manejarRespuesta(seccionId, respuesta));
+  }
+
+  function manejarRespuesta(seccionId, respuesta) {
+    const leccionIndex = AppState.leccionActivaIndex;
+    const pendiente = procesarRespuesta(seccionId, leccionIndex, respuesta);
+    if (!pendiente) return;
+    mostrarModalFeedback({
+      exercise: pendiente.exercise,
+      correcto: pendiente.correcto,
+      onContinuar: () => manejarAvanceLeccion(seccionId, confirmarContinuar(seccionId, leccionIndex, pendiente)),
+      onRepasar: () => manejarAvanceLeccion(seccionId, confirmarRepasar(seccionId, leccionIndex, pendiente)),
+    });
+  }
+
+  function manejarAvanceLeccion(seccionId, r) {
+    if (r.cierre) {
+      toast(r.cierre.aprobado
+        ? ("🎉 ¡Sección aprobada con " + r.cierre.pct + "%!")
+        : ("🔁 Obtuviste " + r.cierre.pct + "%. Necesitas 90% — genera un reintento desde la sección."));
+      renderLecciones(seccionId, callbacksLecciones);
+      mostrarPantalla("lecciones");
+    } else if (r.terminoLeccion) {
+      toast("✅ Lección completada");
+      renderLecciones(seccionId, callbacksLecciones);
+      mostrarPantalla("lecciones");
+    } else {
+      mostrarSiguienteEjercicio(seccionId);
+    }
+  }
+
+  // ---------------- Aprendizaje (teoría + logros + práctica no calificable) ----------------
+
+  function abrirAprendizaje() {
+    const seccionId = AppState.seccionActivaId;
+    if (!seccionId) return;
+    renderAprendizaje(seccionId, callbacksAprendizaje);
+    mostrarPantalla("aprendizaje");
+  }
+
+  function iniciarPracticaUI(seccionId) {
+    asegurarPracticaActual(seccionId);
+    modoEjercicio = "practica";
+    mostrarPantalla("ejercicio");
+    mostrarSiguientePractica(seccionId);
+  }
+
+  function mostrarSiguientePractica(seccionId) {
+    const actual = obtenerItemPractica(seccionId);
+    const tagEl = document.getElementById("ejercicioTag");
+    const cont = document.getElementById("ejercicioContainer");
+    if (!actual) {
+      toast("🎉 Terminaste la práctica de esta sección");
+      renderAprendizaje(seccionId, callbacksAprendizaje);
+      mostrarPantalla("aprendizaje");
+      return;
+    }
+    if (tagEl) tagEl.textContent = "💡 Práctica · " + seccionId;
+    renderEjercicio(actual.exercise, cont, (respuesta) => manejarRespuestaPractica(seccionId, respuesta));
+  }
+
+  function manejarRespuestaPractica(seccionId, respuesta) {
+    const pendiente = procesarRespuestaPractica(seccionId, respuesta);
+    if (!pendiente) return;
+    mostrarModalFeedback({
+      exercise: pendiente.exercise,
+      correcto: pendiente.correcto,
+      onContinuar: () => { avanzarPunteroPractica(seccionId); mostrarSiguientePractica(seccionId); },
+      onRepasar: () => { repasarItemPractica(seccionId); mostrarSiguientePractica(seccionId); },
+    });
+  }
+
+  function init() {
+    cargarDeStorage();
+    refrescarSecciones();
+
+    document.getElementById("btnAjustes").addEventListener("click", () => {
+      mostrarModalAjustes({ onCambios: refrescarSecciones });
+    });
+    document.getElementById("btnVolverSecciones").addEventListener("click", () => {
+      refrescarSecciones();
+      mostrarPantalla("secciones");
+    });
+    document.getElementById("btnVolverLecciones").addEventListener("click", () => {
+      if (modoEjercicio === "practica") {
+        renderAprendizaje(AppState.seccionActivaId, callbacksAprendizaje);
+        mostrarPantalla("aprendizaje");
+      } else {
+        renderLecciones(AppState.seccionActivaId, callbacksLecciones);
+        mostrarPantalla("lecciones");
+      }
+    });
+    document.getElementById("btnVolverDeAprendizaje").addEventListener("click", () => {
+      renderLecciones(AppState.seccionActivaId, callbacksLecciones);
+      mostrarPantalla("lecciones");
+    });
+    document.getElementById("btnAbrirAprendizaje").addEventListener("click", abrirAprendizaje);
+    document.getElementById("btnCopiarReporteSeccion").addEventListener("click", () => {
+      copiarReporteSeccion(AppState.seccionActivaId);
+    });
+
+    // Precarga en segundo plano los datos de todas las secciones, para que
+    // el mapa muestre de una vez cuáles están "(Vacío)" y cuáles no.
+    Promise.all(SECCIONES.map((s) => asegurarDatosSeccion(s.id))).then(refrescarSecciones);
+  }
+
+  init();
+
+</script>
+</body>
+</html>

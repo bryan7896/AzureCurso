@@ -1,0 +1,18 @@
+{
+  "name": "AI-901 Trainer",
+  "short_name": "AI901Trainer",
+  "description": "Banco de práctica offline para la certificación AI-901 (Azure AI Fundamentals)",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#060a13",
+  "theme_color": "#060a13",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

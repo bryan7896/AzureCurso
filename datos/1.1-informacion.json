@@ -1,0 +1,441 @@
+{
+  "levelId": "1.1",
+  "learningContent": {
+    "title": "IA responsable (Responsible AI)",
+    "estimatedMinutes": 20,
+    "sections": [
+      {
+        "heading": "¿Qué es la IA responsable?",
+        "body": "Microsoft organiza su enfoque de IA responsable en **seis principios**: equidad, confiabilidad y seguridad, privacidad y seguridad, inclusión, transparencia y responsabilidad. Estos principios no son solo una declaración de intenciones: están integrados en un marco interno llamado el Responsible AI Standard, que guía cómo se diseñan, prueban y despliegan los servicios de IA de Azure. En el examen, la mayoría de las preguntas de esta sección piden reconocer QUÉ principio aplica a un escenario dado, así que vale la pena tener clara la diferencia entre cada uno."
+      },
+      {
+        "heading": "Equidad (Fairness)",
+        "body": "Busca que un sistema de IA trate a todos los grupos de personas de forma justa, sin producir resultados sistemáticamente peores para un grupo (por ejemplo, por género, edad o etnia) frente a otro con el mismo perfil. El sesgo casi nunca es intencional: suele venir de los datos de entrenamiento (datos históricos que reflejan desigualdades pasadas, o una muestra que no representa bien a toda la población). En Azure Machine Learning, el componente Fairness del panel de IA responsable permite comparar el desempeño de un modelo entre distintos subgrupos para detectar estas diferencias."
+      },
+      {
+        "heading": "Confiabilidad y seguridad (Reliability and safety)",
+        "body": "Un sistema confiable se comporta de forma consistente y predecible, incluso ante condiciones que no se anticiparon durante el diseño, y resiste intentos de manipulación (ataques adversarios). Esto se logra con pruebas exhaustivas antes del lanzamiento y con monitoreo continuo una vez en producción. El componente Error analysis del panel de IA responsable de Azure Machine Learning ayuda a identificar en qué subconjuntos de datos falla más un modelo, para poder corregirlo antes de que cause daño."
+      },
+      {
+        "heading": "Privacidad y seguridad (Privacy and security)",
+        "body": "Los sistemas de IA suelen depender de grandes volúmenes de datos, muchos de ellos personales, así que deben protegerlos y cumplir con las leyes de privacidad aplicables. Buenas prácticas típicas incluyen minimizar los datos que se recolectan y cifrarlos tanto en reposo como en tránsito. Microsoft desarrolló el paquete de código abierto SmartNoise SDK, que implementa privacidad diferencial: una técnica que añade ruido estadístico controlado a los resultados para proteger a cada persona sin perder la utilidad del análisis agregado."
+      },
+      {
+        "heading": "Inclusión (Inclusiveness)",
+        "body": "Pide diseñar pensando en el espectro completo de personas que van a usar el sistema: distintos idiomas, edades, capacidades (incluida la discapacidad) y contextos culturales, no solo en un \"usuario promedio\". En la práctica esto significa probar con usuarios diversos y agregar soporte como subtítulos, texto alternativo o control por voz cuando aplique."
+      },
+      {
+        "heading": "Transparencia (Transparency)",
+        "body": "Las personas deben poder entender cómo y por qué un sistema de IA llegó a una decisión, especialmente cuando esa decisión tiene consecuencias importantes. Una parte clave de la transparencia es la interpretabilidad: dar explicaciones útiles del comportamiento de un modelo, para poder identificar a tiempo problemas de desempeño, sesgo o exclusión. Microsoft publica Transparency Notes para muchos servicios de Azure AI, documentando sus usos previstos, límites conocidos y recomendaciones."
+      },
+      {
+        "heading": "Responsabilidad (Accountability)",
+        "body": "Las personas y organizaciones que diseñan y operan un sistema de IA —no el sistema en sí— son responsables de sus resultados. Esto implica definir roles claros, mantener supervisión humana, y auditar las decisiones del sistema con regularidad. El Responsible AI scorecard de Azure Machine Learning apoya este principio: resume en un solo documento los resultados de equidad, desempeño y explicabilidad de un modelo, para que distintos interesados (técnicos y no técnicos) puedan revisarlo y firmar su aprobación con conocimiento de causa."
+      }
+    ]
+  },
+  "practiceExercises": [
+    {
+      "id": "prac-eq-1",
+      "type": "single-select",
+      "subtopic": "Equidad",
+      "prompt": "¿Cuál de las siguientes situaciones representa mejor un problema de equidad (fairness) en un modelo de IA?",
+      "options": [
+        { "id": "a", "text": "El modelo aprueba más préstamos a un grupo demográfico que a otro con el mismo perfil de riesgo" },
+        { "id": "b", "text": "El modelo tarda 3 segundos en responder" },
+        { "id": "c", "text": "El modelo se despliega en una sola región de Azure" }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La equidad busca que grupos con perfiles equivalentes reciban resultados equivalentes; una diferencia sistemática entre grupos es la señal clásica de un problema de fairness."
+    },
+    {
+      "id": "prac-eq-2",
+      "type": "true-false",
+      "subtopic": "Equidad",
+      "prompt": "El sesgo en un modelo de IA solo puede aparecer si el equipo de desarrollo lo introduce intencionalmente.",
+      "statement": "El sesgo en un modelo de IA solo puede aparecer si el equipo de desarrollo lo introduce intencionalmente.",
+      "correctAnswer": false,
+      "explanation": "El sesgo suele venir de los datos de entrenamiento (históricos o poco representativos), no de una intención del equipo."
+    },
+    {
+      "id": "prac-eq-3",
+      "type": "multi-select",
+      "subtopic": "Equidad",
+      "prompt": "¿Cuáles de estas son causas comunes de sesgo en los datos de entrenamiento?",
+      "options": [
+        { "id": "a", "text": "Datos históricos que reflejan desigualdades pasadas" },
+        { "id": "b", "text": "Una muestra que no representa a todos los grupos de usuarios" },
+        { "id": "c", "text": "Usar GPU en vez de CPU para entrenar" },
+        { "id": "d", "text": "Guardar los datos en Azure Blob Storage" }
+      ],
+      "correctOptionIds": ["a", "b"],
+      "explanation": "El tipo de hardware o el servicio de almacenamiento usado no son fuentes de sesgo; el sesgo viene del contenido y la representatividad de los datos."
+    },
+    {
+      "id": "prac-eq-4",
+      "type": "dropdown",
+      "subtopic": "Equidad",
+      "prompt": "Completa la frase:",
+      "textWithBlanks": "El componente de {{b1}} dentro del panel de IA responsable de Azure Machine Learning permite comparar el desempeño de un modelo entre distintos grupos demográficos.",
+      "blanks": [
+        { "id": "b1", "options": ["Fairness (equidad)", "Error analysis"], "correctOption": "Fairness (equidad)" }
+      ],
+      "explanation": "El componente Fairness del panel de IA responsable está diseñado específicamente para comparar métricas entre subgrupos (género, edad, etnia, etc.)."
+    },
+    {
+      "id": "prac-eq-5",
+      "type": "matching",
+      "mode": "pairs",
+      "subtopic": "Equidad",
+      "prompt": "Relaciona cada término con su definición:",
+      "leftItems": [
+        { "id": "l1", "text": "Equidad (fairness)" },
+        { "id": "l2", "text": "Sesgo de muestra" }
+      ],
+      "rightItems": [
+        { "id": "r1", "text": "Tratar a todos los grupos de forma justa" },
+        { "id": "r2", "text": "El conjunto de entrenamiento no representa bien a la población real" }
+      ],
+      "correctPairs": [
+        { "leftId": "l1", "rightId": "r1" },
+        { "leftId": "l2", "rightId": "r2" }
+      ],
+      "explanation": "La equidad es el principio; el sesgo de muestra es una de sus causas más comunes."
+    },
+
+    {
+      "id": "prac-conf-1",
+      "type": "single-select",
+      "subtopic": "Confiabilidad y seguridad",
+      "prompt": "¿Qué describe mejor la confiabilidad (reliability) de un sistema de IA?",
+      "options": [
+        { "id": "a", "text": "Se comporta de forma consistente y predecible, incluso ante condiciones inesperadas" },
+        { "id": "b", "text": "Tiene una interfaz visualmente atractiva" },
+        { "id": "c", "text": "Usa el modelo más grande disponible" }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Confiabilidad = comportamiento consistente y predecible, incluso fuera de las condiciones normales de operación."
+    },
+    {
+      "id": "prac-conf-2",
+      "type": "true-false",
+      "subtopic": "Confiabilidad y seguridad",
+      "prompt": "Un sistema de IA confiable debe resistir intentos de manipulación adversaria (adversarial attacks).",
+      "statement": "Un sistema de IA confiable debe resistir intentos de manipulación adversaria (adversarial attacks).",
+      "correctAnswer": true,
+      "explanation": "Resistir manipulación maliciosa es parte explícita del principio de confiabilidad y seguridad."
+    },
+    {
+      "id": "prac-conf-3",
+      "type": "multi-select",
+      "subtopic": "Confiabilidad y seguridad",
+      "prompt": "¿Qué prácticas ayudan a mejorar la confiabilidad y seguridad de un sistema de IA?",
+      "options": [
+        { "id": "a", "text": "Pruebas exhaustivas antes del despliegue" },
+        { "id": "b", "text": "Monitoreo continuo en producción" },
+        { "id": "c", "text": "Desplegar sin pruebas para salir más rápido al mercado" }
+      ],
+      "correctOptionIds": ["a", "b"],
+      "explanation": "Saltarse las pruebas es exactamente lo contrario a lo que pide este principio."
+    },
+    {
+      "id": "prac-conf-4",
+      "type": "dropdown",
+      "subtopic": "Confiabilidad y seguridad",
+      "prompt": "Completa la frase:",
+      "textWithBlanks": "El componente de {{b1}} del panel de IA responsable de Azure Machine Learning ayuda a identificar en qué subgrupos de datos falla más un modelo.",
+      "blanks": [
+        { "id": "b1", "options": ["Error analysis", "Fairness"], "correctOption": "Error analysis" }
+      ],
+      "explanation": "Error analysis está enfocado en encontrar dónde se concentran los errores del modelo, no en comparar equidad entre grupos."
+    },
+    {
+      "id": "prac-conf-5",
+      "type": "matching",
+      "mode": "sequence",
+      "subtopic": "Confiabilidad y seguridad",
+      "prompt": "Ordena los pasos típicos para lanzar un modelo de forma confiable:",
+      "items": [
+        { "id": "1", "text": "Entrenar y validar el modelo" },
+        { "id": "2", "text": "Probarlo exhaustivamente, incluyendo casos límite" },
+        { "id": "3", "text": "Monitorear su desempeño en producción" }
+      ],
+      "correctOrder": ["1", "2", "3"],
+      "explanation": "Primero se entrena y valida, luego se prueba a fondo, y una vez en producción se monitorea de forma continua."
+    },
+
+    {
+      "id": "prac-priv-1",
+      "type": "single-select",
+      "subtopic": "Privacidad y seguridad",
+      "prompt": "¿Qué principio busca proteger los datos personales usados por un sistema de IA?",
+      "options": [
+        { "id": "a", "text": "Privacidad y seguridad" },
+        { "id": "b", "text": "Inclusión" },
+        { "id": "c", "text": "Transparencia" }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Privacidad y seguridad cubre exactamente la protección de datos personales y su cumplimiento normativo."
+    },
+    {
+      "id": "prac-priv-2",
+      "type": "true-false",
+      "subtopic": "Privacidad y seguridad",
+      "prompt": "Cifrar los datos en tránsito y en reposo es una práctica relacionada con la privacidad y seguridad.",
+      "statement": "Cifrar los datos en tránsito y en reposo es una práctica relacionada con la privacidad y seguridad.",
+      "correctAnswer": true,
+      "explanation": "El cifrado en tránsito y en reposo es una de las prácticas estándar para proteger los datos."
+    },
+    {
+      "id": "prac-priv-3",
+      "type": "multi-select",
+      "subtopic": "Privacidad y seguridad",
+      "prompt": "¿Cuáles de estas son buenas prácticas de privacidad y seguridad en soluciones de IA?",
+      "options": [
+        { "id": "a", "text": "Minimizar los datos personales recolectados" },
+        { "id": "b", "text": "Cifrar los datos en reposo y en tránsito" },
+        { "id": "c", "text": "Compartir los datos de entrenamiento públicamente sin anonimizar" }
+      ],
+      "correctOptionIds": ["a", "b"],
+      "explanation": "Compartir datos sin anonimizar va directamente en contra del principio de privacidad."
+    },
+    {
+      "id": "prac-priv-4",
+      "type": "dropdown",
+      "subtopic": "Privacidad y seguridad",
+      "prompt": "Completa la frase:",
+      "textWithBlanks": "SmartNoise SDK es una herramienta de código abierto de Microsoft que implementa {{b1}}, una técnica que añade ruido estadístico para proteger la privacidad individual.",
+      "blanks": [
+        { "id": "b1", "options": ["privacidad diferencial", "aprendizaje supervisado"], "correctOption": "privacidad diferencial" }
+      ],
+      "explanation": "La privacidad diferencial añade ruido controlado a los resultados para que no se pueda identificar a una persona concreta dentro del conjunto de datos."
+    },
+    {
+      "id": "prac-priv-5",
+      "type": "matching",
+      "mode": "pairs",
+      "subtopic": "Privacidad y seguridad",
+      "prompt": "Relaciona cada término con su definición:",
+      "leftItems": [
+        { "id": "l1", "text": "Privacidad diferencial" },
+        { "id": "l2", "text": "Cifrado en reposo" }
+      ],
+      "rightItems": [
+        { "id": "r1", "text": "Añade ruido estadístico para proteger datos individuales" },
+        { "id": "r2", "text": "Protege los datos mientras están almacenados" }
+      ],
+      "correctPairs": [
+        { "leftId": "l1", "rightId": "r1" },
+        { "leftId": "l2", "rightId": "r2" }
+      ],
+      "explanation": "Son dos técnicas distintas: una protege estadísticamente los resultados, la otra protege el almacenamiento físico/lógico de los datos."
+    },
+
+    {
+      "id": "prac-inc-1",
+      "type": "single-select",
+      "subtopic": "Inclusión",
+      "prompt": "¿Qué busca el principio de inclusión en la IA responsable?",
+      "options": [
+        { "id": "a", "text": "Que los sistemas de IA consideren y beneficien a la mayor diversidad de personas posible" },
+        { "id": "b", "text": "Que el modelo sea lo más pequeño posible" },
+        { "id": "c", "text": "Que el código fuente sea público" }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Inclusión = diseñar pensando en el espectro completo de comunidades, idiomas y capacidades, no solo en un usuario promedio."
+    },
+    {
+      "id": "prac-inc-2",
+      "type": "true-false",
+      "subtopic": "Inclusión",
+      "prompt": "La inclusión solo se refiere a la accesibilidad para personas con discapacidad visual.",
+      "statement": "La inclusión solo se refiere a la accesibilidad para personas con discapacidad visual.",
+      "correctAnswer": false,
+      "explanation": "La inclusión es más amplia: abarca idioma, edad, contexto cultural y todo tipo de discapacidades, no solo la visual."
+    },
+    {
+      "id": "prac-inc-3",
+      "type": "multi-select",
+      "subtopic": "Inclusión",
+      "prompt": "¿Cuáles son ejemplos de prácticas inclusivas al diseñar una solución de IA?",
+      "options": [
+        { "id": "a", "text": "Agregar subtítulos y texto alternativo" },
+        { "id": "b", "text": "Probar con usuarios de distintos idiomas y capacidades" },
+        { "id": "c", "text": "Diseñar pensando solo en el usuario promedio" }
+      ],
+      "correctOptionIds": ["a", "b"],
+      "explanation": "Diseñar solo para el usuario promedio es justo lo opuesto a lo que busca la inclusión."
+    },
+    {
+      "id": "prac-inc-4",
+      "type": "dropdown",
+      "subtopic": "Inclusión",
+      "prompt": "Completa la frase:",
+      "textWithBlanks": "La {{b1}} busca que los sistemas de IA se diseñen pensando en la gama completa de comunidades y capacidades humanas.",
+      "blanks": [
+        { "id": "b1", "options": ["inclusión", "confiabilidad"], "correctOption": "inclusión" }
+      ],
+      "explanation": "Es la definición directa del principio de inclusión."
+    },
+    {
+      "id": "prac-inc-5",
+      "type": "matching",
+      "mode": "sequence",
+      "subtopic": "Inclusión",
+      "prompt": "Ordena los pasos para hacer una interfaz más inclusiva:",
+      "items": [
+        { "id": "1", "text": "Identificar barreras de accesibilidad" },
+        { "id": "2", "text": "Probar con usuarios diversos" },
+        { "id": "3", "text": "Ajustar el diseño según los hallazgos" }
+      ],
+      "correctOrder": ["1", "2", "3"],
+      "explanation": "Primero se identifican las barreras, luego se valida con usuarios reales y diversos, y por último se ajusta el diseño."
+    },
+
+    {
+      "id": "prac-trans-1",
+      "type": "single-select",
+      "subtopic": "Transparencia",
+      "prompt": "¿Qué documento publica Microsoft para explicar el funcionamiento, límites y buenas prácticas de un servicio de Azure AI?",
+      "options": [
+        { "id": "a", "text": "Transparency Note" },
+        { "id": "b", "text": "Service Level Agreement (SLA)" },
+        { "id": "c", "text": "Release notes" }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Las Transparency Notes documentan usos previstos, límites conocidos y recomendaciones de cada servicio de Azure AI."
+    },
+    {
+      "id": "prac-trans-2",
+      "type": "true-false",
+      "subtopic": "Transparencia",
+      "prompt": "La interpretabilidad (interpretability) es parte importante de la transparencia en IA.",
+      "statement": "La interpretabilidad (interpretability) es parte importante de la transparencia en IA.",
+      "correctAnswer": true,
+      "explanation": "La interpretabilidad —explicar el comportamiento de un modelo— es un componente central de la transparencia."
+    },
+    {
+      "id": "prac-trans-3",
+      "type": "multi-select",
+      "subtopic": "Transparencia",
+      "prompt": "¿Qué logra la transparencia en un sistema de IA?",
+      "options": [
+        { "id": "a", "text": "Que las personas entiendan cómo y por qué el sistema toma una decisión" },
+        { "id": "b", "text": "Que se puedan identificar a tiempo problemas de desempeño o sesgo" },
+        { "id": "c", "text": "Que el modelo sea más rápido" }
+      ],
+      "correctOptionIds": ["a", "b"],
+      "explanation": "La velocidad del modelo no tiene relación directa con la transparencia."
+    },
+    {
+      "id": "prac-trans-4",
+      "type": "dropdown",
+      "subtopic": "Transparencia",
+      "prompt": "Completa la frase:",
+      "textWithBlanks": "Un componente clave de la transparencia es la {{b1}}: dar explicaciones útiles sobre el comportamiento de un modelo.",
+      "blanks": [
+        { "id": "b1", "options": ["interpretabilidad", "escalabilidad"], "correctOption": "interpretabilidad" }
+      ],
+      "explanation": "La interpretabilidad es justamente la capacidad de explicar por qué un modelo se comporta de cierta forma."
+    },
+    {
+      "id": "prac-trans-5",
+      "type": "matching",
+      "mode": "pairs",
+      "subtopic": "Transparencia",
+      "prompt": "Relaciona cada término con su definición:",
+      "leftItems": [
+        { "id": "l1", "text": "Transparency Note" },
+        { "id": "l2", "text": "Interpretabilidad" }
+      ],
+      "rightItems": [
+        { "id": "r1", "text": "Documento que explica usos previstos y límites de un servicio" },
+        { "id": "r2", "text": "Explicar por qué el modelo tomó cierta decisión" }
+      ],
+      "correctPairs": [
+        { "leftId": "l1", "rightId": "r1" },
+        { "leftId": "l2", "rightId": "r2" }
+      ],
+      "explanation": "Uno es un documento publicado por Microsoft; el otro es una capacidad técnica del propio modelo."
+    },
+
+    {
+      "id": "prac-resp-1",
+      "type": "single-select",
+      "subtopic": "Responsabilidad",
+      "prompt": "¿Quién debe ser, en última instancia, responsable de las decisiones de un sistema de IA?",
+      "options": [
+        { "id": "a", "text": "Las personas y organizaciones que lo diseñan y operan" },
+        { "id": "b", "text": "El propio modelo" },
+        { "id": "c", "text": "El proveedor de la nube únicamente" }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La responsabilidad recae en las personas y organizaciones detrás del sistema, no en el sistema mismo."
+    },
+    {
+      "id": "prac-resp-2",
+      "type": "true-false",
+      "subtopic": "Responsabilidad",
+      "prompt": "El 'Responsible AI scorecard' de Azure Machine Learning ayuda a comunicar resultados de equidad y desempeño entre distintos interesados.",
+      "statement": "El 'Responsible AI scorecard' de Azure Machine Learning ayuda a comunicar resultados de equidad y desempeño entre distintos interesados.",
+      "correctAnswer": true,
+      "explanation": "El scorecard resume estos resultados en un formato pensado para revisarse entre equipos técnicos y no técnicos."
+    },
+    {
+      "id": "prac-resp-3",
+      "type": "multi-select",
+      "subtopic": "Responsabilidad",
+      "prompt": "¿Qué prácticas apoyan la responsabilidad (accountability) en una organización que usa IA?",
+      "options": [
+        { "id": "a", "text": "Definir roles y supervisión humana claros" },
+        { "id": "b", "text": "Auditar y revisar las decisiones del sistema" },
+        { "id": "c", "text": "Evitar documentar cómo funciona el modelo" }
+      ],
+      "correctOptionIds": ["a", "b"],
+      "explanation": "No documentar el modelo dificulta la rendición de cuentas, justo lo contrario de este principio."
+    },
+    {
+      "id": "prac-resp-4",
+      "type": "dropdown",
+      "subtopic": "Responsabilidad",
+      "prompt": "Completa la frase:",
+      "textWithBlanks": "{{b1}} aplica prácticas de DevOps para mejorar la eficiencia y trazabilidad del ciclo de vida de un modelo de IA.",
+      "blanks": [
+        { "id": "b1", "options": ["MLOps", "AutoML"], "correctOption": "MLOps" }
+      ],
+      "explanation": "MLOps (Machine Learning Operations) se apoya en prácticas de DevOps para gestionar el ciclo de vida de los modelos."
+    },
+    {
+      "id": "prac-resp-5",
+      "type": "matching",
+      "mode": "sequence",
+      "subtopic": "Responsabilidad",
+      "prompt": "Ordena estos pasos de gobernanza responsable:",
+      "items": [
+        { "id": "1", "text": "Definir roles y responsables" },
+        { "id": "2", "text": "Monitorear el sistema en producción" },
+        { "id": "3", "text": "Auditar decisiones y corregir problemas" }
+      ],
+      "correctOrder": ["1", "2", "3"],
+      "explanation": "Primero se define quién responde por qué, luego se monitorea, y finalmente se audita y corrige."
+    }
+  ],
+  "achievements": [
+    {
+      "id": "log-1",
+      "texto": "Entra al portal de Azure AI Foundry, abre un proyecto y busca la sección de 'Guardrails + controls' o 'Content safety' para ver los filtros de contenido disponibles."
+    },
+    {
+      "id": "log-2",
+      "texto": "En Azure Machine Learning studio, abre un experimento o modelo y busca la pestaña 'Responsible AI dashboard' para ver sus componentes (Fairness, Error analysis, etc.)."
+    },
+    {
+      "id": "log-3",
+      "texto": "Busca en Microsoft Learn una 'Transparency Note' de cualquier servicio de Azure AI (por ejemplo, Azure AI Vision o Azure AI Language) y léela por encima."
+    },
+    {
+      "id": "log-4",
+      "texto": "Explora el recurso 'Azure AI Content Safety' en el portal de Azure y revisa sus categorías de daño (odio, violencia, contenido sexual, autolesión)."
+    }
+  ]
+}
