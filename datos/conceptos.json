@@ -7,9 +7,41 @@
       "definicion": "Modelo de nube donde el proveedor entrega una aplicación completa y lista para usar a través de internet (por ejemplo, Microsoft 365 u Outlook). El usuario no administra servidores, sistema operativo ni la aplicación misma: solo la usa.",
       "categoria": "Modelos de servicio en la nube",
       "ejercicios": [
-        { "id": "saas-1", "type": "single-select", "prompt": "¿Cuál de estas es la mejor definición de SaaS?", "options": [{"id":"a","text":"Una aplicación completa lista para usar, entregada por internet"},{"id":"b","text":"Solo el hardware físico de un centro de datos"}], "correctOptionId": "a", "explanation": "SaaS entrega la aplicación terminada; el usuario no administra nada por debajo de ella." },
-        { "id": "saas-2", "type": "true-false", "prompt": "En SaaS, el usuario final administra el sistema operativo y los servidores.", "statement": "En SaaS, el usuario final administra el sistema operativo y los servidores.", "correctAnswer": false, "explanation": "En SaaS todo eso lo administra el proveedor; el usuario solo usa la aplicación." },
-        { "id": "saas-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla SaaS?", "respuestasAceptadas": ["software as a service", "software como servicio"], "explanation": "SaaS = Software as a Service (Software como Servicio)." }
+        {
+          "id": "saas-1",
+          "type": "single-select",
+          "prompt": "¿Cuál de estas es la mejor definición de SaaS?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una aplicación completa lista para usar, entregada por internet"
+            },
+            {
+              "id": "b",
+              "text": "Solo el hardware físico de un centro de datos"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "SaaS entrega la aplicación terminada; el usuario no administra nada por debajo de ella."
+        },
+        {
+          "id": "saas-2",
+          "type": "true-false",
+          "prompt": "En SaaS, el usuario final administra el sistema operativo y los servidores.",
+          "statement": "En SaaS, el usuario final administra el sistema operativo y los servidores.",
+          "correctAnswer": false,
+          "explanation": "En SaaS todo eso lo administra el proveedor; el usuario solo usa la aplicación."
+        },
+        {
+          "id": "saas-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla SaaS?",
+          "respuestasAceptadas": [
+            "software as a service",
+            "software como servicio"
+          ],
+          "explanation": "SaaS = Software as a Service (Software como Servicio)."
+        }
       ]
     },
     {
@@ -19,10 +51,50 @@
       "definicion": "Modelo de nube donde el proveedor entrega una plataforma (sistema operativo, runtime, herramientas) para que el desarrollador despliegue su propia aplicación, sin tener que administrar los servidores subyacentes. Azure App Service es un ejemplo típico.",
       "categoria": "Modelos de servicio en la nube",
       "ejercicios": [
-        { "id": "paas-1", "type": "single-select", "prompt": "¿Qué entrega el proveedor en un modelo PaaS?", "options": [{"id":"a","text":"Una plataforma lista para que despliegues tu propia app, sin administrar servidores"},{"id":"b","text":"Únicamente hardware físico sin ningún software"}], "correctOptionId": "a", "explanation": "PaaS te da el entorno de ejecución; tú solo te preocupas por tu aplicación." },
-        { "id": "paas-2", "type": "true-false", "prompt": "Azure App Service es un ejemplo típico de servicio PaaS.", "statement": "Azure App Service es un ejemplo típico de servicio PaaS.", "correctAnswer": true, "explanation": "App Service te permite desplegar tu app sin administrar el sistema operativo ni el servidor." },
-        { "id": "paas-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla PaaS?", "respuestasAceptadas": ["platform as a service", "plataforma como servicio"], "explanation": "PaaS = Platform as a Service (Plataforma como Servicio)." },
-        { "id": "paas-4", "type": "texto-libre", "prompt": "¿Qué sigla corresponde a este modelo de nube?: entrega una plataforma completa (sistema operativo, runtime, herramientas) para que despliegues tu propia app, sin administrar los servidores.", "respuestasAceptadas": ["paas"], "explanation": "Esa definición corresponde a PaaS — nota que aquí la pregunta va en la dirección contraria: te doy el significado, tú escribes la sigla." }
+        {
+          "id": "paas-1",
+          "type": "single-select",
+          "prompt": "¿Qué entrega el proveedor en un modelo PaaS?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una plataforma lista para que despliegues tu propia app, sin administrar servidores"
+            },
+            {
+              "id": "b",
+              "text": "Únicamente hardware físico sin ningún software"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "PaaS te da el entorno de ejecución; tú solo te preocupas por tu aplicación."
+        },
+        {
+          "id": "paas-2",
+          "type": "true-false",
+          "prompt": "Azure App Service es un ejemplo típico de servicio PaaS.",
+          "statement": "Azure App Service es un ejemplo típico de servicio PaaS.",
+          "correctAnswer": true,
+          "explanation": "App Service te permite desplegar tu app sin administrar el sistema operativo ni el servidor."
+        },
+        {
+          "id": "paas-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla PaaS?",
+          "respuestasAceptadas": [
+            "platform as a service",
+            "plataforma como servicio"
+          ],
+          "explanation": "PaaS = Platform as a Service (Plataforma como Servicio)."
+        },
+        {
+          "id": "paas-4",
+          "type": "texto-libre",
+          "prompt": "¿Qué sigla corresponde a este modelo de nube?: entrega una plataforma completa (sistema operativo, runtime, herramientas) para que despliegues tu propia app, sin administrar los servidores.",
+          "respuestasAceptadas": [
+            "paas"
+          ],
+          "explanation": "Esa definición corresponde a PaaS — nota que aquí la pregunta va en la dirección contraria: te doy el significado, tú escribes la sigla."
+        }
       ]
     },
     {
@@ -32,10 +104,47 @@
       "definicion": "Modelo de nube donde el proveedor entrega la infraestructura básica —máquinas virtuales, redes, almacenamiento— y tú administras el sistema operativo, el runtime y la aplicación. Es el modelo con más control pero también más responsabilidad para el usuario.",
       "categoria": "Modelos de servicio en la nube",
       "ejercicios": [
-        { "id": "iaas-1", "type": "single-select", "prompt": "¿Qué modelo de nube te da MÁS control pero también MÁS responsabilidad de administración?", "options": [{"id":"a","text":"IaaS"},{"id":"b","text":"SaaS"}], "correctOptionId": "a", "explanation": "En IaaS tú administras el sistema operativo y todo lo que corre sobre la infraestructura." },
-        { "id": "iaas-2", "type": "true-false", "prompt": "En IaaS, el usuario es responsable de administrar el sistema operativo de sus máquinas virtuales.", "statement": "En IaaS, el usuario es responsable de administrar el sistema operativo de sus máquinas virtuales.", "correctAnswer": true, "explanation": "El proveedor solo entrega la infraestructura; el sistema operativo y lo demás corre por cuenta del usuario." },
-        { "id": "iaas-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla IaaS?", "respuestasAceptadas": ["infrastructure as a service", "infraestructura como servicio"], "explanation": "IaaS = Infrastructure as a Service (Infraestructura como Servicio)." },
-        { "id": "iaas-4", "type": "texto-libre", "modo": "reflexion", "prompt": "Piensa en un equipo pequeño, con poca experiencia administrando servidores, que quiere lanzar una app rápido. ¿Usarías SaaS, PaaS o IaaS para ese caso, y por qué?" }
+        {
+          "id": "iaas-1",
+          "type": "single-select",
+          "prompt": "¿Qué modelo de nube te da MÁS control pero también MÁS responsabilidad de administración?",
+          "options": [
+            {
+              "id": "a",
+              "text": "IaaS"
+            },
+            {
+              "id": "b",
+              "text": "SaaS"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "En IaaS tú administras el sistema operativo y todo lo que corre sobre la infraestructura."
+        },
+        {
+          "id": "iaas-2",
+          "type": "true-false",
+          "prompt": "En IaaS, el usuario es responsable de administrar el sistema operativo de sus máquinas virtuales.",
+          "statement": "En IaaS, el usuario es responsable de administrar el sistema operativo de sus máquinas virtuales.",
+          "correctAnswer": true,
+          "explanation": "El proveedor solo entrega la infraestructura; el sistema operativo y lo demás corre por cuenta del usuario."
+        },
+        {
+          "id": "iaas-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla IaaS?",
+          "respuestasAceptadas": [
+            "infrastructure as a service",
+            "infraestructura como servicio"
+          ],
+          "explanation": "IaaS = Infrastructure as a Service (Infraestructura como Servicio)."
+        },
+        {
+          "id": "iaas-4",
+          "type": "texto-libre",
+          "modo": "reflexion",
+          "prompt": "Piensa en un equipo pequeño, con poca experiencia administrando servidores, que quiere lanzar una app rápido. ¿Usarías SaaS, PaaS o IaaS para ese caso, y por qué?"
+        }
       ]
     },
     {
@@ -45,9 +154,41 @@
       "definicion": "Un conjunto de reglas y puntos de acceso que permite que una aplicación se comunique con otra (o con un servicio en la nube) sin necesitar conocer los detalles internos de cómo funciona. Los servicios de Azure AI se consumen típicamente a través de una API.",
       "categoria": "Desarrollo de software",
       "ejercicios": [
-        { "id": "api-1", "type": "single-select", "prompt": "¿Qué es una API?", "options": [{"id":"a","text":"Un punto de acceso que permite que dos aplicaciones se comuniquen entre sí"},{"id":"b","text":"Un tipo de base de datos"}], "correctOptionId": "a", "explanation": "La API define cómo pedir y recibir datos/funciones de otro sistema, sin ver su implementación interna." },
-        { "id": "api-2", "type": "true-false", "prompt": "Los servicios de Azure AI se consumen típicamente llamando a una API.", "statement": "Los servicios de Azure AI se consumen típicamente llamando a una API.", "correctAnswer": true, "explanation": "Ya sea vía REST directo o a través de un SDK, por debajo se está llamando a una API del servicio." },
-        { "id": "api-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla API?", "respuestasAceptadas": ["application programming interface", "interfaz de programacion de aplicaciones"], "explanation": "API = Application Programming Interface (Interfaz de Programación de Aplicaciones)." }
+        {
+          "id": "api-1",
+          "type": "single-select",
+          "prompt": "¿Qué es una API?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un punto de acceso que permite que dos aplicaciones se comuniquen entre sí"
+            },
+            {
+              "id": "b",
+              "text": "Un tipo de base de datos"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "La API define cómo pedir y recibir datos/funciones de otro sistema, sin ver su implementación interna."
+        },
+        {
+          "id": "api-2",
+          "type": "true-false",
+          "prompt": "Los servicios de Azure AI se consumen típicamente llamando a una API.",
+          "statement": "Los servicios de Azure AI se consumen típicamente llamando a una API.",
+          "correctAnswer": true,
+          "explanation": "Ya sea vía REST directo o a través de un SDK, por debajo se está llamando a una API del servicio."
+        },
+        {
+          "id": "api-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla API?",
+          "respuestasAceptadas": [
+            "application programming interface",
+            "interfaz de programacion de aplicaciones"
+          ],
+          "explanation": "API = Application Programming Interface (Interfaz de Programación de Aplicaciones)."
+        }
       ]
     },
     {
@@ -57,9 +198,41 @@
       "definicion": "Un paquete de herramientas, librerías y ejemplos de código que facilita programar contra un servicio o plataforma, sin tener que armar las llamadas HTTP a mano. El Foundry SDK, por ejemplo, facilita interactuar con modelos desplegados en Microsoft Foundry desde tu propio código.",
       "categoria": "Desarrollo de software",
       "ejercicios": [
-        { "id": "sdk-1", "type": "single-select", "prompt": "¿Para qué sirve un SDK?", "options": [{"id":"a","text":"Facilita programar contra un servicio, con librerías y código de ejemplo listos para usar"},{"id":"b","text":"Es un tipo de servidor físico"}], "correctOptionId": "a", "explanation": "Un SDK te ahorra tener que construir a mano cada llamada al servicio." },
-        { "id": "sdk-2", "type": "true-false", "prompt": "Usar un SDK es obligatorio; no se puede llamar a un servicio de Azure AI de otra forma.", "statement": "Usar un SDK es obligatorio; no se puede llamar a un servicio de Azure AI de otra forma.", "correctAnswer": false, "explanation": "El SDK es una comodidad; casi siempre también puedes llamar directamente a la API REST del servicio." },
-        { "id": "sdk-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla SDK?", "respuestasAceptadas": ["software development kit", "kit de desarrollo de software"], "explanation": "SDK = Software Development Kit (Kit de Desarrollo de Software)." }
+        {
+          "id": "sdk-1",
+          "type": "single-select",
+          "prompt": "¿Para qué sirve un SDK?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Facilita programar contra un servicio, con librerías y código de ejemplo listos para usar"
+            },
+            {
+              "id": "b",
+              "text": "Es un tipo de servidor físico"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "Un SDK te ahorra tener que construir a mano cada llamada al servicio."
+        },
+        {
+          "id": "sdk-2",
+          "type": "true-false",
+          "prompt": "Usar un SDK es obligatorio; no se puede llamar a un servicio de Azure AI de otra forma.",
+          "statement": "Usar un SDK es obligatorio; no se puede llamar a un servicio de Azure AI de otra forma.",
+          "correctAnswer": false,
+          "explanation": "El SDK es una comodidad; casi siempre también puedes llamar directamente a la API REST del servicio."
+        },
+        {
+          "id": "sdk-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla SDK?",
+          "respuestasAceptadas": [
+            "software development kit",
+            "kit de desarrollo de software"
+          ],
+          "explanation": "SDK = Software Development Kit (Kit de Desarrollo de Software)."
+        }
       ]
     },
     {
@@ -69,9 +242,41 @@
       "definicion": "Un procesador especializado en hacer muchos cálculos matemáticos en paralelo. Aunque originalmente se diseñó para gráficos, resultó ser ideal para entrenar y ejecutar modelos de IA, que necesitan hacer millones de operaciones matriciales a la vez.",
       "categoria": "Infraestructura de cómputo",
       "ejercicios": [
-        { "id": "gpu-1", "type": "single-select", "prompt": "¿Por qué las GPU son útiles para entrenar modelos de IA?", "options": [{"id":"a","text":"Porque pueden hacer muchos cálculos matemáticos en paralelo"},{"id":"b","text":"Porque tienen más espacio de almacenamiento que un disco duro"}], "correctOptionId": "a", "explanation": "El paralelismo masivo de una GPU acelera enormemente las operaciones matriciales del entrenamiento." },
-        { "id": "gpu-2", "type": "true-false", "prompt": "Las GPU se diseñaron originalmente para renderizar gráficos, no para IA.", "statement": "Las GPU se diseñaron originalmente para renderizar gráficos, no para IA.", "correctAnswer": true, "explanation": "Su uso en IA es una reutilización posterior de una arquitectura que ya existía para gráficos." },
-        { "id": "gpu-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla GPU?", "respuestasAceptadas": ["graphics processing unit", "unidad de procesamiento grafico"], "explanation": "GPU = Graphics Processing Unit (Unidad de Procesamiento Gráfico)." }
+        {
+          "id": "gpu-1",
+          "type": "single-select",
+          "prompt": "¿Por qué las GPU son útiles para entrenar modelos de IA?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Porque pueden hacer muchos cálculos matemáticos en paralelo"
+            },
+            {
+              "id": "b",
+              "text": "Porque tienen más espacio de almacenamiento que un disco duro"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "El paralelismo masivo de una GPU acelera enormemente las operaciones matriciales del entrenamiento."
+        },
+        {
+          "id": "gpu-2",
+          "type": "true-false",
+          "prompt": "Las GPU se diseñaron originalmente para renderizar gráficos, no para IA.",
+          "statement": "Las GPU se diseñaron originalmente para renderizar gráficos, no para IA.",
+          "correctAnswer": true,
+          "explanation": "Su uso en IA es una reutilización posterior de una arquitectura que ya existía para gráficos."
+        },
+        {
+          "id": "gpu-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla GPU?",
+          "respuestasAceptadas": [
+            "graphics processing unit",
+            "unidad de procesamiento grafico"
+          ],
+          "explanation": "GPU = Graphics Processing Unit (Unidad de Procesamiento Gráfico)."
+        }
       ]
     },
     {
@@ -81,9 +286,41 @@
       "definicion": "El procesador principal de un computador, optimizado para ejecutar instrucciones de forma secuencial y variada. Es suficiente para tareas de inferencia ligeras, pero mucho más lento que una GPU para entrenar modelos grandes.",
       "categoria": "Infraestructura de cómputo",
       "ejercicios": [
-        { "id": "cpu-1", "type": "single-select", "prompt": "¿Qué caracteriza a una CPU frente a una GPU?", "options": [{"id":"a","text":"Está optimizada para ejecutar instrucciones variadas de forma secuencial"},{"id":"b","text":"Solo puede usarse para almacenar archivos"}], "correctOptionId": "a", "explanation": "La CPU es de propósito general; la GPU está optimizada para paralelismo masivo." },
-        { "id": "cpu-2", "type": "true-false", "prompt": "Para entrenar un modelo de deep learning muy grande, una CPU suele ser más rápida que una GPU.", "statement": "Para entrenar un modelo de deep learning muy grande, una CPU suele ser más rápida que una GPU.", "correctAnswer": false, "explanation": "Es al revés: la GPU es mucho más rápida para ese tipo de carga de trabajo paralela." },
-        { "id": "cpu-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla CPU?", "respuestasAceptadas": ["central processing unit", "unidad central de procesamiento"], "explanation": "CPU = Central Processing Unit (Unidad Central de Procesamiento)." }
+        {
+          "id": "cpu-1",
+          "type": "single-select",
+          "prompt": "¿Qué caracteriza a una CPU frente a una GPU?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Está optimizada para ejecutar instrucciones variadas de forma secuencial"
+            },
+            {
+              "id": "b",
+              "text": "Solo puede usarse para almacenar archivos"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "La CPU es de propósito general; la GPU está optimizada para paralelismo masivo."
+        },
+        {
+          "id": "cpu-2",
+          "type": "true-false",
+          "prompt": "Para entrenar un modelo de deep learning muy grande, una CPU suele ser más rápida que una GPU.",
+          "statement": "Para entrenar un modelo de deep learning muy grande, una CPU suele ser más rápida que una GPU.",
+          "correctAnswer": false,
+          "explanation": "Es al revés: la GPU es mucho más rápida para ese tipo de carga de trabajo paralela."
+        },
+        {
+          "id": "cpu-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla CPU?",
+          "respuestasAceptadas": [
+            "central processing unit",
+            "unidad central de procesamiento"
+          ],
+          "explanation": "CPU = Central Processing Unit (Unidad Central de Procesamiento)."
+        }
       ]
     },
     {
@@ -93,9 +330,41 @@
       "definicion": "El campo de la IA dedicado a que las máquinas entiendan, interpreten y generen lenguaje humano. Incluye tareas como análisis de sentimiento, extracción de entidades, traducción y resumen de texto.",
       "categoria": "Áreas de la IA",
       "ejercicios": [
-        { "id": "nlp-1", "type": "single-select", "prompt": "¿Qué estudia el NLP?", "options": [{"id":"a","text":"Cómo hacer que las máquinas entiendan y generen lenguaje humano"},{"id":"b","text":"Cómo procesar únicamente imágenes"}], "correctOptionId": "a", "explanation": "NLP es específicamente sobre texto y lenguaje, no sobre imágenes." },
-        { "id": "nlp-2", "type": "true-false", "prompt": "El análisis de sentimiento y la extracción de entidades son ejemplos de tareas de NLP.", "statement": "El análisis de sentimiento y la extracción de entidades son ejemplos de tareas de NLP.", "correctAnswer": true, "explanation": "Ambas son tareas clásicas de procesamiento de lenguaje natural." },
-        { "id": "nlp-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla NLP?", "respuestasAceptadas": ["natural language processing", "procesamiento de lenguaje natural"], "explanation": "NLP = Natural Language Processing (Procesamiento de Lenguaje Natural)." }
+        {
+          "id": "nlp-1",
+          "type": "single-select",
+          "prompt": "¿Qué estudia el NLP?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Cómo hacer que las máquinas entiendan y generen lenguaje humano"
+            },
+            {
+              "id": "b",
+              "text": "Cómo procesar únicamente imágenes"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "NLP es específicamente sobre texto y lenguaje, no sobre imágenes."
+        },
+        {
+          "id": "nlp-2",
+          "type": "true-false",
+          "prompt": "El análisis de sentimiento y la extracción de entidades son ejemplos de tareas de NLP.",
+          "statement": "El análisis de sentimiento y la extracción de entidades son ejemplos de tareas de NLP.",
+          "correctAnswer": true,
+          "explanation": "Ambas son tareas clásicas de procesamiento de lenguaje natural."
+        },
+        {
+          "id": "nlp-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla NLP?",
+          "respuestasAceptadas": [
+            "natural language processing",
+            "procesamiento de lenguaje natural"
+          ],
+          "explanation": "NLP = Natural Language Processing (Procesamiento de Lenguaje Natural)."
+        }
       ]
     },
     {
@@ -105,9 +374,42 @@
       "definicion": "Un modelo de IA generativa entrenado con enormes cantidades de texto, capaz de generar, resumir, traducir y razonar sobre lenguaje natural. Los modelos detrás de servicios como Azure OpenAI (por ejemplo, GPT) son LLMs.",
       "categoria": "IA generativa",
       "ejercicios": [
-        { "id": "llm-1", "type": "single-select", "prompt": "¿Qué es un LLM?", "options": [{"id":"a","text":"Un modelo de IA generativa entrenado con enormes cantidades de texto"},{"id":"b","text":"Un lenguaje de programación"}], "correctOptionId": "a", "explanation": "LLM se refiere al modelo entrenado, no a un lenguaje de programación." },
-        { "id": "llm-2", "type": "true-false", "prompt": "Los modelos detrás de servicios como Azure OpenAI son ejemplos de LLMs.", "statement": "Los modelos detrás de servicios como Azure OpenAI son ejemplos de LLMs.", "correctAnswer": true, "explanation": "Modelos como GPT son justamente el tipo de LLM que se consume a través de esos servicios." },
-        { "id": "llm-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla LLM?", "respuestasAceptadas": ["large language model", "modelo de lenguaje grande", "modelo de lenguaje de gran tamano"], "explanation": "LLM = Large Language Model (Modelo de Lenguaje de Gran Tamaño)." }
+        {
+          "id": "llm-1",
+          "type": "single-select",
+          "prompt": "¿Qué es un LLM?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un modelo de IA generativa entrenado con enormes cantidades de texto"
+            },
+            {
+              "id": "b",
+              "text": "Un lenguaje de programación"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "LLM se refiere al modelo entrenado, no a un lenguaje de programación."
+        },
+        {
+          "id": "llm-2",
+          "type": "true-false",
+          "prompt": "Los modelos detrás de servicios como Azure OpenAI son ejemplos de LLMs.",
+          "statement": "Los modelos detrás de servicios como Azure OpenAI son ejemplos de LLMs.",
+          "correctAnswer": true,
+          "explanation": "Modelos como GPT son justamente el tipo de LLM que se consume a través de esos servicios."
+        },
+        {
+          "id": "llm-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla LLM?",
+          "respuestasAceptadas": [
+            "large language model",
+            "modelo de lenguaje grande",
+            "modelo de lenguaje de gran tamano"
+          ],
+          "explanation": "LLM = Large Language Model (Modelo de Lenguaje de Gran Tamaño)."
+        }
       ]
     },
     {
@@ -117,9 +419,42 @@
       "definicion": "Una técnica que combina la búsqueda de información en tus propios datos (recuperación) con la generación de texto de un modelo, para que las respuestas estén fundamentadas en fuentes reales en vez de depender solo de lo que el modelo memorizó en su entrenamiento.",
       "categoria": "IA generativa",
       "ejercicios": [
-        { "id": "rag-1", "type": "single-select", "prompt": "¿Qué problema busca reducir principalmente la técnica RAG?", "options": [{"id":"a","text":"Las alucinaciones, fundamentando las respuestas en datos reales"},{"id":"b","text":"El costo de la electricidad del centro de datos"}], "correctOptionId": "a", "explanation": "Al recuperar información real antes de generar la respuesta, RAG reduce el riesgo de que el modelo invente datos." },
-        { "id": "rag-2", "type": "true-false", "prompt": "RAG combina la recuperación de información propia con la generación de texto de un modelo.", "statement": "RAG combina la recuperación de información propia con la generación de texto de un modelo.", "correctAnswer": true, "explanation": "Esa combinación (recuperar + generar) es justamente lo que significa RAG." },
-        { "id": "rag-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla RAG?", "respuestasAceptadas": ["retrieval-augmented generation", "retrieval augmented generation", "generacion aumentada por recuperacion"], "explanation": "RAG = Retrieval-Augmented Generation (Generación Aumentada por Recuperación)." }
+        {
+          "id": "rag-1",
+          "type": "single-select",
+          "prompt": "¿Qué problema busca reducir principalmente la técnica RAG?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Las alucinaciones, fundamentando las respuestas en datos reales"
+            },
+            {
+              "id": "b",
+              "text": "El costo de la electricidad del centro de datos"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "Al recuperar información real antes de generar la respuesta, RAG reduce el riesgo de que el modelo invente datos."
+        },
+        {
+          "id": "rag-2",
+          "type": "true-false",
+          "prompt": "RAG combina la recuperación de información propia con la generación de texto de un modelo.",
+          "statement": "RAG combina la recuperación de información propia con la generación de texto de un modelo.",
+          "correctAnswer": true,
+          "explanation": "Esa combinación (recuperar + generar) es justamente lo que significa RAG."
+        },
+        {
+          "id": "rag-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla RAG?",
+          "respuestasAceptadas": [
+            "retrieval-augmented generation",
+            "retrieval augmented generation",
+            "generacion aumentada por recuperacion"
+          ],
+          "explanation": "RAG = Retrieval-Augmented Generation (Generación Aumentada por Recuperación)."
+        }
       ]
     },
     {
@@ -129,9 +464,41 @@
       "definicion": "La tecnología que detecta y extrae texto legible a partir de imágenes o documentos escaneados, convirtiéndolo en texto digital que se puede buscar, copiar o procesar.",
       "categoria": "Visión artificial",
       "ejercicios": [
-        { "id": "ocr-1", "type": "single-select", "prompt": "¿Para qué sirve el OCR?", "options": [{"id":"a","text":"Para extraer texto legible a partir de una imagen o documento escaneado"},{"id":"b","text":"Para generar imágenes a partir de texto"}], "correctOptionId": "a", "explanation": "OCR va de imagen a texto, no al revés (eso sería generación de imágenes)." },
-        { "id": "ocr-2", "type": "true-false", "prompt": "El OCR convierte texto escrito a mano o impreso en una imagen a texto digital editable/buscable.", "statement": "El OCR convierte texto escrito a mano o impreso en una imagen a texto digital editable/buscable.", "correctAnswer": true, "explanation": "Esa es exactamente la función central del reconocimiento óptico de caracteres." },
-        { "id": "ocr-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla OCR?", "respuestasAceptadas": ["optical character recognition", "reconocimiento optico de caracteres"], "explanation": "OCR = Optical Character Recognition (Reconocimiento Óptico de Caracteres)." }
+        {
+          "id": "ocr-1",
+          "type": "single-select",
+          "prompt": "¿Para qué sirve el OCR?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Para extraer texto legible a partir de una imagen o documento escaneado"
+            },
+            {
+              "id": "b",
+              "text": "Para generar imágenes a partir de texto"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "OCR va de imagen a texto, no al revés (eso sería generación de imágenes)."
+        },
+        {
+          "id": "ocr-2",
+          "type": "true-false",
+          "prompt": "El OCR convierte texto escrito a mano o impreso en una imagen a texto digital editable/buscable.",
+          "statement": "El OCR convierte texto escrito a mano o impreso en una imagen a texto digital editable/buscable.",
+          "correctAnswer": true,
+          "explanation": "Esa es exactamente la función central del reconocimiento óptico de caracteres."
+        },
+        {
+          "id": "ocr-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla OCR?",
+          "respuestasAceptadas": [
+            "optical character recognition",
+            "reconocimiento optico de caracteres"
+          ],
+          "explanation": "OCR = Optical Character Recognition (Reconocimiento Óptico de Caracteres)."
+        }
       ]
     },
     {
@@ -141,9 +508,41 @@
       "definicion": "Un acuerdo formal entre un proveedor de servicios en la nube y su cliente, que establece métricas garantizadas como el porcentaje de disponibilidad (uptime) que se compromete a cumplir.",
       "categoria": "Cloud computing",
       "ejercicios": [
-        { "id": "sla-1", "type": "single-select", "prompt": "¿Qué es un SLA?", "options": [{"id":"a","text":"Un acuerdo formal que garantiza métricas de servicio, como el uptime"},{"id":"b","text":"Un tipo de algoritmo de machine learning"}], "correctOptionId": "a", "explanation": "El SLA es un compromiso contractual sobre el nivel de servicio, no un algoritmo." },
-        { "id": "sla-2", "type": "true-false", "prompt": "Un SLA típico incluye un porcentaje garantizado de disponibilidad (uptime) del servicio.", "statement": "Un SLA típico incluye un porcentaje garantizado de disponibilidad (uptime) del servicio.", "correctAnswer": true, "explanation": "El uptime garantizado es uno de los componentes más comunes de un SLA en la nube." },
-        { "id": "sla-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla SLA?", "respuestasAceptadas": ["service level agreement", "acuerdo de nivel de servicio"], "explanation": "SLA = Service Level Agreement (Acuerdo de Nivel de Servicio)." }
+        {
+          "id": "sla-1",
+          "type": "single-select",
+          "prompt": "¿Qué es un SLA?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un acuerdo formal que garantiza métricas de servicio, como el uptime"
+            },
+            {
+              "id": "b",
+              "text": "Un tipo de algoritmo de machine learning"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "El SLA es un compromiso contractual sobre el nivel de servicio, no un algoritmo."
+        },
+        {
+          "id": "sla-2",
+          "type": "true-false",
+          "prompt": "Un SLA típico incluye un porcentaje garantizado de disponibilidad (uptime) del servicio.",
+          "statement": "Un SLA típico incluye un porcentaje garantizado de disponibilidad (uptime) del servicio.",
+          "correctAnswer": true,
+          "explanation": "El uptime garantizado es uno de los componentes más comunes de un SLA en la nube."
+        },
+        {
+          "id": "sla-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla SLA?",
+          "respuestasAceptadas": [
+            "service level agreement",
+            "acuerdo de nivel de servicio"
+          ],
+          "explanation": "SLA = Service Level Agreement (Acuerdo de Nivel de Servicio)."
+        }
       ]
     },
     {
@@ -153,9 +552,41 @@
       "definicion": "Un estilo de arquitectura para diseñar APIs web, basado en recursos direccionables por URL y en los verbos estándar de HTTP (GET, POST, PUT, DELETE). La mayoría de los servicios de Azure AI exponen una API REST.",
       "categoria": "Desarrollo de software",
       "ejercicios": [
-        { "id": "rest-1", "type": "single-select", "prompt": "¿En qué se basa una API REST para operar sobre recursos?", "options": [{"id":"a","text":"En URLs que identifican recursos y verbos HTTP como GET/POST"},{"id":"b","text":"Únicamente en archivos locales del disco duro"}], "correctOptionId": "a", "explanation": "REST usa URLs como direcciones de recursos y los verbos HTTP como las acciones sobre ellos." },
-        { "id": "rest-2", "type": "true-false", "prompt": "La mayoría de los servicios de Azure AI exponen una API de tipo REST.", "statement": "La mayoría de los servicios de Azure AI exponen una API de tipo REST.", "correctAnswer": true, "explanation": "REST es el estilo de API más común para consumir estos servicios, además de los SDKs." },
-        { "id": "rest-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla REST?", "respuestasAceptadas": ["representational state transfer", "transferencia de estado representacional"], "explanation": "REST = Representational State Transfer (Transferencia de Estado Representacional)." }
+        {
+          "id": "rest-1",
+          "type": "single-select",
+          "prompt": "¿En qué se basa una API REST para operar sobre recursos?",
+          "options": [
+            {
+              "id": "a",
+              "text": "En URLs que identifican recursos y verbos HTTP como GET/POST"
+            },
+            {
+              "id": "b",
+              "text": "Únicamente en archivos locales del disco duro"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "REST usa URLs como direcciones de recursos y los verbos HTTP como las acciones sobre ellos."
+        },
+        {
+          "id": "rest-2",
+          "type": "true-false",
+          "prompt": "La mayoría de los servicios de Azure AI exponen una API de tipo REST.",
+          "statement": "La mayoría de los servicios de Azure AI exponen una API de tipo REST.",
+          "correctAnswer": true,
+          "explanation": "REST es el estilo de API más común para consumir estos servicios, además de los SDKs."
+        },
+        {
+          "id": "rest-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla REST?",
+          "respuestasAceptadas": [
+            "representational state transfer",
+            "transferencia de estado representacional"
+          ],
+          "explanation": "REST = Representational State Transfer (Transferencia de Estado Representacional)."
+        }
       ]
     },
     {
@@ -165,9 +596,41 @@
       "definicion": "Un formato de texto ligero para representar datos estructurados (objetos, listas, texto, números), muy usado para el intercambio de información entre una API y una aplicación, por su facilidad de lectura tanto para humanos como para máquinas.",
       "categoria": "Desarrollo de software",
       "ejercicios": [
-        { "id": "json-1", "type": "single-select", "prompt": "¿Para qué se usa comúnmente JSON?", "options": [{"id":"a","text":"Para representar e intercambiar datos estructurados entre una API y una app"},{"id":"b","text":"Para comprimir archivos de video"}], "correctOptionId": "a", "explanation": "JSON es un formato de datos, no un códec de compresión de video." },
-        { "id": "json-2", "type": "true-false", "prompt": "JSON es un formato de datos fácil de leer tanto para humanos como para máquinas.", "statement": "JSON es un formato de datos fácil de leer tanto para humanos como para máquinas.", "correctAnswer": true, "explanation": "Esa legibilidad es una de las razones de su popularidad en APIs web." },
-        { "id": "json-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla JSON?", "respuestasAceptadas": ["javascript object notation", "notacion de objetos de javascript"], "explanation": "JSON = JavaScript Object Notation (Notación de Objetos de JavaScript)." }
+        {
+          "id": "json-1",
+          "type": "single-select",
+          "prompt": "¿Para qué se usa comúnmente JSON?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Para representar e intercambiar datos estructurados entre una API y una app"
+            },
+            {
+              "id": "b",
+              "text": "Para comprimir archivos de video"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "JSON es un formato de datos, no un códec de compresión de video."
+        },
+        {
+          "id": "json-2",
+          "type": "true-false",
+          "prompt": "JSON es un formato de datos fácil de leer tanto para humanos como para máquinas.",
+          "statement": "JSON es un formato de datos fácil de leer tanto para humanos como para máquinas.",
+          "correctAnswer": true,
+          "explanation": "Esa legibilidad es una de las razones de su popularidad en APIs web."
+        },
+        {
+          "id": "json-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla JSON?",
+          "respuestasAceptadas": [
+            "javascript object notation",
+            "notacion de objetos de javascript"
+          ],
+          "explanation": "JSON = JavaScript Object Notation (Notación de Objetos de JavaScript)."
+        }
       ]
     },
     {
@@ -177,9 +640,3179 @@
       "definicion": "El conjunto de prácticas (inspiradas en DevOps) para gestionar de forma ordenada y trazable todo el ciclo de vida de un modelo de machine learning: entrenamiento, versionado, despliegue, monitoreo y reentrenamiento.",
       "categoria": "Ciclo de vida de modelos",
       "ejercicios": [
-        { "id": "mlops-1", "type": "single-select", "prompt": "¿Qué busca MLOps?", "options": [{"id":"a","text":"Gestionar de forma ordenada y trazable el ciclo de vida completo de un modelo"},{"id":"b","text":"Diseñar la interfaz visual de una aplicación"}], "correctOptionId": "a", "explanation": "MLOps se enfoca en el proceso operativo del modelo (entrenar, desplegar, monitorear), no en el diseño de UI." },
-        { "id": "mlops-2", "type": "true-false", "prompt": "MLOps se inspira en las prácticas de DevOps aplicadas al machine learning.", "statement": "MLOps se inspira en las prácticas de DevOps aplicadas al machine learning.", "correctAnswer": true, "explanation": "MLOps toma ideas de DevOps (integración y entrega continua, versionado) y las aplica al ciclo de vida de modelos." },
-        { "id": "mlops-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla MLOps?", "respuestasAceptadas": ["machine learning operations", "operaciones de machine learning", "operaciones de aprendizaje automatico"], "explanation": "MLOps = Machine Learning Operations (Operaciones de Machine Learning)." }
+        {
+          "id": "mlops-1",
+          "type": "single-select",
+          "prompt": "¿Qué busca MLOps?",
+          "options": [
+            {
+              "id": "a",
+              "text": "Gestionar de forma ordenada y trazable el ciclo de vida completo de un modelo"
+            },
+            {
+              "id": "b",
+              "text": "Diseñar la interfaz visual de una aplicación"
+            }
+          ],
+          "correctOptionId": "a",
+          "explanation": "MLOps se enfoca en el proceso operativo del modelo (entrenar, desplegar, monitorear), no en el diseño de UI."
+        },
+        {
+          "id": "mlops-2",
+          "type": "true-false",
+          "prompt": "MLOps se inspira en las prácticas de DevOps aplicadas al machine learning.",
+          "statement": "MLOps se inspira en las prácticas de DevOps aplicadas al machine learning.",
+          "correctAnswer": true,
+          "explanation": "MLOps toma ideas de DevOps (integración y entrega continua, versionado) y las aplica al ciclo de vida de modelos."
+        },
+        {
+          "id": "mlops-3",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla MLOps?",
+          "respuestasAceptadas": [
+            "machine learning operations",
+            "operaciones de machine learning",
+            "operaciones de aprendizaje automatico"
+          ],
+          "explanation": "MLOps = Machine Learning Operations (Operaciones de Machine Learning)."
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "termino": "AI",
+      "nombreCompleto": "Artificial Intelligence (Inteligencia Artificial)",
+      "definicion": "El campo que crea sistemas capaces de realizar tareas que normalmente requieren inteligencia humana: reconocer patrones, tomar decisiones o generar contenido.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "ai-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Sistemas que realizan tareas que normalmente requieren inteligencia humana"
+            },
+            {
+              "id": "b",
+              "text": "Cualquier programa que use una base de datos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "ai-2",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla AI (en inglés)?",
+          "respuestasAceptadas": [
+            "artificial intelligence",
+            "inteligencia artificial"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ml",
+      "termino": "ML",
+      "nombreCompleto": "Machine Learning (Aprendizaje Automático)",
+      "definicion": "Una rama de la IA en la que un modelo aprende patrones a partir de datos, en vez de que un programador escriba reglas explícitas para cada caso.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "ml-1",
+          "type": "true-false",
+          "statement": "En Machine Learning, el modelo aprende patrones de los datos en vez de seguir reglas escritas a mano.",
+          "correctAnswer": true
+        },
+        {
+          "id": "ml-2",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla ML?",
+          "respuestasAceptadas": [
+            "machine learning",
+            "aprendizaje automatico"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dl",
+      "termino": "DL",
+      "nombreCompleto": "Deep Learning (Aprendizaje Profundo)",
+      "definicion": "Un subcampo de Machine Learning que usa redes neuronales con muchas capas, especialmente eficaz para tareas complejas como visión artificial y lenguaje natural.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "dl-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un subcampo de ML basado en redes neuronales de muchas capas"
+            },
+            {
+              "id": "b",
+              "text": "Una forma de guardar datos en la nube"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "dl-2",
+          "type": "true-false",
+          "statement": "Deep Learning es lo mismo que Machine Learning, sin ninguna diferencia.",
+          "correctAnswer": false
+        }
+      ]
+    },
+    {
+      "id": "neural-network",
+      "termino": "Red neuronal",
+      "nombreCompleto": "Neural Network",
+      "definicion": "Un modelo inspirado (de forma muy simplificada) en el cerebro: capas de nodos conectados que ajustan sus pesos durante el entrenamiento para aprender un patrón.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "nn-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Capas de nodos conectados que ajustan sus pesos al entrenar"
+            },
+            {
+              "id": "b",
+              "text": "Una red de servidores físicos en un centro de datos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "nn-2",
+          "type": "true-false",
+          "statement": "Deep Learning se basa en redes neuronales con muchas capas.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "training",
+      "termino": "Entrenamiento",
+      "nombreCompleto": "Training",
+      "definicion": "El proceso de ajustar los parámetros de un modelo usando un conjunto de datos, para que aprenda a hacer predicciones útiles.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "training-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Ajustar los parámetros del modelo usando datos"
+            },
+            {
+              "id": "b",
+              "text": "Usar el modelo ya listo para generar una respuesta"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "training-2",
+          "type": "true-false",
+          "statement": "Usar un modelo ya entrenado para generar una respuesta se llama 'entrenamiento'.",
+          "correctAnswer": false
+        }
+      ]
+    },
+    {
+      "id": "inference",
+      "termino": "Inferencia",
+      "nombreCompleto": "Inference",
+      "definicion": "El proceso de usar un modelo YA entrenado para generar una predicción o respuesta sobre datos nuevos que no vio durante el entrenamiento.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "inference-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Usar un modelo ya entrenado para generar una predicción"
+            },
+            {
+              "id": "b",
+              "text": "Ajustar los parámetros del modelo con datos nuevos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "inference-2",
+          "type": "texto-libre",
+          "prompt": "¿Cómo se llama el proceso de usar un modelo ya entrenado para generar una respuesta?",
+          "respuestasAceptadas": [
+            "inferencia",
+            "inference"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dataset",
+      "termino": "Dataset",
+      "nombreCompleto": "Conjunto de datos",
+      "definicion": "El conjunto de ejemplos (datos) que se usa para entrenar, validar o probar un modelo de IA.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "dataset-1",
+          "type": "true-false",
+          "statement": "Un dataset es el conjunto de ejemplos usados para entrenar o evaluar un modelo.",
+          "correctAnswer": true
+        },
+        {
+          "id": "dataset-2",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Conjunto de datos para entrenar/evaluar un modelo"
+            },
+            {
+              "id": "b",
+              "text": "El servidor donde corre el modelo"
+            }
+          ],
+          "correctOptionId": "a"
+        }
+      ]
+    },
+    {
+      "id": "feature",
+      "termino": "Feature",
+      "nombreCompleto": "Característica",
+      "definicion": "Cada una de las variables o atributos de entrada que usa un modelo para hacer una predicción (por ejemplo: edad, ingresos, ubicación).",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "feature-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una variable de entrada que el modelo usa para predecir"
+            },
+            {
+              "id": "b",
+              "text": "El resultado final que produce el modelo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "feature-2",
+          "type": "true-false",
+          "statement": "Una 'feature' es lo mismo que la etiqueta (label) que el modelo intenta predecir.",
+          "correctAnswer": false
+        }
+      ]
+    },
+    {
+      "id": "label",
+      "termino": "Label",
+      "nombreCompleto": "Etiqueta",
+      "definicion": "El valor 'correcto' o resultado esperado asociado a un ejemplo, usado en aprendizaje supervisado para entrenar al modelo.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "label-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El valor correcto/esperado que el modelo debe aprender a predecir"
+            },
+            {
+              "id": "b",
+              "text": "Un dato de entrada irrelevante"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "label-2",
+          "type": "true-false",
+          "statement": "El aprendizaje supervisado usa datos con 'label' (etiqueta) conocida.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "classification",
+      "termino": "Clasificación",
+      "nombreCompleto": "Classification",
+      "definicion": "Una tarea de ML donde el modelo asigna una entrada a una de varias categorías predefinidas (por ejemplo: 'spam' o 'no spam').",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "class-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Asignar una entrada a una de varias categorías predefinidas"
+            },
+            {
+              "id": "b",
+              "text": "Predecir un número continuo, como un precio"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "class-2",
+          "type": "true-false",
+          "statement": "Detectar si un correo es 'spam' o 'no spam' es un ejemplo de clasificación.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "regression",
+      "termino": "Regresión",
+      "nombreCompleto": "Regression",
+      "definicion": "Una tarea de ML donde el modelo predice un valor numérico continuo (por ejemplo, el precio de una casa), en vez de una categoría.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "reg-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Predecir un valor numérico continuo"
+            },
+            {
+              "id": "b",
+              "text": "Asignar una entrada a una categoría"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "reg-2",
+          "type": "true-false",
+          "statement": "Predecir el precio de una casa es un ejemplo típico de regresión.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "clustering",
+      "termino": "Clustering",
+      "nombreCompleto": "Agrupamiento",
+      "definicion": "Una técnica de aprendizaje NO supervisado que agrupa datos similares entre sí, sin que existan etiquetas previas que digan a qué grupo pertenece cada uno.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "cluster-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Agrupar datos similares sin usar etiquetas previas"
+            },
+            {
+              "id": "b",
+              "text": "Predecir una etiqueta conocida de antemano"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "cluster-2",
+          "type": "true-false",
+          "statement": "El clustering es una técnica de aprendizaje supervisado.",
+          "correctAnswer": false
+        }
+      ]
+    },
+    {
+      "id": "supervised-learning",
+      "termino": "Aprendizaje supervisado",
+      "nombreCompleto": "Supervised Learning",
+      "definicion": "Un tipo de ML donde el modelo aprende a partir de datos que YA tienen la respuesta correcta (etiqueta) para cada ejemplo.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "sup-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El modelo aprende de datos que ya tienen la etiqueta correcta"
+            },
+            {
+              "id": "b",
+              "text": "El modelo agrupa datos sin ninguna etiqueta"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "sup-2",
+          "type": "true-false",
+          "statement": "Clasificación y regresión son tareas típicas de aprendizaje supervisado.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "unsupervised-learning",
+      "termino": "Aprendizaje no supervisado",
+      "nombreCompleto": "Unsupervised Learning",
+      "definicion": "Un tipo de ML donde el modelo encuentra patrones o estructuras en los datos SIN que existan etiquetas previas (por ejemplo, clustering).",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "unsup-1",
+          "type": "true-false",
+          "statement": "El clustering es un ejemplo de aprendizaje no supervisado.",
+          "correctAnswer": true
+        },
+        {
+          "id": "unsup-2",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Encontrar patrones en datos sin etiquetas"
+            },
+            {
+              "id": "b",
+              "text": "Aprender de datos ya etiquetados"
+            }
+          ],
+          "correctOptionId": "a"
+        }
+      ]
+    },
+    {
+      "id": "reinforcement-learning",
+      "termino": "Aprendizaje por refuerzo",
+      "nombreCompleto": "Reinforcement Learning (incluye RLHF)",
+      "definicion": "Un tipo de ML donde un agente aprende a tomar decisiones probando acciones y recibiendo recompensas o penalizaciones. RLHF (Reinforcement Learning from Human Feedback) usa retroalimentación humana como parte de esa recompensa, y es una técnica clave para afinar LLMs conversacionales.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "rl-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un agente aprende probando acciones y recibiendo recompensas/penalizaciones"
+            },
+            {
+              "id": "b",
+              "text": "El modelo agrupa datos similares"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "rl-2",
+          "type": "texto-libre",
+          "prompt": "¿Qué sigla describe usar retroalimentación humana como parte del entrenamiento por refuerzo de un modelo de lenguaje?",
+          "respuestasAceptadas": [
+            "rlhf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "computer-vision",
+      "termino": "Computer Vision",
+      "nombreCompleto": "Visión por computador",
+      "definicion": "El campo de la IA dedicado a que las máquinas 'entiendan' imágenes y video: detectar objetos, rostros, texto, o clasificar el contenido visual.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "cv-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Que las máquinas entiendan imágenes y video"
+            },
+            {
+              "id": "b",
+              "text": "Que las máquinas entiendan y generen texto"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "cv-2",
+          "type": "true-false",
+          "statement": "Detectar objetos en una foto es una tarea de Computer Vision.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "generative-ai",
+      "termino": "IA generativa",
+      "nombreCompleto": "Generative AI",
+      "definicion": "IA capaz de CREAR contenido nuevo (texto, imágenes, audio, código) en vez de solo clasificar o predecir sobre contenido existente.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "genai-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "IA que crea contenido nuevo (texto, imágenes, etc.)"
+            },
+            {
+              "id": "b",
+              "text": "IA que solo clasifica contenido existente"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "genai-2",
+          "type": "true-false",
+          "statement": "Un LLM que escribe un correo desde cero es un ejemplo de IA generativa.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "agentic-ai",
+      "termino": "IA basada en agentes",
+      "nombreCompleto": "Agentic AI",
+      "definicion": "Sistemas de IA que no solo responden una pregunta, sino que pueden planear, usar herramientas y ejecutar varios pasos de forma autónoma para lograr un objetivo.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "agentic-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "IA que planea y ejecuta varios pasos de forma autónoma para lograr un objetivo"
+            },
+            {
+              "id": "b",
+              "text": "IA que solo responde una pregunta puntual, sin más pasos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "agentic-2",
+          "type": "true-false",
+          "statement": "Un agente de IA puede usar herramientas (tools) para completar una tarea de varios pasos.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "multimodal-ai",
+      "termino": "IA multimodal",
+      "nombreCompleto": "Multimodal AI",
+      "definicion": "IA capaz de recibir y/o generar más de un tipo de contenido a la vez — por ejemplo, entender una imagen Y responder en texto sobre ella.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "multimodal-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "IA que trabaja con más de un tipo de entrada/salida (texto, imagen, audio…)"
+            },
+            {
+              "id": "b",
+              "text": "IA que solo puede procesar texto"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "multimodal-2",
+          "type": "true-false",
+          "statement": "Un modelo que puede recibir una imagen y responder en texto sobre ella es multimodal.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "ai-workload",
+      "termino": "Carga de trabajo de IA",
+      "nombreCompleto": "AI Workload",
+      "definicion": "El tipo de problema o tarea que un sistema de IA resuelve — por ejemplo, análisis de texto, visión artificial, o extracción de información. El examen agrupa varias 'cargas de trabajo' comunes.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "workload-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El tipo de problema/tarea que resuelve un sistema de IA"
+            },
+            {
+              "id": "b",
+              "text": "La cantidad de RAM que usa un servidor"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "workload-2",
+          "type": "true-false",
+          "statement": "Análisis de texto y visión artificial son ejemplos de 'cargas de trabajo' de IA.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "confusion-matrix",
+      "termino": "Matriz de confusión",
+      "nombreCompleto": "Confusion Matrix",
+      "definicion": "Una tabla que compara las predicciones de un modelo de clasificación contra los valores reales, mostrando aciertos y los distintos tipos de error (falsos positivos y falsos negativos).",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "cm-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Compara predicciones vs valores reales, mostrando aciertos y errores"
+            },
+            {
+              "id": "b",
+              "text": "Mide cuánta memoria RAM usa el modelo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "cm-2",
+          "type": "true-false",
+          "statement": "La matriz de confusión ayuda a ver falsos positivos y falsos negativos de un modelo de clasificación.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "auc-roc",
+      "termino": "AUC-ROC",
+      "nombreCompleto": "Area Under the Curve — Receiver Operating Characteristic",
+      "definicion": "Una métrica que resume qué tan bien un modelo de clasificación distingue entre clases, en un rango de 0 a 1 (más cerca de 1 es mejor).",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "aucroc-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una métrica de qué tan bien el modelo distingue entre clases"
+            },
+            {
+              "id": "b",
+              "text": "El tiempo que tarda el modelo en entrenar"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "aucroc-2",
+          "type": "true-false",
+          "statement": "Un valor de AUC-ROC más cercano a 1 indica mejor desempeño del clasificador.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "transformer",
+      "termino": "Transformer",
+      "nombreCompleto": "Arquitectura Transformer",
+      "definicion": "La arquitectura de red neuronal (basada en 'mecanismos de atención') detrás de la mayoría de los LLM modernos; permite procesar el contexto de una secuencia de texto de forma eficiente.",
+      "categoria": "Fundamentos de IA",
+      "ejercicios": [
+        {
+          "id": "transformer-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "La arquitectura de red neuronal detrás de la mayoría de los LLM modernos"
+            },
+            {
+              "id": "b",
+              "text": "Un tipo de base de datos para IA"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "transformer-2",
+          "type": "true-false",
+          "statement": "Los mecanismos de atención son parte central de la arquitectura Transformer.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "foundation-model",
+      "termino": "Modelo base",
+      "nombreCompleto": "Foundation Model",
+      "definicion": "Un modelo grande, entrenado con enormes cantidades de datos generales, pensado para adaptarse (con o sin ajuste fino) a muchas tareas distintas, en vez de resolver una sola.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "fm-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un modelo de propósito general que se adapta a muchas tareas"
+            },
+            {
+              "id": "b",
+              "text": "Un modelo entrenado para una sola tarea muy específica"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "fm-2",
+          "type": "true-false",
+          "statement": "Los LLM suelen construirse a partir de un modelo base (foundation model).",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "embedding",
+      "termino": "Embedding",
+      "nombreCompleto": "Representación vectorial de significado",
+      "definicion": "Una representación numérica (un vector) de una palabra, frase o imagen, donde elementos con significado similar quedan matemáticamente 'cerca' entre sí.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "emb-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una representación numérica donde cosas con significado similar quedan 'cerca'"
+            },
+            {
+              "id": "b",
+              "text": "El texto exacto que escribió el usuario"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "emb-2",
+          "type": "true-false",
+          "statement": "Los embeddings permiten comparar qué tan similares son dos textos matemáticamente.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "token",
+      "termino": "Token",
+      "nombreCompleto": "Unidad de texto procesada por un modelo",
+      "definicion": "La unidad mínima en la que un modelo de lenguaje divide el texto (puede ser una palabra completa, parte de una palabra, o un signo de puntuación).",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "token-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "La unidad mínima en la que un LLM divide el texto"
+            },
+            {
+              "id": "b",
+              "text": "El nombre del modelo desplegado"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "token-2",
+          "type": "true-false",
+          "statement": "Un token puede ser una palabra completa o solo una parte de ella.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "context-window",
+      "termino": "Ventana de contexto",
+      "nombreCompleto": "Context Window",
+      "definicion": "La cantidad máxima de texto (medida en tokens) que un modelo puede 'tener en cuenta' a la vez al generar una respuesta.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "ctx-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "La cantidad máxima de tokens que el modelo puede considerar a la vez"
+            },
+            {
+              "id": "b",
+              "text": "La cantidad de usuarios que pueden usar el modelo al mismo tiempo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "ctx-2",
+          "type": "true-false",
+          "statement": "Si una conversación supera la ventana de contexto, el modelo puede 'olvidar' el inicio.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "prompt",
+      "termino": "Prompt",
+      "nombreCompleto": "Instrucción enviada al modelo",
+      "definicion": "El texto (instrucción, pregunta o contexto) que se envía a un modelo de IA generativa para obtener una respuesta.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "prompt-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El texto que se envía al modelo para obtener una respuesta"
+            },
+            {
+              "id": "b",
+              "text": "El resultado que devuelve el modelo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "prompt-2",
+          "type": "true-false",
+          "statement": "Cambiar la forma en que redactas el prompt puede cambiar la calidad de la respuesta.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "system-vs-user-prompt",
+      "termino": "System Prompt vs. User Prompt",
+      "nombreCompleto": "Prompt de sistema vs. de usuario",
+      "definicion": "El 'system prompt' define el comportamiento general y las reglas del asistente (lo configura el desarrollador); el 'user prompt' es el mensaje puntual que escribe la persona que usa el chat.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "sysuser-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El system prompt define reglas generales; el user prompt es el mensaje puntual del usuario"
+            },
+            {
+              "id": "b",
+              "text": "Son exactamente lo mismo, solo cambia el nombre"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "sysuser-2",
+          "type": "true-false",
+          "statement": "El system prompt normalmente lo configura el desarrollador, no la persona que chatea.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "prompt-engineering",
+      "termino": "Prompt Engineering",
+      "nombreCompleto": "Ingeniería de prompts",
+      "definicion": "La práctica de diseñar y ajustar cuidadosamente las instrucciones (prompts) que se le dan a un modelo, para obtener mejores respuestas sin cambiar el modelo en sí.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "pe-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Diseñar y ajustar las instrucciones para obtener mejores respuestas"
+            },
+            {
+              "id": "b",
+              "text": "Reentrenar el modelo desde cero"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "pe-2",
+          "type": "true-false",
+          "statement": "El prompt engineering no requiere modificar los pesos internos del modelo.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "temperature",
+      "termino": "Temperature",
+      "nombreCompleto": "Control de aleatoriedad en la generación",
+      "definicion": "Un parámetro que controla qué tan 'creativas' o aleatorias son las respuestas de un modelo generativo: valores bajos dan respuestas más predecibles, valores altos dan más variedad.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "temp-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Controla qué tan aleatorias/creativas son las respuestas"
+            },
+            {
+              "id": "b",
+              "text": "Controla cuántos tokens puede generar el modelo como máximo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "temp-2",
+          "type": "true-false",
+          "statement": "Una temperature baja produce respuestas más predecibles y deterministas.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "top-p",
+      "termino": "Top-p",
+      "nombreCompleto": "Muestreo por núcleo (nucleus sampling)",
+      "definicion": "Un parámetro que limita las opciones de palabras que el modelo puede elegir a las más probables, controlando la variedad de otra forma distinta a la temperature.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "topp-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Limita las palabras candidatas a las más probables, controlando la variedad"
+            },
+            {
+              "id": "b",
+              "text": "Define cuántos usuarios pueden llamar a la API por segundo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "topp-2",
+          "type": "true-false",
+          "statement": "Top-p es otro parámetro (además de temperature) para controlar la variedad de las respuestas.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "hyperparameters",
+      "termino": "Hiperparámetros",
+      "nombreCompleto": "Hyperparameters / Model Parameters",
+      "definicion": "Ajustes que se configuran ANTES o DURANTE el entrenamiento/inferencia (como la tasa de aprendizaje, temperature o top-p), distintos de los parámetros internos que el modelo aprende por sí mismo.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "hyper-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Ajustes configurados por una persona (no aprendidos automáticamente por el modelo)"
+            },
+            {
+              "id": "b",
+              "text": "Los pesos internos que el modelo aprende durante el entrenamiento"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "hyper-2",
+          "type": "true-false",
+          "statement": "Temperature y top-p son ejemplos de hiperparámetros de inferencia.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "fine-tuning",
+      "termino": "Fine-tuning",
+      "nombreCompleto": "Ajuste fino de un modelo preentrenado",
+      "definicion": "Continuar entrenando un modelo ya preentrenado con un conjunto de datos más específico, para especializarlo en una tarea o dominio concreto.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "ft-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Seguir entrenando un modelo preentrenado con datos específicos de tu caso"
+            },
+            {
+              "id": "b",
+              "text": "Entrenar un modelo completamente desde cero"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "ft-2",
+          "type": "true-false",
+          "statement": "El fine-tuning parte de un modelo ya preentrenado, no empieza desde cero.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "pretrained-model",
+      "termino": "Modelo preentrenado / modelo base",
+      "nombreCompleto": "Pretrained Model / Base Model",
+      "definicion": "Un modelo que ya fue entrenado (por Microsoft, OpenAI, etc.) con grandes cantidades de datos generales, listo para usarse directamente o servir de punto de partida para fine-tuning.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "pretrained-1",
+          "type": "true-false",
+          "statement": "Un modelo preentrenado puede usarse tal cual, o como punto de partida para fine-tuning.",
+          "correctAnswer": true
+        },
+        {
+          "id": "pretrained-2",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un modelo ya entrenado con datos generales, listo para usar o afinar"
+            },
+            {
+              "id": "b",
+              "text": "Un modelo que solo funciona sin conexión a internet"
+            }
+          ],
+          "correctOptionId": "a"
+        }
+      ]
+    },
+    {
+      "id": "model-catalog",
+      "termino": "Model Catalog",
+      "nombreCompleto": "Catálogo de modelos",
+      "definicion": "La sección de Microsoft Foundry (y de Azure AI en general) donde se exploran, comparan y seleccionan los modelos disponibles para desplegar (de Microsoft, OpenAI, Meta, y otros proveedores).",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "catalog-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Donde se exploran y seleccionan los modelos disponibles para desplegar"
+            },
+            {
+              "id": "b",
+              "text": "Donde se ve el historial de facturación de Azure"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "catalog-2",
+          "type": "true-false",
+          "statement": "El Model Catalog incluye modelos de más de un proveedor, no solo de Microsoft.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "model-deployment",
+      "termino": "Despliegue de modelo",
+      "nombreCompleto": "Model Deployment",
+      "definicion": "El proceso de poner un modelo a disposición para que una aplicación pueda llamarlo (por API o SDK), típicamente creando un endpoint al que se le envían las solicitudes.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "deploy-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Poner un modelo disponible para que una app lo pueda llamar"
+            },
+            {
+              "id": "b",
+              "text": "Borrar un modelo del catálogo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "deploy-2",
+          "type": "true-false",
+          "statement": "Al desplegar un modelo normalmente se genera un endpoint para llamarlo.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "endpoint",
+      "termino": "Endpoint",
+      "nombreCompleto": "Punto de acceso al modelo",
+      "definicion": "La URL específica a la que una aplicación envía sus solicitudes (peticiones) para usar un modelo o servicio ya desplegado.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "endpoint-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "La URL a la que se envían las solicitudes para usar el modelo"
+            },
+            {
+              "id": "b",
+              "text": "El nombre interno del archivo del modelo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "endpoint-2",
+          "type": "true-false",
+          "statement": "Cada modelo desplegado normalmente tiene su propio endpoint.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "managed-deployment",
+      "termino": "Despliegue administrado",
+      "nombreCompleto": "Managed Deployment",
+      "definicion": "Una opción de despliegue donde reservas capacidad de cómputo dedicada para tu modelo, con control más fino sobre el rendimiento — a diferencia de una API serverless compartida.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "managed-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Reservas capacidad de cómputo dedicada para tu modelo"
+            },
+            {
+              "id": "b",
+              "text": "Pagas solo por token sin reservar nada de antemano"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "managed-2",
+          "type": "true-false",
+          "statement": "Un despliegue administrado suele dar más control sobre el rendimiento que una API serverless.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "serverless-api",
+      "termino": "Serverless API",
+      "nombreCompleto": "API sin servidor dedicado",
+      "definicion": "Una forma de consumir un modelo pagando por uso (por ejemplo, por token), sin tener que aprovisionar ni administrar capacidad de cómputo dedicada.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "serverless-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Pagas por uso, sin aprovisionar capacidad de cómputo dedicada"
+            },
+            {
+              "id": "b",
+              "text": "Requiere administrar tus propios servidores físicos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "serverless-2",
+          "type": "true-false",
+          "statement": "Una Serverless API típicamente se cobra por consumo (ej. por token), no por capacidad reservada.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "provisioned-throughput",
+      "termino": "Provisioned Throughput",
+      "nombreCompleto": "Capacidad de inferencia aprovisionada",
+      "definicion": "Una opción de despliegue donde se reserva una cantidad garantizada de capacidad de procesamiento, pensada para cargas de trabajo grandes y predecibles que necesitan rendimiento constante.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "provisioned-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Capacidad de procesamiento garantizada y reservada de antemano"
+            },
+            {
+              "id": "b",
+              "text": "Se factura únicamente por token consumido, sin reservar nada"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "provisioned-2",
+          "type": "true-false",
+          "statement": "Provisioned Throughput conviene para cargas de trabajo grandes y predecibles.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "prompting-techniques",
+      "termino": "Zero-shot / Few-shot / Chain-of-thought",
+      "nombreCompleto": "Técnicas de prompting",
+      "definicion": "Zero-shot: pides la tarea sin dar ejemplos. Few-shot: incluyes uno o varios ejemplos en el prompt para guiar el formato de la respuesta. Chain-of-thought: le pides al modelo razonar paso a paso antes de dar la respuesta final.",
+      "categoria": "Modelos y IA generativa",
+      "ejercicios": [
+        {
+          "id": "techniques-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Few-shot incluye ejemplos en el prompt para guiar la respuesta"
+            },
+            {
+              "id": "b",
+              "text": "Few-shot significa reentrenar el modelo con pocos datos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "techniques-2",
+          "type": "true-false",
+          "statement": "Chain-of-thought consiste en pedirle al modelo que razone paso a paso antes de responder.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "foundry-project",
+      "termino": "Proyecto de Foundry",
+      "nombreCompleto": "Foundry Project",
+      "definicion": "El espacio de trabajo dentro de Microsoft Foundry donde se organizan los modelos desplegados, agentes, datos y configuración de una solución de IA concreta.",
+      "categoria": "Microsoft Foundry y desarrollo",
+      "ejercicios": [
+        {
+          "id": "fproject-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El espacio de trabajo donde se organiza una solución de IA en Foundry"
+            },
+            {
+              "id": "b",
+              "text": "Un tipo de licencia de Azure"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "fproject-2",
+          "type": "true-false",
+          "statement": "Un proyecto de Foundry puede contener varios modelos desplegados y agentes.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "playground",
+      "termino": "Playground",
+      "nombreCompleto": "Entorno de prueba de modelos",
+      "definicion": "Una interfaz dentro del portal de Foundry para probar un modelo desplegado (enviarle prompts y ver sus respuestas) sin escribir código.",
+      "categoria": "Microsoft Foundry y desarrollo",
+      "ejercicios": [
+        {
+          "id": "playground-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Probar un modelo desplegado sin escribir código"
+            },
+            {
+              "id": "b",
+              "text": "Ver el historial de facturación de la suscripción"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "playground-2",
+          "type": "true-false",
+          "statement": "El Playground permite probar prompts contra un modelo antes de integrarlo en una app.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "prompt-flow",
+      "termino": "Prompt Flow",
+      "nombreCompleto": "Flujo de desarrollo de soluciones de IA",
+      "definicion": "Una herramienta visual para diseñar, probar y depurar flujos que combinan prompts, código y llamadas a modelos, antes de llevarlos a producción.",
+      "categoria": "Microsoft Foundry y desarrollo",
+      "ejercicios": [
+        {
+          "id": "pflow-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Herramienta visual para diseñar y probar flujos de prompts/lógica"
+            },
+            {
+              "id": "b",
+              "text": "Un servicio de almacenamiento de blobs"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "pflow-2",
+          "type": "true-false",
+          "statement": "Prompt Flow ayuda a depurar una solución de IA antes de llevarla a producción.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "agent",
+      "termino": "Agente de IA",
+      "nombreCompleto": "Agent",
+      "definicion": "Un componente construido sobre un modelo que puede seguir instrucciones, usar herramientas (tools) y ejecutar varios pasos de forma autónoma para completar una tarea, no solo responder una pregunta.",
+      "categoria": "Microsoft Foundry y desarrollo",
+      "ejercicios": [
+        {
+          "id": "agent-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un componente que sigue instrucciones, usa herramientas y ejecuta varios pasos"
+            },
+            {
+              "id": "b",
+              "text": "Un simple historial de mensajes de chat"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "agent-2",
+          "type": "true-false",
+          "statement": "Una 'solución de un solo agente' (single-agent) usa un único agente para resolver la tarea.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "tool-calling",
+      "termino": "Tool Calling",
+      "nombreCompleto": "Uso de herramientas por un agente",
+      "definicion": "La capacidad de un modelo o agente de invocar funciones externas (buscar en internet, consultar una base de datos, llamar una API) durante su razonamiento, en vez de responder solo con lo que 'sabe'.",
+      "categoria": "Microsoft Foundry y desarrollo",
+      "ejercicios": [
+        {
+          "id": "toolcalling-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El modelo invoca funciones externas durante su razonamiento"
+            },
+            {
+              "id": "b",
+              "text": "El modelo solo responde con lo que memorizó en su entrenamiento"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "toolcalling-2",
+          "type": "true-false",
+          "statement": "Tool calling permite que un agente consulte, por ejemplo, una API externa antes de responder.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "entra-id",
+      "termino": "Microsoft Entra ID",
+      "nombreCompleto": "Servicio de identidad de Azure",
+      "definicion": "El servicio de identidad y acceso de Microsoft (antes llamado Azure Active Directory) usado para autenticar usuarios y aplicaciones que acceden a recursos de Azure.",
+      "categoria": "Microsoft Foundry y desarrollo",
+      "ejercicios": [
+        {
+          "id": "entra-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El servicio de identidad y acceso de Microsoft en Azure"
+            },
+            {
+              "id": "b",
+              "text": "Un servicio de almacenamiento de archivos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "entra-2",
+          "type": "true-false",
+          "statement": "Microsoft Entra ID se usaba antes bajo el nombre Azure Active Directory.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "api-key",
+      "termino": "API Key",
+      "nombreCompleto": "Clave para autenticar una API",
+      "definicion": "Un código secreto que identifica y autoriza a una aplicación para llamar a una API — una forma simple de autenticación, distinta de un sistema de identidad completo como Microsoft Entra ID.",
+      "categoria": "Microsoft Foundry y desarrollo",
+      "ejercicios": [
+        {
+          "id": "apikey-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un código secreto que autoriza a una app a llamar una API"
+            },
+            {
+              "id": "b",
+              "text": "La URL pública del servicio"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "apikey-2",
+          "type": "true-false",
+          "statement": "Una API Key nunca debería quedar expuesta en código público.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "auth-vs-authz",
+      "termino": "Authentication vs. Authorization",
+      "nombreCompleto": "Autenticación vs. autorización",
+      "definicion": "Authentication (autenticación) verifica QUIÉN eres; Authorization (autorización) decide QUÉ tienes permitido hacer una vez que ya se sabe quién eres.",
+      "categoria": "Microsoft Foundry y desarrollo",
+      "ejercicios": [
+        {
+          "id": "authvsauthz-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Autenticación verifica quién eres; autorización decide qué puedes hacer"
+            },
+            {
+              "id": "b",
+              "text": "Son exactamente lo mismo, solo cambia el nombre en inglés"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "authvsauthz-2",
+          "type": "true-false",
+          "statement": "Primero ocurre la autenticación, y luego, con base en eso, la autorización.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "foundry-sdk",
+      "termino": "Foundry SDK",
+      "nombreCompleto": "SDK para desarrollar con Microsoft Foundry",
+      "definicion": "El conjunto de librerías que facilita llamar modelos y agentes desplegados en Microsoft Foundry desde tu propio código, sin armar a mano cada solicitud HTTP.",
+      "categoria": "Microsoft Foundry y desarrollo",
+      "ejercicios": [
+        {
+          "id": "fsdk-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Librerías para llamar modelos/agentes de Foundry desde tu código"
+            },
+            {
+              "id": "b",
+              "text": "Una interfaz gráfica exclusiva para diseñar logotipos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "fsdk-2",
+          "type": "true-false",
+          "statement": "El Foundry SDK es un caso específico del concepto general de SDK.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "cli",
+      "termino": "CLI",
+      "nombreCompleto": "Command Line Interface (Interfaz de línea de comandos)",
+      "definicion": "Una forma de interactuar con un servicio (como Azure) escribiendo comandos de texto en una terminal, en vez de usar clics en un portal web.",
+      "categoria": "Microsoft Foundry y desarrollo",
+      "ejercicios": [
+        {
+          "id": "cli-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Interactuar con un servicio escribiendo comandos de texto"
+            },
+            {
+              "id": "b",
+              "text": "Interactuar con un servicio usando solo clics en un portal web"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "cli-2",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla CLI?",
+          "respuestasAceptadas": [
+            "command line interface",
+            "interfaz de linea de comandos"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ner",
+      "termino": "NER",
+      "nombreCompleto": "Named Entity Recognition (Reconocimiento de entidades nombradas)",
+      "definicion": "Una tarea de NLP que identifica y clasifica 'entidades' dentro de un texto — como nombres de personas, lugares, organizaciones o fechas.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "ner-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Identificar y clasificar entidades como personas, lugares o fechas en un texto"
+            },
+            {
+              "id": "b",
+              "text": "Traducir un texto a otro idioma"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "ner-2",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla NER?",
+          "respuestasAceptadas": [
+            "named entity recognition",
+            "reconocimiento de entidades nombradas"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "keyword-extraction",
+      "termino": "Extracción de palabras clave",
+      "nombreCompleto": "Keyword Extraction",
+      "definicion": "Una tarea de NLP que identifica automáticamente los términos o frases más relevantes dentro de un texto, sin necesariamente clasificarlos en categorías.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "keyword-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Identificar los términos más relevantes de un texto"
+            },
+            {
+              "id": "b",
+              "text": "Generar un resumen completo del texto"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "keyword-2",
+          "type": "true-false",
+          "statement": "La extracción de palabras clave y el resumen automático son tareas distintas de NLP.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "sentiment-analysis",
+      "termino": "Análisis de sentimiento",
+      "nombreCompleto": "Sentiment Analysis",
+      "definicion": "Una tarea de NLP que determina si el tono de un texto es positivo, negativo o neutral (por ejemplo, en reseñas de productos).",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "sentiment-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Determinar si el tono de un texto es positivo, negativo o neutral"
+            },
+            {
+              "id": "b",
+              "text": "Traducir el texto a otro idioma"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "sentiment-2",
+          "type": "true-false",
+          "statement": "El análisis de sentimiento se usa comúnmente en reseñas de clientes.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "summarization",
+      "termino": "Resumen automático",
+      "nombreCompleto": "Summarization",
+      "definicion": "Una tarea de NLP que genera una versión más corta de un texto, conservando sus ideas principales.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "summ-1",
+          "type": "true-false",
+          "statement": "El resumen automático conserva las ideas principales de un texto, en una versión más corta.",
+          "correctAnswer": true
+        },
+        {
+          "id": "summ-2",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Generar una versión más corta del texto, conservando lo esencial"
+            },
+            {
+              "id": "b",
+              "text": "Detectar el idioma en que está escrito el texto"
+            }
+          ],
+          "correctOptionId": "a"
+        }
+      ]
+    },
+    {
+      "id": "language-detection",
+      "termino": "Detección de idioma",
+      "nombreCompleto": "Language Detection",
+      "definicion": "Una tarea de NLP que identifica automáticamente en qué idioma está escrito un texto.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "langdet-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Identificar en qué idioma está escrito un texto"
+            },
+            {
+              "id": "b",
+              "text": "Traducir el texto a otro idioma"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "langdet-2",
+          "type": "true-false",
+          "statement": "La detección de idioma normalmente es un paso previo antes de traducir un texto.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "text-classification",
+      "termino": "Clasificación de texto",
+      "nombreCompleto": "Text Classification",
+      "definicion": "Asignar un texto completo (un correo, un ticket de soporte) a una categoría predefinida, como 'urgente' o 'no urgente'.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "textclass-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Asignar un texto completo a una categoría predefinida"
+            },
+            {
+              "id": "b",
+              "text": "Extraer solo las palabras clave del texto"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "textclass-2",
+          "type": "true-false",
+          "statement": "Marcar un ticket de soporte como 'urgente' o 'no urgente' es clasificación de texto.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "question-answering",
+      "termino": "Respuesta a preguntas",
+      "nombreCompleto": "Question Answering",
+      "definicion": "Una tarea de NLP donde el sistema responde una pregunta concreta, usualmente basándose en un documento o fuente de referencia.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "qa-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Responder una pregunta concreta, basándose en una fuente de referencia"
+            },
+            {
+              "id": "b",
+              "text": "Generar palabras clave de un texto"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "qa-2",
+          "type": "true-false",
+          "statement": "Question Answering suele apoyarse en un documento fuente para dar la respuesta.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "translation",
+      "termino": "Traducción",
+      "nombreCompleto": "Translation",
+      "definicion": "Convertir un texto (o audio) de un idioma a otro, conservando su significado.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "translation-1",
+          "type": "true-false",
+          "statement": "La traducción convierte contenido de un idioma a otro conservando el significado.",
+          "correctAnswer": true
+        },
+        {
+          "id": "translation-2",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Convertir contenido de un idioma a otro"
+            },
+            {
+              "id": "b",
+              "text": "Detectar el sentimiento de un texto"
+            }
+          ],
+          "correctOptionId": "a"
+        }
+      ]
+    },
+    {
+      "id": "speech-to-text",
+      "termino": "Speech-to-Text",
+      "nombreCompleto": "Voz a texto (reconocimiento de voz)",
+      "definicion": "Convertir audio hablado en texto escrito.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "stt-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Convertir audio hablado en texto escrito"
+            },
+            {
+              "id": "b",
+              "text": "Convertir texto escrito en audio hablado"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "stt-2",
+          "type": "true-false",
+          "statement": "Speech-to-Text y reconocimiento de voz se refieren a la misma capacidad.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "text-to-speech",
+      "termino": "Text-to-Speech",
+      "nombreCompleto": "Texto a voz (síntesis de voz)",
+      "definicion": "Convertir texto escrito en audio hablado, usando una voz sintética.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "tts-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Convertir texto escrito en audio hablado"
+            },
+            {
+              "id": "b",
+              "text": "Convertir audio hablado en texto escrito"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "tts-2",
+          "type": "true-false",
+          "statement": "Text-to-Speech también se conoce como síntesis de voz (speech synthesis).",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "speaker-recognition",
+      "termino": "Reconocimiento del hablante",
+      "nombreCompleto": "Speaker Recognition",
+      "definicion": "Identificar o verificar QUIÉN está hablando en un audio, a diferencia de Speech-to-Text que solo transcribe QUÉ se dijo.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "speaker-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Identificar quién está hablando, no qué dijo"
+            },
+            {
+              "id": "b",
+              "text": "Transcribir literalmente lo que se dijo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "speaker-2",
+          "type": "true-false",
+          "statement": "Speaker Recognition es distinto de Speech-to-Text: uno identifica a la persona, el otro transcribe el contenido.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "image-classification",
+      "termino": "Clasificación de imágenes",
+      "nombreCompleto": "Image Classification",
+      "definicion": "Asignar una imagen completa a una categoría (por ejemplo, 'gato' o 'perro').",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "imgclass-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Asignar una imagen completa a una categoría"
+            },
+            {
+              "id": "b",
+              "text": "Ubicar la posición exacta de cada objeto en la imagen"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "imgclass-2",
+          "type": "true-false",
+          "statement": "La clasificación de imágenes da una etiqueta a la imagen completa, no a cada objeto por separado.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "object-detection",
+      "termino": "Detección de objetos",
+      "nombreCompleto": "Object Detection",
+      "definicion": "Identificar QUÉ objetos hay en una imagen Y en qué posición (usualmente con un recuadro/bounding box alrededor de cada uno).",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "objdet-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Identificar qué objetos hay y en qué posición dentro de la imagen"
+            },
+            {
+              "id": "b",
+              "text": "Asignar una sola categoría a toda la imagen"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "objdet-2",
+          "type": "true-false",
+          "statement": "La detección de objetos puede encontrar varios objetos distintos en una misma imagen.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "image-segmentation",
+      "termino": "Segmentación de imágenes",
+      "nombreCompleto": "Image Segmentation",
+      "definicion": "Clasificar cada PÍXEL de una imagen según a qué objeto o región pertenece, con más precisión que un simple recuadro (bounding box).",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "imgseg-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Clasificar cada píxel de la imagen según a qué objeto pertenece"
+            },
+            {
+              "id": "b",
+              "text": "Solo detectar si hay texto en la imagen"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "imgseg-2",
+          "type": "true-false",
+          "statement": "La segmentación es más precisa que un bounding box, porque trabaja a nivel de píxel.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "image-captioning",
+      "termino": "Generación de descripciones de imágenes",
+      "nombreCompleto": "Image Captioning",
+      "definicion": "Generar automáticamente una frase en lenguaje natural que describe el contenido de una imagen.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "captioning-1",
+          "type": "true-false",
+          "statement": "Image Captioning genera una descripción en texto de lo que muestra una imagen.",
+          "correctAnswer": true
+        },
+        {
+          "id": "captioning-2",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Generar una descripción en texto de una imagen"
+            },
+            {
+              "id": "b",
+              "text": "Extraer el texto legible dentro de una imagen (OCR)"
+            }
+          ],
+          "correctOptionId": "a"
+        }
+      ]
+    },
+    {
+      "id": "face-detection",
+      "termino": "Detección/reconocimiento de rostros",
+      "nombreCompleto": "Face Detection / Face Recognition",
+      "definicion": "Detección: encontrar DÓNDE hay rostros en una imagen. Reconocimiento: identificar DE QUIÉN es ese rostro, comparándolo con rostros conocidos.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "face-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Detección encuentra dónde hay un rostro; reconocimiento identifica de quién es"
+            },
+            {
+              "id": "b",
+              "text": "Son exactamente lo mismo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "face-2",
+          "type": "true-false",
+          "statement": "Se puede detectar que hay un rostro en la imagen sin necesariamente reconocer de quién es.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "visual-qa",
+      "termino": "Preguntas y respuestas visuales",
+      "nombreCompleto": "Visual Question Answering",
+      "definicion": "Responder una pregunta en lenguaje natural sobre el contenido de una imagen (por ejemplo: '¿de qué color es el auto en la foto?').",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "vqa-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Responder una pregunta sobre el contenido de una imagen"
+            },
+            {
+              "id": "b",
+              "text": "Generar una imagen nueva a partir de texto"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "vqa-2",
+          "type": "true-false",
+          "statement": "Visual Question Answering combina comprensión de imagen y lenguaje natural.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "image-generation",
+      "termino": "Generación de imágenes",
+      "nombreCompleto": "Image Generation (incluye edición asistida por IA)",
+      "definicion": "Crear imágenes nuevas a partir de una descripción en texto, usando un modelo generativo de imágenes. La edición de imágenes con IA aplica esa misma capacidad para modificar una imagen ya existente.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "imggen-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Crear imágenes nuevas a partir de una descripción en texto"
+            },
+            {
+              "id": "b",
+              "text": "Detectar el idioma de un texto"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "imggen-2",
+          "type": "true-false",
+          "statement": "Un modelo generativo de imágenes también puede usarse para editar una imagen existente.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "document-extraction",
+      "termino": "Extracción de información de documentos",
+      "nombreCompleto": "Document/Form Processing, Field Extraction",
+      "definicion": "Procesar documentos o formularios (facturas, contratos, formularios escaneados) para extraer campos específicos de forma estructurada, en vez de solo leer el texto plano.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "docext-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Extraer campos específicos y estructurados de un documento/formulario"
+            },
+            {
+              "id": "b",
+              "text": "Traducir el documento a otro idioma"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "docext-2",
+          "type": "true-false",
+          "statement": "Extraer el 'número de factura' y el 'total a pagar' de una factura escaneada es extracción de información.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "structured-vs-unstructured",
+      "termino": "Datos estructurados vs. no estructurados",
+      "nombreCompleto": "Structured vs. Unstructured Data",
+      "definicion": "Datos estructurados: organizados en un formato fijo, como filas y columnas (una hoja de cálculo). Datos no estructurados: sin ese formato fijo, como texto libre, imágenes o audio.",
+      "categoria": "Cargas de trabajo de IA",
+      "ejercicios": [
+        {
+          "id": "structdata-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Estructurados = filas/columnas fijas; no estructurados = texto libre, imágenes, audio"
+            },
+            {
+              "id": "b",
+              "text": "No hay ninguna diferencia real entre ambos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "structdata-2",
+          "type": "true-false",
+          "statement": "Una foto es un ejemplo típico de dato no estructurado.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "azure-ai-language",
+      "termino": "Azure AI Language",
+      "nombreCompleto": "Servicio de lenguaje de Azure",
+      "definicion": "El servicio de Azure AI para tareas de NLP: análisis de sentimiento, extracción de entidades y palabras clave, resumen, detección de idioma, y más — sin tener que entrenar tu propio modelo.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "azlang-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Servicio de Azure para tareas de NLP como sentimiento, entidades y resumen"
+            },
+            {
+              "id": "b",
+              "text": "Servicio de Azure para generar imágenes"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "azlang-2",
+          "type": "true-false",
+          "statement": "Azure AI Language ofrece análisis de sentimiento y extracción de entidades entre sus capacidades.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "azure-ai-speech",
+      "termino": "Azure AI Speech",
+      "nombreCompleto": "Servicio de voz de Azure",
+      "definicion": "El servicio de Azure AI para convertir voz a texto, texto a voz, traducir voz, y reconocer al hablante.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "azspeech-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Servicio de Azure para voz a texto, texto a voz y tareas relacionadas"
+            },
+            {
+              "id": "b",
+              "text": "Servicio de Azure exclusivo para bases de datos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "azspeech-2",
+          "type": "true-false",
+          "statement": "Azure AI Speech incluye tanto Speech-to-Text como Text-to-Speech.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "ssml",
+      "termino": "SSML",
+      "nombreCompleto": "Speech Synthesis Markup Language",
+      "definicion": "Un lenguaje basado en XML para controlar detalles finos de la voz sintética generada por Text-to-Speech: pausas, énfasis, pronunciación y velocidad.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "ssml-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un lenguaje para controlar pausas, énfasis y pronunciación de una voz sintética"
+            },
+            {
+              "id": "b",
+              "text": "Un formato para guardar imágenes"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "ssml-2",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla SSML?",
+          "respuestasAceptadas": [
+            "speech synthesis markup language"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "azure-ai-translator",
+      "termino": "Azure AI Translator",
+      "nombreCompleto": "Servicio de traducción de Azure",
+      "definicion": "El servicio de Azure AI dedicado a traducir texto (y voz, junto con Azure AI Speech) entre docenas de idiomas.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "aztranslator-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Servicio de Azure dedicado a traducir texto entre idiomas"
+            },
+            {
+              "id": "b",
+              "text": "Servicio de Azure para detectar rostros"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "aztranslator-2",
+          "type": "true-false",
+          "statement": "Azure AI Translator soporta docenas de idiomas distintos.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "azure-ai-vision",
+      "termino": "Azure AI Vision",
+      "nombreCompleto": "Servicio de visión de Azure",
+      "definicion": "El servicio de Azure AI para tareas de Computer Vision: análisis de imágenes, OCR, detección de rostros, y más, sin entrenar tu propio modelo desde cero.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "azvision-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Servicio de Azure para análisis de imágenes, OCR y detección de rostros"
+            },
+            {
+              "id": "b",
+              "text": "Servicio de Azure para análisis de texto"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "azvision-2",
+          "type": "true-false",
+          "statement": "Azure AI Vision incluye capacidades de OCR entre sus funciones.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "custom-vision",
+      "termino": "Custom Vision",
+      "nombreCompleto": "Modelos de visión personalizados",
+      "definicion": "Un servicio de Azure que permite entrenar tu PROPIO modelo de clasificación de imágenes o detección de objetos, con tus propias categorías, sin necesitar experiencia profunda en ML.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "customvision-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Entrenar tu propio modelo de visión con tus propias categorías"
+            },
+            {
+              "id": "b",
+              "text": "Un servicio fijo que no se puede personalizar"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "customvision-2",
+          "type": "true-false",
+          "statement": "Custom Vision permite entrenar categorías específicas de tu negocio, no solo las genéricas de Azure AI Vision.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "azure-ai-search",
+      "termino": "Azure AI Search",
+      "nombreCompleto": "Servicio de búsqueda e indexación de Azure",
+      "definicion": "Un servicio para indexar y buscar contenido (texto, documentos) de forma eficiente; es una pieza clave para construir soluciones RAG, ya que permite recuperar la información relevante antes de dársela a un LLM.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "azsearch-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Indexar y buscar contenido eficientemente — clave para soluciones RAG"
+            },
+            {
+              "id": "b",
+              "text": "Un servicio exclusivo para monitorear el tráfico de red"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "azsearch-2",
+          "type": "true-false",
+          "statement": "Azure AI Search se usa frecuentemente como la pieza de 'recuperación' en una arquitectura RAG.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "azure-content-understanding",
+      "termino": "Azure Content Understanding",
+      "nombreCompleto": "Servicio para extraer información de contenido",
+      "definicion": "Un servicio de Azure AI que analiza documentos, imágenes, audio o video y extrae información estructurada de ellos, según un 'schema' (estructura) que tú defines.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "acu-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Analiza documentos/imágenes/audio/video y extrae información estructurada"
+            },
+            {
+              "id": "b",
+              "text": "Solo traduce texto entre idiomas"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "acu-2",
+          "type": "true-false",
+          "statement": "Azure Content Understanding puede trabajar con más de un tipo de contenido (documento, imagen, audio, video).",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "schema-extractor",
+      "termino": "Schema y Extractor",
+      "nombreCompleto": "Estructura esperada de los datos extraídos",
+      "definicion": "El 'schema' define QUÉ campos quieres extraer de un documento (por ejemplo: 'fecha', 'total'); el 'extractor' (analizador) es el componente configurado con ese schema que efectivamente extrae esos campos del contenido.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "schema-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El schema define qué campos extraer; el extractor los extrae efectivamente"
+            },
+            {
+              "id": "b",
+              "text": "Son sinónimos exactos, sin ninguna diferencia"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "schema-2",
+          "type": "true-false",
+          "statement": "En Content Understanding, primero se define el schema y luego se configura el extractor/analizador con base en él.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "azure-openai-service",
+      "termino": "Azure OpenAI Service",
+      "nombreCompleto": "Modelos de OpenAI en Azure",
+      "definicion": "El servicio que permite desplegar y usar los modelos de OpenAI (como GPT) dentro de la infraestructura y con las garantías de seguridad/cumplimiento de Azure.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "aoai-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Desplegar y usar modelos de OpenAI dentro de la infraestructura de Azure"
+            },
+            {
+              "id": "b",
+              "text": "Un servicio exclusivo para almacenar archivos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "aoai-2",
+          "type": "true-false",
+          "statement": "Azure OpenAI Service ofrece modelos de OpenAI con las garantías de seguridad de Azure.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "microsoft-copilot",
+      "termino": "Microsoft Copilot",
+      "nombreCompleto": "Asistente de IA generativa de Microsoft",
+      "definicion": "La familia de asistentes de IA generativa de Microsoft integrados en productos como Windows, Microsoft 365 y GitHub, que ayudan a los usuarios con tareas usando lenguaje natural.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "copilot-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Asistentes de IA generativa integrados en productos de Microsoft"
+            },
+            {
+              "id": "b",
+              "text": "Un servicio exclusivo de bases de datos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "copilot-2",
+          "type": "true-false",
+          "statement": "Copilot está integrado en varios productos de Microsoft, no es un único producto aislado.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "azure-ai-bot-service",
+      "termino": "Azure AI Bot Service",
+      "nombreCompleto": "Servicio para construir chatbots",
+      "definicion": "Un servicio de Azure para construir, probar y desplegar bots conversacionales que pueden conectarse a múltiples canales (Teams, sitios web, etc.).",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "botservice-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Construir, probar y desplegar bots conversacionales"
+            },
+            {
+              "id": "b",
+              "text": "Analizar imágenes con IA"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "botservice-2",
+          "type": "true-false",
+          "statement": "Un bot creado con Azure AI Bot Service puede conectarse a varios canales distintos.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "clu",
+      "termino": "CLU",
+      "nombreCompleto": "Conversational Language Understanding",
+      "definicion": "Un servicio para entrenar modelos que entienden la INTENCIÓN detrás de un mensaje de usuario (por ejemplo, 'reservar un vuelo') y extraen las entidades relevantes (ciudad, fecha), usado para construir bots que entienden lenguaje natural.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "clu-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Entender la intención de un mensaje y extraer sus entidades relevantes"
+            },
+            {
+              "id": "b",
+              "text": "Generar imágenes a partir de texto"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "clu-2",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla CLU?",
+          "respuestasAceptadas": [
+            "conversational language understanding"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "automl",
+      "termino": "AutoML",
+      "nombreCompleto": "Automated Machine Learning",
+      "definicion": "Una capacidad de Azure Machine Learning que automatiza la selección del algoritmo y el ajuste de hiperparámetros, para crear un modelo de ML sin escribir el código de entrenamiento a mano.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "automl-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Automatiza la selección de algoritmo y ajuste de hiperparámetros"
+            },
+            {
+              "id": "b",
+              "text": "Solo sirve para desplegar modelos, nunca para entrenarlos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "automl-2",
+          "type": "true-false",
+          "statement": "AutoML permite crear un modelo de ML sin escribir manualmente el código de entrenamiento.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "ml-designer",
+      "termino": "Machine Learning Designer",
+      "nombreCompleto": "Diseñador visual de flujos de ML (sin código)",
+      "definicion": "Una herramienta de arrastrar y soltar dentro de Azure Machine Learning para construir un flujo de entrenamiento de un modelo (limpieza de datos, entrenamiento, evaluación) sin escribir código.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "mldesigner-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Construir un flujo de entrenamiento de ML arrastrando y soltando, sin código"
+            },
+            {
+              "id": "b",
+              "text": "Escribir código Python para entrenar un modelo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "mldesigner-2",
+          "type": "true-false",
+          "statement": "ML Designer es una alternativa 'sin código' para construir un pipeline de entrenamiento.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "ml-workspace",
+      "termino": "Azure Machine Learning Workspace",
+      "nombreCompleto": "Espacio de trabajo de Azure ML",
+      "definicion": "El recurso central de Azure Machine Learning donde se organizan los experimentos, datasets, modelos entrenados y despliegues de un proyecto de ML.",
+      "categoria": "Servicios de Azure AI",
+      "ejercicios": [
+        {
+          "id": "mlworkspace-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El recurso central donde se organiza un proyecto completo de Azure ML"
+            },
+            {
+              "id": "b",
+              "text": "Un tipo de máquina virtual específica"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "mlworkspace-2",
+          "type": "true-false",
+          "statement": "Dentro de un Workspace de Azure ML se pueden usar tanto AutoML como ML Designer.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "cloud-computing",
+      "termino": "Cloud Computing",
+      "nombreCompleto": "Computación en la nube",
+      "definicion": "Acceder a recursos de cómputo (servidores, almacenamiento, bases de datos, IA) a través de internet, pagando según el uso, en vez de comprar y mantener tu propio hardware.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "cloudcomp-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Acceder a recursos de cómputo por internet, pagando según el uso"
+            },
+            {
+              "id": "b",
+              "text": "Comprar servidores físicos para tu oficina"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "cloudcomp-2",
+          "type": "true-false",
+          "statement": "Un modelo de pago por uso es una característica típica de la computación en la nube.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "azure-subscription",
+      "termino": "Suscripción de Azure",
+      "nombreCompleto": "Azure Subscription",
+      "definicion": "El acuerdo comercial y de facturación con Azure bajo el cual se crean y organizan los recursos; define límites, permisos y a quién se le cobra.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "subscription-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El acuerdo de facturación bajo el cual se crean los recursos de Azure"
+            },
+            {
+              "id": "b",
+              "text": "Un tipo específico de máquina virtual"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "subscription-2",
+          "type": "true-false",
+          "statement": "Todos los recursos de Azure se crean dentro de una suscripción.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "resource-group",
+      "termino": "Grupo de recursos",
+      "nombreCompleto": "Resource Group",
+      "definicion": "Un contenedor lógico dentro de una suscripción que agrupa recursos relacionados (por ejemplo, todos los recursos de un mismo proyecto), para administrarlos y eliminarlos juntos.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "rg-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un contenedor lógico que agrupa recursos relacionados de un proyecto"
+            },
+            {
+              "id": "b",
+              "text": "Un tipo de red virtual"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "rg-2",
+          "type": "true-false",
+          "statement": "Eliminar un grupo de recursos elimina también todos los recursos que contiene.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "azure-region",
+      "termino": "Región de Azure",
+      "nombreCompleto": "Azure Region",
+      "definicion": "Una ubicación geográfica específica donde Azure tiene centros de datos (por ejemplo, 'East US'), donde puedes elegir desplegar tus recursos.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "region-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una ubicación geográfica específica con centros de datos de Azure"
+            },
+            {
+              "id": "b",
+              "text": "Un tipo de licencia de software"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "region-2",
+          "type": "true-false",
+          "statement": "Elegir la región correcta puede afectar la latencia y el cumplimiento normativo de tu solución.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "availability-zone",
+      "termino": "Zona de disponibilidad",
+      "nombreCompleto": "Availability Zone",
+      "definicion": "Una ubicación física físicamente separada e independiente DENTRO de una misma región de Azure, usada para tolerar fallos (si una zona falla, las otras siguen funcionando).",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "az-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Una ubicación física independiente dentro de una misma región, para tolerar fallos"
+            },
+            {
+              "id": "b",
+              "text": "Otro nombre para 'suscripción'"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "az-2",
+          "type": "true-false",
+          "statement": "Distribuir recursos entre varias zonas de disponibilidad ayuda a tolerar fallos.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "azure-portal",
+      "termino": "Azure Portal",
+      "nombreCompleto": "Portal web de administración de Azure",
+      "definicion": "La interfaz web gráfica para crear, configurar y monitorear recursos de Azure con clics, sin necesidad de escribir comandos.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "portal-1",
+          "type": "true-false",
+          "statement": "El Azure Portal es una interfaz gráfica; Azure CLI es la alternativa por línea de comandos.",
+          "correctAnswer": true
+        },
+        {
+          "id": "portal-2",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Interfaz web gráfica para administrar recursos de Azure"
+            },
+            {
+              "id": "b",
+              "text": "Una herramienta exclusiva de línea de comandos"
+            }
+          ],
+          "correctOptionId": "a"
+        }
+      ]
+    },
+    {
+      "id": "azure-cli",
+      "termino": "Azure CLI",
+      "nombreCompleto": "Línea de comandos de Azure",
+      "definicion": "La herramienta de línea de comandos multiplataforma para crear y administrar recursos de Azure escribiendo comandos, útil para automatizar tareas.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "azcli-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Administrar recursos de Azure escribiendo comandos en una terminal"
+            },
+            {
+              "id": "b",
+              "text": "Una app móvil para ver facturas de Azure"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "azcli-2",
+          "type": "true-false",
+          "statement": "Azure CLI es útil para automatizar tareas repetitivas de administración.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "arm",
+      "termino": "ARM",
+      "nombreCompleto": "Azure Resource Manager",
+      "definicion": "El sistema de gestión que procesa todas las solicitudes de creación/modificación de recursos en Azure (sin importar si vienen del Portal, CLI o SDK), y permite definir infraestructura como código mediante plantillas.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "arm-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "El sistema que procesa todas las solicitudes de recursos en Azure"
+            },
+            {
+              "id": "b",
+              "text": "Un tipo de máquina virtual optimizada para IA"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "arm-2",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla ARM en el contexto de administración de Azure?",
+          "respuestasAceptadas": [
+            "azure resource manager"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "api-management",
+      "termino": "API Management",
+      "nombreCompleto": "Administración y publicación de APIs",
+      "definicion": "Un servicio de Azure para publicar, proteger, monitorear y versionar APIs de forma centralizada, actuando como una puerta de entrada (gateway) frente a los servicios reales.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "apimgmt-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Publicar, proteger y monitorear APIs de forma centralizada"
+            },
+            {
+              "id": "b",
+              "text": "Almacenar archivos de gran tamaño"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "apimgmt-2",
+          "type": "true-false",
+          "statement": "API Management puede actuar como una puerta de entrada (gateway) frente a tus servicios reales.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "virtual-machine",
+      "termino": "Máquina virtual",
+      "nombreCompleto": "Virtual Machine (VM)",
+      "definicion": "Un servidor 'simulado' por software que corre dentro de la infraestructura de Azure, con su propio sistema operativo — la base típica de un despliegue tipo IaaS.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "vm-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un servidor simulado por software, con su propio sistema operativo"
+            },
+            {
+              "id": "b",
+              "text": "Un contenedor de almacenamiento de archivos"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "vm-2",
+          "type": "true-false",
+          "statement": "Las máquinas virtuales son un ejemplo típico de recurso IaaS.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "storage-account",
+      "termino": "Cuenta de almacenamiento",
+      "nombreCompleto": "Storage Account",
+      "definicion": "El recurso de Azure que agrupa distintos servicios de almacenamiento (como Blob Storage) bajo un mismo espacio de nombres y configuración de acceso.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "storageacct-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Agrupa servicios de almacenamiento (como Blob Storage) bajo una configuración común"
+            },
+            {
+              "id": "b",
+              "text": "Un tipo de suscripción de Azure"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "storageacct-2",
+          "type": "true-false",
+          "statement": "Blob Storage es uno de los servicios que se pueden crear dentro de una cuenta de almacenamiento.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "blob-storage",
+      "termino": "Blob Storage",
+      "nombreCompleto": "Almacenamiento de objetos",
+      "definicion": "El servicio de Azure para guardar grandes cantidades de datos no estructurados (imágenes, videos, documentos, backups) como 'objetos', accesibles por URL.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "blob-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Almacenar datos no estructurados (imágenes, videos, backups) como objetos"
+            },
+            {
+              "id": "b",
+              "text": "Una base de datos relacional con tablas"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "blob-2",
+          "type": "true-false",
+          "statement": "Blob Storage es ideal para datos no estructurados, no para tablas relacionales.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "identity",
+      "termino": "Identidad",
+      "nombreCompleto": "Identity",
+      "definicion": "La representación digital de un usuario, aplicación o servicio dentro de un sistema, usada como base para autenticar y autorizar el acceso a recursos.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "identity-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "La representación digital de un usuario/app/servicio, base de la autenticación"
+            },
+            {
+              "id": "b",
+              "text": "El nombre comercial de una suscripción de Azure"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "identity-2",
+          "type": "true-false",
+          "statement": "Microsoft Entra ID administra identidades de usuarios y aplicaciones en Azure.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "rbac",
+      "termino": "RBAC",
+      "nombreCompleto": "Role-Based Access Control (Control de acceso basado en roles)",
+      "definicion": "Un modelo de permisos donde el acceso a un recurso se otorga asignando ROLES (como 'Lector' o 'Colaborador') a usuarios o grupos, en vez de definir permisos uno por uno.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "rbac-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Asignar roles predefinidos (como 'Lector') en vez de permisos uno por uno"
+            },
+            {
+              "id": "b",
+              "text": "Cifrar los datos automáticamente en reposo"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "rbac-2",
+          "type": "texto-libre",
+          "prompt": "¿Qué significa la sigla RBAC?",
+          "respuestasAceptadas": [
+            "role-based access control",
+            "control de acceso basado en roles"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "monitoring",
+      "termino": "Supervisión / Monitoreo",
+      "nombreCompleto": "Monitoring",
+      "definicion": "Observar de forma continua el estado, rendimiento y disponibilidad de los recursos y aplicaciones en Azure, para detectar problemas a tiempo.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "monitoring-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Observar continuamente el estado y rendimiento de los recursos"
+            },
+            {
+              "id": "b",
+              "text": "Cifrar los datos de un recurso"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "monitoring-2",
+          "type": "true-false",
+          "statement": "El monitoreo ayuda a detectar problemas de rendimiento antes de que afecten a los usuarios.",
+          "correctAnswer": true
+        }
+      ]
+    },
+    {
+      "id": "log",
+      "termino": "Log",
+      "nombreCompleto": "Registro de eventos/actividad",
+      "definicion": "Un registro cronológico de eventos o actividad de un sistema (errores, solicitudes, cambios), usado para depurar problemas o auditar qué pasó.",
+      "categoria": "Azure y Cloud Fundamentals",
+      "ejercicios": [
+        {
+          "id": "log-1",
+          "type": "single-select",
+          "options": [
+            {
+              "id": "a",
+              "text": "Un registro cronológico de eventos o actividad de un sistema"
+            },
+            {
+              "id": "b",
+              "text": "La versión más reciente de un modelo desplegado"
+            }
+          ],
+          "correctOptionId": "a"
+        },
+        {
+          "id": "log-2",
+          "type": "true-false",
+          "statement": "Revisar los logs es una práctica común para depurar un problema en producción.",
+          "correctAnswer": true
+        }
       ]
     }
   ]

@@ -255,7 +255,17 @@ button { touch-action: manipulation; }
 }
 
 .tarjeta-seccion:active:not(:disabled) { transform: scale(0.96); background: var(--bg-card-hover); }
-.tarjeta-seccion.bloqueada { opacity: 0.4 !important; cursor: not-allowed; animation: none; }
+.tarjeta-seccion.bloqueada {
+  cursor: not-allowed;
+  animation: none;
+  opacity: 1;
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--border-soft);
+}
+.tarjeta-seccion.bloqueada .tarjeta-seccion-id { background: transparent; border: 1px dashed var(--border-soft); color: var(--text-faint); }
+.tarjeta-seccion.bloqueada .tarjeta-seccion-titulo,
+.tarjeta-seccion.bloqueada .tarjeta-seccion-meta { color: var(--text-faint); }
 
 .tarjeta-seccion-top { display: flex; justify-content: space-between; align-items: center; }
 .tarjeta-seccion-id {
@@ -293,28 +303,54 @@ button { touch-action: manipulation; }
   background: var(--bg-card);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 12px 6px;
+  padding: 14px 6px;
   cursor: pointer;
   color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.15s ease, background 0.15s ease;
   opacity: 0;
   animation: tarjetaEntra 0.3s ease forwards;
 }
 .caja-leccion:active:not(:disabled) { transform: scale(0.92); }
-.caja-leccion.actual { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); animation: tarjetaEntra 0.3s ease forwards, latido 2s ease-in-out 0.4s infinite; }
-.caja-leccion.completada { border-color: var(--success); }
-.caja-leccion.bloqueada { opacity: 0.32 !important; cursor: not-allowed; animation: none; }
+
+.caja-leccion .caja-leccion-numero {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem; font-weight: 800;
+  background: var(--accent-soft); color: var(--accent);
+}
+
+.caja-leccion.actual {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+  animation: tarjetaEntra 0.3s ease forwards, latido 2s ease-in-out 0.4s infinite;
+}
+.caja-leccion.actual .caja-leccion-numero { background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #041423; }
+
+.caja-leccion.completada { border-color: var(--success); background: var(--success-soft); }
+.caja-leccion.completada .caja-leccion-numero { background: var(--success); color: #052b1c; }
+.caja-leccion.completada .caja-leccion-info { color: var(--success); font-weight: 600; }
+
+/* Bloqueada: un estado propio y legible, no una versión "apagada" del resto */
+.caja-leccion.bloqueada {
+  cursor: not-allowed;
+  animation: none;
+  opacity: 1;
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--border-soft);
+}
+.caja-leccion.bloqueada .caja-leccion-numero { background: transparent; border: 1.5px dashed var(--border-soft); color: var(--text-faint); font-size: 0.85rem; }
+.caja-leccion.bloqueada .caja-leccion-info { color: var(--text-faint); font-size: 0.6rem; }
 
 @keyframes latido {
   0%, 100% { box-shadow: 0 0 0 3px var(--accent-glow); }
   50% { box-shadow: 0 0 0 6px transparent; }
 }
 
-.caja-leccion-numero { font-size: 1.05rem; font-weight: 800; }
 .caja-leccion-barra { width: 100%; height: 4px; background: var(--border); border-radius: var(--radius-pill); overflow: hidden; }
 .caja-leccion-barra-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); transition: width 0.3s ease; }
 .caja-leccion-info { font-size: 0.64rem; color: var(--text-faint); text-align: center; }
@@ -415,6 +451,21 @@ button { touch-action: manipulation; }
 }
 .texto-libre-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
 
+/* ---------- Definición (primera vez que se estudia un concepto) ---------- */
+
+.definicion-banner {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--text);
+  animation: tarjetaEntra 0.3s ease;
+}
+.definicion-banner strong { color: var(--accent); }
+
 /* ---------- Modal (bottom sheet, siempre desde abajo en mobile) ---------- */
 
 .modal-overlay {
@@ -471,6 +522,7 @@ button { touch-action: manipulation; }
 
 .modal-feedback.feedback-correcto { border-top: 3px solid var(--success); }
 .modal-feedback.feedback-incorrecto { border-top: 3px solid var(--danger); }
+.modal-feedback.feedback-reflexion { border-top: 3px solid var(--accent); }
 .feedback-encabezado { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .feedback-icono { font-size: 1.7rem; animation: pop 0.35s ease; }
 .feedback-titulo { font-size: 1.1rem; font-weight: 700; }

@@ -203,7 +203,7 @@ def get_html_template():
         <button class="btn" id="btnCopiarReporteSeccion" disabled>📋 Reporte</button>
       </div>
     </div>
-    <div id="leccionesContainer" class="grid-lecciones"></div>
+    <div id="leccionesContainer"></div>
   </div>
 
   <div id="pantallaEjercicio" class="screen">
@@ -211,6 +211,7 @@ def get_html_template():
       <button class="btn-icono" id="btnVolverLecciones" aria-label="Volver">←</button>
       <span id="ejercicioTag" style="color:var(--text-dim);font-size:0.85rem;"></span>
     </div>
+    <div id="ejercicioDefinicion" class="definicion-banner" style="display:none;"></div>
     <div id="ejercicioContainer"></div>
   </div>
 
@@ -280,7 +281,8 @@ def get_main_logic():
     conceptos: document.getElementById("pantallaConceptos"),
   };
 
-  function mostrarPantalla(nombre) {
+  function mostrarPantalla(nombre, opciones) {
+    const push = !opciones || opciones.push !== false;
     Object.entries(pantallas).forEach(([k, el]) => {
       if (!el) return;
       const activa = k === nombre;
@@ -290,11 +292,22 @@ def get_main_logic():
       }
       el.classList.toggle("active", activa);
     });
+    // Solo las 2 pantallas "de nivel superior" (con pestaña propia) cambian
+    // el resaltado de la barra inferior; Lecciones/Ejercicio/Aprendizaje son
+    // parte del flujo de "Secciones" y no deben apagar esa pestaña.
+    if (nombre === "secciones" || nombre === "conceptos") {
+      document.querySelectorAll(".tabbar-btn").forEach((b) => b.classList.toggle("active", b.dataset.tab === nombre));
+    }
+    // Empuja un estado al historial del navegador para que el botón/gesto de
+    // "atrás" del teléfono navegue entre pantallas de la app en vez de
+    // salir de ella — sin esto, no hay nada que "deshacer" y el gesto nativo
+    // simplemente cierra la página. Ver el listener de "popstate" en init().
+    if (push && nombre !== pantallaActual) {
+      history.pushState({ pantalla: nombre }, "", "#" + nombre);
+    }
+    pantallaActual = nombre;
   }
-
-  // "leccion" | "practica" | "concepto" — decide a dónde vuelve la flecha ←
-  // de la pantalla de ejercicio, y cuál handler recibe la respuesta.
-  let modoEjercicio = "leccion";
+  let pantallaActual = "secciones";
 
   const callbacksLecciones = { onAbrirLeccion: abrirLeccion, onGenerarReintento: generarReintentoUI };
   const callbacksAprendizaje = { onIniciarPractica: iniciarPracticaUI };
@@ -327,7 +340,6 @@ def get_main_logic():
   function abrirLeccion(seccionId, leccionIndex) {
     AppState.seccionActivaId = seccionId;
     AppState.leccionActivaIndex = leccionIndex;
-    modoEjercicio = "leccion";
     mostrarPantalla("ejercicio");
     mostrarSiguienteEjercicio(seccionId);
   }
@@ -337,9 +349,9 @@ def get_main_logic():
     const actual = obtenerItemActual(seccionId, leccionIndex);
     const tagEl = document.getElementById("ejercicioTag");
     const cont = document.getElementById("ejercicioContainer");
+    ocultarDefinicion();
     if (!actual) {
-      renderLecciones(seccionId, callbacksLecciones);
-      mostrarPantalla("lecciones");
+      history.back(); // el popstate reconstruye Lecciones (ver init())
       return;
     }
     if (tagEl) tagEl.textContent = "Sección " + seccionId + " · Lección " + (leccionIndex + 1) + (actual.esRepaso ? " · repaso" : "");
@@ -363,12 +375,10 @@ def get_main_logic():
       toast(r.cierre.aprobado
         ? ("🎉 ¡Sección aprobada con " + r.cierre.pct + "%!")
         : ("🔁 Obtuviste " + r.cierre.pct + "%. Necesitas 90% — genera un reintento desde la sección."));
-      renderLecciones(seccionId, callbacksLecciones);
-      mostrarPantalla("lecciones");
+      history.back(); // vuelve a Lecciones sin apilar una entrada nueva
     } else if (r.terminoLeccion) {
       toast("✅ Lección completada");
-      renderLecciones(seccionId, callbacksLecciones);
-      mostrarPantalla("lecciones");
+      history.back();
     } else {
       mostrarSiguienteEjercicio(seccionId);
     }
@@ -385,7 +395,6 @@ def get_main_logic():
 
   function iniciarPracticaUI(seccionId) {
     asegurarPracticaActual(seccionId);
-    modoEjercicio = "practica";
     mostrarPantalla("ejercicio");
     mostrarSiguientePractica(seccionId);
   }
@@ -394,10 +403,10 @@ def get_main_logic():
     const actual = obtenerItemPractica(seccionId);
     const tagEl = document.getElementById("ejercicioTag");
     const cont = document.getElementById("ejercicioContainer");
+    ocultarDefinicion();
     if (!actual) {
       toast("🎉 Terminaste la práctica de esta sección");
-      renderAprendizaje(seccionId, callbacksAprendizaje);
-      mostrarPantalla("aprendizaje");
+      history.back(); // el popstate reconstruye Aprendizaje (ver init())
       return;
     }
     if (tagEl) tagEl.textContent = "💡 Práctica · " + seccionId;
@@ -425,10 +434,14 @@ def get_main_logic():
 
   function abrirConcepto(conceptoId) {
     AppState.conceptoActivoId = conceptoId;
-    modoEjercicio = "concepto";
     iniciarRepasoConcepto(conceptoId);
     mostrarPantalla("ejercicio");
     mostrarSiguienteItemConcepto();
+  }
+
+  function ocultarDefinicion() {
+    const def = document.getElementById("ejercicioDefinicion");
+    if (def) { def.style.display = "none"; def.textContent = ""; }
   }
 
   function mostrarSiguienteItemConcepto() {
@@ -437,12 +450,28 @@ def get_main_logic():
     const tagEl = document.getElementById("ejercicioTag");
     const cont = document.getElementById("ejercicioContainer");
     if (!actual) {
-      renderConceptos(callbacksConceptos);
-      mostrarPantalla("conceptos");
+      ocultarDefinicion();
+      history.back(); // el popstate reconstruye Conceptos (ver init())
       return;
     }
     const concepto = (AppState.conceptosCatalogo || []).find((c) => c.id === conceptoId);
     if (tagEl) tagEl.textContent = "📚 " + (concepto ? concepto.termino : conceptoId) + (actual.esRepaso ? " · repaso" : "");
+
+    // La definición se muestra SOLO en el primer ejercicio de la PRIMERA
+    // vez que se estudia este concepto (historial vacío) — en repasos
+    // posteriores se va directo a las preguntas.
+    const esPrimeraVezDelConcepto = getConceptoState(conceptoId).historial.length === 0 && actual.posicion === 0 && !actual.esRepaso;
+    const defEl = document.getElementById("ejercicioDefinicion");
+    if (defEl) {
+      if (esPrimeraVezDelConcepto && concepto?.definicion) {
+        defEl.style.display = "block";
+        defEl.innerHTML = "💡 <strong>" + (concepto.nombreCompleto || concepto.termino) + ":</strong> " + concepto.definicion;
+      } else {
+        defEl.style.display = "none";
+        defEl.textContent = "";
+      }
+    }
+
     renderEjercicio(actual.exercise, cont, (respuesta) => manejarRespuestaConcepto(respuesta));
   }
 
@@ -462,8 +491,7 @@ def get_main_logic():
   function manejarAvanceConcepto(r) {
     if (r.cierre) {
       toast("📈 Nivel " + r.cierre.nivel + "/10 — " + r.cierre.aciertos + "/" + r.cierre.total + " correctas");
-      renderConceptos(callbacksConceptos);
-      mostrarPantalla("conceptos");
+      history.back(); // vuelve a Conceptos sin apilar una entrada nueva
     } else {
       mostrarSiguienteItemConcepto();
     }
@@ -476,26 +504,16 @@ def get_main_logic():
     document.getElementById("btnAjustes").addEventListener("click", () => {
       mostrarModalAjustes({ onCambios: refrescarSecciones });
     });
-    document.getElementById("btnVolverSecciones").addEventListener("click", () => {
-      refrescarSecciones();
-      mostrarPantalla("secciones");
-    });
-    document.getElementById("btnVolverLecciones").addEventListener("click", () => {
-      if (modoEjercicio === "practica") {
-        renderAprendizaje(AppState.seccionActivaId, callbacksAprendizaje);
-        mostrarPantalla("aprendizaje");
-      } else if (modoEjercicio === "concepto") {
-        renderConceptos(callbacksConceptos);
-        mostrarPantalla("conceptos");
-      } else {
-        renderLecciones(AppState.seccionActivaId, callbacksLecciones);
-        mostrarPantalla("lecciones");
-      }
-    });
-    document.getElementById("btnVolverDeAprendizaje").addEventListener("click", () => {
-      renderLecciones(AppState.seccionActivaId, callbacksLecciones);
-      mostrarPantalla("lecciones");
-    });
+
+    // Los botones ← simplemente le piden al navegador que retroceda en su
+    // historial — y es el listener de "popstate" de más abajo el que
+    // reconstruye la pantalla de destino. Así el botón en pantalla y el
+    // gesto/botón físico de "atrás" del teléfono quedan sincronizados: es
+    // literalmente el mismo camino de código.
+    document.getElementById("btnVolverSecciones").addEventListener("click", () => history.back());
+    document.getElementById("btnVolverLecciones").addEventListener("click", () => history.back());
+    document.getElementById("btnVolverDeAprendizaje").addEventListener("click", () => history.back());
+
     document.getElementById("btnAbrirAprendizaje").addEventListener("click", abrirAprendizaje);
     document.getElementById("btnCopiarReporteSeccion").addEventListener("click", () => {
       copiarReporteSeccion(AppState.seccionActivaId);
@@ -503,10 +521,23 @@ def get_main_logic():
 
     document.querySelectorAll(".tabbar-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
-        document.querySelectorAll(".tabbar-btn").forEach((b) => b.classList.toggle("active", b === btn));
         if (btn.dataset.tab === "secciones") { refrescarSecciones(); mostrarPantalla("secciones"); }
         else if (btn.dataset.tab === "conceptos") { abrirConceptos(); }
       });
+    });
+
+    // Punto de partida del historial de navegación (ver mostrarPantalla).
+    history.replaceState({ pantalla: "secciones" }, "", "#secciones");
+    window.addEventListener("popstate", (evento) => {
+      const destino = (evento.state && evento.state.pantalla) || "secciones";
+      // Reconstruye el contenido de la pantalla destino, igual que hacía
+      // cada botón de "volver" antes — solo que ahora responde tanto al
+      // botón en pantalla como al gesto/botón nativo del teléfono.
+      if (destino === "secciones") refrescarSecciones();
+      else if (destino === "lecciones") renderLecciones(AppState.seccionActivaId, callbacksLecciones);
+      else if (destino === "aprendizaje") renderAprendizaje(AppState.seccionActivaId, callbacksAprendizaje);
+      else if (destino === "conceptos") renderConceptos(callbacksConceptos);
+      mostrarPantalla(destino, { push: false });
     });
 
     // Precarga en segundo plano los datos de todas las secciones, para que

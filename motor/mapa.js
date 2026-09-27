@@ -112,10 +112,10 @@ export function renderLecciones(seccionId, callbacks) {
       return `
         <button class="caja-leccion ${completada ? "completada" : ""} ${actual ? "actual" : ""} ${bloqueada ? "bloqueada" : ""}"
                 data-leccion="${idx}" ${bloqueada ? "disabled" : ""}>
-          <div class="caja-leccion-numero">${idx + 1}</div>
-          <div class="caja-leccion-barra"><div class="caja-leccion-barra-fill" style="width:${pct}%"></div></div>
+          <div class="caja-leccion-numero">${bloqueada ? "🔒" : completada ? "✓" : idx + 1}</div>
+          ${bloqueada ? "" : `<div class="caja-leccion-barra"><div class="caja-leccion-barra-fill" style="width:${pct}%"></div></div>`}
           <div class="caja-leccion-info">
-            ${completada ? `✅ ${aciertos}/${total}` : bloqueada ? "🔒" : `${total} ejercicios`}
+            ${completada ? `${aciertos}/${total}` : bloqueada ? "Bloqueada" : `${total} ejercicios`}
           </div>
         </button>
       `;
