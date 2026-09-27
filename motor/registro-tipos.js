@@ -15,6 +15,7 @@ const REGISTRO_TIPOS = {
   "true-false": { render: renderTrueFalse, calificar: calificarTrueFalse },
   "matching": { render: renderMatching, calificar: calificarMatching },
   "dropdown": { render: renderDropdown, calificar: calificarDropdown },
+  "texto-libre": { render: renderTextoLibre, calificar: calificarTextoLibre },
 };
 
 function renderEjercicio(exercise, container, onListo) {

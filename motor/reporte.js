@@ -48,6 +48,8 @@ function formatearRespuestaUsuario(exercise, respuesta) {
       const blanks = respuesta || [];
       return blanks.map((b) => b.selected || "(vacío)").join(", ");
     }
+    case "texto-libre":
+      return respuesta || "(vacío)";
     default:
       return String(respuesta ?? "");
   }
@@ -82,6 +84,8 @@ function formatearRespuestaEsperada(exercise) {
     }
     case "dropdown":
       return (exercise.blanks || []).map((b) => b.correctOption).join(", ");
+    case "texto-libre":
+      return (exercise.respuestasAceptadas || [])[0] || "";
     default:
       return "";
   }
@@ -141,6 +145,34 @@ function copiarReporteSeccion(seccionId) {
   navigator.clipboard
     ?.writeText(texto)
     .then(() => window._toast?.("📋 Reporte copiado al portapapeles"))
+    .catch(() => window._toast?.("No se pudo copiar automáticamente — revisa la consola"));
+  return texto;
+}
+
+// ------------------------------------------------------------
+// Reflexiones (respuestas abiertas de texto-libre modo "reflexion")
+// ------------------------------------------------------------
+
+function construirReporteReflexiones() {
+  const reflexiones = AppState.reflexiones || [];
+  if (!reflexiones.length) return "(Todavía no has guardado ninguna reflexión)";
+
+  const lineas = ["Mis reflexiones — AI-901 Trainer", ""];
+  reflexiones.forEach((r) => {
+    const fecha = new Date(r.fecha).toLocaleString();
+    lineas.push(`${r.termino} — ${fecha}`);
+    lineas.push(r.pregunta);
+    lineas.push(`Mi respuesta: ${r.texto}`);
+    lineas.push("");
+  });
+  return lineas.join("\n");
+}
+
+function copiarReflexiones() {
+  const texto = construirReporteReflexiones();
+  navigator.clipboard
+    ?.writeText(texto)
+    .then(() => window._toast?.("📋 Reflexiones copiadas al portapapeles"))
     .catch(() => window._toast?.("No se pudo copiar automáticamente — revisa la consola"));
   return texto;
 }

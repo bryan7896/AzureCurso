@@ -11,35 +11,40 @@
   <link rel="apple-touch-icon" href="./icon.svg" />
   <link rel="manifest" href="./manifest.json" />
   <title>AI-901 Trainer</title>
-  <style>/* estilos/main.css — AI-901 Trainer — tema oscuro, acentos azul cielo */
+  <style>/* estilos/main.css — AI-901 Trainer — mobile-first, oscuro, azul cielo */
 
 :root {
   --bg: #060a13;
   --bg-elev: #0c1424;
   --bg-card: #101b30;
-  --bg-card-hover: #142138;
+  --bg-card-hover: #16233c;
   --border: #1f2f4d;
   --border-soft: #182640;
-  --text: #e7edf9;
-  --text-dim: #8ea0c2;
-  --text-faint: #5b6c8c;
+  --text: #eef2fb;
+  --text-dim: #94a6c4;
+  --text-faint: #5f7092;
   --accent: #38bdf8;
   --accent-strong: #0ea5e9;
-  --accent-soft: rgba(56, 189, 248, 0.12);
+  --accent-soft: rgba(56, 189, 248, 0.14);
   --accent-glow: rgba(56, 189, 248, 0.35);
   --success: #34d399;
-  --success-soft: rgba(52, 211, 153, 0.12);
+  --success-soft: rgba(52, 211, 153, 0.14);
   --danger: #f87171;
-  --danger-soft: rgba(248, 113, 113, 0.12);
+  --danger-soft: rgba(248, 113, 113, 0.14);
   --warning: #fbbf24;
-  --radius-lg: 20px;
-  --radius-md: 14px;
-  --radius-sm: 10px;
+  --dom2: #a78bfa;
+  --dom2-soft: rgba(167, 139, 250, 0.14);
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 11px;
   --radius-pill: 999px;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tabbar-h: 64px;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 html, body {
   height: 100%;
@@ -48,30 +53,48 @@ html, body {
   color: var(--text);
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
 }
 
 body {
   background:
-    radial-gradient(circle at 15% 0%, rgba(56, 189, 248, 0.08), transparent 45%),
-    radial-gradient(circle at 85% 100%, rgba(14, 165, 233, 0.06), transparent 40%),
+    radial-gradient(circle at 20% 0%, rgba(56, 189, 248, 0.12), transparent 40%),
+    radial-gradient(circle at 90% 15%, rgba(167, 139, 250, 0.08), transparent 35%),
+    radial-gradient(circle at 10% 100%, rgba(14, 165, 233, 0.08), transparent 40%),
     var(--bg);
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 button, input, select, textarea { font-family: inherit; }
+button { touch-action: manipulation; }
 
-/* ---------- Layout general ---------- */
+/* ---------- Layout mobile-first ---------- */
 
 .app-container {
-  max-width: 720px;
+  max-width: 480px;
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  padding-bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 8px);
 }
 
-.screen { display: none; padding: 16px; padding-bottom: 40px; }
-.screen.active { display: block; }
+.screen {
+  display: none;
+  padding: 14px 16px;
+  padding-bottom: 40px;
+}
+.screen.active {
+  display: block;
+  animation: pantallaEntra 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.screen.screen-entrando { opacity: 0; }
+
+@keyframes pantallaEntra {
+  from { opacity: 0; transform: translateY(10px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
 .topbar {
   position: sticky;
@@ -80,21 +103,17 @@ button, input, select, textarea { font-family: inherit; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 16px;
-  background: rgba(6, 10, 19, 0.85);
-  backdrop-filter: blur(10px);
+  padding: calc(12px + var(--safe-top)) 16px 12px;
+  background: rgba(6, 10, 19, 0.78);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border-soft);
 }
 
-.marca {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.marca { display: flex; align-items: center; gap: 10px; }
 
 .marca-logo {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-sm);
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
   display: flex;
@@ -103,10 +122,51 @@ button, input, select, textarea { font-family: inherit; }
   font-weight: 800;
   color: #041423;
   font-size: 0.85rem;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
+  animation: logoPulso 4s ease-in-out infinite;
+}
+@keyframes logoPulso {
+  0%, 100% { box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35); }
+  50% { box-shadow: 0 4px 22px rgba(56, 189, 248, 0.55); }
 }
 
 .marca-titulo { font-weight: 700; font-size: 1rem; letter-spacing: 0.2px; }
-.marca-sub { font-size: 0.7rem; color: var(--text-faint); }
+.marca-sub { font-size: 0.68rem; color: var(--text-faint); }
+
+/* ---------- Barra de navegación inferior (mobile) ---------- */
+
+.tabbar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 30;
+  max-width: 480px;
+  margin: 0 auto;
+  height: calc(var(--tabbar-h) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  display: flex;
+  background: rgba(9, 14, 26, 0.9);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border-soft);
+}
+
+.tabbar-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+.tabbar-btn .tabbar-icono { font-size: 1.25rem; transition: transform 0.2s ease; }
+.tabbar-btn .tabbar-label { font-size: 0.66rem; font-weight: 600; }
+.tabbar-btn.active { color: var(--accent); }
+.tabbar-btn.active .tabbar-icono { transform: translateY(-2px) scale(1.08); }
+.tabbar-btn:active { transform: scale(0.94); }
 
 /* ---------- Botones ---------- */
 
@@ -117,28 +177,26 @@ button, input, select, textarea { font-family: inherit; }
   color: var(--accent);
   border-radius: var(--radius-pill);
   padding: 10px 18px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: transform 0.1s ease, background 0.15s ease, box-shadow 0.15s ease;
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
-
-.btn:hover:not(:disabled) {
-  background: var(--accent-soft);
-  box-shadow: 0 0 0 4px var(--accent-glow);
-}
-
+.btn:hover:not(:disabled) { background: var(--accent-soft); box-shadow: 0 0 0 4px var(--accent-glow); }
+.btn:active:not(:disabled) { transform: scale(0.95); }
 .btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
 .btn-solido {
   background: linear-gradient(135deg, var(--accent), var(--accent-strong));
   color: #041423;
   border: none;
+  box-shadow: 0 4px 16px rgba(56, 189, 248, 0.25);
 }
-.btn-solido:hover:not(:disabled) { filter: brightness(1.08); box-shadow: 0 0 0 4px var(--accent-glow); }
+.btn-solido:hover:not(:disabled) { filter: brightness(1.08); }
+.btn-solido:active:not(:disabled) { transform: scale(0.95); box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3); }
 
 .btn-peligro { border-color: var(--danger); color: var(--danger); }
 .btn-peligro:hover:not(:disabled) { background: var(--danger-soft); box-shadow: 0 0 0 4px rgba(248, 113, 113, 0.25); }
@@ -155,31 +213,33 @@ button, input, select, textarea { font-family: inherit; }
   justify-content: center;
   cursor: pointer;
   font-size: 1.1rem;
+  transition: transform 0.12s ease, border-color 0.15s ease;
 }
 .btn-icono:hover { border-color: var(--accent); color: var(--accent); }
+.btn-icono:active { transform: scale(0.9); }
 
 .full { width: 100%; justify-content: center; }
 
 /* ---------- Secciones (pantalla principal) ---------- */
 
-.bloque-dominio { margin-bottom: 28px; }
+.bloque-dominio { margin-bottom: 26px; }
+.bloque-dominio:nth-child(2) .tarjeta-seccion-id { background: var(--dom2-soft); color: var(--dom2); }
 
 .bloque-dominio-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px;
   margin-bottom: 12px;
 }
-
-.bloque-dominio-header h2 { font-size: 1.05rem; margin: 0; }
-.bloque-dominio-peso { font-size: 0.78rem; color: var(--text-faint); }
+.bloque-dominio-header h2 { font-size: 1rem; margin: 0; }
+.bloque-dominio-peso { font-size: 0.72rem; color: var(--text-faint); }
 
 .grid-secciones {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .tarjeta-seccion {
@@ -187,26 +247,32 @@ button, input, select, textarea { font-family: inherit; }
   background: var(--bg-card);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 13px;
   cursor: pointer;
   color: var(--text);
-  transition: all 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.15s ease, background 0.15s ease;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
+  opacity: 0;
+  animation: tarjetaEntra 0.35s ease forwards;
+}
+.grid-secciones .tarjeta-seccion:nth-child(1) { animation-delay: 0.02s; }
+.grid-secciones .tarjeta-seccion:nth-child(2) { animation-delay: 0.07s; }
+.grid-secciones .tarjeta-seccion:nth-child(3) { animation-delay: 0.12s; }
+.grid-secciones .tarjeta-seccion:nth-child(4) { animation-delay: 0.17s; }
+
+@keyframes tarjetaEntra {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.tarjeta-seccion:hover:not(:disabled) {
-  border-color: var(--accent);
-  background: var(--bg-card-hover);
-  transform: translateY(-2px);
-}
-
-.tarjeta-seccion.bloqueada { opacity: 0.4; cursor: not-allowed; }
+.tarjeta-seccion:active:not(:disabled) { transform: scale(0.96); background: var(--bg-card-hover); }
+.tarjeta-seccion.bloqueada { opacity: 0.4 !important; cursor: not-allowed; animation: none; }
 
 .tarjeta-seccion-top { display: flex; justify-content: space-between; align-items: center; }
 .tarjeta-seccion-id {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--accent);
   background: var(--accent-soft);
@@ -214,13 +280,8 @@ button, input, select, textarea { font-family: inherit; }
   border-radius: var(--radius-pill);
 }
 .tarjeta-seccion-icono { font-size: 1rem; }
-.tarjeta-seccion-titulo { font-size: 0.88rem; font-weight: 600; line-height: 1.3; }
-.tarjeta-seccion-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.72rem;
-  color: var(--text-faint);
-}
+.tarjeta-seccion-titulo { font-size: 0.84rem; font-weight: 600; line-height: 1.3; }
+.tarjeta-seccion-meta { display: flex; flex-direction: column; gap: 2px; font-size: 0.68rem; color: var(--text-faint); }
 .tarjeta-seccion-estado { color: var(--text-dim); }
 
 /* ---------- Lecciones ---------- */
@@ -233,165 +294,59 @@ button, input, select, textarea { font-family: inherit; }
   margin-bottom: 16px;
   flex-wrap: wrap;
 }
-
-.lecciones-acciones { display: flex; gap: 8px; }
+.lecciones-acciones { display: flex; gap: 8px; flex-wrap: wrap; }
 
 .grid-lecciones {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
 
 .caja-leccion {
   background: var(--bg-card);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 12px 8px;
+  padding: 12px 6px;
   cursor: pointer;
   color: var(--text);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  transition: all 0.15s ease;
-}
-
-.caja-leccion:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-2px); }
-.caja-leccion.actual { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-.caja-leccion.completada { border-color: var(--success); }
-.caja-leccion.bloqueada { opacity: 0.35; cursor: not-allowed; }
-
-.caja-leccion-numero { font-size: 1.1rem; font-weight: 800; }
-.caja-leccion-barra { width: 100%; height: 4px; background: var(--border); border-radius: var(--radius-pill); overflow: hidden; }
-.caja-leccion-barra-fill { height: 100%; background: var(--accent); }
-.caja-leccion-info { font-size: 0.68rem; color: var(--text-faint); }
-
-.aviso-vacio { text-align: center; color: var(--text-faint); padding: 40px 16px; font-size: 0.9rem; }
-
-/* ---------- Modal ---------- */
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(3, 6, 12, 0.75);
-  backdrop-filter: blur(4px);
-  display: none;
-  align-items: flex-end;
-  justify-content: center;
-  z-index: 100;
-  padding: 0;
-}
-.modal-overlay.modal-activo { display: flex; }
-
-@media (min-width: 600px) {
-  .modal-overlay { align-items: center; }
-}
-
-.modal-tarjeta {
-  background: var(--bg-elev);
-  border: 1px solid var(--border);
-  border-top-left-radius: var(--radius-lg);
-  border-top-right-radius: var(--radius-lg);
-  width: 100%;
-  max-width: 480px;
-  max-height: 88vh;
-  overflow-y: auto;
-  padding: 20px;
-  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
-}
-
-@media (min-width: 600px) {
-  .modal-tarjeta { border-radius: var(--radius-lg); }
-}
-
-.modal-ajustes-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.modal-cerrar {
-  background: none;
-  border: none;
-  color: var(--text-dim);
-  font-size: 1.1rem;
-  cursor: pointer;
-}
-
-.ajustes-seccion { margin-bottom: 20px; }
-.ajustes-seccion h4 { font-size: 0.8rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px; }
-.ajustes-fila { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
-.ajustes-nota { font-size: 0.75rem; color: var(--text-dim); margin-top: 8px; }
-
-.btn-ajustes {
-  border: 1.5px solid var(--accent);
-  background: transparent;
-  color: var(--accent);
-  border-radius: var(--radius-pill);
-  padding: 9px 16px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-.btn-ajustes:hover { background: var(--accent-soft); }
-.btn-ajustes.full { width: 100%; justify-content: center; display: flex; margin-top: 6px; }
-
-.select-ajustes {
-  flex: 1;
-  min-width: 160px;
-  background: var(--bg-card);
-  border: 1.5px solid var(--border);
-  color: var(--text);
-  border-radius: var(--radius-sm);
-  padding: 9px 10px;
-  font-size: 0.82rem;
-}
-
-/* ---------- Toast ---------- */
-
-.toast {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--bg-elev);
-  border: 1px solid var(--accent);
-  color: var(--text);
-  padding: 10px 18px;
-  border-radius: var(--radius-pill);
-  font-size: 0.85rem;
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.15s ease;
   opacity: 0;
-  transition: all 0.25s ease;
-  z-index: 200;
-  pointer-events: none;
-  max-width: 90vw;
-  text-align: center;
+  animation: tarjetaEntra 0.3s ease forwards;
 }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.caja-leccion:active:not(:disabled) { transform: scale(0.92); }
+.caja-leccion.actual { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); animation: tarjetaEntra 0.3s ease forwards, latido 2s ease-in-out 0.4s infinite; }
+.caja-leccion.completada { border-color: var(--success); }
+.caja-leccion.bloqueada { opacity: 0.32 !important; cursor: not-allowed; animation: none; }
 
-/* ---------- Scrollbar sutil ---------- */
-
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: var(--radius-pill); }
-::-webkit-scrollbar-track { background: transparent; }
-
-/* ---------- Ejercicio: pregunta + opciones (comunes a los 5 tipos) ---------- */
-
-.pregunta-prompt {
-  font-size: 1.05rem;
-  font-weight: 600;
-  line-height: 1.4;
-  margin-bottom: 16px;
+@keyframes latido {
+  0%, 100% { box-shadow: 0 0 0 3px var(--accent-glow); }
+  50% { box-shadow: 0 0 0 6px transparent; }
 }
 
-.opciones-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 18px;
-}
+.caja-leccion-numero { font-size: 1.05rem; font-weight: 800; }
+.caja-leccion-barra { width: 100%; height: 4px; background: var(--border); border-radius: var(--radius-pill); overflow: hidden; }
+.caja-leccion-barra-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-strong)); transition: width 0.3s ease; }
+.caja-leccion-info { font-size: 0.64rem; color: var(--text-faint); text-align: center; }
 
+.aviso-vacio { text-align: center; color: var(--text-faint); padding: 40px 16px; font-size: 0.88rem; line-height: 1.5; }
+
+.banner-estado {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 13px 16px; border-radius: var(--radius-md); margin-bottom: 16px; font-size: 0.85rem;
+  animation: tarjetaEntra 0.3s ease;
+}
+.banner-exito { background: var(--success-soft); border: 1px solid var(--success); color: var(--success); }
+.banner-alerta { background: var(--danger-soft); border: 1px solid var(--danger); color: var(--danger); }
+
+/* ---------- Ejercicio: pregunta + opciones ---------- */
+
+.pregunta-prompt { font-size: 1.05rem; font-weight: 600; line-height: 1.4; margin-bottom: 16px; animation: tarjetaEntra 0.3s ease; }
+
+.opciones-lista { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
 .opciones-vf { flex-direction: row; }
 .opciones-vf .opcion-btn { flex: 1; text-align: center; }
 
@@ -402,87 +357,216 @@ button, input, select, textarea { font-family: inherit; }
   border-radius: var(--radius-md);
   padding: 14px 16px;
   color: var(--text);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.12s ease;
+  transition: transform 0.1s ease, border-color 0.12s ease, background 0.12s ease;
+  opacity: 0;
+  animation: tarjetaEntra 0.3s ease forwards;
 }
-.opcion-btn:hover { border-color: var(--accent); }
+.opciones-lista .opcion-btn:nth-child(1) { animation-delay: 0.02s; }
+.opciones-lista .opcion-btn:nth-child(2) { animation-delay: 0.06s; }
+.opciones-lista .opcion-btn:nth-child(3) { animation-delay: 0.1s; }
+.opciones-lista .opcion-btn:nth-child(4) { animation-delay: 0.14s; }
+.opcion-btn:active { transform: scale(0.97); }
 .opcion-btn.seleccionada { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 3px var(--accent-glow); }
-
 .opcion-check { margin-right: 4px; }
 
 .ejercicio-acciones { display: flex; justify-content: center; margin-top: 10px; }
 .ejercicio-acciones .btn { min-width: 200px; justify-content: center; }
 
-/* ---------- Emparejamiento (pairs) ---------- */
+/* ---------- Emparejamiento ---------- */
 
-.emparejar-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.emparejar-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
 .emparejar-col { display: flex; flex-direction: column; gap: 8px; }
-.opcion-emparejar { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; padding: 10px; }
+.opcion-emparejar { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; padding: 10px 8px; }
 .opcion-emparejar.activo { border-color: var(--warning); box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25); }
-.opcion-emparejar.pareado { border-color: var(--success); background: var(--success-soft); }
+.opcion-emparejar.pareado { border-color: var(--success); background: var(--success-soft); animation: pop 0.25s ease; }
+@keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.04); } 100% { transform: scale(1); } }
 .emparejar-badge {
   display: inline-flex; align-items: center; justify-content: center;
   width: 18px; height: 18px; border-radius: 50%;
-  background: var(--success); color: #052b1c; font-size: 0.68rem; font-weight: 800; flex-shrink: 0;
+  background: var(--success); color: #052b1c; font-size: 0.66rem; font-weight: 800; flex-shrink: 0;
 }
 
-/* ---------- Secuencia (ordenar con flechas) ---------- */
+/* ---------- Secuencia ---------- */
 
 .secuencia-lista { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
 .secuencia-fila {
   display: flex; align-items: center; gap: 10px;
   background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md);
   padding: 10px 12px;
+  transition: transform 0.15s ease;
 }
 .secuencia-numero {
   width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
-  display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; flex-shrink: 0;
 }
-.secuencia-texto { flex: 1; font-size: 0.88rem; }
+.secuencia-texto { flex: 1; font-size: 0.85rem; }
 .secuencia-flechas { display: flex; gap: 4px; }
 .btn-mini { width: 30px; height: 30px; font-size: 0.85rem; }
 
 /* ---------- Dropdown ---------- */
 
-.dropdown-texto { line-height: 2.2; }
+.dropdown-texto { line-height: 2.3; }
 .dropdown-select {
   background: var(--bg-card); border: 1.5px solid var(--accent); color: var(--accent);
-  border-radius: var(--radius-sm); padding: 4px 8px; font-size: 0.88rem; margin: 0 2px;
+  border-radius: var(--radius-sm); padding: 4px 8px; font-size: 0.86rem; margin: 0 2px;
 }
 
-/* ---------- Modal de feedback ---------- */
+/* ---------- Texto libre ---------- */
+
+.texto-libre-area { margin-bottom: 16px; }
+.texto-libre-input {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  font-size: 1rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.texto-libre-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+
+/* ---------- Modal (bottom sheet, siempre desde abajo en mobile) ---------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 6, 12, 0.72);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+  animation: overlayEntra 0.2s ease;
+}
+.modal-overlay.modal-activo { display: flex; }
+@keyframes overlayEntra { from { opacity: 0; } to { opacity: 1; } }
+
+.modal-tarjeta {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 480px;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 20px 20px calc(20px + var(--safe-bottom));
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+  animation: sheetSube 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes sheetSube { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+.modal-ajustes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.modal-cerrar { background: none; border: none; color: var(--text-dim); font-size: 1.1rem; cursor: pointer; }
+
+.ajustes-seccion { margin-bottom: 20px; }
+.ajustes-seccion h4 { font-size: 0.78rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 10px; }
+.ajustes-fila { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.ajustes-nota { font-size: 0.74rem; color: var(--text-dim); margin-top: 8px; }
+
+.btn-ajustes {
+  border: 1.5px solid var(--accent); background: transparent; color: var(--accent);
+  border-radius: var(--radius-pill); padding: 9px 16px; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  transition: transform 0.1s ease;
+}
+.btn-ajustes:active { transform: scale(0.95); }
+.btn-ajustes.full { width: 100%; justify-content: center; display: flex; margin-top: 6px; }
+
+.select-ajustes {
+  flex: 1; min-width: 140px; background: var(--bg-card); border: 1.5px solid var(--border); color: var(--text);
+  border-radius: var(--radius-sm); padding: 9px 10px; font-size: 0.8rem;
+}
+
+/* ---------- Feedback de respuesta ---------- */
 
 .modal-feedback.feedback-correcto { border-top: 3px solid var(--success); }
 .modal-feedback.feedback-incorrecto { border-top: 3px solid var(--danger); }
 .feedback-encabezado { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.feedback-icono { font-size: 1.6rem; }
+.feedback-icono { font-size: 1.7rem; animation: pop 0.35s ease; }
 .feedback-titulo { font-size: 1.1rem; font-weight: 700; }
-.feedback-explicacion { color: var(--text-dim); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px; }
+.feedback-explicacion { color: var(--text-dim); font-size: 0.89rem; line-height: 1.55; margin-bottom: 20px; }
 .modal-botones { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
 
 /* ---------- Aprendizaje: teoría, logros, práctica ---------- */
 
-.teoria-bloque { margin-bottom: 18px; }
-.teoria-bloque h3 { font-size: 0.95rem; margin: 0 0 8px; color: var(--accent); }
-.teoria-cuerpo { font-size: 0.88rem; line-height: 1.6; color: var(--text-dim); }
+.teoria-bloque { margin-bottom: 18px; animation: tarjetaEntra 0.3s ease; }
+.teoria-bloque h3 { font-size: 0.94rem; margin: 0 0 8px; color: var(--accent); }
+.teoria-cuerpo { font-size: 0.87rem; line-height: 1.6; color: var(--text-dim); }
 
 .logros-bloque { margin: 22px 0; padding: 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); }
-.logros-bloque h4 { margin: 0 0 10px; font-size: 0.85rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; }
-.logro-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; font-size: 0.88rem; cursor: pointer; }
-.logro-item input { margin-top: 3px; accent-color: var(--accent); }
+.logros-bloque h4 { margin: 0 0 10px; font-size: 0.82rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+.logro-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; font-size: 0.86rem; cursor: pointer; }
+.logro-item input { margin-top: 3px; accent-color: var(--accent); width: 18px; height: 18px; }
 
 .practica-bloque { margin: 18px 0; padding: 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); }
-.practica-bloque h4 { margin: 0 0 4px; font-size: 0.85rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+.practica-bloque h4 { margin: 0 0 4px; font-size: 0.82rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; }
 
-/* ---------- Banner de estado de sección ---------- */
+/* ---------- Conceptos (glosario con repetición espaciada) ---------- */
 
-.banner-estado {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
-  padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 16px; font-size: 0.85rem;
+.conceptos-subtitulo { font-size: 0.86rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; margin: 20px 0 10px; }
+.conceptos-subtitulo:first-child { margin-top: 4px; }
+
+.lista-conceptos { display: flex; flex-direction: column; gap: 8px; }
+
+.tarjeta-concepto {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius-md);
+  padding: 12px 14px; text-align: left; color: var(--text); cursor: pointer;
+  transition: transform 0.13s ease, border-color 0.13s ease;
+  opacity: 0; animation: tarjetaEntra 0.3s ease forwards;
 }
-.banner-exito { background: var(--success-soft); border: 1px solid var(--success); color: var(--success); }
-.banner-alerta { background: var(--danger-soft); border: 1px solid var(--danger); color: var(--danger); }
+.tarjeta-concepto:active { transform: scale(0.97); }
+.tarjeta-concepto:hover { border-color: var(--accent); }
+
+.concepto-nivel-anillo {
+  --pct: 10%;
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 800; color: var(--accent);
+  background: conic-gradient(var(--accent) var(--pct), var(--border) 0);
+  position: relative;
+}
+.concepto-nivel-anillo::before {
+  content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--bg-card);
+}
+.concepto-nivel-numero { position: relative; z-index: 1; }
+
+/* ---------- Toast ---------- */
+
+.toast {
+  position: fixed;
+  bottom: calc(var(--tabbar-h) + var(--safe-bottom) + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--bg-elev);
+  border: 1px solid var(--accent);
+  color: var(--text);
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.83rem;
+  opacity: 0;
+  transition: all 0.25s ease;
+  z-index: 200;
+  pointer-events: none;
+  max-width: 88vw;
+  text-align: center;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- Scrollbar sutil ---------- */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: var(--radius-pill); }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
 </style>
 </head>
 <body>
@@ -493,7 +577,7 @@ button, input, select, textarea { font-family: inherit; }
       <div class="marca-logo">AI</div>
       <div>
         <div class="marca-titulo">AI-901 Trainer</div>
-        <div class="marca-sub">0.2.0 (Parte 2 — motor de ejercicios)</div>
+        <div class="marca-sub">0.3.0 (Parte 3 — rediseño mobile + Conceptos)</div>
       </div>
     </div>
     <button class="btn-icono" id="btnAjustes" aria-label="Ajustes">⚙️</button>
@@ -531,7 +615,20 @@ button, input, select, textarea { font-family: inherit; }
     <div id="aprendizajeContainer"></div>
   </div>
 
+  <div id="pantallaConceptos" class="screen">
+    <div id="conceptosContainer"></div>
+  </div>
+
 </div>
+
+<nav class="tabbar" id="tabbar">
+  <button class="tabbar-btn active" data-tab="secciones">
+    <span class="tabbar-icono">🗂️</span><span class="tabbar-label">Secciones</span>
+  </button>
+  <button class="tabbar-btn" data-tab="conceptos">
+    <span class="tabbar-icono">📚</span><span class="tabbar-label">Conceptos</span>
+  </button>
+</nav>
 
 <div id="toast" class="toast"></div>
 
@@ -631,6 +728,9 @@ export const AppState = {
   seccionActivaId: null,
   leccionActivaIndex: 0,
   secciones: {}, // seccionId -> ver seccionVacia()
+  conceptosCatalogo: null, // contenido de datos/conceptos.json (no se persiste, se re-consulta como las secciones)
+  conceptos: {}, // conceptoId -> ver conceptoVacio() (SÍ se persiste: nivel, próxima revisión, historial)
+  reflexiones: [], // respuestas de ejercicios texto-libre modo "reflexion" (SÍ se persiste)
 };
 
 function seccionVacia() {
@@ -665,12 +765,37 @@ export function seccionTieneDatos(id) {
 }
 
 // ------------------------------------------------------------
+// Conceptos (glosario con repetición espaciada) — ver motor/conceptos.js
+// para toda la lógica de niveles y programación de repasos. Aquí solo
+// vive el modelo de datos y su persistencia.
+// ------------------------------------------------------------
+
+function conceptoVacio() {
+  return {
+    nivel: 1, // 1 a 10
+    proximaRevision: null, // ISO string; null = nunca estudiado -> siempre "para hoy"
+    historial: [], // [{ fecha, aciertos, total }]
+    repasoActual: null, // cola en curso de este concepto (3 ejercicios)
+  };
+}
+
+export function getConceptoState(id) {
+  if (!AppState.conceptos[id]) AppState.conceptos[id] = conceptoVacio();
+  return AppState.conceptos[id];
+}
+
+// ------------------------------------------------------------
 // Persistencia
 // ------------------------------------------------------------
 
 export function guardar() {
   try {
-    const data = { secciones: AppState.secciones, lastUpdated: new Date().toISOString() };
+    const data = {
+      secciones: AppState.secciones,
+      conceptos: AppState.conceptos,
+      reflexiones: AppState.reflexiones,
+      lastUpdated: new Date().toISOString(),
+    };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (e) {
     console.warn("No se pudo guardar el progreso:", e);
@@ -689,11 +814,27 @@ export function cargarDeStorage() {
     if (!raw) return false;
     const data = JSON.parse(raw);
     AppState.secciones = data.secciones || {};
+    AppState.conceptos = data.conceptos || {};
+    AppState.reflexiones = data.reflexiones || [];
     return true;
   } catch (e) {
     console.warn("No se pudo leer el progreso guardado:", e);
     return false;
   }
+}
+
+// Consulta datos/conceptos.json una sola vez (igual que asegurarDatosSeccion).
+export async function asegurarCatalogoConceptos({ forzar = false } = {}) {
+  if (AppState.conceptosCatalogo && !forzar) return AppState.conceptosCatalogo;
+  try {
+    const resp = await fetch("datos/conceptos.json", { cache: "no-store" });
+    const data = resp.ok ? await resp.json() : null;
+    AppState.conceptosCatalogo = (data && data.conceptos) || [];
+  } catch (e) {
+    console.warn("No se pudo cargar datos/conceptos.json:", e);
+    AppState.conceptosCatalogo = AppState.conceptosCatalogo || [];
+  }
+  return AppState.conceptosCatalogo;
 }
 
 // ------------------------------------------------------------
@@ -879,16 +1020,21 @@ export function reiniciarProgresoSeccion(seccionId) {
 
 export function reiniciarTodoElProgreso() {
   Object.keys(AppState.secciones).forEach((id) => reiniciarProgresoSeccion(id));
+  Object.keys(AppState.conceptos).forEach((id) => { AppState.conceptos[id] = conceptoVacio(); });
+  AppState.reflexiones = [];
+  guardar();
 }
 
 export function exportarProgreso() {
-  return JSON.stringify({ secciones: AppState.secciones, exportadoEn: new Date().toISOString() }, null, 2);
+  return JSON.stringify({ secciones: AppState.secciones, conceptos: AppState.conceptos, reflexiones: AppState.reflexiones, exportadoEn: new Date().toISOString() }, null, 2);
 }
 
 export function importarProgreso(jsonText) {
   const data = JSON.parse(jsonText);
   if (!data || !data.secciones) throw new Error("El archivo no tiene el formato esperado.");
   AppState.secciones = data.secciones;
+  AppState.conceptos = data.conceptos || {};
+  AppState.reflexiones = data.reflexiones || [];
   guardar();
 }
 
@@ -910,6 +1056,7 @@ const REGISTRO_TIPOS = {
   "true-false": { render: renderTrueFalse, calificar: calificarTrueFalse },
   "matching": { render: renderMatching, calificar: calificarMatching },
   "dropdown": { render: renderDropdown, calificar: calificarDropdown },
+  "texto-libre": { render: renderTextoLibre, calificar: calificarTextoLibre },
 };
 
 function renderEjercicio(exercise, container, onListo) {
@@ -978,6 +1125,8 @@ function formatearRespuestaUsuario(exercise, respuesta) {
       const blanks = respuesta || [];
       return blanks.map((b) => b.selected || "(vacío)").join(", ");
     }
+    case "texto-libre":
+      return respuesta || "(vacío)";
     default:
       return String(respuesta ?? "");
   }
@@ -1012,6 +1161,8 @@ function formatearRespuestaEsperada(exercise) {
     }
     case "dropdown":
       return (exercise.blanks || []).map((b) => b.correctOption).join(", ");
+    case "texto-libre":
+      return (exercise.respuestasAceptadas || [])[0] || "";
     default:
       return "";
   }
@@ -1071,6 +1222,34 @@ function copiarReporteSeccion(seccionId) {
   navigator.clipboard
     ?.writeText(texto)
     .then(() => window._toast?.("📋 Reporte copiado al portapapeles"))
+    .catch(() => window._toast?.("No se pudo copiar automáticamente — revisa la consola"));
+  return texto;
+}
+
+// ------------------------------------------------------------
+// Reflexiones (respuestas abiertas de texto-libre modo "reflexion")
+// ------------------------------------------------------------
+
+function construirReporteReflexiones() {
+  const reflexiones = AppState.reflexiones || [];
+  if (!reflexiones.length) return "(Todavía no has guardado ninguna reflexión)";
+
+  const lineas = ["Mis reflexiones — AI-901 Trainer", ""];
+  reflexiones.forEach((r) => {
+    const fecha = new Date(r.fecha).toLocaleString();
+    lineas.push(`${r.termino} — ${fecha}`);
+    lineas.push(r.pregunta);
+    lineas.push(`Mi respuesta: ${r.texto}`);
+    lineas.push("");
+  });
+  return lineas.join("\n");
+}
+
+function copiarReflexiones() {
+  const texto = construirReporteReflexiones();
+  navigator.clipboard
+    ?.writeText(texto)
+    .then(() => window._toast?.("📋 Reflexiones copiadas al portapapeles"))
     .catch(() => window._toast?.("No se pudo copiar automáticamente — revisa la consola"));
   return texto;
 }
@@ -1364,25 +1543,265 @@ function repasarItemPractica(seccionId) {
 }
 
 
+// motor/conceptos.js
+//
+// Módulo de "Conceptos": un glosario de términos técnicos (SaaS, API, LLM,
+// etc.) con repetición espaciada tipo Anki. Cada concepto tiene un nivel de
+// 1 a 10; acertar sus ejercicios sube el nivel y programa la próxima
+// revisión más lejos en el tiempo; fallar lo baja y la reprograma pronto.
+// Reutiliza el mismo renderEjercicio/calificarEjercicio/modal que las
+// lecciones — aquí solo vive la lógica de niveles, fechas y reflexiones.
+
+const CONCEPTOS_NIVEL_MIN = 1;
+const CONCEPTOS_NIVEL_MAX = 10;
+
+// Horas hasta la próxima revisión, según el nivel alcanzado (índice = nivel-1).
+// Nivel 1 se repasa en unas horas; nivel 10, cada mes y medio — curva típica
+// de un sistema de repetición espaciada.
+const CONCEPTOS_INTERVALOS_HORAS = [4, 8, 24, 48, 96, 168, 288, 480, 720, 1080];
+
+// Cuántos conceptos NUNCA estudiados se introducen como máximo por día —
+// para que el primer día no aparezcan los 180 de una sola vez. Los repasos
+// ya vencidos (conceptos que ya se estudiaron antes) NO tienen este límite:
+// siempre se muestran todos, como en cualquier sistema de repetición
+// espaciada real.
+const CONCEPTOS_NUEVOS_POR_DIA = 12;
+
+function horasDesdeAhora(horas) {
+  return new Date(Date.now() + horas * 3600 * 1000).toISOString();
+}
+
+function conceptoEstaParaHoy(progreso) {
+  if (!progreso.proximaRevision) return true;
+  return new Date(progreso.proximaRevision).getTime() <= Date.now();
+}
+
+function contarNuevosIntroducidosHoy() {
+  const hoyStr = new Date().toISOString().slice(0, 10);
+  let cuenta = 0;
+  Object.values(AppState.conceptos).forEach((p) => {
+    if (p.historial.length && p.historial[0].fecha.slice(0, 10) === hoyStr) cuenta++;
+  });
+  return cuenta;
+}
+
+// Devuelve los conceptos para hoy: TODOS los repasos ya vencidos (sin
+// límite) + conceptos nunca estudiados hasta agotar el cupo diario.
+function conceptosDeHoy() {
+  const catalogo = AppState.conceptosCatalogo || [];
+  const vencidos = [];
+  const nuevos = [];
+
+  catalogo.forEach((c) => {
+    const p = getConceptoState(c.id);
+    if (!conceptoEstaParaHoy(p)) return;
+    if (p.proximaRevision === null) nuevos.push(c);
+    else vencidos.push(c);
+  });
+
+  vencidos.sort((a, b) => (getConceptoState(a.id).proximaRevision || "").localeCompare(getConceptoState(b.id).proximaRevision || ""));
+
+  const cupoRestante = Math.max(0, CONCEPTOS_NUEVOS_POR_DIA - contarNuevosIntroducidosHoy());
+  return { lista: [...vencidos, ...nuevos.slice(0, cupoRestante)], nuevosEnEspera: Math.max(0, nuevos.length - cupoRestante) };
+}
+
+function iniciarRepasoConcepto(conceptoId) {
+  const progreso = getConceptoState(conceptoId);
+  const concepto = (AppState.conceptosCatalogo || []).find((c) => c.id === conceptoId);
+  if (!concepto) return null;
+  progreso.repasoActual = {
+    cola: concepto.ejercicios.map((e) => ({ exerciseId: e.id, excluido: false })),
+    indiceActual: 0,
+    resultados: {},
+  };
+  guardarConDebounce();
+  return progreso.repasoActual;
+}
+
+function obtenerItemRepasoConcepto(conceptoId) {
+  const progreso = getConceptoState(conceptoId);
+  const repaso = progreso.repasoActual;
+  const concepto = (AppState.conceptosCatalogo || []).find((c) => c.id === conceptoId);
+  if (!repaso || !concepto || repaso.indiceActual >= repaso.cola.length) return null;
+  const item = repaso.cola[repaso.indiceActual];
+  const exercise = concepto.ejercicios.find((e) => e.id === item.exerciseId);
+  return { item, exercise, posicion: repaso.indiceActual, esRepaso: item.excluido };
+}
+
+function procesarRespuestaConcepto(conceptoId, respuestaUsuario) {
+  const actual = obtenerItemRepasoConcepto(conceptoId);
+  if (!actual) return null;
+  const resultado = calificarEjercicio(actual.exercise, respuestaUsuario);
+  return {
+    correcto: resultado.correcto,
+    esReflexion: !!resultado.esReflexion,
+    respuestaUsuario,
+    exercise: actual.exercise,
+    posicion: actual.posicion,
+  };
+}
+
+function confirmarContinuarConcepto(conceptoId, pendiente) {
+  const progreso = getConceptoState(conceptoId);
+  const repaso = progreso.repasoActual;
+  const item = repaso.cola[pendiente.posicion];
+  const concepto = (AppState.conceptosCatalogo || []).find((c) => c.id === conceptoId);
+  // Una reflexión queda excluida de la calificación del concepto, igual que
+  // una copia reinsertada por [Repasar] — no tiene "correcto/incorrecto".
+  const excluido = item.excluido || pendiente.esReflexion;
+  repaso.resultados[pendiente.posicion] = { correcto: pendiente.correcto, excluido };
+
+  if (pendiente.esReflexion) {
+    AppState.reflexiones.push({
+      conceptoId,
+      termino: concepto ? concepto.termino : conceptoId,
+      pregunta: pendiente.exercise.prompt,
+      texto: pendiente.respuestaUsuario,
+      fecha: new Date().toISOString(),
+    });
+  }
+
+  return avanzarRepasoConcepto(conceptoId);
+}
+
+function confirmarRepasarConcepto(conceptoId, pendiente) {
+  const progreso = getConceptoState(conceptoId);
+  const repaso = progreso.repasoActual;
+  const item = repaso.cola[pendiente.posicion];
+  // Al mandar a repasar NO se guarda la reflexión de este intento (se
+  // guardará la próxima vez que se confirme con Continuar).
+  repaso.resultados[pendiente.posicion] = { correcto: pendiente.correcto, excluido: true };
+  repaso.cola.push({ exerciseId: item.exerciseId, excluido: true });
+  return avanzarRepasoConcepto(conceptoId);
+}
+
+function avanzarRepasoConcepto(conceptoId) {
+  const progreso = getConceptoState(conceptoId);
+  const repaso = progreso.repasoActual;
+  repaso.indiceActual += 1;
+
+  let cierre = null;
+  if (repaso.indiceActual >= repaso.cola.length) {
+    cierre = cerrarRepasoConcepto(conceptoId);
+  }
+  guardarConDebounce();
+  return { termino: repaso.indiceActual >= repaso.cola.length, cierre };
+}
+
+function cerrarRepasoConcepto(conceptoId) {
+  const progreso = getConceptoState(conceptoId);
+  const repaso = progreso.repasoActual;
+
+  let total = 0;
+  let aciertos = 0;
+  repaso.cola.forEach((item, i) => {
+    const r = repaso.resultados[i];
+    if (!r || r.excluido) return;
+    total++;
+    if (r.correcto) aciertos++;
+  });
+
+  // Ajuste de nivel: 100% -> +2, 2/3 o más -> +1, menos de la mitad -> -2.
+  // Si TODO el repaso eran reflexiones (total=0), el nivel no se toca.
+  if (total > 0) {
+    const ratio = aciertos / total;
+    let delta;
+    if (ratio === 1) delta = 2;
+    else if (ratio >= 0.6) delta = 1;
+    else delta = -2;
+    progreso.nivel = Math.min(CONCEPTOS_NIVEL_MAX, Math.max(CONCEPTOS_NIVEL_MIN, progreso.nivel + delta));
+  }
+
+  progreso.proximaRevision = horasDesdeAhora(CONCEPTOS_INTERVALOS_HORAS[progreso.nivel - 1]);
+  progreso.historial.push({ fecha: new Date().toISOString(), aciertos, total });
+  progreso.repasoActual = null;
+  guardarConDebounce();
+
+  return { nivel: progreso.nivel, proximaRevision: progreso.proximaRevision, aciertos, total };
+}
+
+// ------------------------------------------------------------
+// Render de la pantalla de Conceptos (directorio + cola de hoy + reflexiones)
+// ------------------------------------------------------------
+
+function renderConceptos(callbacks) {
+  const cont = document.getElementById("conceptosContainer");
+  if (!cont) return;
+  const catalogo = AppState.conceptosCatalogo || [];
+
+  if (!catalogo.length) {
+    cont.innerHTML = `<p class="aviso-vacio">Todavía no hay conceptos cargados en datos/conceptos.json.</p>`;
+    return;
+  }
+
+  const { lista: hoy, nuevosEnEspera } = conceptosDeHoy();
+  const todos = [...catalogo].sort((a, b) => getConceptoState(a.id).nivel - getConceptoState(b.id).nivel);
+
+  const tarjeta = (c) => {
+    const p = getConceptoState(c.id);
+    return `
+      <button class="tarjeta-concepto" data-concepto="${c.id}">
+        <div class="concepto-nivel-anillo" style="--pct:${(p.nivel / CONCEPTOS_NIVEL_MAX) * 100}%"><span class="concepto-nivel-numero">${p.nivel}</span></div>
+        <div class="concepto-info">
+          <div class="concepto-termino">${escHTML(c.termino)}</div>
+          <div class="concepto-nombre">${escHTML(c.nombreCompleto)}</div>
+        </div>
+      </button>
+    `;
+  };
+
+  const reflexiones = AppState.reflexiones || [];
+
+  cont.innerHTML = `
+    ${hoy.length ? `
+      <h3 class="conceptos-subtitulo">📅 Para repasar hoy (${hoy.length})</h3>
+      <div class="lista-conceptos">${hoy.map(tarjeta).join("")}</div>
+      ${nuevosEnEspera > 0 ? `<p class="ajustes-nota">➕ ${nuevosEnEspera} término(s) nuevo(s) esperando su turno mañana (máx. ${CONCEPTOS_NUEVOS_POR_DIA}/día).</p>` : ""}
+    ` : `<p class="aviso-vacio">✅ No tienes repasos pendientes por ahora — vuelve más tarde.</p>`}
+
+    <h3 class="conceptos-subtitulo">📚 Todos los conceptos</h3>
+    <div class="lista-conceptos">${todos.map(tarjeta).join("")}</div>
+
+    ${reflexiones.length ? `
+      <h3 class="conceptos-subtitulo">💭 Tus reflexiones (${reflexiones.length})</h3>
+      <button class="btn btn-ajustes full" id="btnCopiarReflexiones">📋 Copiar todas mis reflexiones</button>
+    ` : ""}
+  `;
+
+  cont.querySelectorAll("[data-concepto]").forEach((btn) => {
+    btn.addEventListener("click", () => callbacks.onAbrirConcepto(btn.dataset.concepto));
+  });
+  cont.querySelector("#btnCopiarReflexiones")?.addEventListener("click", copiarReflexiones);
+}
+
+
 // motor/modal.js
 //
-// Modal que se muestra DESPUÉS de responder cualquier ejercicio (de los 5
+// Modal que se muestra DESPUÉS de responder cualquier ejercicio (de los 6
 // tipos, calificable o no). Siempre ofrece [Continuar] y [Repasar] — el
 // usuario puede mandar a repasar incluso una respuesta correcta.
+//
+// Para ejercicios de texto-libre en modo "reflexion" (sin respuesta
+// correcta), se pasa esReflexion:true y el modal muestra un estado neutral
+// ("guardado") en vez de ✅/❌.
 
-function mostrarModalFeedback({ exercise, correcto, onContinuar, onRepasar }) {
+function mostrarModalFeedback({ exercise, correcto, esReflexion, onContinuar, onRepasar }) {
   const existente = document.querySelector(".modal-overlay");
   if (existente) existente.remove();
+
+  const clase = esReflexion ? "feedback-reflexion" : correcto ? "feedback-correcto" : "feedback-incorrecto";
+  const icono = esReflexion ? "💭" : correcto ? "✅" : "❌";
+  const titulo = esReflexion ? "Respuesta guardada" : correcto ? "¡Correcto!" : "No era esa";
 
   const modal = document.createElement("div");
   modal.className = "modal-overlay modal-activo";
   modal.innerHTML = `
-    <div class="modal-tarjeta modal-feedback ${correcto ? "feedback-correcto" : "feedback-incorrecto"}">
+    <div class="modal-tarjeta modal-feedback ${clase}">
       <div class="feedback-encabezado">
-        <span class="feedback-icono">${correcto ? "✅" : "❌"}</span>
-        <span class="feedback-titulo">${correcto ? "¡Correcto!" : "No era esa"}</span>
+        <span class="feedback-icono">${icono}</span>
+        <span class="feedback-titulo">${titulo}</span>
       </div>
-      <p class="feedback-explicacion">${escHTML(exercise?.explanation || "")}</p>
+      <p class="feedback-explicacion">${escHTML(exercise?.explanation || (esReflexion ? "Podrás revisar todas tus reflexiones desde la pantalla de Conceptos." : ""))}</p>
       <div class="modal-botones">
         <button class="btn" id="btnRepasar">🔁 Repasar</button>
         <button class="btn btn-solido" id="btnContinuar">Continuar ▶</button>
@@ -2051,6 +2470,77 @@ function calificarDropdown(exercise, respuesta) {
 }
 
 
+// tipos-ejercicio/texto-libre.js
+//
+// Input de escritura libre, con dos modos:
+//
+//  - modo "recordar" (por defecto, para compatibilidad con datos ya
+//    existentes): se califica comparando contra `respuestasAceptadas`, de
+//    forma flexible (sin importar mayúsculas, tildes ni espacios extra).
+//    El prompt puede ir en cualquier dirección: dar el término y pedir su
+//    significado, o dar el significado/definición y pedir el término/sigla.
+//
+//  - modo "reflexion": NO tiene respuesta correcta. Es para preguntas
+//    abiertas de análisis ("¿cuál usarías para X y por qué?"). Lo que se
+//    escribe se guarda tal cual (ver motor/conceptos.js) para poder
+//    revisarlo después — no cuenta para el nivel del concepto, igual que
+//    los ejercicios de la sección de Aprendizaje no cuentan para la nota.
+
+function renderTextoLibre(exercise, container, onListo) {
+  const esReflexion = exercise.modo === "reflexion";
+  const pintar = (valor) => {
+    container.innerHTML = `
+      <div class="pregunta-prompt">${escHTML(exercise.prompt)}</div>
+      <div class="texto-libre-area">
+        <input type="text" class="texto-libre-input" placeholder="${esReflexion ? "Escribe tu respuesta o reflexión…" : "Escribe tu respuesta…"}"
+               autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+               value="${escHTML(valor || "")}">
+      </div>
+      <div class="ejercicio-acciones">
+        <button type="button" class="btn btn-solido" id="btnComprobar" ${(valor || "").trim() ? "" : "disabled"}>
+          ${esReflexion ? "💭 Guardar" : "✅ Comprobar"}
+        </button>
+      </div>
+    `;
+    const input = container.querySelector(".texto-libre-input");
+    input.addEventListener("input", () => {
+      container.querySelector("#btnComprobar").disabled = !input.value.trim();
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && input.value.trim()) container.querySelector("#btnComprobar").click();
+    });
+    container.querySelector("#btnComprobar").addEventListener("click", () => {
+      if (input.value.trim()) onListo(input.value.trim());
+    });
+    input.focus();
+  };
+  pintar("");
+}
+
+function calificarTextoLibre(exercise, respuesta) {
+  if (exercise.modo === "reflexion") {
+    // No hay respuesta correcta: se marca "correcto" para no afectar el
+    // nivel del concepto, y se señala esReflexion para que el motor de
+    // conceptos guarde el texto en vez de comparalo contra nada.
+    return { correcto: true, esReflexion: true };
+  }
+  const dado = normalizarTextoLibre(respuesta);
+  const aceptadas = exercise.respuestasAceptadas || [];
+  const correcto = aceptadas.some((a) => normalizarTextoLibre(a) === dado);
+  return { correcto };
+}
+
+// minúsculas + sin tildes + espacios colapsados y recortados
+function normalizarTextoLibre(str) {
+  return String(str || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, " ");
+}
+
+
 
   const $ = (sel) => document.querySelector(sel);
 
@@ -2069,18 +2559,28 @@ function calificarDropdown(exercise, respuesta) {
     lecciones: document.getElementById("pantallaLecciones"),
     ejercicio: document.getElementById("pantallaEjercicio"),
     aprendizaje: document.getElementById("pantallaAprendizaje"),
+    conceptos: document.getElementById("pantallaConceptos"),
   };
 
   function mostrarPantalla(nombre) {
-    Object.entries(pantallas).forEach(([k, el]) => el?.classList.toggle("active", k === nombre));
+    Object.entries(pantallas).forEach(([k, el]) => {
+      if (!el) return;
+      const activa = k === nombre;
+      if (activa && !el.classList.contains("active")) {
+        el.classList.add("active", "screen-entrando");
+        requestAnimationFrame(() => el.classList.remove("screen-entrando"));
+      }
+      el.classList.toggle("active", activa);
+    });
   }
 
-  // "leccion" | "practica" — decide a dónde vuelve la flecha ← de la
-  // pantalla de ejercicio, y cuál handler recibe la respuesta.
+  // "leccion" | "practica" | "concepto" — decide a dónde vuelve la flecha ←
+  // de la pantalla de ejercicio, y cuál handler recibe la respuesta.
   let modoEjercicio = "leccion";
 
   const callbacksLecciones = { onAbrirLeccion: abrirLeccion, onGenerarReintento: generarReintentoUI };
   const callbacksAprendizaje = { onIniciarPractica: iniciarPracticaUI };
+  const callbacksConceptos = { onAbrirConcepto: abrirConcepto };
 
   function refrescarSecciones() {
     renderSecciones({ onAbrirSeccion: abrirSeccion });
@@ -2197,6 +2697,60 @@ function calificarDropdown(exercise, respuesta) {
     });
   }
 
+  // ---------------- Conceptos (glosario con repetición espaciada) ----------------
+
+  async function abrirConceptos() {
+    await asegurarCatalogoConceptos();
+    renderConceptos(callbacksConceptos);
+    mostrarPantalla("conceptos");
+  }
+
+  function abrirConcepto(conceptoId) {
+    AppState.conceptoActivoId = conceptoId;
+    modoEjercicio = "concepto";
+    iniciarRepasoConcepto(conceptoId);
+    mostrarPantalla("ejercicio");
+    mostrarSiguienteItemConcepto();
+  }
+
+  function mostrarSiguienteItemConcepto() {
+    const conceptoId = AppState.conceptoActivoId;
+    const actual = obtenerItemRepasoConcepto(conceptoId);
+    const tagEl = document.getElementById("ejercicioTag");
+    const cont = document.getElementById("ejercicioContainer");
+    if (!actual) {
+      renderConceptos(callbacksConceptos);
+      mostrarPantalla("conceptos");
+      return;
+    }
+    const concepto = (AppState.conceptosCatalogo || []).find((c) => c.id === conceptoId);
+    if (tagEl) tagEl.textContent = "📚 " + (concepto ? concepto.termino : conceptoId) + (actual.esRepaso ? " · repaso" : "");
+    renderEjercicio(actual.exercise, cont, (respuesta) => manejarRespuestaConcepto(respuesta));
+  }
+
+  function manejarRespuestaConcepto(respuesta) {
+    const conceptoId = AppState.conceptoActivoId;
+    const pendiente = procesarRespuestaConcepto(conceptoId, respuesta);
+    if (!pendiente) return;
+    mostrarModalFeedback({
+      exercise: pendiente.exercise,
+      correcto: pendiente.correcto,
+      esReflexion: pendiente.esReflexion,
+      onContinuar: () => manejarAvanceConcepto(confirmarContinuarConcepto(conceptoId, pendiente)),
+      onRepasar: () => manejarAvanceConcepto(confirmarRepasarConcepto(conceptoId, pendiente)),
+    });
+  }
+
+  function manejarAvanceConcepto(r) {
+    if (r.cierre) {
+      toast("📈 Nivel " + r.cierre.nivel + "/10 — " + r.cierre.aciertos + "/" + r.cierre.total + " correctas");
+      renderConceptos(callbacksConceptos);
+      mostrarPantalla("conceptos");
+    } else {
+      mostrarSiguienteItemConcepto();
+    }
+  }
+
   function init() {
     cargarDeStorage();
     refrescarSecciones();
@@ -2212,6 +2766,9 @@ function calificarDropdown(exercise, respuesta) {
       if (modoEjercicio === "practica") {
         renderAprendizaje(AppState.seccionActivaId, callbacksAprendizaje);
         mostrarPantalla("aprendizaje");
+      } else if (modoEjercicio === "concepto") {
+        renderConceptos(callbacksConceptos);
+        mostrarPantalla("conceptos");
       } else {
         renderLecciones(AppState.seccionActivaId, callbacksLecciones);
         mostrarPantalla("lecciones");
@@ -2226,9 +2783,18 @@ function calificarDropdown(exercise, respuesta) {
       copiarReporteSeccion(AppState.seccionActivaId);
     });
 
+    document.querySelectorAll(".tabbar-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tabbar-btn").forEach((b) => b.classList.toggle("active", b === btn));
+        if (btn.dataset.tab === "secciones") { refrescarSecciones(); mostrarPantalla("secciones"); }
+        else if (btn.dataset.tab === "conceptos") { abrirConceptos(); }
+      });
+    });
+
     // Precarga en segundo plano los datos de todas las secciones, para que
     // el mapa muestre de una vez cuáles están "(Vacío)" y cuáles no.
     Promise.all(SECCIONES.map((s) => asegurarDatosSeccion(s.id))).then(refrescarSecciones);
+    asegurarCatalogoConceptos();
   }
 
   init();

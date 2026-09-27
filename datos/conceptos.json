@@ -1,0 +1,186 @@
+{
+  "conceptos": [
+    {
+      "id": "saas",
+      "termino": "SaaS",
+      "nombreCompleto": "Software as a Service",
+      "definicion": "Modelo de nube donde el proveedor entrega una aplicación completa y lista para usar a través de internet (por ejemplo, Microsoft 365 u Outlook). El usuario no administra servidores, sistema operativo ni la aplicación misma: solo la usa.",
+      "categoria": "Modelos de servicio en la nube",
+      "ejercicios": [
+        { "id": "saas-1", "type": "single-select", "prompt": "¿Cuál de estas es la mejor definición de SaaS?", "options": [{"id":"a","text":"Una aplicación completa lista para usar, entregada por internet"},{"id":"b","text":"Solo el hardware físico de un centro de datos"}], "correctOptionId": "a", "explanation": "SaaS entrega la aplicación terminada; el usuario no administra nada por debajo de ella." },
+        { "id": "saas-2", "type": "true-false", "prompt": "En SaaS, el usuario final administra el sistema operativo y los servidores.", "statement": "En SaaS, el usuario final administra el sistema operativo y los servidores.", "correctAnswer": false, "explanation": "En SaaS todo eso lo administra el proveedor; el usuario solo usa la aplicación." },
+        { "id": "saas-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla SaaS?", "respuestasAceptadas": ["software as a service", "software como servicio"], "explanation": "SaaS = Software as a Service (Software como Servicio)." }
+      ]
+    },
+    {
+      "id": "paas",
+      "termino": "PaaS",
+      "nombreCompleto": "Platform as a Service",
+      "definicion": "Modelo de nube donde el proveedor entrega una plataforma (sistema operativo, runtime, herramientas) para que el desarrollador despliegue su propia aplicación, sin tener que administrar los servidores subyacentes. Azure App Service es un ejemplo típico.",
+      "categoria": "Modelos de servicio en la nube",
+      "ejercicios": [
+        { "id": "paas-1", "type": "single-select", "prompt": "¿Qué entrega el proveedor en un modelo PaaS?", "options": [{"id":"a","text":"Una plataforma lista para que despliegues tu propia app, sin administrar servidores"},{"id":"b","text":"Únicamente hardware físico sin ningún software"}], "correctOptionId": "a", "explanation": "PaaS te da el entorno de ejecución; tú solo te preocupas por tu aplicación." },
+        { "id": "paas-2", "type": "true-false", "prompt": "Azure App Service es un ejemplo típico de servicio PaaS.", "statement": "Azure App Service es un ejemplo típico de servicio PaaS.", "correctAnswer": true, "explanation": "App Service te permite desplegar tu app sin administrar el sistema operativo ni el servidor." },
+        { "id": "paas-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla PaaS?", "respuestasAceptadas": ["platform as a service", "plataforma como servicio"], "explanation": "PaaS = Platform as a Service (Plataforma como Servicio)." },
+        { "id": "paas-4", "type": "texto-libre", "prompt": "¿Qué sigla corresponde a este modelo de nube?: entrega una plataforma completa (sistema operativo, runtime, herramientas) para que despliegues tu propia app, sin administrar los servidores.", "respuestasAceptadas": ["paas"], "explanation": "Esa definición corresponde a PaaS — nota que aquí la pregunta va en la dirección contraria: te doy el significado, tú escribes la sigla." }
+      ]
+    },
+    {
+      "id": "iaas",
+      "termino": "IaaS",
+      "nombreCompleto": "Infrastructure as a Service",
+      "definicion": "Modelo de nube donde el proveedor entrega la infraestructura básica —máquinas virtuales, redes, almacenamiento— y tú administras el sistema operativo, el runtime y la aplicación. Es el modelo con más control pero también más responsabilidad para el usuario.",
+      "categoria": "Modelos de servicio en la nube",
+      "ejercicios": [
+        { "id": "iaas-1", "type": "single-select", "prompt": "¿Qué modelo de nube te da MÁS control pero también MÁS responsabilidad de administración?", "options": [{"id":"a","text":"IaaS"},{"id":"b","text":"SaaS"}], "correctOptionId": "a", "explanation": "En IaaS tú administras el sistema operativo y todo lo que corre sobre la infraestructura." },
+        { "id": "iaas-2", "type": "true-false", "prompt": "En IaaS, el usuario es responsable de administrar el sistema operativo de sus máquinas virtuales.", "statement": "En IaaS, el usuario es responsable de administrar el sistema operativo de sus máquinas virtuales.", "correctAnswer": true, "explanation": "El proveedor solo entrega la infraestructura; el sistema operativo y lo demás corre por cuenta del usuario." },
+        { "id": "iaas-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla IaaS?", "respuestasAceptadas": ["infrastructure as a service", "infraestructura como servicio"], "explanation": "IaaS = Infrastructure as a Service (Infraestructura como Servicio)." },
+        { "id": "iaas-4", "type": "texto-libre", "modo": "reflexion", "prompt": "Piensa en un equipo pequeño, con poca experiencia administrando servidores, que quiere lanzar una app rápido. ¿Usarías SaaS, PaaS o IaaS para ese caso, y por qué?" }
+      ]
+    },
+    {
+      "id": "api",
+      "termino": "API",
+      "nombreCompleto": "Application Programming Interface",
+      "definicion": "Un conjunto de reglas y puntos de acceso que permite que una aplicación se comunique con otra (o con un servicio en la nube) sin necesitar conocer los detalles internos de cómo funciona. Los servicios de Azure AI se consumen típicamente a través de una API.",
+      "categoria": "Desarrollo de software",
+      "ejercicios": [
+        { "id": "api-1", "type": "single-select", "prompt": "¿Qué es una API?", "options": [{"id":"a","text":"Un punto de acceso que permite que dos aplicaciones se comuniquen entre sí"},{"id":"b","text":"Un tipo de base de datos"}], "correctOptionId": "a", "explanation": "La API define cómo pedir y recibir datos/funciones de otro sistema, sin ver su implementación interna." },
+        { "id": "api-2", "type": "true-false", "prompt": "Los servicios de Azure AI se consumen típicamente llamando a una API.", "statement": "Los servicios de Azure AI se consumen típicamente llamando a una API.", "correctAnswer": true, "explanation": "Ya sea vía REST directo o a través de un SDK, por debajo se está llamando a una API del servicio." },
+        { "id": "api-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla API?", "respuestasAceptadas": ["application programming interface", "interfaz de programacion de aplicaciones"], "explanation": "API = Application Programming Interface (Interfaz de Programación de Aplicaciones)." }
+      ]
+    },
+    {
+      "id": "sdk",
+      "termino": "SDK",
+      "nombreCompleto": "Software Development Kit",
+      "definicion": "Un paquete de herramientas, librerías y ejemplos de código que facilita programar contra un servicio o plataforma, sin tener que armar las llamadas HTTP a mano. El Foundry SDK, por ejemplo, facilita interactuar con modelos desplegados en Microsoft Foundry desde tu propio código.",
+      "categoria": "Desarrollo de software",
+      "ejercicios": [
+        { "id": "sdk-1", "type": "single-select", "prompt": "¿Para qué sirve un SDK?", "options": [{"id":"a","text":"Facilita programar contra un servicio, con librerías y código de ejemplo listos para usar"},{"id":"b","text":"Es un tipo de servidor físico"}], "correctOptionId": "a", "explanation": "Un SDK te ahorra tener que construir a mano cada llamada al servicio." },
+        { "id": "sdk-2", "type": "true-false", "prompt": "Usar un SDK es obligatorio; no se puede llamar a un servicio de Azure AI de otra forma.", "statement": "Usar un SDK es obligatorio; no se puede llamar a un servicio de Azure AI de otra forma.", "correctAnswer": false, "explanation": "El SDK es una comodidad; casi siempre también puedes llamar directamente a la API REST del servicio." },
+        { "id": "sdk-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla SDK?", "respuestasAceptadas": ["software development kit", "kit de desarrollo de software"], "explanation": "SDK = Software Development Kit (Kit de Desarrollo de Software)." }
+      ]
+    },
+    {
+      "id": "gpu",
+      "termino": "GPU",
+      "nombreCompleto": "Graphics Processing Unit",
+      "definicion": "Un procesador especializado en hacer muchos cálculos matemáticos en paralelo. Aunque originalmente se diseñó para gráficos, resultó ser ideal para entrenar y ejecutar modelos de IA, que necesitan hacer millones de operaciones matriciales a la vez.",
+      "categoria": "Infraestructura de cómputo",
+      "ejercicios": [
+        { "id": "gpu-1", "type": "single-select", "prompt": "¿Por qué las GPU son útiles para entrenar modelos de IA?", "options": [{"id":"a","text":"Porque pueden hacer muchos cálculos matemáticos en paralelo"},{"id":"b","text":"Porque tienen más espacio de almacenamiento que un disco duro"}], "correctOptionId": "a", "explanation": "El paralelismo masivo de una GPU acelera enormemente las operaciones matriciales del entrenamiento." },
+        { "id": "gpu-2", "type": "true-false", "prompt": "Las GPU se diseñaron originalmente para renderizar gráficos, no para IA.", "statement": "Las GPU se diseñaron originalmente para renderizar gráficos, no para IA.", "correctAnswer": true, "explanation": "Su uso en IA es una reutilización posterior de una arquitectura que ya existía para gráficos." },
+        { "id": "gpu-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla GPU?", "respuestasAceptadas": ["graphics processing unit", "unidad de procesamiento grafico"], "explanation": "GPU = Graphics Processing Unit (Unidad de Procesamiento Gráfico)." }
+      ]
+    },
+    {
+      "id": "cpu",
+      "termino": "CPU",
+      "nombreCompleto": "Central Processing Unit",
+      "definicion": "El procesador principal de un computador, optimizado para ejecutar instrucciones de forma secuencial y variada. Es suficiente para tareas de inferencia ligeras, pero mucho más lento que una GPU para entrenar modelos grandes.",
+      "categoria": "Infraestructura de cómputo",
+      "ejercicios": [
+        { "id": "cpu-1", "type": "single-select", "prompt": "¿Qué caracteriza a una CPU frente a una GPU?", "options": [{"id":"a","text":"Está optimizada para ejecutar instrucciones variadas de forma secuencial"},{"id":"b","text":"Solo puede usarse para almacenar archivos"}], "correctOptionId": "a", "explanation": "La CPU es de propósito general; la GPU está optimizada para paralelismo masivo." },
+        { "id": "cpu-2", "type": "true-false", "prompt": "Para entrenar un modelo de deep learning muy grande, una CPU suele ser más rápida que una GPU.", "statement": "Para entrenar un modelo de deep learning muy grande, una CPU suele ser más rápida que una GPU.", "correctAnswer": false, "explanation": "Es al revés: la GPU es mucho más rápida para ese tipo de carga de trabajo paralela." },
+        { "id": "cpu-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla CPU?", "respuestasAceptadas": ["central processing unit", "unidad central de procesamiento"], "explanation": "CPU = Central Processing Unit (Unidad Central de Procesamiento)." }
+      ]
+    },
+    {
+      "id": "nlp",
+      "termino": "NLP",
+      "nombreCompleto": "Natural Language Processing",
+      "definicion": "El campo de la IA dedicado a que las máquinas entiendan, interpreten y generen lenguaje humano. Incluye tareas como análisis de sentimiento, extracción de entidades, traducción y resumen de texto.",
+      "categoria": "Áreas de la IA",
+      "ejercicios": [
+        { "id": "nlp-1", "type": "single-select", "prompt": "¿Qué estudia el NLP?", "options": [{"id":"a","text":"Cómo hacer que las máquinas entiendan y generen lenguaje humano"},{"id":"b","text":"Cómo procesar únicamente imágenes"}], "correctOptionId": "a", "explanation": "NLP es específicamente sobre texto y lenguaje, no sobre imágenes." },
+        { "id": "nlp-2", "type": "true-false", "prompt": "El análisis de sentimiento y la extracción de entidades son ejemplos de tareas de NLP.", "statement": "El análisis de sentimiento y la extracción de entidades son ejemplos de tareas de NLP.", "correctAnswer": true, "explanation": "Ambas son tareas clásicas de procesamiento de lenguaje natural." },
+        { "id": "nlp-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla NLP?", "respuestasAceptadas": ["natural language processing", "procesamiento de lenguaje natural"], "explanation": "NLP = Natural Language Processing (Procesamiento de Lenguaje Natural)." }
+      ]
+    },
+    {
+      "id": "llm",
+      "termino": "LLM",
+      "nombreCompleto": "Large Language Model",
+      "definicion": "Un modelo de IA generativa entrenado con enormes cantidades de texto, capaz de generar, resumir, traducir y razonar sobre lenguaje natural. Los modelos detrás de servicios como Azure OpenAI (por ejemplo, GPT) son LLMs.",
+      "categoria": "IA generativa",
+      "ejercicios": [
+        { "id": "llm-1", "type": "single-select", "prompt": "¿Qué es un LLM?", "options": [{"id":"a","text":"Un modelo de IA generativa entrenado con enormes cantidades de texto"},{"id":"b","text":"Un lenguaje de programación"}], "correctOptionId": "a", "explanation": "LLM se refiere al modelo entrenado, no a un lenguaje de programación." },
+        { "id": "llm-2", "type": "true-false", "prompt": "Los modelos detrás de servicios como Azure OpenAI son ejemplos de LLMs.", "statement": "Los modelos detrás de servicios como Azure OpenAI son ejemplos de LLMs.", "correctAnswer": true, "explanation": "Modelos como GPT son justamente el tipo de LLM que se consume a través de esos servicios." },
+        { "id": "llm-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla LLM?", "respuestasAceptadas": ["large language model", "modelo de lenguaje grande", "modelo de lenguaje de gran tamano"], "explanation": "LLM = Large Language Model (Modelo de Lenguaje de Gran Tamaño)." }
+      ]
+    },
+    {
+      "id": "rag",
+      "termino": "RAG",
+      "nombreCompleto": "Retrieval-Augmented Generation",
+      "definicion": "Una técnica que combina la búsqueda de información en tus propios datos (recuperación) con la generación de texto de un modelo, para que las respuestas estén fundamentadas en fuentes reales en vez de depender solo de lo que el modelo memorizó en su entrenamiento.",
+      "categoria": "IA generativa",
+      "ejercicios": [
+        { "id": "rag-1", "type": "single-select", "prompt": "¿Qué problema busca reducir principalmente la técnica RAG?", "options": [{"id":"a","text":"Las alucinaciones, fundamentando las respuestas en datos reales"},{"id":"b","text":"El costo de la electricidad del centro de datos"}], "correctOptionId": "a", "explanation": "Al recuperar información real antes de generar la respuesta, RAG reduce el riesgo de que el modelo invente datos." },
+        { "id": "rag-2", "type": "true-false", "prompt": "RAG combina la recuperación de información propia con la generación de texto de un modelo.", "statement": "RAG combina la recuperación de información propia con la generación de texto de un modelo.", "correctAnswer": true, "explanation": "Esa combinación (recuperar + generar) es justamente lo que significa RAG." },
+        { "id": "rag-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla RAG?", "respuestasAceptadas": ["retrieval-augmented generation", "retrieval augmented generation", "generacion aumentada por recuperacion"], "explanation": "RAG = Retrieval-Augmented Generation (Generación Aumentada por Recuperación)." }
+      ]
+    },
+    {
+      "id": "ocr",
+      "termino": "OCR",
+      "nombreCompleto": "Optical Character Recognition",
+      "definicion": "La tecnología que detecta y extrae texto legible a partir de imágenes o documentos escaneados, convirtiéndolo en texto digital que se puede buscar, copiar o procesar.",
+      "categoria": "Visión artificial",
+      "ejercicios": [
+        { "id": "ocr-1", "type": "single-select", "prompt": "¿Para qué sirve el OCR?", "options": [{"id":"a","text":"Para extraer texto legible a partir de una imagen o documento escaneado"},{"id":"b","text":"Para generar imágenes a partir de texto"}], "correctOptionId": "a", "explanation": "OCR va de imagen a texto, no al revés (eso sería generación de imágenes)." },
+        { "id": "ocr-2", "type": "true-false", "prompt": "El OCR convierte texto escrito a mano o impreso en una imagen a texto digital editable/buscable.", "statement": "El OCR convierte texto escrito a mano o impreso en una imagen a texto digital editable/buscable.", "correctAnswer": true, "explanation": "Esa es exactamente la función central del reconocimiento óptico de caracteres." },
+        { "id": "ocr-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla OCR?", "respuestasAceptadas": ["optical character recognition", "reconocimiento optico de caracteres"], "explanation": "OCR = Optical Character Recognition (Reconocimiento Óptico de Caracteres)." }
+      ]
+    },
+    {
+      "id": "sla",
+      "termino": "SLA",
+      "nombreCompleto": "Service Level Agreement",
+      "definicion": "Un acuerdo formal entre un proveedor de servicios en la nube y su cliente, que establece métricas garantizadas como el porcentaje de disponibilidad (uptime) que se compromete a cumplir.",
+      "categoria": "Cloud computing",
+      "ejercicios": [
+        { "id": "sla-1", "type": "single-select", "prompt": "¿Qué es un SLA?", "options": [{"id":"a","text":"Un acuerdo formal que garantiza métricas de servicio, como el uptime"},{"id":"b","text":"Un tipo de algoritmo de machine learning"}], "correctOptionId": "a", "explanation": "El SLA es un compromiso contractual sobre el nivel de servicio, no un algoritmo." },
+        { "id": "sla-2", "type": "true-false", "prompt": "Un SLA típico incluye un porcentaje garantizado de disponibilidad (uptime) del servicio.", "statement": "Un SLA típico incluye un porcentaje garantizado de disponibilidad (uptime) del servicio.", "correctAnswer": true, "explanation": "El uptime garantizado es uno de los componentes más comunes de un SLA en la nube." },
+        { "id": "sla-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla SLA?", "respuestasAceptadas": ["service level agreement", "acuerdo de nivel de servicio"], "explanation": "SLA = Service Level Agreement (Acuerdo de Nivel de Servicio)." }
+      ]
+    },
+    {
+      "id": "rest",
+      "termino": "REST",
+      "nombreCompleto": "Representational State Transfer",
+      "definicion": "Un estilo de arquitectura para diseñar APIs web, basado en recursos direccionables por URL y en los verbos estándar de HTTP (GET, POST, PUT, DELETE). La mayoría de los servicios de Azure AI exponen una API REST.",
+      "categoria": "Desarrollo de software",
+      "ejercicios": [
+        { "id": "rest-1", "type": "single-select", "prompt": "¿En qué se basa una API REST para operar sobre recursos?", "options": [{"id":"a","text":"En URLs que identifican recursos y verbos HTTP como GET/POST"},{"id":"b","text":"Únicamente en archivos locales del disco duro"}], "correctOptionId": "a", "explanation": "REST usa URLs como direcciones de recursos y los verbos HTTP como las acciones sobre ellos." },
+        { "id": "rest-2", "type": "true-false", "prompt": "La mayoría de los servicios de Azure AI exponen una API de tipo REST.", "statement": "La mayoría de los servicios de Azure AI exponen una API de tipo REST.", "correctAnswer": true, "explanation": "REST es el estilo de API más común para consumir estos servicios, además de los SDKs." },
+        { "id": "rest-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla REST?", "respuestasAceptadas": ["representational state transfer", "transferencia de estado representacional"], "explanation": "REST = Representational State Transfer (Transferencia de Estado Representacional)." }
+      ]
+    },
+    {
+      "id": "json",
+      "termino": "JSON",
+      "nombreCompleto": "JavaScript Object Notation",
+      "definicion": "Un formato de texto ligero para representar datos estructurados (objetos, listas, texto, números), muy usado para el intercambio de información entre una API y una aplicación, por su facilidad de lectura tanto para humanos como para máquinas.",
+      "categoria": "Desarrollo de software",
+      "ejercicios": [
+        { "id": "json-1", "type": "single-select", "prompt": "¿Para qué se usa comúnmente JSON?", "options": [{"id":"a","text":"Para representar e intercambiar datos estructurados entre una API y una app"},{"id":"b","text":"Para comprimir archivos de video"}], "correctOptionId": "a", "explanation": "JSON es un formato de datos, no un códec de compresión de video." },
+        { "id": "json-2", "type": "true-false", "prompt": "JSON es un formato de datos fácil de leer tanto para humanos como para máquinas.", "statement": "JSON es un formato de datos fácil de leer tanto para humanos como para máquinas.", "correctAnswer": true, "explanation": "Esa legibilidad es una de las razones de su popularidad en APIs web." },
+        { "id": "json-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla JSON?", "respuestasAceptadas": ["javascript object notation", "notacion de objetos de javascript"], "explanation": "JSON = JavaScript Object Notation (Notación de Objetos de JavaScript)." }
+      ]
+    },
+    {
+      "id": "mlops",
+      "termino": "MLOps",
+      "nombreCompleto": "Machine Learning Operations",
+      "definicion": "El conjunto de prácticas (inspiradas en DevOps) para gestionar de forma ordenada y trazable todo el ciclo de vida de un modelo de machine learning: entrenamiento, versionado, despliegue, monitoreo y reentrenamiento.",
+      "categoria": "Ciclo de vida de modelos",
+      "ejercicios": [
+        { "id": "mlops-1", "type": "single-select", "prompt": "¿Qué busca MLOps?", "options": [{"id":"a","text":"Gestionar de forma ordenada y trazable el ciclo de vida completo de un modelo"},{"id":"b","text":"Diseñar la interfaz visual de una aplicación"}], "correctOptionId": "a", "explanation": "MLOps se enfoca en el proceso operativo del modelo (entrenar, desplegar, monitorear), no en el diseño de UI." },
+        { "id": "mlops-2", "type": "true-false", "prompt": "MLOps se inspira en las prácticas de DevOps aplicadas al machine learning.", "statement": "MLOps se inspira en las prácticas de DevOps aplicadas al machine learning.", "correctAnswer": true, "explanation": "MLOps toma ideas de DevOps (integración y entrega continua, versionado) y las aplica al ciclo de vida de modelos." },
+        { "id": "mlops-3", "type": "texto-libre", "prompt": "¿Qué significa la sigla MLOps?", "respuestasAceptadas": ["machine learning operations", "operaciones de machine learning", "operaciones de aprendizaje automatico"], "explanation": "MLOps = Machine Learning Operations (Operaciones de Machine Learning)." }
+      ]
+    }
+  ]
+}

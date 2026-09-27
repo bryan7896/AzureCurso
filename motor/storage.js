@@ -24,6 +24,9 @@ export const AppState = {
   seccionActivaId: null,
   leccionActivaIndex: 0,
   secciones: {}, // seccionId -> ver seccionVacia()
+  conceptosCatalogo: null, // contenido de datos/conceptos.json (no se persiste, se re-consulta como las secciones)
+  conceptos: {}, // conceptoId -> ver conceptoVacio() (SÍ se persiste: nivel, próxima revisión, historial)
+  reflexiones: [], // respuestas de ejercicios texto-libre modo "reflexion" (SÍ se persiste)
 };
 
 function seccionVacia() {
@@ -58,12 +61,37 @@ export function seccionTieneDatos(id) {
 }
 
 // ------------------------------------------------------------
+// Conceptos (glosario con repetición espaciada) — ver motor/conceptos.js
+// para toda la lógica de niveles y programación de repasos. Aquí solo
+// vive el modelo de datos y su persistencia.
+// ------------------------------------------------------------
+
+function conceptoVacio() {
+  return {
+    nivel: 1, // 1 a 10
+    proximaRevision: null, // ISO string; null = nunca estudiado -> siempre "para hoy"
+    historial: [], // [{ fecha, aciertos, total }]
+    repasoActual: null, // cola en curso de este concepto (3 ejercicios)
+  };
+}
+
+export function getConceptoState(id) {
+  if (!AppState.conceptos[id]) AppState.conceptos[id] = conceptoVacio();
+  return AppState.conceptos[id];
+}
+
+// ------------------------------------------------------------
 // Persistencia
 // ------------------------------------------------------------
 
 export function guardar() {
   try {
-    const data = { secciones: AppState.secciones, lastUpdated: new Date().toISOString() };
+    const data = {
+      secciones: AppState.secciones,
+      conceptos: AppState.conceptos,
+      reflexiones: AppState.reflexiones,
+      lastUpdated: new Date().toISOString(),
+    };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch (e) {
     console.warn("No se pudo guardar el progreso:", e);
@@ -82,11 +110,27 @@ export function cargarDeStorage() {
     if (!raw) return false;
     const data = JSON.parse(raw);
     AppState.secciones = data.secciones || {};
+    AppState.conceptos = data.conceptos || {};
+    AppState.reflexiones = data.reflexiones || [];
     return true;
   } catch (e) {
     console.warn("No se pudo leer el progreso guardado:", e);
     return false;
   }
+}
+
+// Consulta datos/conceptos.json una sola vez (igual que asegurarDatosSeccion).
+export async function asegurarCatalogoConceptos({ forzar = false } = {}) {
+  if (AppState.conceptosCatalogo && !forzar) return AppState.conceptosCatalogo;
+  try {
+    const resp = await fetch("datos/conceptos.json", { cache: "no-store" });
+    const data = resp.ok ? await resp.json() : null;
+    AppState.conceptosCatalogo = (data && data.conceptos) || [];
+  } catch (e) {
+    console.warn("No se pudo cargar datos/conceptos.json:", e);
+    AppState.conceptosCatalogo = AppState.conceptosCatalogo || [];
+  }
+  return AppState.conceptosCatalogo;
 }
 
 // ------------------------------------------------------------
@@ -272,15 +316,20 @@ export function reiniciarProgresoSeccion(seccionId) {
 
 export function reiniciarTodoElProgreso() {
   Object.keys(AppState.secciones).forEach((id) => reiniciarProgresoSeccion(id));
+  Object.keys(AppState.conceptos).forEach((id) => { AppState.conceptos[id] = conceptoVacio(); });
+  AppState.reflexiones = [];
+  guardar();
 }
 
 export function exportarProgreso() {
-  return JSON.stringify({ secciones: AppState.secciones, exportadoEn: new Date().toISOString() }, null, 2);
+  return JSON.stringify({ secciones: AppState.secciones, conceptos: AppState.conceptos, reflexiones: AppState.reflexiones, exportadoEn: new Date().toISOString() }, null, 2);
 }
 
 export function importarProgreso(jsonText) {
   const data = JSON.parse(jsonText);
   if (!data || !data.secciones) throw new Error("El archivo no tiene el formato esperado.");
   AppState.secciones = data.secciones;
+  AppState.conceptos = data.conceptos || {};
+  AppState.reflexiones = data.reflexiones || [];
   guardar();
 }

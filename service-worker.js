@@ -18,7 +18,8 @@ const ASSETS = [
   "./datos/2.3-ejercicios.json",
   "./datos/2.3-informacion.json",
   "./datos/2.4-ejercicios.json",
-  "./datos/2.4-informacion.json"
+  "./datos/2.4-informacion.json",
+  "./datos/conceptos.json"
 ];
 
 self.addEventListener("install", (event) => {

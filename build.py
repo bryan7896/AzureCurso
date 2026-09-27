@@ -22,7 +22,7 @@ for _stream in (sys.stdout, sys.stderr):
     except Exception:
         pass
 
-VERSION = "0.2.0 (Parte 2 — motor de ejercicios)"
+VERSION = "0.3.0 (Parte 3 — rediseño mobile + Conceptos)"
 NOMBRE_APP = "AI-901 Trainer"
 NOMBRE_CORTO = "AI901Trainer"
 STORAGE_KEY = "ai901_trainer_v1"
@@ -52,6 +52,7 @@ MOTOR_JS_FILES = [
     "motor/reporte.js",
     "motor/sesion.js",
     "motor/practica.js",
+    "motor/conceptos.js",
     "motor/modal.js",
     "motor/mapa.js",
     "motor/ajustes.js",
@@ -63,6 +64,7 @@ TIPOS_EJERCICIO_JS_FILES = [
     "tipos-ejercicio/true-false.js",
     "tipos-ejercicio/matching.js",
     "tipos-ejercicio/dropdown.js",
+    "tipos-ejercicio/texto-libre.js",
 ]
 
 DATOS_DIR = "datos"
@@ -220,7 +222,20 @@ def get_html_template():
     <div id="aprendizajeContainer"></div>
   </div>
 
+  <div id="pantallaConceptos" class="screen">
+    <div id="conceptosContainer"></div>
+  </div>
+
 </div>
+
+<nav class="tabbar" id="tabbar">
+  <button class="tabbar-btn active" data-tab="secciones">
+    <span class="tabbar-icono">🗂️</span><span class="tabbar-label">Secciones</span>
+  </button>
+  <button class="tabbar-btn" data-tab="conceptos">
+    <span class="tabbar-icono">📚</span><span class="tabbar-label">Conceptos</span>
+  </button>
+</nav>
 
 <div id="toast" class="toast"></div>
 
@@ -262,18 +277,28 @@ def get_main_logic():
     lecciones: document.getElementById("pantallaLecciones"),
     ejercicio: document.getElementById("pantallaEjercicio"),
     aprendizaje: document.getElementById("pantallaAprendizaje"),
+    conceptos: document.getElementById("pantallaConceptos"),
   };
 
   function mostrarPantalla(nombre) {
-    Object.entries(pantallas).forEach(([k, el]) => el?.classList.toggle("active", k === nombre));
+    Object.entries(pantallas).forEach(([k, el]) => {
+      if (!el) return;
+      const activa = k === nombre;
+      if (activa && !el.classList.contains("active")) {
+        el.classList.add("active", "screen-entrando");
+        requestAnimationFrame(() => el.classList.remove("screen-entrando"));
+      }
+      el.classList.toggle("active", activa);
+    });
   }
 
-  // "leccion" | "practica" — decide a dónde vuelve la flecha ← de la
-  // pantalla de ejercicio, y cuál handler recibe la respuesta.
+  // "leccion" | "practica" | "concepto" — decide a dónde vuelve la flecha ←
+  // de la pantalla de ejercicio, y cuál handler recibe la respuesta.
   let modoEjercicio = "leccion";
 
   const callbacksLecciones = { onAbrirLeccion: abrirLeccion, onGenerarReintento: generarReintentoUI };
   const callbacksAprendizaje = { onIniciarPractica: iniciarPracticaUI };
+  const callbacksConceptos = { onAbrirConcepto: abrirConcepto };
 
   function refrescarSecciones() {
     renderSecciones({ onAbrirSeccion: abrirSeccion });
@@ -390,6 +415,60 @@ def get_main_logic():
     });
   }
 
+  // ---------------- Conceptos (glosario con repetición espaciada) ----------------
+
+  async function abrirConceptos() {
+    await asegurarCatalogoConceptos();
+    renderConceptos(callbacksConceptos);
+    mostrarPantalla("conceptos");
+  }
+
+  function abrirConcepto(conceptoId) {
+    AppState.conceptoActivoId = conceptoId;
+    modoEjercicio = "concepto";
+    iniciarRepasoConcepto(conceptoId);
+    mostrarPantalla("ejercicio");
+    mostrarSiguienteItemConcepto();
+  }
+
+  function mostrarSiguienteItemConcepto() {
+    const conceptoId = AppState.conceptoActivoId;
+    const actual = obtenerItemRepasoConcepto(conceptoId);
+    const tagEl = document.getElementById("ejercicioTag");
+    const cont = document.getElementById("ejercicioContainer");
+    if (!actual) {
+      renderConceptos(callbacksConceptos);
+      mostrarPantalla("conceptos");
+      return;
+    }
+    const concepto = (AppState.conceptosCatalogo || []).find((c) => c.id === conceptoId);
+    if (tagEl) tagEl.textContent = "📚 " + (concepto ? concepto.termino : conceptoId) + (actual.esRepaso ? " · repaso" : "");
+    renderEjercicio(actual.exercise, cont, (respuesta) => manejarRespuestaConcepto(respuesta));
+  }
+
+  function manejarRespuestaConcepto(respuesta) {
+    const conceptoId = AppState.conceptoActivoId;
+    const pendiente = procesarRespuestaConcepto(conceptoId, respuesta);
+    if (!pendiente) return;
+    mostrarModalFeedback({
+      exercise: pendiente.exercise,
+      correcto: pendiente.correcto,
+      esReflexion: pendiente.esReflexion,
+      onContinuar: () => manejarAvanceConcepto(confirmarContinuarConcepto(conceptoId, pendiente)),
+      onRepasar: () => manejarAvanceConcepto(confirmarRepasarConcepto(conceptoId, pendiente)),
+    });
+  }
+
+  function manejarAvanceConcepto(r) {
+    if (r.cierre) {
+      toast("📈 Nivel " + r.cierre.nivel + "/10 — " + r.cierre.aciertos + "/" + r.cierre.total + " correctas");
+      renderConceptos(callbacksConceptos);
+      mostrarPantalla("conceptos");
+    } else {
+      mostrarSiguienteItemConcepto();
+    }
+  }
+
   function init() {
     cargarDeStorage();
     refrescarSecciones();
@@ -405,6 +484,9 @@ def get_main_logic():
       if (modoEjercicio === "practica") {
         renderAprendizaje(AppState.seccionActivaId, callbacksAprendizaje);
         mostrarPantalla("aprendizaje");
+      } else if (modoEjercicio === "concepto") {
+        renderConceptos(callbacksConceptos);
+        mostrarPantalla("conceptos");
       } else {
         renderLecciones(AppState.seccionActivaId, callbacksLecciones);
         mostrarPantalla("lecciones");
@@ -419,9 +501,18 @@ def get_main_logic():
       copiarReporteSeccion(AppState.seccionActivaId);
     });
 
+    document.querySelectorAll(".tabbar-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tabbar-btn").forEach((b) => b.classList.toggle("active", b === btn));
+        if (btn.dataset.tab === "secciones") { refrescarSecciones(); mostrarPantalla("secciones"); }
+        else if (btn.dataset.tab === "conceptos") { abrirConceptos(); }
+      });
+    });
+
     // Precarga en segundo plano los datos de todas las secciones, para que
     // el mapa muestre de una vez cuáles están "(Vacío)" y cuáles no.
     Promise.all(SECCIONES.map((s) => asegurarDatosSeccion(s.id))).then(refrescarSecciones);
+    asegurarCatalogoConceptos();
   }
 
   init();
