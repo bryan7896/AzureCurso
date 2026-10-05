@@ -1,10 +1,52 @@
 {
   "levelId": "1.2",
   "learningContent": {
-    "title": "",
-    "estimatedMinutes": 0,
-    "sections": []
+    "title": "Modelos y deployments",
+    "estimatedMinutes": 60,
+    "sections": [
+      {
+        "heading": "Cómo funcionan los modelos generativos",
+        "body": "Un modelo de lenguaje generativo **predice el siguiente token** a partir de los anteriores y repite el proceso. No busca en Internet ni consulta una tabla de respuestas: responde con lo aprendido en el **entrenamiento** y con el **contexto** que recibe.\n\n• **Token**: unidad de texto (palabra, parte de palabra o signo). El consumo y los límites se miden en tokens.\n• **Ventana de contexto**: máximo de tokens (entrada + salida) que cabe en una interacción.\n• **Transformer y atención**: la arquitectura que pondera qué partes del texto importan para cada token.\n• **Embedding**: vector numérico que representa el significado; los textos parecidos quedan cerca (base de la búsqueda por significado).\n• **Modelo fundacional**: preentrenado con enormes cantidades de datos y adaptable a muchas tareas.\n• **Entrenamiento vs inferencia**: ajustar el modelo con datos frente a usarlo para responder. Cuando llamas a un deployment haces inferencia.\n\n**Cómo adaptarlo:** *prompting* (instrucciones y ejemplos), **RAG** (recuperar tus datos y añadirlos al prompt: ideal para información actual y propia, con fuente citable) y **fine-tuning** (continuar el entrenamiento con ejemplos: útil para estilo o tarea concreta, no para datos que cambian cada hora).\n\n**Limitaciones:** las **alucinaciones** (respuestas plausibles pero falsas) se reducen con datos reales en el prompt (grounding), pidiendo que admita cuando no sabe y con revisión humana; un modelo más grande no las elimina. Con `temperature` > 0 la misma pregunta puede dar respuestas distintas porque el muestreo es probabilístico."
+      },
+      {
+        "heading": "Elegir un modelo según sus capacidades",
+        "body": "Empieza por **la tarea y la modalidad**:\n\n• Texto y conversación → modelo de lenguaje (chat).\n• Buscar por significado → modelo de **embeddings**.\n• Entender fotos → modelo **multimodal** con entrada de imágenes.\n• Crear imágenes → modelo de **generación de imágenes**.\n• Voz → modelo con **soporte de audio** (con APIs en tiempo real para baja latencia).\n• Problemas de varios pasos de lógica o matemáticas → modelo de **razonamiento** (más lento y costoso, pero resuelve mejor).\n\nDespués compara: **costo, latencia, ventana de contexto** y calidad. No hay un modelo \"mejor\" universal: uno más grande suele costar más y tardar más, y para tareas simples y masivas un **modelo pequeño** rinde igual con menos costo.\n\nEl **catálogo de modelos** de Foundry reúne modelos de distintos proveedores con su *model card* y los tipos de deployment que admiten. **model-router** deja que Foundry elija el modelo adecuado para cada solicitud. Los modelos abiertos pueden ejecutarse en **cómputo administrado** (eliges acelerador y capacidad) y **Foundry Local** ejecuta modelos en tu propio equipo. **Azure Machine Learning** sirve para entrenar y administrar tus propios modelos."
+      },
+      {
+        "heading": "Tipos de deployment y cuotas",
+        "body": "El tipo de deployment define **dónde se procesan los datos** y **cómo se paga y qué rendimiento tienes**:\n\n• **Global Standard**: pago por token, procesa en cualquier región de Azure. **Es el punto de partida**; cambias solo por un motivo concreto.\n• **Data Zone Standard**: pago por token, procesa solo dentro de una zona de datos (US, EU o APAC) → residencia de datos.\n• **Standard (regional)**: procesamiento en una sola región.\n• **Provisioned (Global, Data Zone o Regional)**: capacidad **reservada** medida en **PTU**, con rendimiento garantizado y latencia estable; se factura por PTU y por hora, no por token. Para producción crítica.\n• **Batch (Global o Data Zone)**: trabajos asíncronos grandes con **50 % de descuento** y plazo de entrega largo.\n• **Developer**: costo mínimo y **sin SLA**, para evaluar modelos.\n\nEn los deployments Standard la capacidad es **compartida** y el rendimiento puede variar con la demanda; con Global/Data Zone Standard una interrupción de la región primaria puede afectar al tráfico enrutado allí.\n\n**Cuota:** se asigna por región, modelo y tipo de deployment en **TPM** (tokens por minuto), y cada deployment recibe una parte. Si la superas obtienes **HTTP 429**: reintenta con retroceso exponencial o aumenta/reasigna cuota. Para modelos del catálogo que no son de OpenAI hay **serverless** (pago por uso, sin administrar infraestructura) y **cómputo administrado** (tú eliges acelerador y capacidad)."
+      },
+      {
+        "heading": "Parámetros de configuración",
+        "body": "• **temperature**: baja = respuestas consistentes y deterministas; alta = más variadas y creativas.\n• **top_p**: muestreo de núcleo; otra forma de ajustar la variedad.\n• **max_output_tokens** (o `max_tokens` / `max_completion_tokens` según la API y el modelo): tope de longitud de la respuesta.\n• **instrucciones del sistema** (system prompt): rol, tono y reglas.\n• **filtros de contenido**: se aplican a prompts y respuestas y se pueden configurar.\n\n**Modelos de razonamiento:** gastan tokens *pensando* antes de responder y esos **tokens de razonamiento cuentan contra el tope de salida**, así que deja margen o la respuesta puede quedar cortada. Con ellos se usa `max_completion_tokens` en lugar de `max_tokens` en Chat Completions, y **reasoning_effort** (low, medium, high) controla cuánto razonan. Antes de cambiar a uno, revisa qué parámetros admite: algunos parámetros de muestreo no están disponibles en todos los modelos de razonamiento.\n\n```python\nresponse = client.responses.create(\n    model=\"my-deployment\",      # nombre del deployment\n    instructions=\"Responde en español, en una frase.\",\n    input=\"¿Qué es un token?\",\n    max_output_tokens=200,\n)\n```"
+      }
+    ]
   },
   "practiceExercises": [],
-  "achievements": []
+  "achievements": [
+    {
+      "id": "lab-1.2-01",
+      "texto": "En el catálogo de modelos de Foundry compara tres modelos: lee sus model cards (modalidades, ventana de contexto y tipos de deployment que admiten)."
+    },
+    {
+      "id": "lab-1.2-02",
+      "texto": "Despliega un modelo y localiza en el portal su tipo de deployment, su cuota en TPM y su filtro de contenido."
+    },
+    {
+      "id": "lab-1.2-03",
+      "texto": "En el playground cambia temperature y top_p con el mismo prompt y observa cómo cambia la variedad."
+    },
+    {
+      "id": "lab-1.2-04",
+      "texto": "Si tienes acceso a un modelo de razonamiento, prueba reasoning_effort bajo y alto con un problema de lógica y compara tiempo, tokens y calidad."
+    },
+    {
+      "id": "lab-1.2-05",
+      "texto": "Envía el mismo prompt a un modelo pequeño y a uno grande y compara la calidad, la latencia y el costo en tokens."
+    },
+    {
+      "id": "lab-1.2-06",
+      "texto": "Revisa en el portal la cuota asignada a tu deployment y calcula cuántas solicitudes de tu app caben por minuto."
+    }
+  ]
 }

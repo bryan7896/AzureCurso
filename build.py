@@ -22,7 +22,7 @@ for _stream in (sys.stdout, sys.stderr):
     except Exception:
         pass
 
-VERSION = "0.3.0 (Parte 3 — rediseño mobile + Conceptos)"
+VERSION = "1.0.0 (Parte 5 — 1.1, Conceptos y mapa de servicios)"
 NOMBRE_APP = "AI-901 Trainer"
 NOMBRE_CORTO = "AI901Trainer"
 STORAGE_KEY = "ai901_trainer_v1"
@@ -48,11 +48,15 @@ ICONO_SVG = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
 MOTOR_JS_FILES = [
     "motor/temario.js",
     "motor/storage.js",
+    "motor/ejercicio-ui.js",
+    "motor/codigo.js",
     "motor/registro-tipos.js",
     "motor/reporte.js",
     "motor/sesion.js",
     "motor/practica.js",
     "motor/conceptos.js",
+    "motor/mapa-servicios.js",
+    "motor/simulacro.js",
     "motor/modal.js",
     "motor/mapa.js",
     "motor/ajustes.js",
@@ -64,10 +68,12 @@ TIPOS_EJERCICIO_JS_FILES = [
     "tipos-ejercicio/true-false.js",
     "tipos-ejercicio/matching.js",
     "tipos-ejercicio/dropdown.js",
+    "tipos-ejercicio/code-fill.js",
     "tipos-ejercicio/texto-libre.js",
 ]
 
 DATOS_DIR = "datos"
+ICONOS_DIR = "iconos"
 
 
 def leer(path):
@@ -115,7 +121,7 @@ def crear_service_worker():
     lista_datos_js = ",\n  ".join(f'"./{DATOS_DIR}/{nombre}"' for nombre in archivos_datos)
 
     sw = f'''// service-worker.js (generado por build.py — no editar a mano)
-const CACHE_NAME = "ai901-trainer-v1";
+const CACHE_NAME = "ai901-trainer-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -227,6 +233,18 @@ def get_html_template():
     <div id="conceptosContainer"></div>
   </div>
 
+  <div id="pantallaMapaServicios" class="screen">
+    <div class="lecciones-header">
+      <button class="btn-icono" id="btnVolverMapaServicios" aria-label="Volver">←</button>
+      <h2 style="flex:1;font-size:1rem;margin:0;">🗺️ Mapa de servicios</h2>
+    </div>
+    <div id="mapaServiciosContainer"></div>
+  </div>
+
+  <div id="pantallaSimulacro" class="screen">
+    <div id="simulacroContainer"></div>
+  </div>
+
 </div>
 
 <nav class="tabbar" id="tabbar">
@@ -236,11 +254,16 @@ def get_html_template():
   <button class="tabbar-btn" data-tab="conceptos">
     <span class="tabbar-icono">📚</span><span class="tabbar-label">Conceptos</span>
   </button>
+  <button class="tabbar-btn" data-tab="simulacro">
+    <span class="tabbar-icono">⏱️</span><span class="tabbar-label">Simulacro</span>
+  </button>
 </nav>
 
 <div id="toast" class="toast"></div>
 
 <script type="module">
+__ICONOS_JS__
+
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("./service-worker.js")
@@ -279,6 +302,8 @@ def get_main_logic():
     ejercicio: document.getElementById("pantallaEjercicio"),
     aprendizaje: document.getElementById("pantallaAprendizaje"),
     conceptos: document.getElementById("pantallaConceptos"),
+    simulacro: document.getElementById("pantallaSimulacro"),
+    mapaServicios: document.getElementById("pantallaMapaServicios"),
   };
 
   function mostrarPantalla(nombre, opciones) {
@@ -295,8 +320,13 @@ def get_main_logic():
     // Solo las 2 pantallas "de nivel superior" (con pestaña propia) cambian
     // el resaltado de la barra inferior; Lecciones/Ejercicio/Aprendizaje son
     // parte del flujo de "Secciones" y no deben apagar esa pestaña.
-    if (nombre === "secciones" || nombre === "conceptos") {
-      document.querySelectorAll(".tabbar-btn").forEach((b) => b.classList.toggle("active", b.dataset.tab === nombre));
+    if (nombre !== "simulacro") {
+      document.body.classList.remove("en-simulacro");
+      detenerTemporizadorSim(); // el reloj sigue corriendo por marca de tiempo; solo se apaga el repintado
+    }
+    if (nombre === "secciones" || nombre === "conceptos" || nombre === "simulacro" || nombre === "mapaServicios") {
+      const pestana = nombre === "mapaServicios" ? "conceptos" : nombre; // el mapa vive dentro de Conceptos
+      document.querySelectorAll(".tabbar-btn").forEach((b) => b.classList.toggle("active", b.dataset.tab === pestana));
     }
     // Empuja un estado al historial del navegador para que el botón/gesto de
     // "atrás" del teléfono navegue entre pantallas de la app en vez de
@@ -311,7 +341,7 @@ def get_main_logic():
 
   const callbacksLecciones = { onAbrirLeccion: abrirLeccion, onGenerarReintento: generarReintentoUI };
   const callbacksAprendizaje = { onIniciarPractica: iniciarPracticaUI };
-  const callbacksConceptos = { onAbrirConcepto: abrirConcepto };
+  const callbacksConceptos = { onAbrirConcepto: abrirConcepto, onAbrirMapa: abrirMapaServicios };
 
   function refrescarSecciones() {
     renderSecciones({ onAbrirSeccion: abrirSeccion });
@@ -365,6 +395,7 @@ def get_main_logic():
     mostrarModalFeedback({
       exercise: pendiente.exercise,
       correcto: pendiente.correcto,
+      respuestaUsuario: pendiente.respuestaUsuario,
       onContinuar: () => manejarAvanceLeccion(seccionId, confirmarContinuar(seccionId, leccionIndex, pendiente)),
       onRepasar: () => manejarAvanceLeccion(seccionId, confirmarRepasar(seccionId, leccionIndex, pendiente)),
     });
@@ -419,12 +450,23 @@ def get_main_logic():
     mostrarModalFeedback({
       exercise: pendiente.exercise,
       correcto: pendiente.correcto,
+      respuestaUsuario: respuesta,
       onContinuar: () => { avanzarPunteroPractica(seccionId); mostrarSiguientePractica(seccionId); },
       onRepasar: () => { repasarItemPractica(seccionId); mostrarSiguientePractica(seccionId); },
     });
   }
 
   // ---------------- Conceptos (glosario con repetición espaciada) ----------------
+
+  function abrirMapaServicios() {
+    renderMapaServicios();
+    mostrarPantalla("mapaServicios");
+  }
+
+  function abrirSimulacroUI() {
+    abrirSimulacroDesdeTab();
+    mostrarPantalla("simulacro");
+  }
 
   async function abrirConceptos() {
     await asegurarCatalogoConceptos();
@@ -483,6 +525,7 @@ def get_main_logic():
       exercise: pendiente.exercise,
       correcto: pendiente.correcto,
       esReflexion: pendiente.esReflexion,
+      respuestaUsuario: respuesta,
       onContinuar: () => manejarAvanceConcepto(confirmarContinuarConcepto(conceptoId, pendiente)),
       onRepasar: () => manejarAvanceConcepto(confirmarRepasarConcepto(conceptoId, pendiente)),
     });
@@ -497,7 +540,7 @@ def get_main_logic():
     }
   }
 
-  function init() {
+  async function init() {
     cargarDeStorage();
     refrescarSecciones();
 
@@ -513,6 +556,7 @@ def get_main_logic():
     document.getElementById("btnVolverSecciones").addEventListener("click", () => history.back());
     document.getElementById("btnVolverLecciones").addEventListener("click", () => history.back());
     document.getElementById("btnVolverDeAprendizaje").addEventListener("click", () => history.back());
+    document.getElementById("btnVolverMapaServicios").addEventListener("click", () => history.back());
 
     document.getElementById("btnAbrirAprendizaje").addEventListener("click", abrirAprendizaje);
     document.getElementById("btnCopiarReporteSeccion").addEventListener("click", () => {
@@ -523,6 +567,7 @@ def get_main_logic():
       btn.addEventListener("click", () => {
         if (btn.dataset.tab === "secciones") { refrescarSecciones(); mostrarPantalla("secciones"); }
         else if (btn.dataset.tab === "conceptos") { abrirConceptos(); }
+        else if (btn.dataset.tab === "simulacro") { abrirSimulacroUI(); }
       });
     });
 
@@ -537,17 +582,40 @@ def get_main_logic():
       else if (destino === "lecciones") renderLecciones(AppState.seccionActivaId, callbacksLecciones);
       else if (destino === "aprendizaje") renderAprendizaje(AppState.seccionActivaId, callbacksAprendizaje);
       else if (destino === "conceptos") renderConceptos(callbacksConceptos);
+      else if (destino === "simulacro") abrirSimulacroDesdeTab();
+      else if (destino === "mapaServicios") renderMapaServicios();
       mostrarPantalla(destino, { push: false });
     });
 
-    // Precarga en segundo plano los datos de todas las secciones, para que
-    // el mapa muestre de una vez cuáles están "(Vacío)" y cuáles no.
-    Promise.all(SECCIONES.map((s) => asegurarDatosSeccion(s.id))).then(refrescarSecciones);
-    asegurarCatalogoConceptos();
+    // Si entregué ejercicios nuevos (DATA_VERSION distinta), vuelve a leer todos
+    // los bancos y limpia el progreso de lo que ya no existe. Si es la misma
+    // versión no hace nada. Después precarga las secciones para que el mapa
+    // muestre de una vez cuáles están "(Vacío)" y cuáles no.
+    const sincronizado = await sincronizarBancos();
+    await Promise.all(SECCIONES.map((s) => asegurarDatosSeccion(s.id)));
+    refrescarSecciones();
+    await asegurarCatalogoConceptos();
+    if (sincronizado) toast("📦 Banco de ejercicios actualizado");
   }
 
   init();
 '''
+
+
+def generar_iconos_js():
+    """Convierte iconos/*.svg en una constante ICONOS (data URIs) dentro del index.html:
+    cero peticiones extra y funcionan offline desde el primer arranque."""
+    import base64
+    ruta_cat = os.path.join(ICONOS_DIR, "catalogo.json")
+    catalogo = json.loads(leer(ruta_cat))["iconos"]
+    mapa = {}
+    for ic in catalogo:
+        ruta = os.path.join(ICONOS_DIR, ic["id"] + ".svg")
+        svg = leer(ruta)
+        b64 = base64.b64encode(svg.encode("utf-8")).decode("ascii")
+        mapa[ic["id"]] = {"n": ic["nombre"], "src": "data:image/svg+xml;base64," + b64, "o": bool(ic.get("oficial", True))}
+    print(f"  ✅ {len(mapa)} iconos de {ICONOS_DIR}/ embebidos")
+    return "const ICONOS = " + json.dumps(mapa, ensure_ascii=False, separators=(",", ":")) + ";"
 
 
 def build_html():
@@ -567,6 +635,7 @@ def build_html():
     html = html.replace("__NOMBRE_APP__", NOMBRE_APP)
     html = html.replace("__VERSION__", VERSION)
     html = html.replace("__COLOR_TEMA__", COLOR_TEMA)
+    html = html.replace("__ICONOS_JS__", generar_iconos_js())
     html = html.replace("__MOTOR_JS__", motor_js)
     html = html.replace("__TIPOS_EJERCICIO_JS__", tipos_js)
     html = html.replace("__MAIN_LOGIC__", get_main_logic())
@@ -579,7 +648,7 @@ def main():
     print(f"📦 Versión: {VERSION}")
     print("=" * 60)
 
-    requeridos = ["estilos/main.css"] + MOTOR_JS_FILES + TIPOS_EJERCICIO_JS_FILES
+    requeridos = ["estilos/main.css", "iconos/catalogo.json"] + MOTOR_JS_FILES + TIPOS_EJERCICIO_JS_FILES
     faltantes = [f for f in requeridos if not os.path.exists(f)]
     if faltantes:
         print("❌ Faltan archivos:")
@@ -587,7 +656,16 @@ def main():
             print(f"   - {f}")
         sys.exit(1)
 
-    print(f"✅ {len(requeridos)} archivos fuente encontrados\n")
+    print(f"✅ {len(requeridos)} archivos fuente encontrados")
+
+    import auditoria
+    errores = auditoria.auditar(detalle="--auditar" in sys.argv)
+    if "--auditar" in sys.argv:
+        sys.exit(1 if errores else 0)
+    if errores:
+        print("\n⛔ Corrige los errores de datos/ antes de construir (los avisos no frenan el build).")
+        sys.exit(1)
+    print()
     print("📱 Generando archivos PWA…")
     crear_icono()
     crear_manifest()

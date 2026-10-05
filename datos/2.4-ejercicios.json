@@ -1,4 +1,1787 @@
 {
   "levelId": "2.4",
-  "exercises": []
+  "exercises": [
+    {
+      "id": "u-01",
+      "type": "single-select",
+      "subtopic": "Analyzers prebuilt",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "Una aseguradora recibe facturas en PDF de cientos de proveedores y quiere campos ya estructurados: proveedor, fecha y total. ¿Qué enfoque de Content Understanding le conviene?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Usar el analyzer prebuilt de facturas (prebuilt-invoice)"
+        },
+        {
+          "id": "b",
+          "text": "Entrenar desde cero un modelo de visión que reconozca cada tipo de factura"
+        },
+        {
+          "id": "c",
+          "text": "Convertir cada PDF en imagen y pedir a un chat una descripción libre"
+        },
+        {
+          "id": "d",
+          "text": "Indexar los PDF en un buscador y extraer los campos a mano en cada consulta"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Content Understanding trae analyzers prebuilt para dominios comunes (factura, recibo, documento de identidad…) que devuelven campos estructurados sin entrenar."
+    },
+    {
+      "id": "u-02",
+      "type": "matching",
+      "subtopic": "Analyzers prebuilt",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada analyzer prebuilt con su uso:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "prebuilt-invoice"
+        },
+        {
+          "id": "l2",
+          "text": "prebuilt-receipt"
+        },
+        {
+          "id": "l3",
+          "text": "prebuilt-idDocument"
+        },
+        {
+          "id": "l4",
+          "text": "prebuilt-layout"
+        },
+        {
+          "id": "l5",
+          "text": "prebuilt-documentSearch"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Facturas: proveedor, fecha, importes…"
+        },
+        {
+          "id": "r2",
+          "text": "Recibos de compra"
+        },
+        {
+          "id": "r3",
+          "text": "Documentos de identidad"
+        },
+        {
+          "id": "r4",
+          "text": "Texto, tablas y estructura de la página"
+        },
+        {
+          "id": "r5",
+          "text": "Contenido en Markdown preparado para búsqueda y RAG"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        },
+        {
+          "leftId": "l5",
+          "rightId": "r5"
+        }
+      ],
+      "explanation": "Hay analyzers de dominio (factura, recibo, identidad), de extracción de contenido (layout, read) y de búsqueda (documentSearch)."
+    },
+    {
+      "id": "u-03",
+      "type": "dropdown",
+      "subtopic": "Analyzers personalizados",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "textWithBlanks": "Un analyzer personalizado se crea extendiendo un analyzer {{b1}} y agregándole un {{b2}} que describe los campos a extraer.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "base",
+            "de facturas",
+            "de Speech",
+            "de búsqueda"
+          ],
+          "correctOption": "base"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "field schema",
+            "modelo de lenguaje",
+            "índice de búsqueda",
+            "token de contexto"
+          ],
+          "correctOption": "field schema"
+        }
+      ],
+      "explanation": "Los personalizados parten de un analyzer base (documento, imagen, audio o video) y definen un field schema: nombre, tipo y descripción de cada campo."
+    },
+    {
+      "id": "u-04",
+      "type": "single-select",
+      "subtopic": "Field schema",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "En un field schema, ¿qué diferencia hay entre method extract y method generate?",
+      "options": [
+        {
+          "id": "a",
+          "text": "extract toma valores que aparecen literalmente en el contenido; generate produce el valor con IA, por ejemplo un resumen"
+        },
+        {
+          "id": "b",
+          "text": "extract produce resúmenes redactados por IA y generate copia el texto tal cual aparece en el documento original sin modificarlo en absoluto"
+        },
+        {
+          "id": "c",
+          "text": "No hay diferencia: son sinónimos del mismo método de extracción"
+        },
+        {
+          "id": "d",
+          "text": "extract solo sirve para audio y generate solo para documentos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "extract = valor presente en el contenido; generate = valor inferido o redactado por el modelo."
+    },
+    {
+      "id": "u-05",
+      "type": "single-select",
+      "subtopic": "Field schema",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "¿Para qué sirve method classify en un campo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Para elegir una categoría de una lista definida, por ejemplo el tipo de documento"
+        },
+        {
+          "id": "b",
+          "text": "Para traducir el contenido al idioma que elijas, sin cambiar el significado del texto original ni sus tablas"
+        },
+        {
+          "id": "c",
+          "text": "Para leer el texto de una imagen mediante OCR"
+        },
+        {
+          "id": "d",
+          "text": "Para convertir el audio en una transcripción"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "classify asigna una etiqueta entre opciones que tú defines."
+    },
+    {
+      "id": "u-06",
+      "type": "single-select",
+      "subtopic": "Field schema",
+      "skill": "cu-documentos",
+      "peso": 2,
+      "prompt": "¿Qué es un field schema?",
+      "options": [
+        {
+          "id": "a",
+          "text": "La descripción de los campos que debe devolver el analyzer: nombre, tipo, método y descripción"
+        },
+        {
+          "id": "b",
+          "text": "El plano de red del recurso de Foundry, con sus subredes, sus reglas de seguridad y sus puntos de conexión privados"
+        },
+        {
+          "id": "c",
+          "text": "El idioma de las respuestas del analyzer"
+        },
+        {
+          "id": "d",
+          "text": "La lista de usuarios autorizados a analizar archivos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Es la definición de la salida estructurada que esperas."
+    },
+    {
+      "id": "u-07",
+      "type": "code-fill",
+      "subtopic": "Field schema",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "Completa el analyzer personalizado que extrae el proveedor y la fecha de un recibo.",
+      "code": {
+        "lang": "json",
+        "title": "receipt-analyzer.json",
+        "source": "{\n  \"description\": \"Receipt analyzer\",\n  \"baseAnalyzerId\": \"{{b1}}\",\n  \"fieldSchema\": {\n    \"fields\": {\n      \"VendorName\": {\n        \"type\": \"string\",\n        \"method\": \"{{b2}}\",\n        \"description\": \"Vendor issuing the receipt\"\n      },\n      \"TransactionDate\": {\n        \"type\": \"{{b3}}\",\n        \"method\": \"extract\",\n        \"description\": \"Date of the purchase\"\n      }\n    }\n  }\n}",
+        "highlight": [
+          3
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "prebuilt-document",
+            "prebuilt-audio",
+            "prebuilt-video",
+            "prebuilt-idDocument"
+          ],
+          "correctOption": "prebuilt-document"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "extract",
+            "summarize",
+            "translate",
+            "redact"
+          ],
+          "correctOption": "extract"
+        },
+        {
+          "id": "b3",
+          "options": [
+            "date",
+            "array",
+            "object",
+            "boolean"
+          ],
+          "correctOption": "date"
+        }
+      ],
+      "explanation": "Un analyzer sobre documentos parte de prebuilt-document. VendorName aparece escrito en el recibo (extract) y la fecha es de tipo date."
+    },
+    {
+      "id": "u-08",
+      "type": "single-select",
+      "subtopic": "Field schema",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "¿Qué hace method generate en el campo Summary de este analyzer?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Pide al servicio que redacte el valor con IA a partir del contenido del documento"
+        },
+        {
+          "id": "b",
+          "text": "Copia literalmente la primera línea del documento y la guarda sin cambios en el campo Summary del resultado"
+        },
+        {
+          "id": "c",
+          "text": "Convierte el campo en una imagen del documento"
+        },
+        {
+          "id": "d",
+          "text": "Traduce el documento entero a inglés"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Un resumen no está escrito tal cual en el documento: se genera.",
+      "code": {
+        "lang": "json",
+        "title": "analyzer.json",
+        "source": "{\n  \"Summary\": {\n    \"type\": \"string\",\n    \"method\": \"generate\",\n    \"description\": \"Short summary of the document\"\n  }\n}",
+        "highlight": [
+          4
+        ]
+      }
+    },
+    {
+      "id": "u-09",
+      "type": "code-fill",
+      "subtopic": "SDK",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "Analiza una factura con el analyzer prebuilt y muestra sus campos.",
+      "code": {
+        "lang": "python",
+        "title": "analyze_invoice.py",
+        "source": "from azure.identity import DefaultAzureCredential\nfrom azure.ai.contentunderstanding import ContentUnderstandingClient\nfrom azure.ai.contentunderstanding.models import AnalysisInput\n\nclient = ContentUnderstandingClient(\n    endpoint=\"https://contoso.services.ai.azure.com/\",\n    credential=DefaultAzureCredential(),\n)\n\npoller = client.{{b1}}(\n    analyzer_id=\"prebuilt-invoice\",\n    inputs=[AnalysisInput(url=\"https://contoso.com/files/invoice.pdf\")],\n)\nresult = poller.{{b2}}()\ncontent = result.contents[0]\nprint(content.{{b3}})",
+        "highlight": [
+          10,
+          14
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "begin_analyze",
+            "analyze_document",
+            "start_analysis",
+            "extract"
+          ],
+          "correctOption": "begin_analyze"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "result",
+            "get",
+            "wait",
+            "finish"
+          ],
+          "correctOption": "result"
+        },
+        {
+          "id": "b3",
+          "options": [
+            "fields",
+            "transcript_phrases",
+            "key_frames",
+            "audio_text"
+          ],
+          "correctOption": "fields"
+        }
+      ],
+      "explanation": "begin_analyze inicia una operación de larga duración y devuelve un poller; poller.result() espera el resultado y los campos extraídos están en content.fields."
+    },
+    {
+      "id": "u-10",
+      "type": "code-fill",
+      "subtopic": "SDK",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "Convierte un PDF a Markdown preparado para indexar en un sistema RAG.",
+      "code": {
+        "lang": "python",
+        "title": "document_search.py",
+        "source": "poller = client.begin_analyze(\n    analyzer_id=\"{{b1}}\",\n    inputs=[AnalysisInput(url=file_url)],\n)\nresult = poller.result()\nprint(result.contents[0].{{b2}})",
+        "highlight": [
+          2
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "prebuilt-documentSearch",
+            "prebuilt-audioSearch",
+            "prebuilt-videoSearch",
+            "prebuilt-imageSearch"
+          ],
+          "correctOption": "prebuilt-documentSearch"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "markdown",
+            "transcript_phrases",
+            "key_frames",
+            "speakers"
+          ],
+          "correctOption": "markdown"
+        }
+      ],
+      "explanation": "prebuilt-documentSearch devuelve el contenido del documento en Markdown, listo para búsqueda y RAG."
+    },
+    {
+      "id": "u-11",
+      "type": "single-select",
+      "subtopic": "SDK",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "¿Por qué begin_analyze devuelve un poller en lugar del resultado final?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Porque el análisis es una operación asíncrona de larga duración que hay que esperar"
+        },
+        {
+          "id": "b",
+          "text": "Porque el servicio solo responde una vez al día, así que el programa debe consultar el resultado mañana"
+        },
+        {
+          "id": "c",
+          "text": "Porque el poller reduce el costo de cada análisis"
+        },
+        {
+          "id": "d",
+          "text": "Porque así la clave de API no se envía por la red"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los archivos grandes pueden tardar; el poller permite esperar o consultar el estado."
+    },
+    {
+      "id": "u-12",
+      "type": "single-select",
+      "subtopic": "Concepto",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "¿Qué ventaja tiene Content Understanding frente a servicios que solo leen documentos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Procesa documentos, imágenes, audio y video con una API coherente y devuelve contenido estructurado"
+        },
+        {
+          "id": "b",
+          "text": "Solo funciona con documentos escaneados en blanco y negro, y no admite ningún otro tipo de archivo ni de contenido"
+        },
+        {
+          "id": "c",
+          "text": "Convierte todo archivo en un video de resumen"
+        },
+        {
+          "id": "d",
+          "text": "Reemplaza la necesidad de tener un recurso de Foundry"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Es un servicio multimodal que convierte contenido no estructurado en datos estructurados."
+    },
+    {
+      "id": "u-13",
+      "type": "true-false",
+      "subtopic": "Analyzers prebuilt",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "statement": "El analyzer prebuilt-invoice sirve para extraer los campos de un video grabado.",
+      "correctAnswer": false,
+      "explanation": "Es un analyzer de dominio para documentos de factura; para video existen los analyzers de video."
+    },
+    {
+      "id": "u-14",
+      "type": "single-select",
+      "subtopic": "Requisitos",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "Antes de usar analyzers que se apoyan en modelos de lenguaje, ¿qué debes preparar?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Desplegar en tu recurso de Foundry los modelos requeridos y configurar los valores predeterminados de Content Understanding"
+        },
+        {
+          "id": "b",
+          "text": "Entrenar un modelo propio con tus documentos de ejemplo y subirlo después como un analyzer personalizado dentro del recurso de Foundry"
+        },
+        {
+          "id": "c",
+          "text": "Instalar un servidor de OCR en tu red local"
+        },
+        {
+          "id": "d",
+          "text": "Nada: ningún analyzer necesita modelos desplegados"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Analyzers como prebuilt-invoice usan modelos de lenguaje y de embeddings desplegados en tu recurso."
+    },
+    {
+      "id": "u-15",
+      "type": "single-select",
+      "subtopic": "Clasificación",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "prompt": "Un buzón recibe facturas, recibos y contratos mezclados. ¿Cómo lo resuelves con Content Understanding?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Con un analyzer clasificador que identifica cada tipo y lo envía a su analyzer específico"
+        },
+        {
+          "id": "b",
+          "text": "Revisando todos los archivos a mano antes de enviarlos, para decidir qué analyzer debe procesar cada uno de ellos"
+        },
+        {
+          "id": "c",
+          "text": "Usando un único analyzer de audio para todos"
+        },
+        {
+          "id": "d",
+          "text": "Convirtiendo cada archivo en una imagen de baja resolución"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La clasificación y el enrutamiento dirigen cada categoría a un analyzer propio."
+    },
+    {
+      "id": "u-16",
+      "type": "single-select",
+      "subtopic": "Analyzers personalizados",
+      "skill": "cu-documentos",
+      "peso": 2,
+      "prompt": "Tu empresa necesita extraer campos propios de sus contratos que ningún analyzer prebuilt contempla. ¿Qué haces?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Crear un analyzer personalizado con un field schema para esos campos"
+        },
+        {
+          "id": "b",
+          "text": "Esperar a que Microsoft publique un analyzer para tu empresa"
+        },
+        {
+          "id": "c",
+          "text": "Forzar a prebuilt-invoice a leerlos aunque no sean facturas"
+        },
+        {
+          "id": "d",
+          "text": "Pasar los contratos a audio y transcribirlos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los analyzers personalizados cubren los campos y documentos propios de tu negocio."
+    },
+    {
+      "id": "u-17",
+      "type": "single-select",
+      "subtopic": "Field schema",
+      "skill": "cu-documentos",
+      "peso": 2,
+      "prompt": "¿Qué función cumple la descripción (description) de cada campo del schema?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Guiar al modelo para que entienda qué debe extraer o generar en ese campo"
+        },
+        {
+          "id": "b",
+          "text": "Es solo un comentario para humanos que el servicio ignora siempre y que no influye en los resultados"
+        },
+        {
+          "id": "c",
+          "text": "Define el idioma de la interfaz del portal"
+        },
+        {
+          "id": "d",
+          "text": "Limita cuántos archivos puede analizar el campo"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Una buena descripción mejora la precisión de los resultados."
+    },
+    {
+      "id": "u-18",
+      "type": "matching",
+      "subtopic": "SDK",
+      "skill": "cu-documentos",
+      "peso": 3,
+      "mode": "sequence",
+      "prompt": "Ordena los pasos de una aplicación que extrae datos de un documento:",
+      "items": [
+        {
+          "id": "1",
+          "text": "Elegir un analyzer prebuilt o crear uno personalizado"
+        },
+        {
+          "id": "2",
+          "text": "Enviar el archivo con begin_analyze"
+        },
+        {
+          "id": "3",
+          "text": "Esperar el resultado del poller"
+        },
+        {
+          "id": "4",
+          "text": "Leer los campos o el Markdown del contenido"
+        },
+        {
+          "id": "5",
+          "text": "Usar los datos en tu aplicación"
+        }
+      ],
+      "correctOrder": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "explanation": "Analyzer → envío → espera → lectura → uso."
+    },
+    {
+      "id": "u-19",
+      "type": "multi-select",
+      "subtopic": "Concepto",
+      "skill": "cu-documentos",
+      "peso": 2,
+      "prompt": "Content Understanding admite estos tipos de contenido de entrada. Selecciona los 4 correctos:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Documentos"
+        },
+        {
+          "id": "b",
+          "text": "Imágenes"
+        },
+        {
+          "id": "c",
+          "text": "Audio"
+        },
+        {
+          "id": "d",
+          "text": "Video"
+        },
+        {
+          "id": "e",
+          "text": "Solo texto plano en archivos .txt"
+        },
+        {
+          "id": "f",
+          "text": "Solo hojas de cálculo"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "explanation": "Son las cuatro modalidades que convierte en datos estructurados."
+    },
+    {
+      "id": "u-20",
+      "type": "single-select",
+      "subtopic": "Analyzers prebuilt",
+      "skill": "cu-documentos",
+      "peso": 2,
+      "prompt": "¿Qué obtienes con un analyzer de extracción de contenido como prebuilt-layout?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El texto, las tablas y la estructura de la página, sin campos de un dominio concreto"
+        },
+        {
+          "id": "b",
+          "text": "Un resumen en audio del documento, narrado con una voz sintética y dividido por capítulos"
+        },
+        {
+          "id": "c",
+          "text": "Una clasificación del sentimiento de cada párrafo"
+        },
+        {
+          "id": "d",
+          "text": "Una imagen nueva generada a partir del texto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Layout y read extraen el contenido; los analyzers de dominio devuelven campos específicos."
+    },
+    {
+      "id": "u-21",
+      "type": "multi-select",
+      "subtopic": "Analyzers prebuilt",
+      "skill": "cu-documentos",
+      "peso": 2,
+      "prompt": "De una factura, un analyzer de facturas puede extraer. Selecciona las 3 correctas:",
+      "options": [
+        {
+          "id": "a",
+          "text": "El nombre del proveedor"
+        },
+        {
+          "id": "b",
+          "text": "La fecha de la factura"
+        },
+        {
+          "id": "c",
+          "text": "El total a pagar"
+        },
+        {
+          "id": "d",
+          "text": "La voz del vendedor al emitirla"
+        },
+        {
+          "id": "e",
+          "text": "El sentimiento del cliente al recibirla"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Son campos de la factura; la voz y el sentimiento no están en un PDF."
+    },
+    {
+      "id": "u-22",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "cu-documentos",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Document Intelligence"
+        },
+        {
+          "id": "b",
+          "text": "Vision (Foundry Tools)"
+        },
+        {
+          "id": "c",
+          "text": "Azure AI Search"
+        },
+        {
+          "id": "d",
+          "text": "Foundry Agent Service"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Document Intelligence también extrae texto, campos y tablas de documentos; Content Understanding amplía esa idea a más tipos de contenido.",
+      "imagen": "doc-intelligence"
+    },
+    {
+      "id": "n-01",
+      "type": "code-fill",
+      "subtopic": "Imágenes",
+      "skill": "cu-imagenes",
+      "peso": 3,
+      "prompt": "Extrae información de una imagen con el analyzer prebuilt de búsqueda de imágenes.",
+      "code": {
+        "lang": "python",
+        "title": "analyze_image.py",
+        "source": "poller = client.begin_analyze(\n    analyzer_id=\"{{b1}}\",\n    inputs=[AnalysisInput(url=\"https://contoso.com/photos/chart.png\")],\n)\nresult = poller.result()\nprint(result.contents[0].{{b2}})",
+        "highlight": [
+          2
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "prebuilt-imageSearch",
+            "prebuilt-documentSearch",
+            "prebuilt-audioSearch",
+            "prebuilt-videoSearch"
+          ],
+          "correctOption": "prebuilt-imageSearch"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "markdown",
+            "transcript_phrases",
+            "key_frames",
+            "speakers"
+          ],
+          "correctOption": "markdown"
+        }
+      ],
+      "explanation": "prebuilt-imageSearch analiza una imagen y devuelve su contenido en texto (Markdown)."
+    },
+    {
+      "id": "n-02",
+      "type": "matching",
+      "subtopic": "Analyzers base",
+      "skill": "cu-imagenes",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada tipo de contenido con el analyzer base de un analyzer personalizado:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "Documentos"
+        },
+        {
+          "id": "l2",
+          "text": "Imágenes"
+        },
+        {
+          "id": "l3",
+          "text": "Audio"
+        },
+        {
+          "id": "l4",
+          "text": "Video"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "prebuilt-document"
+        },
+        {
+          "id": "r2",
+          "text": "prebuilt-image"
+        },
+        {
+          "id": "r3",
+          "text": "prebuilt-audio"
+        },
+        {
+          "id": "r4",
+          "text": "prebuilt-video"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        }
+      ],
+      "explanation": "El analyzer base indica qué modalidad procesará tu analyzer personalizado."
+    },
+    {
+      "id": "n-03",
+      "type": "single-select",
+      "subtopic": "Imágenes",
+      "skill": "cu-imagenes",
+      "peso": 3,
+      "prompt": "Quieres extraer de cada gráfico de un informe el título, el tipo de gráfico y las tendencias. ¿Qué enfoque conviene?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un analyzer personalizado sobre prebuilt-image con un field schema para esos campos"
+        },
+        {
+          "id": "b",
+          "text": "Un analyzer de audio con la transcripción de cada gráfico leída en voz alta por un narrador sintético"
+        },
+        {
+          "id": "c",
+          "text": "El analyzer prebuilt-invoice, que lee todas las imágenes"
+        },
+        {
+          "id": "d",
+          "text": "Solo la característica READ de Image Analysis"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los campos propios (título, tipo, tendencia) se definen en un field schema sobre el analyzer base de imágenes."
+    },
+    {
+      "id": "n-04",
+      "type": "single-select",
+      "subtopic": "Imágenes",
+      "skill": "cu-imagenes",
+      "peso": 3,
+      "prompt": "¿Cuál es la diferencia entre Image Analysis (Vision) y un analyzer de imágenes de Content Understanding?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Image Analysis ofrece características fijas (caption, tags…); Content Understanding devuelve los campos que tú defines"
+        },
+        {
+          "id": "b",
+          "text": "Image Analysis procesa audio y Content Understanding procesa únicamente texto plano escrito en archivos de texto sin ningún formato"
+        },
+        {
+          "id": "c",
+          "text": "Los dos son idénticos y solo cambia el color del icono"
+        },
+        {
+          "id": "d",
+          "text": "Content Understanding no puede analizar imágenes"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Con Content Understanding diseñas tu propia salida estructurada."
+    },
+    {
+      "id": "n-05",
+      "type": "true-false",
+      "subtopic": "Imágenes",
+      "skill": "cu-imagenes",
+      "peso": 2,
+      "statement": "Un analyzer personalizado de imágenes parte del analyzer base prebuilt-image.",
+      "correctAnswer": true,
+      "explanation": "Cada modalidad tiene su analyzer base."
+    },
+    {
+      "id": "n-06",
+      "type": "single-select",
+      "subtopic": "Imágenes",
+      "skill": "cu-imagenes",
+      "peso": 2,
+      "prompt": "Quieres que el campo Category de un analyzer de imágenes elija entre «gráfico», «foto» y «diagrama». ¿Qué método usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "classify"
+        },
+        {
+          "id": "b",
+          "text": "extract"
+        },
+        {
+          "id": "c",
+          "text": "generate"
+        },
+        {
+          "id": "d",
+          "text": "translate"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "classify elige una opción de una lista cerrada."
+    },
+    {
+      "id": "n-07",
+      "type": "single-select",
+      "subtopic": "Imágenes",
+      "skill": "cu-imagenes",
+      "peso": 2,
+      "prompt": "¿Qué esperas de la propiedad markdown al analizar una imagen con prebuilt-imageSearch?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una descripción del contenido de la imagen en formato de texto, útil para búsqueda"
+        },
+        {
+          "id": "b",
+          "text": "Un archivo de audio con la imagen narrada por una voz sintética y las marcas de tiempo de cada frase"
+        },
+        {
+          "id": "c",
+          "text": "La imagen original recortada en tamaño miniatura"
+        },
+        {
+          "id": "d",
+          "text": "Una lista de claves de API del recurso"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El resultado convierte lo visual en texto indexable."
+    },
+    {
+      "id": "w-01",
+      "type": "single-select",
+      "subtopic": "Audio",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "prompt": "Un call center quiere convertir llamadas grabadas en datos analizables: transcripción por hablante, resumen y sentimiento. ¿Qué usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un analyzer de audio de Content Understanding, prebuilt o personalizado"
+        },
+        {
+          "id": "b",
+          "text": "Solo texto a voz de Azure Speech, que lee el texto en voz alta pero no transcribe ninguna llamada"
+        },
+        {
+          "id": "c",
+          "text": "Un analyzer de imágenes con las ondas del audio"
+        },
+        {
+          "id": "d",
+          "text": "El analyzer prebuilt-invoice"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los analyzers de audio transcriben y pueden extraer campos como resumen o sentimiento."
+    },
+    {
+      "id": "w-02",
+      "type": "single-select",
+      "subtopic": "Audio",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "prompt": "¿En qué formato generan la transcripción los analyzers de audio prebuilt?",
+      "options": [
+        {
+          "id": "a",
+          "text": "WEBVTT, con la transcripción separada por hablante"
+        },
+        {
+          "id": "b",
+          "text": "Una imagen PNG con el espectro del audio"
+        },
+        {
+          "id": "c",
+          "text": "Un archivo PDF con la transcripción firmada"
+        },
+        {
+          "id": "d",
+          "text": "Una hoja de cálculo con una fila por segundo"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "WEBVTT incluye marcas de tiempo y la separación por hablante."
+    },
+    {
+      "id": "w-03",
+      "type": "single-select",
+      "subtopic": "Audio",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "prompt": "En un analyzer personalizado de llamadas, ¿qué métodos usarías para el resumen y para el sentimiento?",
+      "options": [
+        {
+          "id": "a",
+          "text": "generate para el resumen y classify para el sentimiento (positivo, neutro o negativo)"
+        },
+        {
+          "id": "b",
+          "text": "extract para el resumen y generate para el sentimiento, porque el resumen aparece escrito en el audio"
+        },
+        {
+          "id": "c",
+          "text": "classify para el resumen y extract para el sentimiento"
+        },
+        {
+          "id": "d",
+          "text": "Ninguno: los analyzers de audio no admiten campos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El resumen se redacta (generate); el sentimiento se elige entre categorías (classify)."
+    },
+    {
+      "id": "w-04",
+      "type": "dropdown",
+      "subtopic": "Audio",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "textWithBlanks": "Un analyzer personalizado de audio parte del analyzer base {{b1}}; para clasificar el sentimiento de la llamada, el campo usa el método {{b2}}.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "prebuilt-audio",
+            "prebuilt-document",
+            "prebuilt-image"
+          ],
+          "correctOption": "prebuilt-audio"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "classify",
+            "extract",
+            "translate"
+          ],
+          "correctOption": "classify"
+        }
+      ],
+      "explanation": "Base de audio + método classify para elegir una categoría."
+    },
+    {
+      "id": "w-05",
+      "type": "single-select",
+      "subtopic": "Video",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "prompt": "¿Qué puede extraer un analyzer de video, además de la transcripción del audio?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Fotogramas clave y la división en escenas o segmentos, junto con campos definidos por ti"
+        },
+        {
+          "id": "b",
+          "text": "Solo el volumen medio de la banda sonora y la duración total del video, sin analizar su contenido"
+        },
+        {
+          "id": "c",
+          "text": "Únicamente el nombre del archivo y su peso en MB"
+        },
+        {
+          "id": "d",
+          "text": "Nada: los analyzers de video ignoran las imágenes"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El video combina imagen y audio: transcripción, key frames y segmentos."
+    },
+    {
+      "id": "w-06",
+      "type": "code-fill",
+      "subtopic": "Video",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "prompt": "Analiza un video con el analyzer prebuilt de búsqueda de video y recorre sus fotogramas clave.",
+      "code": {
+        "lang": "python",
+        "title": "analyze_video.py",
+        "source": "poller = client.begin_analyze(\n    analyzer_id=\"{{b1}}\",\n    inputs=[AnalysisInput(url=\"https://contoso.com/videos/demo.mp4\")],\n)\ncontent = poller.result().contents[0]\n\nfor frame in content.{{b2}}:\n    print(frame)",
+        "highlight": [
+          2,
+          7
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "prebuilt-videoSearch",
+            "prebuilt-audioSearch",
+            "prebuilt-documentSearch",
+            "prebuilt-invoice"
+          ],
+          "correctOption": "prebuilt-videoSearch"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "key_frames",
+            "fields_list",
+            "pages",
+            "tables"
+          ],
+          "correctOption": "key_frames"
+        }
+      ],
+      "explanation": "prebuilt-videoSearch devuelve transcripción, fotogramas clave y segmentos del video."
+    },
+    {
+      "id": "w-07",
+      "type": "single-select",
+      "subtopic": "Video",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "prompt": "Quieres dividir la retransmisión de un partido en jugadas, anuncios y comentarios. ¿Qué capacidad usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "La segmentación y clasificación del analyzer (contentCategories con enableSegment)"
+        },
+        {
+          "id": "b",
+          "text": "La detección de idioma de Azure Language, aplicada al texto escrito del título de cada archivo"
+        },
+        {
+          "id": "c",
+          "text": "El reconocimiento facial de Face"
+        },
+        {
+          "id": "d",
+          "text": "El análisis OCR de Image Analysis"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Puedes definir categorías y pedir que el video se divida en segmentos según ellas."
+    },
+    {
+      "id": "w-08",
+      "type": "matching",
+      "subtopic": "Resultados",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada tipo de contenido con lo que devuelve un analyzer de búsqueda (RAG):",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "Documento"
+        },
+        {
+          "id": "l2",
+          "text": "Imagen"
+        },
+        {
+          "id": "l3",
+          "text": "Audio"
+        },
+        {
+          "id": "l4",
+          "text": "Video"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Contenido en Markdown con texto y tablas"
+        },
+        {
+          "id": "r2",
+          "text": "Descripción del contenido en texto"
+        },
+        {
+          "id": "r3",
+          "text": "Transcripción con hablantes y marcas de tiempo"
+        },
+        {
+          "id": "r4",
+          "text": "Transcripción, fotogramas clave y segmentos"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        }
+      ],
+      "explanation": "Todos convierten contenido no estructurado en texto utilizable por búsqueda y RAG."
+    },
+    {
+      "id": "w-09",
+      "type": "single-select",
+      "subtopic": "Qué usar",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "prompt": "Solo necesitas la transcripción de una grabación. Si además quieres su resumen y el sentimiento en un único paso, ¿qué eliges?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un analyzer de audio de Content Understanding, que devuelve transcripción y campos"
+        },
+        {
+          "id": "b",
+          "text": "Azure Speech de voz a texto, que ya incluye siempre un resumen y el sentimiento en cada transcripción"
+        },
+        {
+          "id": "c",
+          "text": "Un analyzer de imágenes sobre la grabación"
+        },
+        {
+          "id": "d",
+          "text": "El analyzer prebuilt-invoice"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Speech transcribe; Content Understanding añade extracción estructurada sobre el contenido."
+    },
+    {
+      "id": "w-10",
+      "type": "true-false",
+      "subtopic": "Video",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "statement": "Un analyzer de video solo puede analizar el audio, nunca las imágenes del video.",
+      "correctAnswer": false,
+      "explanation": "También analiza las imágenes: fotogramas clave y segmentos de escenas."
+    },
+    {
+      "id": "w-11",
+      "type": "true-false",
+      "subtopic": "Audio",
+      "skill": "cu-audio-video",
+      "peso": 2,
+      "statement": "Los analyzers de audio prebuilt transcriben de forma multilingüe por defecto.",
+      "correctAnswer": true,
+      "explanation": "Admiten varios idiomas, y puedes configurar las opciones de idioma si lo necesitas."
+    },
+    {
+      "id": "w-12",
+      "type": "single-select",
+      "subtopic": "Privacidad",
+      "skill": "cu-audio-video",
+      "peso": 3,
+      "prompt": "Las llamadas grabadas contienen nombres, teléfonos y números de tarjeta. ¿Qué haces?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Aplicar privacidad y seguridad: informar y obtener consentimiento, limitar el acceso y proteger o redactar los datos personales"
+        },
+        {
+          "id": "b",
+          "text": "Guardar todas las transcripciones sin restricciones durante años, para analizarlas con cualquier herramienta en el futuro y compartirlas con quien las pida"
+        },
+        {
+          "id": "c",
+          "text": "Compartir los audios con cualquier proveedor que los pida"
+        },
+        {
+          "id": "d",
+          "text": "Desactivar el cifrado para acelerar el análisis"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Son datos personales: privacidad, seguridad y consentimiento son obligatorios."
+    },
+    {
+      "id": "w-13",
+      "type": "multi-select",
+      "subtopic": "Resultados",
+      "skill": "cu-audio-video",
+      "peso": 2,
+      "prompt": "Un analyzer de video puede devolver estos elementos. Selecciona los 3 correctos:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Transcripción del audio"
+        },
+        {
+          "id": "b",
+          "text": "Fotogramas clave"
+        },
+        {
+          "id": "c",
+          "text": "Segmentos o escenas"
+        },
+        {
+          "id": "d",
+          "text": "Un certificado de autenticidad"
+        },
+        {
+          "id": "e",
+          "text": "La clave de API del autor"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Los otros dos no son resultados de análisis."
+    },
+    {
+      "id": "w-14",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "cu-audio-video",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure Speech in Foundry Tools"
+        },
+        {
+          "id": "b",
+          "text": "Azure Language in Foundry Tools"
+        },
+        {
+          "id": "c",
+          "text": "Vision (Foundry Tools)"
+        },
+        {
+          "id": "d",
+          "text": "Document Intelligence"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Speech también transcribe audio; Content Understanding añade extracción de campos y análisis de video.",
+      "imagen": "speech"
+    },
+    {
+      "id": "x-01",
+      "type": "matching",
+      "subtopic": "SDK",
+      "skill": "cu-app",
+      "peso": 3,
+      "mode": "sequence",
+      "prompt": "Ordena el código de una aplicación que analiza un documento:",
+      "items": [
+        {
+          "id": "1",
+          "text": "client = ContentUnderstandingClient(endpoint=ENDPOINT, credential=DefaultAzureCredential())",
+          "code": true
+        },
+        {
+          "id": "2",
+          "text": "poller = client.begin_analyze(analyzer_id=\"prebuilt-invoice\", inputs=[AnalysisInput(url=URL)])",
+          "code": true
+        },
+        {
+          "id": "3",
+          "text": "result = poller.result()",
+          "code": true
+        },
+        {
+          "id": "4",
+          "text": "print(result.contents[0].fields)",
+          "code": true
+        }
+      ],
+      "correctOrder": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "explanation": "Cliente → envío del análisis → espera → lectura de los campos.",
+      "lang": "python"
+    },
+    {
+      "id": "x-02",
+      "type": "single-select",
+      "subtopic": "Instalación",
+      "skill": "cu-app",
+      "peso": 2,
+      "prompt": "¿Qué instalas para usar Content Understanding desde Python con autenticación de Entra ID?",
+      "options": [
+        {
+          "id": "a",
+          "text": "azure-ai-contentunderstanding y azure-identity"
+        },
+        {
+          "id": "b",
+          "text": "azure-cognitiveservices-speech y azure-core"
+        },
+        {
+          "id": "c",
+          "text": "azure-ai-textanalytics y openai-whisper"
+        },
+        {
+          "id": "d",
+          "text": "azure-ai-vision-imageanalysis, solamente"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "azure-identity se instala aparte: no es una dependencia del SDK."
+    },
+    {
+      "id": "x-03",
+      "type": "single-select",
+      "subtopic": "Cliente",
+      "skill": "cu-app",
+      "peso": 3,
+      "prompt": "¿Qué necesita ContentUnderstandingClient para conectarse?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El endpoint de tu recurso de Foundry y una credencial, por ejemplo DefaultAzureCredential"
+        },
+        {
+          "id": "b",
+          "text": "El nombre de un deployment de chat, el id de una conversación y el texto del prompt de sistema"
+        },
+        {
+          "id": "c",
+          "text": "Un archivo de audio de ejemplo y su idioma"
+        },
+        {
+          "id": "d",
+          "text": "La clave de una cuenta de almacenamiento"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El endpoint tiene la forma https://<recurso>.services.ai.azure.com/."
+    },
+    {
+      "id": "x-04",
+      "type": "single-select",
+      "subtopic": "SDK",
+      "skill": "cu-app",
+      "peso": 2,
+      "prompt": "¿Qué representa result.contents[0] tras analizar un archivo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El primer contenido analizado, con su Markdown y los campos extraídos"
+        },
+        {
+          "id": "b",
+          "text": "El nombre del analyzer usado, junto con la versión del SDK y el identificador del recurso de Foundry"
+        },
+        {
+          "id": "c",
+          "text": "La clave de API temporal del servicio"
+        },
+        {
+          "id": "d",
+          "text": "La URL del archivo original"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Un resultado puede incluir uno o varios contenidos."
+    },
+    {
+      "id": "x-05",
+      "type": "true-false",
+      "subtopic": "SDK",
+      "skill": "cu-app",
+      "peso": 3,
+      "statement": "begin_analyze bloquea el programa hasta tener el resultado y por eso no devuelve ningún poller.",
+      "correctAnswer": false,
+      "explanation": "Devuelve un poller: la operación es asíncrona y tú decides cuándo esperar con result()."
+    },
+    {
+      "id": "x-06",
+      "type": "single-select",
+      "subtopic": "Qué usar",
+      "skill": "cu-app",
+      "peso": 3,
+      "prompt": "Necesitas una app que lea facturas de proveedores y llene tu sistema contable. ¿Qué combinación es la más directa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "begin_analyze con prebuilt-invoice y guardar los campos devueltos en tu sistema"
+        },
+        {
+          "id": "b",
+          "text": "Entrenar un modelo de lenguaje desde cero con tus facturas antes de poder leer una sola de ellas"
+        },
+        {
+          "id": "c",
+          "text": "Enviar cada factura a un modelo de generación de imágenes"
+        },
+        {
+          "id": "d",
+          "text": "Transcribir las facturas con texto a voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El analyzer prebuilt ya devuelve los campos de la factura."
+    },
+    {
+      "id": "x-07",
+      "type": "single-select",
+      "subtopic": "Analyzers personalizados",
+      "skill": "cu-app",
+      "peso": 2,
+      "prompt": "Tu analyzer personalizado falla con algunos documentos. ¿Cuál es un buen siguiente paso?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Probar con documentos de muestra y afinar las descripciones y los métodos de los campos"
+        },
+        {
+          "id": "b",
+          "text": "Cambiar el idioma del portal de Azure y esperar a que el servicio reaprenda solo los campos del schema"
+        },
+        {
+          "id": "c",
+          "text": "Subir la temperature a 2 en el field schema"
+        },
+        {
+          "id": "d",
+          "text": "Eliminar el analyzer base para que sea más flexible"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Iterar sobre el schema con ejemplos mejora la extracción."
+    },
+    {
+      "id": "x-08",
+      "type": "single-select",
+      "subtopic": "Seguridad",
+      "skill": "cu-app",
+      "peso": 3,
+      "prompt": "Tu app con Content Understanding está en producción. ¿Cómo la autenticas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Con una identidad administrada de Microsoft Entra ID, sin claves escritas en el código"
+        },
+        {
+          "id": "b",
+          "text": "Con una clave de API escrita directamente en el código fuente y subida al repositorio compartido"
+        },
+        {
+          "id": "c",
+          "text": "Con el usuario y la contraseña personales del desarrollador"
+        },
+        {
+          "id": "d",
+          "text": "Sin autenticación, porque el endpoint es privado por defecto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "DefaultAzureCredential usa la identidad administrada cuando corre en Azure."
+    },
+    {
+      "id": "x-09",
+      "type": "single-select",
+      "subtopic": "Concepto",
+      "skill": "cu-app",
+      "peso": 2,
+      "prompt": "¿Qué combinación define a un analyzer personalizado?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un analyzer base y un field schema con los campos a extraer"
+        },
+        {
+          "id": "b",
+          "text": "Un deployment de chat y una clave de API"
+        },
+        {
+          "id": "c",
+          "text": "Un archivo de audio y una región"
+        },
+        {
+          "id": "d",
+          "text": "Un agente y un vector store"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Base + schema es la receta de cualquier analyzer personalizado."
+    },
+    {
+      "id": "x-10",
+      "type": "dropdown",
+      "subtopic": "SDK",
+      "skill": "cu-app",
+      "peso": 3,
+      "textWithBlanks": "Para esperar el resultado de un análisis llamas a {{b1}} sobre el poller; los campos están en {{b2}} del contenido.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "result()",
+            "delete()",
+            "create_version()",
+            "speak_text_async()"
+          ],
+          "correctOption": "result()"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "fields",
+            "key_frames",
+            "transcript",
+            "voice"
+          ],
+          "correctOption": "fields"
+        }
+      ],
+      "explanation": "El poller entrega el resultado; fields contiene los valores extraídos."
+    },
+    {
+      "id": "x-11",
+      "type": "single-select",
+      "subtopic": "Concepto",
+      "skill": "cu-app",
+      "peso": 2,
+      "prompt": "Quieres que el modelo sepa que «Total» es el importe final de la factura y no un subtotal. ¿Dónde lo indicas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "En la descripción del campo dentro del field schema"
+        },
+        {
+          "id": "b",
+          "text": "En el nombre del archivo que subes"
+        },
+        {
+          "id": "c",
+          "text": "En la región del recurso de Foundry"
+        },
+        {
+          "id": "d",
+          "text": "En la clave de API del recurso"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La descripción orienta al modelo sobre qué buscar."
+    },
+    {
+      "id": "x-12",
+      "type": "single-select",
+      "subtopic": "Qué usar",
+      "skill": "cu-app",
+      "peso": 2,
+      "prompt": "Tu archivo es un PDF escaneado y solo necesitas todo su texto y sus tablas, sin campos de un dominio. ¿Qué analyzer te sirve?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un analyzer de extracción de contenido como prebuilt-layout"
+        },
+        {
+          "id": "b",
+          "text": "prebuilt-audioSearch"
+        },
+        {
+          "id": "c",
+          "text": "prebuilt-videoSearch"
+        },
+        {
+          "id": "d",
+          "text": "Un analyzer de imágenes de gráficos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Layout devuelve texto, tablas y estructura."
+    },
+    {
+      "id": "x-13",
+      "type": "true-false",
+      "subtopic": "Concepto",
+      "skill": "cu-app",
+      "peso": 2,
+      "statement": "Con Content Understanding puedes obtener datos estructurados a partir de un video sin escribir transcripciones a mano.",
+      "correctAnswer": true,
+      "explanation": "El analyzer de video transcribe, segmenta y extrae los campos que definas."
+    },
+    {
+      "id": "x-14",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "cu-app",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure AI Search"
+        },
+        {
+          "id": "b",
+          "text": "Document Intelligence"
+        },
+        {
+          "id": "c",
+          "text": "Foundry Agent Service"
+        },
+        {
+          "id": "d",
+          "text": "Content Safety"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Azure AI Search puede indexar el Markdown que produce Content Understanding para construir soluciones RAG.",
+      "imagen": "ai-search"
+    },
+    {
+      "id": "x-15",
+      "type": "single-select",
+      "subtopic": "Qué usar",
+      "skill": "cu-app",
+      "peso": 3,
+      "prompt": "Tienes mil PDF de manuales y quieres un asistente que responda sobre ellos. ¿Cómo encaja Content Understanding?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Convierte los PDF en Markdown estructurado que luego se indexa y se usa para fundamentar las respuestas"
+        },
+        {
+          "id": "b",
+          "text": "Reemplaza al modelo de lenguaje y responde por sí mismo a las preguntas, sin necesitar búsqueda ni fundamentación"
+        },
+        {
+          "id": "c",
+          "text": "Convierte los PDF en audio para escucharlos"
+        },
+        {
+          "id": "d",
+          "text": "Borra los PDF después de leerlos para ahorrar espacio"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Content Understanding prepara el contenido; el modelo y la búsqueda construyen la respuesta (RAG)."
+    }
+  ]
 }

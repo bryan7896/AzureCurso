@@ -133,20 +133,37 @@ function verificarCierreIntento(seccionId) {
     });
   });
 
-  const pct = total ? Math.round((aciertos / total) * 100) : 0;
-  const aprobado = pct >= UMBRAL_APROBACION_PCT;
+  // % de ESTE intento (solo lo que se contestó ahora)
+  const pctIntento = total ? Math.round((aciertos / total) * 100) : 0;
 
-  estado.progreso.ultimoResultadoDetalle = detalle;
-  estado.progreso.intentos.push({
+  // Acumulado de la sección: el último resultado de CADA ejercicio calificado.
+  // Antes el 90% se medía solo sobre el reintento (fallados + 30% de refuerzo),
+  // lo que distorsionaba el resultado. Ahora se mide sobre toda la sección.
+  const prog = estado.progreso;
+  prog.resultadoPorEjercicio = { ...(prog.resultadoPorEjercicio || {}), ...detalle };
+  const idsBanco = estado.ejercicios.map((e) => e.id);
+  const calificados = idsBanco.filter((id) => prog.resultadoPorEjercicio[id] !== undefined);
+  const correctosSeccion = calificados.filter((id) => prog.resultadoPorEjercicio[id] === true).length;
+  const sinCalificar = idsBanco.length - calificados.length;
+  const pct = calificados.length ? Math.round((correctosSeccion / calificados.length) * 100) : 0;
+  // Aprobar exige el umbral Y haber calificado todos los ejercicios al menos una vez.
+  const aprobado = pct >= UMBRAL_APROBACION_PCT && sinCalificar === 0;
+
+  prog.ultimoResultadoDetalle = detalle;
+  prog.intentos.push({
     numero: intento.numero,
     esReintento: intento.esReintento,
     pct,
+    pctIntento,
+    correctosSeccion,
+    totalSeccion: idsBanco.length,
+    sinCalificar,
     aprobado,
     cerradoEn: new Date().toISOString(),
   });
-  estado.progreso.mejorPuntajePct = Math.max(estado.progreso.mejorPuntajePct, pct);
-  estado.progreso.estado = aprobado ? "aprobado" : "requiere-reintento";
+  prog.mejorPuntajePct = Math.max(prog.mejorPuntajePct, pct);
+  prog.estado = aprobado ? "aprobado" : "requiere-reintento";
   guardar();
 
-  return { pct, aprobado };
+  return { pct, pctIntento, aprobado, sinCalificar, correctosSeccion, totalSeccion: idsBanco.length };
 }

@@ -1,10 +1,52 @@
 {
   "levelId": "2.2",
   "learningContent": {
-    "title": "",
-    "estimatedMinutes": 0,
-    "sections": []
+    "title": "Text + Speech",
+    "estimatedMinutes": 60,
+    "sections": [
+      {
+        "heading": "Análisis de texto con Azure Language",
+        "body": "**Azure Language in Foundry Tools** analiza texto sin que entrenes nada: envías documentos y recibes resultados estructurados.\n\n• **Sentimiento** → `positive`, `neutral`, `negative` o `mixed`, con puntuaciones de confianza (y *opinion mining* por aspecto).\n• **Entidades (NER)** → personas, lugares, organizaciones, fechas…\n• **Frases clave** → los temas principales.\n• **Detección de idioma**, **resumen** y **detección de información personal (PII)**.\n\n```python\nfrom azure.ai.textanalytics import TextAnalyticsClient\nfrom azure.core.credentials import AzureKeyCredential\n\nclient = TextAnalyticsClient(\n    endpoint=\"https://<recurso>.cognitiveservices.azure.com/\",\n    credential=AzureKeyCredential(\"<your-key>\"),\n)\n\nresult = client.analyze_sentiment(documents=[\"The staff were wonderful.\"])\nfor doc in result:\n    if not doc.is_error:\n        print(doc.sentiment)\n\nentities = client.recognize_entities(documents=[text])[0].entities\nphrases = client.extract_key_phrases(documents=[text])[0].key_phrases\n```\n\nCada llamada devuelve **un resultado por documento**, en orden; un documento con problemas devuelve un error (`is_error`)."
+      },
+      {
+        "heading": "Voz con un modelo multimodal",
+        "body": "Un modelo **multimodal con audio** acepta voz como entrada y puede responder en texto, en audio o en ambos.\n\n```python\ncompletion = client.chat.completions.create(\n    model=\"my-audio-deployment\",\n    modalities=[\"text\", \"audio\"],\n    audio={\"voice\": \"alloy\", \"format\": \"wav\"},\n    messages=[{\n        \"role\": \"user\",\n        \"content\": [\n            {\"type\": \"text\", \"text\": \"Answer the question in the recording.\"},\n            {\"type\": \"input_audio\", \"input_audio\": {\"data\": audio_b64, \"format\": \"wav\"}},\n        ],\n    }],\n)\n```\n\nEl audio viaja **codificado en base64**. Para conversaciones de baja latencia se usan APIs **en tiempo real**.\n\nAlternativa clásica **en cadena**: voz a texto → modelo de lenguaje → texto a voz. Si solo necesitas transcribir, un servicio de voz a texto basta. Con grabaciones de clientes piensa siempre en **privacidad y consentimiento**."
+      },
+      {
+        "heading": "Azure Speech: voz a texto, texto a voz y SSML",
+        "body": "**Azure Speech in Foundry Tools** reconoce voz, la sintetiza y también **traduce lo hablado**. Las cuatro piezas del SDK:\n\n• `SpeechConfig` → clave + región (o endpoint), idioma y voz.\n• `AudioConfig` / `AudioOutputConfig` → origen/destino del audio (micrófono, archivo, altavoz).\n• `SpeechRecognizer` → voz a texto.\n• `SpeechSynthesizer` → texto a voz.\n\n```python\nimport azure.cognitiveservices.speech as speechsdk\n\nspeech_config = speechsdk.SpeechConfig(subscription=KEY, region=REGION)\nspeech_config.speech_recognition_language = \"es-CO\"\n\naudio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)\nrecognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)\nresult = recognizer.recognize_once_async().get()\n\nif result.reason == speechsdk.ResultReason.RecognizedSpeech:\n    print(result.text)\n```\n\n`recognize_once_async` reconoce **una sola frase**; para audio largo, reconocimiento continuo; para miles de grabaciones guardadas, **transcripción por lotes**.\n\nPara hablar:\n\n```python\nspeech_config.speech_synthesis_voice_name = \"en-US-AvaMultilingualNeural\"\nsynthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)\nsynthesizer.speak_text_async(\"Hello, welcome to Contoso.\").get()\n```\n\n**SSML** es XML para controlar pausas, velocidad y voces (`<break time=\"500ms\"/>`) y se usa con `speak_ssml_async`."
+      }
+    ]
   },
   "practiceExercises": [],
-  "achievements": []
+  "achievements": [
+    {
+      "id": "lab-2.2-01",
+      "texto": "Crea un recurso de Foundry/Language y analiza el sentimiento de tres reseñas escritas por ti con el SDK."
+    },
+    {
+      "id": "lab-2.2-02",
+      "texto": "Extrae las frases clave y las entidades de un artículo de noticias y revisa la categoría de cada entidad."
+    },
+    {
+      "id": "lab-2.2-03",
+      "texto": "Prueba una voz sintetizada, cambia de voz y comprueba la diferencia."
+    },
+    {
+      "id": "lab-2.2-04",
+      "texto": "Transcribe un archivo wav con SpeechRecognizer y verifica que result.reason es RecognizedSpeech."
+    },
+    {
+      "id": "lab-2.2-05",
+      "texto": "Guarda una síntesis de voz en output.wav usando AudioOutputConfig(filename=...)."
+    },
+    {
+      "id": "lab-2.2-06",
+      "texto": "Escribe un SSML con una pausa de 500 ms y reprodúcelo con speak_ssml_async."
+    },
+    {
+      "id": "lab-2.2-07",
+      "texto": "Prueba un modelo con audio en el playground del portal y compara su respuesta con la cadena voz a texto → modelo → texto a voz."
+    }
+  ]
 }

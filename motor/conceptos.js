@@ -208,6 +208,11 @@ function renderConceptos(callbacks) {
   const reflexiones = AppState.reflexiones || [];
 
   cont.innerHTML = `
+    <button class="btn-mapa-servicios" id="btnMapaServicios">
+      <span class="btn-mapa-iconos">${["foundry", "language", "speech", "vision"].map((id) => iconoHTML(id, { tam: "sm", conNombre: false })).join("")}</span>
+      <span class="btn-mapa-texto"><strong>🗺️ Mapa de servicios</strong><small>Los iconos de Azure agrupados por necesidad, con modo autoevaluación</small></span>
+      <span class="btn-mapa-flecha">›</span>
+    </button>
     ${hoy.length ? `
       <h3 class="conceptos-subtitulo">📅 Para repasar hoy (${hoy.length})</h3>
       <div class="lista-conceptos">${hoy.map(tarjeta).join("")}</div>
@@ -226,5 +231,6 @@ function renderConceptos(callbacks) {
   cont.querySelectorAll("[data-concepto]").forEach((btn) => {
     btn.addEventListener("click", () => callbacks.onAbrirConcepto(btn.dataset.concepto));
   });
+  cont.querySelector("#btnMapaServicios")?.addEventListener("click", () => callbacks.onAbrirMapa?.());
   cont.querySelector("#btnCopiarReflexiones")?.addEventListener("click", copiarReflexiones);
 }

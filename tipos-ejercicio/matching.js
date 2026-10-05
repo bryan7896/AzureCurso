@@ -8,6 +8,17 @@
 //    vez de arrastrar, para evitar los bugs típicos de drag-and-drop táctil
 //    en una sola pasada de HTML/JS sin librerías.
 
+
+// Contenido de un ítem: texto con `código inline`, una línea de código
+// resaltada (item.code) o un icono de Azure (item.icono, item.soloIcono).
+function contenidoItemEmparejar(item, lang) {
+  if (!item) return "";
+  const ic = item.icono ? iconoHTML(item.icono, { tam: "md", conNombre: !item.soloIcono }) : "";
+  if (item.soloIcono) return ic;
+  const txt = item.code ? `<code class="seq-code">${resaltarLinea(item.text, lang || "python")}</code>` : fmtTxt(item.text);
+  return `${ic}<span class="opcion-texto">${txt}</span>`;
+}
+
 function renderMatching(exercise, container, onListo) {
   if (exercise.mode === "sequence") return renderMatchingSequence(exercise, container, onListo);
   return renderMatchingPairs(exercise, container, onListo);
@@ -32,7 +43,10 @@ function calificarMatching(exercise, respuesta) {
 // ---------------- modo "sequence" (ordenar con flechas) ----------------
 
 function renderMatchingSequence(exercise, container, onListo) {
+  const correcto = (exercise.correctOrder || []).join("|");
   let orden = barajarLocal((exercise.items || []).map((i) => i.id));
+  for (let k = 0; k < 6 && orden.join("|") === correcto; k++) orden = barajarLocal(orden);
+  const dyn = prepararContenedor(container, exercise);
 
   const mover = (idx, delta) => {
     const j = idx + delta;
@@ -48,7 +62,7 @@ function renderMatchingSequence(exercise, container, onListo) {
         return `
           <div class="secuencia-fila">
             <span class="secuencia-numero">${idx + 1}</span>
-            <span class="secuencia-texto">${escHTML(item ? item.text : id)}</span>
+            <span class="secuencia-texto${item && item.code ? " es-codigo" : ""}">${item ? contenidoItemEmparejar(item, exercise.lang) : escHTML(id)}</span>
             <span class="secuencia-flechas">
               <button type="button" class="btn-icono btn-mini" data-mover="${idx}" data-delta="-1" ${idx === 0 ? "disabled" : ""}>▲</button>
               <button type="button" class="btn-icono btn-mini" data-mover="${idx}" data-delta="1" ${idx === orden.length - 1 ? "disabled" : ""}>▼</button>
@@ -58,18 +72,17 @@ function renderMatchingSequence(exercise, container, onListo) {
       })
       .join("");
 
-    container.innerHTML = `
-      <div class="pregunta-prompt">${escHTML(exercise.prompt)}</div>
+    dyn.innerHTML = `
       <div class="secuencia-lista">${filas}</div>
       <div class="ejercicio-acciones">
         <button type="button" class="btn btn-solido" id="btnComprobar">✅ Comprobar</button>
       </div>
     `;
 
-    container.querySelectorAll("[data-mover]").forEach((btn) => {
+    dyn.querySelectorAll("[data-mover]").forEach((btn) => {
       btn.addEventListener("click", () => mover(parseInt(btn.dataset.mover, 10), parseInt(btn.dataset.delta, 10)));
     });
-    container.querySelector("#btnComprobar")?.addEventListener("click", () => onListo([...orden]));
+    dyn.querySelector("#btnComprobar")?.addEventListener("click", () => onListo([...orden]));
   };
 
   pintar();
@@ -81,6 +94,7 @@ function renderMatchingPairs(exercise, container, onListo) {
   const pares = {}; // leftId -> rightId
   let leftActivo = null;
   const rightBarajado = barajarLocal((exercise.rightItems || []).map((i) => i.id));
+  const dyn = prepararContenedor(container, exercise);
 
   const badgePara = (leftId) => {
     const idx = Object.keys(pares).indexOf(leftId);
@@ -115,7 +129,7 @@ function renderMatchingPairs(exercise, container, onListo) {
         const activo = leftActivo === item.id;
         return `
           <button type="button" class="opcion-btn opcion-emparejar ${badge ? "pareado" : ""} ${activo ? "activo" : ""}" data-lado="left" data-id="${escHTML(item.id)}">
-            ${badge ? `<span class="emparejar-badge">${badge}</span>` : ""} ${escHTML(item.text)}
+            ${badge ? `<span class="emparejar-badge">${badge}</span>` : ""} ${contenidoItemEmparejar(item, exercise.lang)}
           </button>
         `;
       })
@@ -127,7 +141,7 @@ function renderMatchingPairs(exercise, container, onListo) {
         const badge = badgePara(Object.keys(pares).find((l) => pares[l] === id));
         return `
           <button type="button" class="opcion-btn opcion-emparejar ${badge ? "pareado" : ""}" data-lado="right" data-id="${escHTML(id)}">
-            ${badge ? `<span class="emparejar-badge">${badge}</span>` : ""} ${escHTML(item ? item.text : id)}
+            ${badge ? `<span class="emparejar-badge">${badge}</span>` : ""} ${item ? contenidoItemEmparejar(item, exercise.lang) : escHTML(id)}
           </button>
         `;
       })
@@ -136,8 +150,7 @@ function renderMatchingPairs(exercise, container, onListo) {
     const totalIzq = (exercise.leftItems || []).length;
     const completo = Object.keys(pares).length === totalIzq;
 
-    container.innerHTML = `
-      <div class="pregunta-prompt">${escHTML(exercise.prompt)}</div>
+    dyn.innerHTML = `
       <p class="ajustes-nota">Toca un elemento de la izquierda y luego su pareja a la derecha.</p>
       <div class="emparejar-columnas">
         <div class="emparejar-col">${izquierda}</div>
@@ -148,10 +161,10 @@ function renderMatchingPairs(exercise, container, onListo) {
       </div>
     `;
 
-    container.querySelectorAll("[data-lado]").forEach((btn) => {
+    dyn.querySelectorAll("[data-lado]").forEach((btn) => {
       btn.addEventListener("click", () => clic(btn.dataset.lado, btn.dataset.id));
     });
-    container.querySelector("#btnComprobar")?.addEventListener("click", () => {
+    dyn.querySelector("#btnComprobar")?.addEventListener("click", () => {
       if (completo) onListo(Object.entries(pares).map(([leftId, rightId]) => ({ leftId, rightId })));
     });
   };

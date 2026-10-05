@@ -27,7 +27,17 @@ export const AppState = {
   conceptosCatalogo: null, // contenido de datos/conceptos.json (no se persiste, se re-consulta como las secciones)
   conceptos: {}, // conceptoId -> ver conceptoVacio() (SÍ se persiste: nivel, próxima revisión, historial)
   reflexiones: [], // respuestas de ejercicios texto-libre modo "reflexion" (SÍ se persiste)
+  simulacros: simulacrosVacio(), // historial + simulacro en curso (SÍ se persiste, ver motor/simulacro.js)
+  datosVersion: null, // DATA_VERSION con la que se guardó el progreso (ver sincronizarBancos)
 };
+
+function simulacrosVacio() {
+  return {
+    historial: [], // resúmenes de simulacros terminados (el más reciente al final)
+    actual: null, // simulacro en curso, si lo hay
+    vistos: {}, // exerciseId -> ISO de la última vez que salió en un simulacro
+  };
+}
 
 function seccionVacia() {
   return {
@@ -40,7 +50,8 @@ function seccionVacia() {
       errorBank: {}, // exerciseId -> { vecesFallado, ultimaRespuesta, resuelto }
       intentos: [], // historial de intentos ya cerrados (resumen)
       intentoActual: null, // intento en curso (ver crearLeccionesDesdeIds)
-      ultimoResultadoDetalle: {}, // exerciseId -> true/false, del último intento cerrado
+      ultimoResultadoDetalle: {}, // exerciseId -> true/false, del último intento cerrado (informativo)
+      resultadoPorEjercicio: {}, // exerciseId -> true/false: ÚLTIMO resultado calificado de cada ejercicio (acumulado entre intentos)
       historialIntentoActual: [], // detalle fila x fila para el reporte (se reinicia con cada intento nuevo)
       estado: "no-iniciado", // no-iniciado | en-progreso | aprobado | requiere-reintento
       mejorPuntajePct: 0,
@@ -90,6 +101,8 @@ export function guardar() {
       secciones: AppState.secciones,
       conceptos: AppState.conceptos,
       reflexiones: AppState.reflexiones,
+      simulacros: AppState.simulacros,
+      datosVersion: AppState.datosVersion,
       lastUpdated: new Date().toISOString(),
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -112,6 +125,9 @@ export function cargarDeStorage() {
     AppState.secciones = data.secciones || {};
     AppState.conceptos = data.conceptos || {};
     AppState.reflexiones = data.reflexiones || [];
+    AppState.simulacros = { ...simulacrosVacio(), ...(data.simulacros || {}) };
+    AppState.datosVersion = data.datosVersion || null;
+    Object.keys(AppState.secciones).forEach((id) => migrarProgresoSeccion(AppState.secciones[id]));
     return true;
   } catch (e) {
     console.warn("No se pudo leer el progreso guardado:", e);
@@ -161,9 +177,11 @@ export async function asegurarDatosSeccion(seccionId, { forzar = false } = {}) {
       : nuevos;
     estado.info = info;
     estado.cargada = true;
+    estado.errorCarga = false;
   } catch (e) {
     console.warn(`No se pudo cargar la sección ${seccionId}:`, e);
     estado.cargada = true; // evita reintentos infinitos automáticos en cada render
+    estado.errorCarga = true;
   }
   guardarConDebounce();
   return estado;
@@ -176,6 +194,91 @@ function mergeEjercicios(actuales, nuevos) {
   const idsActuales = new Set(actuales.map((e) => e.id));
   const agregados = nuevos.filter((e) => !idsActuales.has(e.id));
   return [...actuales, ...agregados];
+}
+
+// Progresos guardados con versiones anteriores de la app: les agrega los
+// campos nuevos sin perder nada. (Si ya había un último resultado por
+// ejercicio de un intento viejo, se usa como punto de partida del acumulado.)
+function migrarProgresoSeccion(seccion) {
+  if (!seccion || !seccion.progreso) return;
+  const p = seccion.progreso;
+  if (!p.resultadoPorEjercicio) p.resultadoPorEjercicio = { ...(p.ultimoResultadoDetalle || {}) };
+}
+
+// Quita del progreso todo lo que apunte a ejercicios que ya no existen en el
+// banco, o cuyo CONTENIDO cambió aunque conserven el id (un resultado viejo no
+// vale para una pregunta distinta). `previos` = Map id -> JSON del ejercicio
+// que había antes. Si el intento en curso usaba alguno de esos ejercicios, se
+// descarta para que se regenere con el banco nuevo.
+function sanearProgreso(seccionId, previos) {
+  const estado = getSeccionState(seccionId);
+  const vigentes = new Set(
+    estado.ejercicios.filter((e) => !previos || !previos.has(e.id) || previos.get(e.id) === JSON.stringify(e)).map((e) => e.id)
+  );
+  const p = estado.progreso;
+  ["errorBank", "resultadoPorEjercicio", "ultimoResultadoDetalle"].forEach((campo) => {
+    Object.keys(p[campo] || {}).forEach((id) => { if (!vigentes.has(id)) delete p[campo][id]; });
+  });
+  if (p.intentoActual) {
+    const usaObsoleto = p.intentoActual.lecciones.some((l) => l.cola.some((it) => !vigentes.has(it.exerciseId)));
+    if (usaObsoleto) {
+      p.intentoActual = null;
+      p.historialIntentoActual = [];
+      p.leccionesCompletadas = 0;
+      if (p.estado === "en-progreso") p.estado = "no-iniciado";
+    }
+  }
+}
+
+// Lee un banco SIN tocar el estado (para poder abortar sin dejar nada a medias).
+async function leerBancoSeccion(seccionId) {
+  const [infoResp, ejResp] = await Promise.all([
+    fetch(rutaInformacion(seccionId), { cache: "no-store" }),
+    fetch(rutaEjercicios(seccionId), { cache: "no-store" }),
+  ]);
+  if (!ejResp.ok) throw new Error("no se pudo leer " + rutaEjercicios(seccionId));
+  const ejData = await ejResp.json();
+  return { info: infoResp.ok ? await infoResp.json() : null, ejercicios: (ejData && ejData.exercises) || [] };
+}
+
+/**
+ * Si cambió DATA_VERSION (porque entregué ejercicios nuevos), vuelve a leer
+ * TODOS los bancos reemplazando lo guardado y limpia el progreso obsoleto.
+ * Es TODO O NADA: primero lee todo; si cualquier archivo falla (sin conexión,
+ * archivo faltante) no se modifica nada y se reintenta en el próximo arranque.
+ * Devuelve true si hizo la sincronización.
+ */
+export async function sincronizarBancos() {
+  if (AppState.datosVersion === DATA_VERSION) return false;
+
+  const nuevos = {};
+  let catalogo;
+  try {
+    for (const s of SECCIONES) nuevos[s.id] = await leerBancoSeccion(s.id);
+    const resp = await fetch("datos/conceptos.json", { cache: "no-store" });
+    if (!resp.ok) throw new Error("no se pudo leer datos/conceptos.json");
+    catalogo = ((await resp.json()) || {}).conceptos || [];
+  } catch (e) {
+    console.warn("Sincronización de bancos pospuesta:", e);
+    return false;
+  }
+
+  SECCIONES.forEach((s) => {
+    const estado = getSeccionState(s.id);
+    const previos = new Map(estado.ejercicios.map((e) => [e.id, JSON.stringify(e)]));
+    estado.ejercicios = nuevos[s.id].ejercicios;
+    estado.info = nuevos[s.id].info;
+    estado.cargada = true;
+    estado.errorCarga = false;
+    sanearProgreso(s.id, previos);
+  });
+
+  AppState.conceptosCatalogo = catalogo;
+  const idsConceptos = new Set(catalogo.map((c) => c.id));
+  Object.keys(AppState.conceptos).forEach((id) => { if (!idsConceptos.has(id)) delete AppState.conceptos[id]; });
+  AppState.datosVersion = DATA_VERSION;
+  guardar();
+  return true;
 }
 
 /** Re-consulta TODOS los .json de datos/, sin importar si ya estaban cargados. */
@@ -246,7 +349,7 @@ export function obtenerIntentoActual(seccionId) {
 // ponderado hacia los subtemas donde más se falló (ver muestraPonderada).
 export function generarReintento(seccionId) {
   const estado = getSeccionState(seccionId);
-  const detalle = estado.progreso.ultimoResultadoDetalle || {};
+  const detalle = estado.progreso.resultadoPorEjercicio || {};
   const ids = construirIdsReintento(estado.ejercicios, detalle);
 
   estado.progreso.intentoActual = {
@@ -263,8 +366,12 @@ export function generarReintento(seccionId) {
 
 function construirIdsReintento(todosEjercicios, resultadosFinales) {
   const porId = new Map(todosEjercicios.map((e) => [e.id, e]));
-  const falladosIds = Object.keys(resultadosFinales).filter((id) => resultadosFinales[id] === false);
-  const aprobadosIds = Object.keys(resultadosFinales).filter((id) => resultadosFinales[id] === true);
+  // 100% de los fallados + los que nunca llegaron a calificarse (p. ej. los
+  // que mandaste a [Repasar]) — sin estos la sección nunca podría cerrarse.
+  const falladosIds = todosEjercicios
+    .map((e) => e.id)
+    .filter((id) => resultadosFinales[id] === false || resultadosFinales[id] === undefined);
+  const aprobadosIds = todosEjercicios.map((e) => e.id).filter((id) => resultadosFinales[id] === true);
 
   const fallosPorSubtema = {};
   falladosIds.forEach((id) => {
@@ -285,7 +392,8 @@ function muestraPonderadaPorSubtema(passedIds, porId, fallosPorSubtema, cantidad
   if (cantidad <= 0 || passedIds.length === 0) return [];
   const pool = passedIds.map((id) => {
     const sub = porId.get(id)?.subtopic || porId.get(id)?.topic || "_general";
-    return { id, peso: (fallosPorSubtema[sub] || 0) + 1 };
+    const prioridad = porId.get(id)?.peso || PESO_EJERCICIO_DEFECTO;
+    return { id, peso: ((fallosPorSubtema[sub] || 0) + 1) * prioridad };
   });
   const elegidos = [];
   const disponibles = [...pool];
@@ -318,11 +426,12 @@ export function reiniciarTodoElProgreso() {
   Object.keys(AppState.secciones).forEach((id) => reiniciarProgresoSeccion(id));
   Object.keys(AppState.conceptos).forEach((id) => { AppState.conceptos[id] = conceptoVacio(); });
   AppState.reflexiones = [];
+  AppState.simulacros = simulacrosVacio();
   guardar();
 }
 
 export function exportarProgreso() {
-  return JSON.stringify({ secciones: AppState.secciones, conceptos: AppState.conceptos, reflexiones: AppState.reflexiones, exportadoEn: new Date().toISOString() }, null, 2);
+  return JSON.stringify({ secciones: AppState.secciones, conceptos: AppState.conceptos, reflexiones: AppState.reflexiones, simulacros: AppState.simulacros, datosVersion: AppState.datosVersion, exportadoEn: new Date().toISOString() }, null, 2);
 }
 
 export function importarProgreso(jsonText) {
@@ -331,5 +440,8 @@ export function importarProgreso(jsonText) {
   AppState.secciones = data.secciones;
   AppState.conceptos = data.conceptos || {};
   AppState.reflexiones = data.reflexiones || [];
+  AppState.simulacros = { ...simulacrosVacio(), ...(data.simulacros || {}) };
+  AppState.datosVersion = data.datosVersion || null; // si es de una versión vieja, sincronizarBancos() lo normaliza al abrir
+  Object.keys(AppState.secciones).forEach((id) => migrarProgresoSeccion(AppState.secciones[id]));
   guardar();
 }

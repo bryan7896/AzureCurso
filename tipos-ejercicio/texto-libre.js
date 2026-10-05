@@ -18,7 +18,9 @@ function renderTextoLibre(exercise, container, onListo) {
   const esReflexion = exercise.modo === "reflexion";
   const pintar = (valor) => {
     container.innerHTML = `
-      <div class="pregunta-prompt">${escHTML(exercise.prompt)}</div>
+      ${renderImagenDeEjercicio(exercise)}
+      <div class="pregunta-prompt">${fmtTxt(exercise.prompt)}</div>
+      ${renderCodigoDeEjercicio(exercise)}
       <div class="texto-libre-area">
         <input type="text" class="texto-libre-input" placeholder="${esReflexion ? "Escribe tu respuesta o reflexión…" : "Escribe tu respuesta…"}"
                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"

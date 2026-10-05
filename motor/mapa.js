@@ -31,10 +31,37 @@ function etiquetaEstadoSeccion(estado, tieneDatos, mejorPuntajePct) {
   return "Disponible";
 }
 
+// Fracción (0..1) de ejercicios de una sección cuyo ÚLTIMO resultado fue correcto.
+function avanceSeccion(seccionId) {
+  const e = getSeccionState(seccionId);
+  if (!e.ejercicios.length) return 0;
+  const ok = Object.values(e.progreso.resultadoPorEjercicio || {}).filter((v) => v === true).length;
+  return ok / e.ejercicios.length;
+}
+
+// La sección donde más conviene estudiar ahora: la que más pesa en el examen
+// y menos avance lleva (solo entre las que ya tienen ejercicios y no están aprobadas).
+function seccionRecomendada() {
+  let mejor = null;
+  let mejorScore = -1;
+  SECCIONES.forEach((s) => {
+    if (!seccionTieneDatos(s.id)) return;
+    if (getSeccionState(s.id).progreso.estado === "aprobado") return;
+    const score = s.pesoExamen * (1 - avanceSeccion(s.id));
+    if (score > mejorScore) { mejorScore = score; mejor = s.id; }
+  });
+  return mejor;
+}
+
+function pctExamen(s) {
+  return Math.round((s.pesoExamen / SIMULACRO.totalPreguntas) * 100);
+}
+
 export function renderSecciones(callbacks) {
   const cont = document.getElementById("seccionesContainer");
   if (!cont) return;
 
+  const recomendada = seccionRecomendada();
   const bloques = DOMINIOS.map((dominio) => {
     const secciones = seccionesDeDominio(dominio.id);
     const tarjetas = secciones
@@ -45,17 +72,28 @@ export function renderSecciones(callbacks) {
         const icono = iconoEstadoSeccion(estadoSeccion.progreso.estado, tieneDatos);
         const etiqueta = cargando ? "Cargando…" : etiquetaEstadoSeccion(estadoSeccion.progreso.estado, tieneDatos, estadoSeccion.progreso.mejorPuntajePct);
         const bloqueada = !tieneDatos;
+        const cargados = estadoSeccion.ejercicios.length;
+        const textoEjercicios = !tieneDatos
+          ? `${s.totalEjercicios} ejercicios previstos`
+          : cargados < s.totalEjercicios
+          ? `${cargados} de ${s.totalEjercicios} ejercicios`
+          : `${cargados} ejercicios`;
+        const esRecomendada = s.id === recomendada;
 
         return `
-          <button class="tarjeta-seccion ${bloqueada ? "bloqueada" : ""}" data-seccion="${s.id}" ${bloqueada ? "disabled" : ""}>
+          <button class="tarjeta-seccion ${bloqueada ? "bloqueada" : ""} ${esRecomendada ? "recomendada" : ""}" data-seccion="${s.id}" ${bloqueada ? "disabled" : ""}>
             <div class="tarjeta-seccion-top">
               <span class="tarjeta-seccion-id">${s.id}</span>
               <span class="tarjeta-seccion-icono">${icono}</span>
             </div>
             <div class="tarjeta-seccion-titulo">${escHTML(s.titulo)}</div>
+            <div class="peso-examen" title="Preguntas de cada 100 del examen que salen de esta sección">
+              <div class="peso-examen-barra"><div class="peso-examen-fill" style="width:${Math.min(100, pctExamen(s) * 4)}%"></div></div>
+              <span>≈ ${pctExamen(s)} % del examen</span>
+            </div>
             <div class="tarjeta-seccion-meta">
-              <span>${s.totalEjercicios} ejercicios</span>
-              <span class="tarjeta-seccion-estado">${etiqueta}</span>
+              <span>${textoEjercicios}</span>
+              <span class="tarjeta-seccion-estado">${esRecomendada ? "👉 Empieza aquí" : etiqueta}</span>
             </div>
           </button>
         `;
@@ -66,7 +104,7 @@ export function renderSecciones(callbacks) {
       <section class="bloque-dominio">
         <header class="bloque-dominio-header">
           <h2>${dominio.id}. ${escHTML(dominio.titulo)}</h2>
-          <span class="bloque-dominio-peso">${dominio.pesoOficial} · ${dominio.totalEjercicios} preguntas</span>
+          <span class="bloque-dominio-peso">${dominio.pesoOficial} del examen · ${seccionesDeDominio(dominio.id).reduce((t, s) => t + (getSeccionState(s.id).ejercicios.length || 0), 0)}/${dominio.totalEjercicios} ejercicios</span>
         </header>
         <div class="grid-secciones">${tarjetas}</div>
       </section>
@@ -148,15 +186,22 @@ export function renderLecciones(seccionId, callbacks) {
 
 function renderBannerEstadoSeccion(estado, seccionId, callbacks) {
   const p = estado.progreso;
+  const ultimo = p.intentos[p.intentos.length - 1];
+  const detalleIntento = ultimo && ultimo.totalSeccion
+    ? ` <small>(${ultimo.correctosSeccion}/${ultimo.totalSeccion} ejercicios de la sección${ultimo.esReintento ? ` · este reintento: ${ultimo.pctIntento}%` : ""})</small>`
+    : "";
   if (p.estado === "aprobado") {
-    return `<div class="banner-estado banner-exito">✅ Sección aprobada con ${p.mejorPuntajePct}%</div>`;
+    return `<div class="banner-estado banner-exito">✅ Sección aprobada con ${ultimo ? ultimo.pct : p.mejorPuntajePct}%${detalleIntento}</div>`;
   }
   if (p.estado === "requiere-reintento") {
-    const ultimo = p.intentos[p.intentos.length - 1];
     const pct = ultimo ? ultimo.pct : p.mejorPuntajePct;
+    const sinCal = ultimo ? ultimo.sinCalificar || 0 : 0;
+    const mensaje = pct >= UMBRAL_APROBACION_PCT && sinCal > 0
+      ? `🔁 Vas en ${pct}%, pero te faltan ${sinCal} ejercicio(s) por calificar (los que mandaste a Repasar).`
+      : `🔁 La sección va en ${pct}% y necesitas ${UMBRAL_APROBACION_PCT}%.${sinCal ? ` Además faltan ${sinCal} ejercicio(s) por calificar.` : ""}`;
     return `
       <div class="banner-estado banner-alerta">
-        <span>🔁 No alcanzaste el 90% (obtuviste ${pct}%). Genera un reintento con lo que fallaste.</span>
+        <span>${mensaje}${detalleIntento} El reintento incluye lo que fallaste y lo que falta calificar.</span>
         <button class="btn btn-solido" id="btnGenerarReintento">Generar reintento</button>
       </div>
     `;

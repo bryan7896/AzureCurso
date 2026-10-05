@@ -52,13 +52,13 @@ function renderAprendizaje(seccionId, callbacks) {
 
     ${logros ? `<div class="logros-bloque"><h4>🏅 Logros de esta sección</h4>${logros}</div>` : ""}
 
-    <div class="practica-bloque">
+    ${totalPractica === 0 ? "" : `<div class="practica-bloque">
       <h4>✏️ Práctica (no calificable)</h4>
       <p class="ajustes-nota">${totalPractica} ejercicio(s) de refuerzo.</p>
-      <button class="btn btn-solido full" id="btnIniciarPractica" ${totalPractica === 0 ? "disabled" : ""}>
+      <button class="btn btn-solido full" id="btnIniciarPractica">
         ${yaCompleta ? "🔁 Repetir práctica" : yaEmpezada ? "▶ Continuar práctica" : "▶ Comenzar práctica"}
       </button>
-    </div>
+    </div>`}
   `;
 
   cont.querySelectorAll("[data-logro]").forEach((chk) => {
@@ -74,12 +74,19 @@ function renderAprendizaje(seccionId, callbacks) {
   });
 }
 
-// Un formateo muy básico (negritas **x** y saltos de línea) — el contenido
-// de aprendizaje es texto plano/markdown simple, no HTML arbitrario.
+// Formateo de la teoría: **negritas**, `código inline`, saltos de línea y
+// bloques ```lenguaje ... ``` que se muestran con el mismo estilo que los
+// ejercicios de código (ver motor/codigo.js).
 function formatearMarkdownBasico(texto) {
-  return escHTML(texto)
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\n/g, "<br>");
+  const partes = String(texto ?? "").split(/```(\w+)?\n([\s\S]*?)```/g);
+  let html = "";
+  for (let i = 0; i < partes.length; i += 3) {
+    html += fmtTxt((partes[i] || "").replace(/^\n+|\n+$/g, ""))
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\n/g, "<br>");
+    if (i + 2 < partes.length) html += renderBloqueCodigo({ lang: partes[i + 1] || "text", title: "", source: partes[i + 2] });
+  }
+  return html;
 }
 
 // ------------------------------------------------------------

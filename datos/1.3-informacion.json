@@ -1,10 +1,48 @@
 {
   "levelId": "1.3",
   "learningContent": {
-    "title": "",
-    "estimatedMinutes": 0,
-    "sections": []
+    "title": "Cargas de trabajo de IA",
+    "estimatedMinutes": 55,
+    "sections": [
+      {
+        "heading": "Mapa de cargas de trabajo",
+        "body": "Antes de elegir una solución, **identifica la carga de trabajo**:\n\n• **IA generativa** → crea contenido nuevo (texto, imágenes, audio) a partir de un prompt. Ej.: redactar una respuesta, resumir un informe, crear una ilustración.\n• **IA agéntica** → un agente decide pasos y **usa herramientas para actuar** hacia un objetivo. Ej.: reservar un vuelo, consultar un saldo y hacer una transferencia tras confirmación. Al actuar con consecuencias reales, limita permisos y exige supervisión humana en lo crítico.\n• **Análisis de texto** → sentimiento, entidades, frases clave, idioma, resumen, PII, traducción.\n• **Voz** → voz a texto, texto a voz, traducción de voz, separación de hablantes.\n• **Visión artificial** → clasificar, detectar objetos, OCR, describir imágenes, rostros.\n• **Extracción de información** → convertir documentos, imágenes, audio y video en datos estructurados.\n\nMuchas soluciones **combinan** cargas (por ejemplo, describir en voz alta lo que ve una cámara usa visión + lenguaje + síntesis de voz).\n\n**Distinción clave:** *extraer* un valor que está escrito (el número de orden) no es generativo; *redactar* un resumen de la orden sí lo es."
+      },
+      {
+        "heading": "Texto, voz y visión",
+        "body": "**Análisis de texto (Azure Language)** — sin entrenar nada: **sentimiento** (positivo, neutro, negativo, mixto, con confianza), **entidades** (personas, lugares, organizaciones), **frases clave**, **detección de idioma**, **resumen** (extractivo: elige frases; abstractivo: redacta nuevas), **PII**. **Translator** traduce texto entre idiomas.\n\n**Voz (Azure Speech):** **voz a texto** (en tiempo real o por lotes; se puede personalizar con vocabulario propio), **texto a voz** con voces neuronales y **SSML**, **traducción de voz** y **diarización** (quién habla). Con grabaciones aplican privacidad y consentimiento.\n\n**Visión:** **clasificación** (una categoría para toda la imagen), **detección de objetos** (cada objeto con su posición), **OCR** (texto de la imagen), **descripción** (caption). Para preguntas libres sobre una foto, un modelo **multimodal**; para categorías propias, un modelo **personalizado**. El reconocimiento facial es sensible y su acceso está limitado por IA responsable."
+      },
+      {
+        "heading": "Extracción de información",
+        "body": "**Extracción de información** = convertir contenido no estructurado en **datos estructurados**: documentos y formularios, imágenes, audio y video.\n\n• **Documentos**: analyzers de dominio (factura, recibo, identidad) devuelven campos sin entrenar.\n• **Audio**: transcripción, resumen y sentimiento de llamadas.\n• **Video**: escenas, fotogramas clave y transcripción.\n• **Extraer vs generar**: extraer toma lo que está escrito; generar redacta o infiere (resumen).\n• **Clasificar y enrutar**: identificar el tipo de archivo y mandarlo al analyzer adecuado.\n• **RAG**: el contenido convertido a Markdown estructurado se indexa (por ejemplo en Azure AI Search) para fundamentar las respuestas del modelo.\n• **IA responsable**: cuando la confianza es baja, envía el caso a **revisión humana**.\n\nIconos para recordar: **Document Intelligence** (formularios), **Azure AI Search** (indexar y recuperar), **Language**, **Speech**, **Vision** y **Foundry Agent Service**."
+      }
+    ]
   },
   "practiceExercises": [],
-  "achievements": []
+  "achievements": [
+    {
+      "id": "lab-1.3-01",
+      "texto": "Escribe diez escenarios de tu trabajo y clasifica cada uno como generativa, agéntica, texto, voz, visión o extracción."
+    },
+    {
+      "id": "lab-1.3-02",
+      "texto": "Prueba Azure Language con tres textos y compara sentimiento, entidades y frases clave."
+    },
+    {
+      "id": "lab-1.3-03",
+      "texto": "Prueba texto a voz con dos voces distintas y voz a texto con un audio corto."
+    },
+    {
+      "id": "lab-1.3-04",
+      "texto": "Analiza una foto con Vision (caption, tags y OCR) y compara con la respuesta de un modelo multimodal a la misma foto."
+    },
+    {
+      "id": "lab-1.3-05",
+      "texto": "Analiza una factura con un analyzer prebuilt de Content Understanding y revisa los campos que devuelve."
+    },
+    {
+      "id": "lab-1.3-06",
+      "texto": "Diseña en papel un agente (objetivo, herramientas, permisos y puntos de confirmación humana)."
+    }
+  ]
 }

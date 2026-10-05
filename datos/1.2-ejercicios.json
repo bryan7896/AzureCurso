@@ -1,4 +1,1779 @@
 {
   "levelId": "1.2",
-  "exercises": []
+  "exercises": [
+    {
+      "id": "hw-01",
+      "type": "single-select",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "prompt": "¿Qué hace un modelo de lenguaje generativo para producir un texto?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Predice el siguiente token a partir de los anteriores y repite el proceso"
+        },
+        {
+          "id": "b",
+          "text": "Busca la respuesta exacta en Internet y copia literalmente el primer resultado que encuentra"
+        },
+        {
+          "id": "c",
+          "text": "Recupera una respuesta guardada en una tabla de preguntas"
+        },
+        {
+          "id": "d",
+          "text": "Traduce la pregunta a un código y la ejecuta como programa"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Genera texto token por token, eligiendo en cada paso uno probable según el contexto."
+    },
+    {
+      "id": "hw-02",
+      "type": "single-select",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "prompt": "¿Qué es un token?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una unidad de texto que el modelo procesa: una palabra, parte de una palabra o un signo"
+        },
+        {
+          "id": "b",
+          "text": "Una contraseña temporal que el servicio entrega para autenticar cada llamada al modelo y que caduca"
+        },
+        {
+          "id": "c",
+          "text": "Cada una de las capas de la red neuronal"
+        },
+        {
+          "id": "d",
+          "text": "Un punto de control para guardar el entrenamiento"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El texto se divide en tokens; el consumo y los límites se miden en tokens."
+    },
+    {
+      "id": "hw-03",
+      "type": "single-select",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "prompt": "¿Qué es la ventana de contexto?",
+      "options": [
+        {
+          "id": "a",
+          "text": "La cantidad máxima de tokens, entre entrada y salida, que el modelo puede manejar en una interacción"
+        },
+        {
+          "id": "b",
+          "text": "El tiempo máximo que el modelo puede estar desplegado"
+        },
+        {
+          "id": "c",
+          "text": "El número de usuarios que pueden chatear a la vez"
+        },
+        {
+          "id": "d",
+          "text": "La región de Azure donde se procesa la solicitud, que determina además cuántos usuarios pueden usarlo a la vez"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Si el prompt más la respuesta superan la ventana, el contenido no cabe."
+    },
+    {
+      "id": "hw-04",
+      "type": "true-false",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "statement": "Cada vez que le haces una pregunta, el modelo consulta Internet para buscar la respuesta.",
+      "correctAnswer": false,
+      "explanation": "Responde con lo aprendido durante el entrenamiento y con el contexto que recibe. Para datos actuales hay que darle herramientas o fuentes."
+    },
+    {
+      "id": "hw-21",
+      "type": "true-false",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 2,
+      "statement": "Un token puede ser una palabra completa, una parte de una palabra o un signo de puntuación.",
+      "correctAnswer": true,
+      "explanation": "Por eso el número de tokens no coincide exactamente con el número de palabras."
+    },
+    {
+      "id": "hw-05",
+      "type": "single-select",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 2,
+      "prompt": "En la arquitectura Transformer, ¿para qué sirve el mecanismo de atención?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Para ponderar qué partes del texto son más relevantes al procesar cada token"
+        },
+        {
+          "id": "b",
+          "text": "Para comprimir el modelo después del entrenamiento y que ocupe mucha menos memoria al desplegarlo"
+        },
+        {
+          "id": "c",
+          "text": "Para cifrar el prompt antes de enviarlo al servicio"
+        },
+        {
+          "id": "d",
+          "text": "Para elegir automáticamente el idioma de la respuesta"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La atención relaciona cada token con los demás para entender el contexto."
+    },
+    {
+      "id": "hw-06",
+      "type": "single-select",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "prompt": "¿Qué es un embedding?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una representación numérica (vector) del significado de un texto: los textos parecidos quedan cerca"
+        },
+        {
+          "id": "b",
+          "text": "Una versión resumida del texto original, escrita por el propio modelo y guardada en una base de datos para consultarla luego"
+        },
+        {
+          "id": "c",
+          "text": "Un archivo comprimido con el historial del chat"
+        },
+        {
+          "id": "d",
+          "text": "Una clave para identificar a cada usuario del servicio"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los embeddings permiten buscar por significado y comparar textos."
+    },
+    {
+      "id": "hw-07",
+      "type": "matching",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada concepto con su significado:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "Token"
+        },
+        {
+          "id": "l2",
+          "text": "Embedding"
+        },
+        {
+          "id": "l3",
+          "text": "Ventana de contexto"
+        },
+        {
+          "id": "l4",
+          "text": "Inferencia"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Unidad de texto que procesa el modelo"
+        },
+        {
+          "id": "r2",
+          "text": "Vector que representa el significado"
+        },
+        {
+          "id": "r3",
+          "text": "Máximo de tokens que cabe en una interacción"
+        },
+        {
+          "id": "r4",
+          "text": "Usar un modelo ya entrenado para generar una respuesta"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        }
+      ],
+      "explanation": "Son los términos base para entender cómo trabaja un modelo generativo."
+    },
+    {
+      "id": "hw-08",
+      "type": "single-select",
+      "subtopic": "Adaptación",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "prompt": "Tienes un modelo ya entrenado y quieres ajustarlo con ejemplos de tu dominio para que siga un estilo concreto. ¿Cómo se llama esta técnica?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Fine-tuning (ajuste fino)"
+        },
+        {
+          "id": "b",
+          "text": "Inferencia"
+        },
+        {
+          "id": "c",
+          "text": "Tokenización"
+        },
+        {
+          "id": "d",
+          "text": "Prompt de sistema"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El fine-tuning continúa el entrenamiento con tus ejemplos."
+    },
+    {
+      "id": "hw-09",
+      "type": "single-select",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 2,
+      "prompt": "¿Qué es un modelo fundacional (foundation model)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo preentrenado con enormes cantidades de datos, que luego se adapta a muchas tareas"
+        },
+        {
+          "id": "b",
+          "text": "Un modelo que solo existe en tu equipo y nunca se actualiza"
+        },
+        {
+          "id": "c",
+          "text": "Un modelo pequeño entrenado únicamente para reconocer una categoría de imágenes y que no se puede reutilizar"
+        },
+        {
+          "id": "d",
+          "text": "Una hoja de cálculo con respuestas frecuentes"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Se entrena una vez de forma general y se reutiliza para tareas distintas."
+    },
+    {
+      "id": "hw-10",
+      "type": "single-select",
+      "subtopic": "Limitaciones",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "prompt": "¿Qué es una alucinación en un modelo generativo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una respuesta que suena convincente pero contiene información inventada o falsa"
+        },
+        {
+          "id": "b",
+          "text": "Un error de conexión con el servicio que corta la respuesta antes de que el modelo termine de escribir"
+        },
+        {
+          "id": "c",
+          "text": "Un filtro que bloquea contenido ofensivo"
+        },
+        {
+          "id": "d",
+          "text": "Una respuesta demasiado corta por el límite de tokens"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los modelos generan texto plausible, no verificado."
+    },
+    {
+      "id": "hw-11",
+      "type": "single-select",
+      "subtopic": "Adaptación",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "prompt": "¿Qué es RAG (generación aumentada por recuperación)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Recuperar información de tus propias fuentes y añadirla al prompt para fundamentar la respuesta"
+        },
+        {
+          "id": "b",
+          "text": "Reentrenar el modelo cada vez que llega un documento nuevo"
+        },
+        {
+          "id": "c",
+          "text": "Reducir el tamaño del modelo para que responda más rápido"
+        },
+        {
+          "id": "d",
+          "text": "Repetir la misma pregunta varias veces y quedarse con la respuesta que más se repita entre todas las demás"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "RAG aporta datos actuales y propios sin reentrenar."
+    },
+    {
+      "id": "hw-12",
+      "type": "true-false",
+      "subtopic": "Adaptación",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "statement": "El fine-tuning es la mejor forma de dar al modelo datos de la empresa que cambian cada hora.",
+      "correctAnswer": false,
+      "explanation": "Reentrenar es lento y costoso; para datos cambiantes conviene recuperarlos en cada consulta (RAG)."
+    },
+    {
+      "id": "hw-13",
+      "type": "single-select",
+      "subtopic": "Adaptación",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "prompt": "Una empresa quiere un asistente que responda con sus manuales, que se actualizan a diario, y que cite la fuente. ¿Qué enfoque conviene?",
+      "options": [
+        {
+          "id": "a",
+          "text": "RAG: recuperar los pasajes del manual y pasarlos al modelo en cada consulta"
+        },
+        {
+          "id": "b",
+          "text": "Hacer fine-tuning completo del modelo cada noche con los manuales nuevos, esperando a que termine el entrenamiento"
+        },
+        {
+          "id": "c",
+          "text": "Subir temperature para que recuerde los manuales"
+        },
+        {
+          "id": "d",
+          "text": "Esperar a que el proveedor del modelo incluya tus manuales"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "RAG usa siempre la versión actual y permite citar el origen."
+    },
+    {
+      "id": "hw-14",
+      "type": "single-select",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 2,
+      "prompt": "¿Qué diferencia hay entre entrenamiento e inferencia?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Entrenar es ajustar el modelo con datos; inferencia es usar el modelo ya entrenado para responder"
+        },
+        {
+          "id": "b",
+          "text": "Entrenar es escribir el prompt del usuario; inferencia es revisar los costos que genera el deployment cada mes"
+        },
+        {
+          "id": "c",
+          "text": "No hay diferencia: son sinónimos"
+        },
+        {
+          "id": "d",
+          "text": "Inferencia ocurre antes que el entrenamiento"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Cuando llamas a un deployment estás haciendo inferencia."
+    },
+    {
+      "id": "hw-15",
+      "type": "single-select",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 2,
+      "prompt": "¿Qué ventaja suele tener un modelo de lenguaje pequeño (SLM) frente a uno grande?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Es más barato y rápido, aunque puede rendir menos en tareas muy complejas"
+        },
+        {
+          "id": "b",
+          "text": "Siempre responde con mayor precisión que uno grande en cualquier tarea y con un costo mayor"
+        },
+        {
+          "id": "c",
+          "text": "No necesita ningún tipo de deployment"
+        },
+        {
+          "id": "d",
+          "text": "No puede equivocarse nunca"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Menos parámetros implican menos costo y latencia, con menor capacidad."
+    },
+    {
+      "id": "hw-16",
+      "type": "single-select",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 2,
+      "prompt": "¿Qué es un modelo multimodal?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Uno que puede procesar o generar más de un tipo de contenido, como texto, imágenes o audio"
+        },
+        {
+          "id": "b",
+          "text": "Uno que se despliega a la vez en varias regiones de Azure para dar servicio a usuarios de todo el mundo"
+        },
+        {
+          "id": "c",
+          "text": "Uno que responde en varios idiomas escritos"
+        },
+        {
+          "id": "d",
+          "text": "Uno que se entrena con varios equipos de datos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Multimodal se refiere a los tipos de datos (modalidades)."
+    },
+    {
+      "id": "hw-17",
+      "type": "dropdown",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "textWithBlanks": "El modelo divide el texto en {{b1}}, los convierte en vectores numéricos y predice el siguiente {{b1}}.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "tokens",
+            "embeddings",
+            "regiones",
+            "deployments"
+          ],
+          "correctOption": "tokens"
+        }
+      ],
+      "explanation": "Todo el proceso se hace sobre tokens."
+    },
+    {
+      "id": "hw-18",
+      "type": "single-select",
+      "subtopic": "Funcionamiento",
+      "skill": "como-funcionan",
+      "peso": 2,
+      "prompt": "Con temperature mayor que cero, haces la misma pregunta dos veces y obtienes respuestas distintas. ¿Por qué?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Porque el modelo elige tokens con cierta aleatoriedad (muestreo probabilístico)"
+        },
+        {
+          "id": "b",
+          "text": "Porque el servicio cambia de modelo en cada llamada para repartir la carga entre sus servidores"
+        },
+        {
+          "id": "c",
+          "text": "Porque la primera respuesta quedó guardada con errores"
+        },
+        {
+          "id": "d",
+          "text": "Porque el prompt se modifica solo al enviarse"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Más temperature = más variedad entre ejecuciones."
+    },
+    {
+      "id": "hw-19",
+      "type": "true-false",
+      "subtopic": "Limitaciones",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "statement": "Un modelo más grande elimina por completo las alucinaciones.",
+      "correctAnswer": false,
+      "explanation": "Reducen, pero no desaparecen: por eso se usa grounding (RAG), verificación y supervisión humana."
+    },
+    {
+      "id": "hw-20",
+      "type": "multi-select",
+      "subtopic": "Limitaciones",
+      "skill": "como-funcionan",
+      "peso": 3,
+      "prompt": "Selecciona las prácticas que ayudan a reducir las alucinaciones:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Darle los datos reales en el prompt y pedirle que se base en ellos"
+        },
+        {
+          "id": "b",
+          "text": "Pedirle que indique cuando no sepa la respuesta"
+        },
+        {
+          "id": "c",
+          "text": "Revisar con una persona las respuestas críticas"
+        },
+        {
+          "id": "d",
+          "text": "Subir temperature para que sea más creativo"
+        },
+        {
+          "id": "e",
+          "text": "Quitar el prompt de sistema para no limitarlo"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Fundamentar, admitir incertidumbre y supervisar reducen el problema; más creatividad lo agrava."
+    },
+    {
+      "id": "el-01",
+      "type": "single-select",
+      "subtopic": "Capacidades",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "prompt": "Tu app debe responder preguntas sobre fotografías que sube el usuario. ¿Qué modelo necesitas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo multimodal que admita imágenes como entrada"
+        },
+        {
+          "id": "b",
+          "text": "Un modelo solo de texto con la temperatura baja"
+        },
+        {
+          "id": "c",
+          "text": "Un modelo de embeddings"
+        },
+        {
+          "id": "d",
+          "text": "Un modelo de síntesis de voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Para entender imágenes el modelo debe aceptarlas como entrada."
+    },
+    {
+      "id": "el-02",
+      "type": "single-select",
+      "subtopic": "Capacidades",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "prompt": "Quieres conversar por voz con baja latencia, sin pasar por transcripciones. ¿Qué eliges?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo con soporte de audio, usado con una API en tiempo real"
+        },
+        {
+          "id": "b",
+          "text": "Un modelo de embeddings que solo trabaja con texto escrito y devuelve vectores numéricos"
+        },
+        {
+          "id": "c",
+          "text": "Un modelo de generación de imágenes"
+        },
+        {
+          "id": "d",
+          "text": "Un modelo de visión sin audio"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los modelos de audio aceptan y devuelven voz."
+    },
+    {
+      "id": "el-03",
+      "type": "single-select",
+      "subtopic": "Capacidades",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "prompt": "Necesitas encontrar los documentos más parecidos en significado a una pregunta. ¿Qué modelo usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo de embeddings"
+        },
+        {
+          "id": "b",
+          "text": "Un modelo de generación de imágenes"
+        },
+        {
+          "id": "c",
+          "text": "Un modelo de razonamiento"
+        },
+        {
+          "id": "d",
+          "text": "Un modelo de reconocimiento facial"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los embeddings convierten el texto en vectores comparables por similitud."
+    },
+    {
+      "id": "el-04",
+      "type": "single-select",
+      "subtopic": "Capacidades",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "prompt": "Una agencia quiere ilustraciones nuevas a partir de descripciones. ¿Qué modelo elige?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo de generación de imágenes"
+        },
+        {
+          "id": "b",
+          "text": "Un modelo de embeddings"
+        },
+        {
+          "id": "c",
+          "text": "Un modelo de reconocimiento de voz"
+        },
+        {
+          "id": "d",
+          "text": "Un modelo de clasificación de sentimiento"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Crear imágenes es generación visual."
+    },
+    {
+      "id": "el-05",
+      "type": "single-select",
+      "subtopic": "Capacidades",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "prompt": "Debes resolver problemas de varias etapas de lógica y matemáticas, aceptando mayor costo y latencia. ¿Qué modelo conviene?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo de razonamiento, que dedica tokens a pensar antes de responder"
+        },
+        {
+          "id": "b",
+          "text": "Un modelo pequeño optimizado para dar respuestas instantáneas y baratas, sin pasos de razonamiento"
+        },
+        {
+          "id": "c",
+          "text": "Un modelo de embeddings"
+        },
+        {
+          "id": "d",
+          "text": "Un modelo de síntesis de voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los modelos de razonamiento piensan más, con más costo y tiempo."
+    },
+    {
+      "id": "el-06",
+      "type": "single-select",
+      "subtopic": "Compromisos",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "prompt": "Necesitas clasificar miles de mensajes cortos por minuto al menor costo posible. ¿Qué modelo conviene?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo pequeño y rápido, suficiente para esa tarea sencilla"
+        },
+        {
+          "id": "b",
+          "text": "El modelo más grande y costoso disponible, para asegurar la máxima calidad en cada mensaje"
+        },
+        {
+          "id": "c",
+          "text": "Un modelo de generación de imágenes"
+        },
+        {
+          "id": "d",
+          "text": "Un modelo de razonamiento con esfuerzo alto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Para tareas simples y masivas, un modelo pequeño ahorra costo y latencia."
+    },
+    {
+      "id": "el-07",
+      "type": "matching",
+      "subtopic": "Capacidades",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada necesidad con el tipo de modelo:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "Redactar y conversar con texto"
+        },
+        {
+          "id": "l2",
+          "text": "Buscar por significado"
+        },
+        {
+          "id": "l3",
+          "text": "Crear una imagen nueva"
+        },
+        {
+          "id": "l4",
+          "text": "Entender y responder por voz"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Modelo de lenguaje (chat)"
+        },
+        {
+          "id": "r2",
+          "text": "Modelo de embeddings"
+        },
+        {
+          "id": "r3",
+          "text": "Modelo de generación de imágenes"
+        },
+        {
+          "id": "r4",
+          "text": "Modelo con soporte de audio"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        }
+      ],
+      "explanation": "Elegir bien empieza por la modalidad y la tarea."
+    },
+    {
+      "id": "el-08",
+      "type": "single-select",
+      "subtopic": "Compromisos",
+      "skill": "elegir-modelo",
+      "peso": 2,
+      "prompt": "En general, al pasar a un modelo más grande y capaz, ¿qué suele ocurrir?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Aumentan el costo y la latencia, a cambio de más capacidad"
+        },
+        {
+          "id": "b",
+          "text": "Disminuyen el costo y la latencia a la vez"
+        },
+        {
+          "id": "c",
+          "text": "El modelo deja de necesitar deployment"
+        },
+        {
+          "id": "d",
+          "text": "El modelo pierde la capacidad de razonar"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "No existe el mejor modelo universal: hay que equilibrar."
+    },
+    {
+      "id": "el-09",
+      "type": "multi-select",
+      "subtopic": "Criterios",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "prompt": "Selecciona los criterios que conviene comparar al elegir un modelo:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Las modalidades que admite (texto, imagen, audio)"
+        },
+        {
+          "id": "b",
+          "text": "El costo y la latencia"
+        },
+        {
+          "id": "c",
+          "text": "El tamaño de la ventana de contexto"
+        },
+        {
+          "id": "d",
+          "text": "El color del icono del modelo en el catálogo"
+        },
+        {
+          "id": "e",
+          "text": "El número de usuarios de tu equipo"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Capacidades, costo, latencia y contexto determinan la elección."
+    },
+    {
+      "id": "el-10",
+      "type": "single-select",
+      "subtopic": "Criterios",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "prompt": "Quieres resumir informes de cientos de miles de tokens en una sola consulta. ¿Qué característica es clave?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una ventana de contexto suficientemente grande"
+        },
+        {
+          "id": "b",
+          "text": "Una temperatura de exactamente cero"
+        },
+        {
+          "id": "c",
+          "text": "Que el modelo sea de generación de imágenes"
+        },
+        {
+          "id": "d",
+          "text": "Que tenga el nombre más corto posible"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Si el texto no cabe en la ventana, el modelo no puede verlo completo."
+    },
+    {
+      "id": "el-11",
+      "type": "single-select",
+      "subtopic": "Catálogo",
+      "skill": "elegir-modelo",
+      "peso": 2,
+      "prompt": "Un modelo abierto del catálogo debe ejecutarse en recursos que tú dimensionas. ¿Qué opción de despliegue encaja?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cómputo administrado (managed compute), donde eliges el tipo de acelerador y la capacidad"
+        },
+        {
+          "id": "b",
+          "text": "Una cuenta de almacenamiento donde guardas el modelo como un archivo que la aplicación descarga y ejecuta"
+        },
+        {
+          "id": "c",
+          "text": "Un playground sin deployment"
+        },
+        {
+          "id": "d",
+          "text": "Un agente sin modelo"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El cómputo administrado te da control del hardware."
+    },
+    {
+      "id": "el-12",
+      "type": "single-select",
+      "subtopic": "Catálogo",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "prompt": "¿Qué permite usar model-router en el parámetro model?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Que Foundry elija automáticamente el modelo más adecuado para cada solicitud"
+        },
+        {
+          "id": "b",
+          "text": "Cambiar la región del recurso sin necesidad de redesplegar el modelo ni de modificar la aplicación"
+        },
+        {
+          "id": "c",
+          "text": "Convertir el modelo en un agente con herramientas"
+        },
+        {
+          "id": "d",
+          "text": "Cifrar las solicitudes de extremo a extremo"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Es una forma de equilibrar calidad y costo sin fijar un único modelo."
+    },
+    {
+      "id": "el-13",
+      "type": "single-select",
+      "subtopic": "Catálogo",
+      "skill": "elegir-modelo",
+      "peso": 2,
+      "prompt": "¿Dónde comparas las características de distintos modelos antes de desplegarlos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "En el catálogo de modelos de Foundry, mediante las model cards y sus indicadores"
+        },
+        {
+          "id": "b",
+          "text": "En el panel de facturación de la suscripción, donde se listan las características de cada modelo"
+        },
+        {
+          "id": "c",
+          "text": "En el registro de actividad de Azure"
+        },
+        {
+          "id": "d",
+          "text": "En el Cloud Shell, con un comando de red"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El catálogo resume capacidades, tipos de deployment y más."
+    },
+    {
+      "id": "el-14",
+      "type": "true-false",
+      "subtopic": "Compromisos",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "statement": "El modelo más grande y costoso es siempre la mejor opción para cualquier tarea.",
+      "correctAnswer": false,
+      "explanation": "Para tareas simples un modelo pequeño puede rendir igual con menos costo y latencia."
+    },
+    {
+      "id": "el-15",
+      "type": "single-select",
+      "subtopic": "Compromisos",
+      "skill": "elegir-modelo",
+      "peso": 2,
+      "prompt": "Un chat interno sencillo tiene un presupuesto muy ajustado y exige respuestas rápidas. ¿Qué eliges?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo pequeño o eficiente de chat"
+        },
+        {
+          "id": "b",
+          "text": "Un modelo de razonamiento con esfuerzo alto"
+        },
+        {
+          "id": "c",
+          "text": "Un modelo multimodal de máxima capacidad"
+        },
+        {
+          "id": "d",
+          "text": "Un modelo de generación de imágenes"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Ajusta el modelo a la necesidad real."
+    },
+    {
+      "id": "el-19",
+      "type": "true-false",
+      "subtopic": "Compromisos",
+      "skill": "elegir-modelo",
+      "peso": 2,
+      "statement": "Un modelo de razonamiento suele tardar más y costar más que uno pequeño, pero rinde mejor en problemas de varios pasos.",
+      "correctAnswer": true,
+      "explanation": "Piensa antes de responder: más tokens, más tiempo y más costo a cambio de mejor resolución de problemas complejos."
+    },
+    {
+      "id": "el-16",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "elegir-modelo",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Foundry Local"
+        },
+        {
+          "id": "b",
+          "text": "Foundry Agent Service"
+        },
+        {
+          "id": "c",
+          "text": "Foundry Models"
+        },
+        {
+          "id": "d",
+          "text": "Foundry Project"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Foundry Local permite ejecutar modelos en tu propio equipo.",
+      "imagen": "foundry-local"
+    },
+    {
+      "id": "el-17",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "elegir-modelo",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure Machine Learning"
+        },
+        {
+          "id": "b",
+          "text": "Azure OpenAI in Foundry Models"
+        },
+        {
+          "id": "c",
+          "text": "Azure AI Search"
+        },
+        {
+          "id": "d",
+          "text": "Content Safety"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Azure Machine Learning sirve para entrenar, administrar y desplegar tus propios modelos.",
+      "imagen": "machine-learning"
+    },
+    {
+      "id": "el-18",
+      "type": "single-select",
+      "subtopic": "Capacidades",
+      "skill": "elegir-modelo",
+      "peso": 3,
+      "prompt": "Tu app debe analizar una foto y responder con texto libre sobre ella. ¿Qué característica del modelo es imprescindible?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Entrada multimodal con soporte de imágenes"
+        },
+        {
+          "id": "b",
+          "text": "Una temperatura exactamente igual a cero"
+        },
+        {
+          "id": "c",
+          "text": "Soporte exclusivo de audio"
+        },
+        {
+          "id": "d",
+          "text": "Un nombre de deployment largo"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Sin soporte de imágenes el modelo no puede interpretarla."
+    },
+    {
+      "id": "dc-01",
+      "type": "matching",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada tipo de deployment con su característica:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "Global Standard"
+        },
+        {
+          "id": "l2",
+          "text": "Data Zone Standard"
+        },
+        {
+          "id": "l3",
+          "text": "Provisioned"
+        },
+        {
+          "id": "l4",
+          "text": "Batch"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Pago por token y procesamiento en cualquier región de Azure"
+        },
+        {
+          "id": "r2",
+          "text": "Pago por token y procesamiento solo dentro de una zona de datos (US, EU o APAC)"
+        },
+        {
+          "id": "r3",
+          "text": "Capacidad reservada medida en PTU, con rendimiento garantizado"
+        },
+        {
+          "id": "r4",
+          "text": "Trabajos asíncronos grandes con un 50 % de descuento"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        }
+      ],
+      "explanation": "La elección depende de dónde se procesan los datos, el rendimiento que necesitas y si el trabajo es urgente."
+    },
+    {
+      "id": "dc-02",
+      "type": "single-select",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "Si no tienes requisitos especiales, ¿con qué tipo de deployment conviene empezar?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Global Standard"
+        },
+        {
+          "id": "b",
+          "text": "Provisioned, para reservar capacidad desde el inicio"
+        },
+        {
+          "id": "c",
+          "text": "Batch, porque es el más barato"
+        },
+        {
+          "id": "d",
+          "text": "Data Zone Provisioned, por si luego lo necesitas"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Global Standard es el punto de partida; cambias solo por residencia de datos, rendimiento reservado o procesamiento por lotes."
+    },
+    {
+      "id": "dc-03",
+      "type": "single-select",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "Una empresa europea debe asegurar que los prompts se procesen solo dentro de la UE. ¿Qué opción elige?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Data Zone Standard (o Provisioned) en una región de la UE"
+        },
+        {
+          "id": "b",
+          "text": "Global Standard, que procesa solo en la UE"
+        },
+        {
+          "id": "c",
+          "text": "Batch global, que garantiza la zona de la UE"
+        },
+        {
+          "id": "d",
+          "text": "Cualquier tipo, porque el procesamiento nunca importa"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los tipos Data Zone procesan los datos únicamente dentro de la zona indicada."
+    },
+    {
+      "id": "dc-04",
+      "type": "single-select",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "Una aplicación crítica en producción necesita rendimiento garantizado y latencia estable. ¿Qué tipo de deployment elige?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Provisioned, con unidades de rendimiento aprovisionado (PTU)"
+        },
+        {
+          "id": "b",
+          "text": "Standard, porque tiene capacidad reservada"
+        },
+        {
+          "id": "c",
+          "text": "Batch, que responde en milisegundos"
+        },
+        {
+          "id": "d",
+          "text": "Developer, que incluye un SLA estricto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Provisioned reserva capacidad: menor variación de latencia y rendimiento previsible."
+    },
+    {
+      "id": "dc-05",
+      "type": "single-select",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "Quieres resumir un millón de documentos durante la noche; el resultado no es urgente y buscas ahorrar. ¿Qué eliges?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un deployment Batch, que cuesta menos a cambio de un plazo de respuesta mayor"
+        },
+        {
+          "id": "b",
+          "text": "Provisioned, para tener la menor latencia posible aunque cueste más que cualquier otra opción"
+        },
+        {
+          "id": "c",
+          "text": "Standard, porque Batch es más caro"
+        },
+        {
+          "id": "d",
+          "text": "Un agente con Code Interpreter"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Batch está pensado para procesamiento masivo asíncrono con descuento."
+    },
+    {
+      "id": "dc-06",
+      "type": "single-select",
+      "subtopic": "Capacidad",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "¿Qué es una PTU (unidad de rendimiento aprovisionado)?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una unidad que mide la capacidad de procesamiento que reservas para tu deployment"
+        },
+        {
+          "id": "b",
+          "text": "Un tipo especial de token que se usa solamente para medir el consumo de las imágenes que envías"
+        },
+        {
+          "id": "c",
+          "text": "Un permiso de acceso al playground"
+        },
+        {
+          "id": "d",
+          "text": "Una región adicional de Azure"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Con Provisioned compras PTU en lugar de pagar por token."
+    },
+    {
+      "id": "dc-07",
+      "type": "single-select",
+      "subtopic": "Cuotas",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "¿Qué representa la cuota en tokens por minuto (TPM) de un deployment?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El límite de tokens por minuto que se asigna al deployment y que condiciona sus límites de solicitudes"
+        },
+        {
+          "id": "b",
+          "text": "El máximo de usuarios que pueden iniciar sesión"
+        },
+        {
+          "id": "c",
+          "text": "El número máximo de modelos distintos que puedes desplegar dentro de un mismo recurso de Foundry en la región"
+        },
+        {
+          "id": "d",
+          "text": "La duración máxima de cada respuesta del modelo"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Asignas TPM a cada deployment; al superarlo recibes error 429."
+    },
+    {
+      "id": "dc-08",
+      "type": "single-select",
+      "subtopic": "Cuotas",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "Tu app recibe errores HTTP 429 en horas pico. ¿Qué haces?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Implementar reintentos con retroceso exponencial y, si hace falta, aumentar la cuota o reasignar TPM"
+        },
+        {
+          "id": "b",
+          "text": "Cambiar el nombre del deployment"
+        },
+        {
+          "id": "c",
+          "text": "Subir la temperatura del modelo"
+        },
+        {
+          "id": "d",
+          "text": "Borrar el recurso de Foundry y crearlo de nuevo en otra región para reiniciar los contadores de cuota"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "429 indica que superaste el límite de tokens o solicitudes por minuto."
+    },
+    {
+      "id": "dc-09",
+      "type": "true-false",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "statement": "En un deployment Standard la capacidad es compartida con otros clientes y el rendimiento puede variar según la demanda.",
+      "correctAnswer": true,
+      "explanation": "Por eso Provisioned reserva capacidad para quien necesita garantías."
+    },
+    {
+      "id": "dc-10",
+      "type": "true-false",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "statement": "Un deployment Provisioned se factura por token consumido, igual que uno Standard.",
+      "correctAnswer": false,
+      "explanation": "Provisioned se factura por PTU y por hora (o con reservas), no por token."
+    },
+    {
+      "id": "dc-11",
+      "type": "true-false",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 2,
+      "statement": "Un deployment Batch está diseñado para devolver respuestas inmediatas, en milisegundos.",
+      "correctAnswer": false,
+      "explanation": "Batch es asíncrono: acepta un plazo de entrega largo a cambio de menor costo."
+    },
+    {
+      "id": "dc-12",
+      "type": "single-select",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 2,
+      "prompt": "¿Para qué sirve el tipo de deployment Developer?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Para evaluar o probar modelos con el menor costo, sin SLA"
+        },
+        {
+          "id": "b",
+          "text": "Para producción crítica con latencia garantizada"
+        },
+        {
+          "id": "c",
+          "text": "Para almacenar datos de entrenamiento"
+        },
+        {
+          "id": "d",
+          "text": "Para procesar datos solo dentro de una zona de datos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "No ofrece SLA, así que no es para cargas de producción."
+    },
+    {
+      "id": "dc-13",
+      "type": "single-select",
+      "subtopic": "Modelos del catálogo",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "¿Qué diferencia general hay entre desplegar un modelo como API sin servidor (serverless) y en cómputo administrado?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Serverless: pagas por uso y no administras infraestructura; cómputo administrado: eliges acelerador y capacidad"
+        },
+        {
+          "id": "b",
+          "text": "Serverless exige que compres y configures tus propias máquinas virtuales, y el cómputo administrado no necesita ninguna"
+        },
+        {
+          "id": "c",
+          "text": "No hay ninguna diferencia"
+        },
+        {
+          "id": "d",
+          "text": "El cómputo administrado solo sirve para modelos de imágenes"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Serverless es el camino más rápido; el cómputo administrado da control del hardware."
+    },
+    {
+      "id": "dc-14",
+      "type": "dropdown",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "textWithBlanks": "En Standard pagas por {{b1}}; en Provisioned reservas capacidad medida en {{b2}}.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "token",
+            "región",
+            "usuario",
+            "archivo"
+          ],
+          "correctOption": "token"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "PTU",
+            "TPM",
+            "GB",
+            "vCPU"
+          ],
+          "correctOption": "PTU"
+        }
+      ],
+      "explanation": "Standard = pago por uso; Provisioned = capacidad reservada."
+    },
+    {
+      "id": "dc-15",
+      "type": "single-select",
+      "subtopic": "Parámetros",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "¿Qué parámetro limita la longitud máxima de la respuesta generada?",
+      "options": [
+        {
+          "id": "a",
+          "text": "max_output_tokens (o max_tokens / max_completion_tokens, según el modelo)"
+        },
+        {
+          "id": "b",
+          "text": "temperature"
+        },
+        {
+          "id": "c",
+          "text": "top_p"
+        },
+        {
+          "id": "d",
+          "text": "model"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los nombres varían según la API y el modelo, pero todos limitan los tokens generados."
+    },
+    {
+      "id": "dc-16",
+      "type": "single-select",
+      "subtopic": "Parámetros",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "Estás usando un modelo de razonamiento y tus respuestas llegan cortadas. ¿Cuál es una causa probable?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Los tokens de razonamiento también cuentan contra el tope de salida y lo agotan antes de terminar"
+        },
+        {
+          "id": "b",
+          "text": "El modelo solo admite respuestas de una palabra porque así lo exige el tipo de deployment Standard del recurso"
+        },
+        {
+          "id": "c",
+          "text": "La temperatura está en cero"
+        },
+        {
+          "id": "d",
+          "text": "El deployment es de tipo Batch"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Con modelos de razonamiento hay que dejar margen en el tope de tokens."
+    },
+    {
+      "id": "dc-17",
+      "type": "single-select",
+      "subtopic": "Parámetros",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "En un modelo de razonamiento, ¿qué controla el parámetro reasoning_effort?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cuánto razona el modelo antes de responder (por ejemplo, low, medium o high)"
+        },
+        {
+          "id": "b",
+          "text": "La región donde se procesa la solicitud"
+        },
+        {
+          "id": "c",
+          "text": "El idioma de la respuesta"
+        },
+        {
+          "id": "d",
+          "text": "El número de usuarios simultáneos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Más esfuerzo: respuestas potencialmente mejores, con más tokens, costo y tiempo."
+    },
+    {
+      "id": "dc-18",
+      "type": "single-select",
+      "subtopic": "Parámetros",
+      "skill": "despliegue-config",
+      "peso": 2,
+      "prompt": "¿Qué haces antes de cambiar tu app a un modelo de razonamiento?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Revisar qué parámetros admite, por ejemplo max_completion_tokens en lugar de max_tokens, y dejar margen para los tokens de razonamiento"
+        },
+        {
+          "id": "b",
+          "text": "Nada: aceptan exactamente los mismos parámetros que cualquier otro modelo de chat, así que el código no necesita ningún cambio ni margen adicional"
+        },
+        {
+          "id": "c",
+          "text": "Cambiar el endpoint a otro dominio de Internet"
+        },
+        {
+          "id": "d",
+          "text": "Reducir el prompt a una sola palabra"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los modelos de razonamiento tienen parámetros y límites distintos."
+    },
+    {
+      "id": "dc-19",
+      "type": "single-select",
+      "subtopic": "Seguridad",
+      "skill": "despliegue-config",
+      "peso": 2,
+      "prompt": "¿Qué ocurre con los filtros de contenido en un deployment?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Se aplican a prompts y respuestas y pueden configurarse según la política que necesites"
+        },
+        {
+          "id": "b",
+          "text": "Solo se aplican a los modelos de generación de imágenes y nunca a las conversaciones de texto ni de audio"
+        },
+        {
+          "id": "c",
+          "text": "No existen: el modelo decide solo qué bloquear"
+        },
+        {
+          "id": "d",
+          "text": "Se activan únicamente al eliminar el deployment"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los filtros ayudan a bloquear contenido dañino, en línea con la IA responsable."
+    },
+    {
+      "id": "dc-20",
+      "type": "true-false",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 2,
+      "statement": "En la CLI, el tipo de deployment Global Standard se identifica como GlobalStandard.",
+      "correctAnswer": true,
+      "explanation": "El nombre del tipo se escribe sin espacios (GlobalStandard, DataZoneStandard, ProvisionedManaged…)."
+    },
+    {
+      "id": "dc-21",
+      "type": "true-false",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 2,
+      "statement": "Con Global Standard o Data Zone Standard, una interrupción de la región primaria puede afectar al tráfico que se enruta hacia ella.",
+      "correctAnswer": true,
+      "explanation": "Por eso conviene pensar en reintentos y, para cargas críticas, en otros diseños de disponibilidad."
+    },
+    {
+      "id": "dc-22",
+      "type": "dropdown",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "textWithBlanks": "Los tipos {{b1}} procesan los datos en cualquier región de Azure; los tipos {{b2}} lo hacen solo dentro de la zona de datos elegida.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "Global",
+            "Batch",
+            "Developer"
+          ],
+          "correctOption": "Global"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "Data Zone",
+            "Global",
+            "Provisioned"
+          ],
+          "correctOption": "Data Zone"
+        }
+      ],
+      "explanation": "Global = máxima flexibilidad; Data Zone = residencia por zona (US, EU o APAC)."
+    },
+    {
+      "id": "dc-23",
+      "type": "single-select",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "Una regulación exige que el procesamiento ocurra en una sola región concreta. ¿Qué elige?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un tipo regional (Standard o Provisioned) en esa región"
+        },
+        {
+          "id": "b",
+          "text": "Global Standard, que fija una sola región"
+        },
+        {
+          "id": "c",
+          "text": "Global Batch, que procesa en una única región"
+        },
+        {
+          "id": "d",
+          "text": "Cualquier tipo: la región no influye"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los tipos regionales mantienen el procesamiento en la región del deployment."
+    },
+    {
+      "id": "dc-24",
+      "type": "single-select",
+      "subtopic": "Tipos de deployment",
+      "skill": "despliegue-config",
+      "peso": 2,
+      "prompt": "Una app interna tiene poco tráfico y muy variable y no justifica reservar capacidad. ¿Qué tipo encaja mejor?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Standard, con pago por token"
+        },
+        {
+          "id": "b",
+          "text": "Provisioned, con PTU reservadas todo el mes"
+        },
+        {
+          "id": "c",
+          "text": "Batch, porque necesita respuestas inmediatas"
+        },
+        {
+          "id": "d",
+          "text": "Developer, para producción crítica"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Con poco volumen, pagar por uso evita pagar capacidad ociosa."
+    },
+    {
+      "id": "dc-25",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "despliegue-config",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Foundry Models"
+        },
+        {
+          "id": "b",
+          "text": "Foundry Agent Service"
+        },
+        {
+          "id": "c",
+          "text": "Foundry Local"
+        },
+        {
+          "id": "d",
+          "text": "Foundry Project"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "En Foundry Models administras el catálogo y los deployments, con su tipo y su cuota.",
+      "imagen": "foundry-models"
+    },
+    {
+      "id": "dc-26",
+      "type": "single-select",
+      "subtopic": "Parámetros",
+      "skill": "despliegue-config",
+      "peso": 3,
+      "prompt": "Cuando bajas temperature a 0.1, ¿qué esperas de las respuestas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Más consistentes y deterministas entre ejecuciones"
+        },
+        {
+          "id": "b",
+          "text": "Mucho más largas"
+        },
+        {
+          "id": "c",
+          "text": "Más creativas e impredecibles"
+        },
+        {
+          "id": "d",
+          "text": "Siempre en otro idioma"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Temperature baja reduce la variación; alta la aumenta."
+    }
+  ]
 }

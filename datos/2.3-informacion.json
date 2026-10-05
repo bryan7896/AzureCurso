@@ -1,10 +1,48 @@
 {
   "levelId": "2.3",
   "learningContent": {
-    "title": "",
-    "estimatedMinutes": 0,
-    "sections": []
+    "title": "Computer Vision + Image Generation",
+    "estimatedMinutes": 60,
+    "sections": [
+      {
+        "heading": "Imágenes en el prompt (modelo multimodal)",
+        "body": "Un modelo **multimodal con entrada de imágenes** puede describir una foto, leer un cartel o explicar un gráfico. La imagen va **dentro del mensaje de usuario**, como una parte más junto al texto.\n\n```python\nresponse = client.responses.create(\n    model=\"my-deployment\",\n    input=[{\n        \"role\": \"user\",\n        \"content\": [\n            {\"type\": \"input_text\", \"text\": \"What is shown in this photo?\"},\n            {\"type\": \"input_image\", \"image_url\": \"https://contoso.com/photos/dog.jpg\"},\n        ],\n    }],\n)\nprint(response.output_text)\n```\n\nSi la imagen está en tu equipo (o la URL es privada) se envía **codificada en base64** como una URL de datos:\n\n```python\nimport base64\n\nwith open(\"receipt.jpg\", \"rb\") as f:\n    b64 = base64.b64encode(f.read()).decode(\"utf-8\")\n\nimage_part = {\"type\": \"input_image\", \"image_url\": f\"data:image/jpeg;base64,{b64}\"}\n```\n\nPuntos clave: el modelo **debe admitir imágenes** (un modelo solo de texto no las interpreta); las imágenes **consumen tokens** de entrada; con fotos de personas piensa en **privacidad y consentimiento**; y el texto que acompaña a la imagen debe ser un prompt concreto (qué extraer, en qué formato)."
+      },
+      {
+        "heading": "Generar imágenes",
+        "body": "Un modelo de **generación de imágenes** (familia GPT-image) crea una imagen nueva a partir de una descripción. Es la capacidad inversa a describir una imagen.\n\n```python\nimport base64\n\nresult = client.images.generate(\n    model=\"my-image-deployment\",   # nombre de TU deployment\n    prompt=\"A watercolor painting of a lighthouse at sunrise\",\n    size=\"1024x1024\",\n    quality=\"medium\",\n)\nimage_bytes = base64.b64decode(result.data[0].b64_json)\n\nwith open(\"lighthouse.png\", \"wb\") as f:\n    f.write(image_bytes)\n```\n\n• Los modelos GPT-image **siempre devuelven la imagen en base64** (`b64_json`): no hay URL de descarga.\n• `size` y `quality` controlan el resultado **y el costo**: usa calidad baja y tamaños pequeños mientras iteras. `n` indica cuántas imágenes se generan.\n• Para modificar una imagen existente se usa la **edición** (`images.edit`) con la imagen original y un prompt.\n• Un buen prompt visual indica **sujeto, estilo, composición e iluminación**.\n• Aplican los **filtros de contenido**, la revisión humana y la **transparencia** (avisar que es una imagen generada por IA)."
+      },
+      {
+        "heading": "Azure Vision: Image Analysis",
+        "body": "**Vision (Foundry Tools)** analiza imágenes con modelos preentrenados: no entrenas nada, envías la imagen y recibes resultados estructurados. Eliges qué quieres en `visual_features`:\n\n• **CAPTION** → una frase que describe la imagen. **DENSE_CAPTIONS** → una descripción por región.\n• **TAGS** → etiquetas de objetos, escenas y acciones.\n• **OBJECTS** → detecta objetos y su ubicación. **PEOPLE** → personas y su ubicación.\n• **READ** → texto de la imagen (OCR).\n• **SMART_CROPS** → recortes sugeridos para miniaturas.\n\n```python\nfrom azure.ai.vision.imageanalysis import ImageAnalysisClient\nfrom azure.ai.vision.imageanalysis.models import VisualFeatures\nfrom azure.core.credentials import AzureKeyCredential\n\nclient = ImageAnalysisClient(\n    endpoint=\"https://<recurso>.cognitiveservices.azure.com/\",\n    credential=AzureKeyCredential(\"<your-key>\"),\n)\n\nresult = client.analyze_from_url(\n    image_url=\"https://contoso.com/photos/street.jpg\",\n    visual_features=[VisualFeatures.CAPTION, VisualFeatures.TAGS],\n)\nprint(result.caption.text, result.caption.confidence)\nfor tag in result.tags.list:\n    print(tag.name, tag.confidence)\n```\n\n`analyze_from_url` recibe una **URL pública**; `analyze` recibe los **bytes** de la imagen. Paquete: `azure-ai-vision-imageanalysis`.\n\n**¿Vision o un modelo multimodal?** Vision devuelve resultados fijos y predecibles sin prompt; el modelo multimodal responde preguntas libres sobre la imagen. Si tus categorías son propias, hay que **entrenar un modelo personalizado**. Las funciones de **identificación facial** tienen acceso limitado por razones de IA responsable."
+      }
+    ]
   },
   "practiceExercises": [],
-  "achievements": []
+  "achievements": [
+    {
+      "id": "lab-2.3-01",
+      "texto": "En el portal de Foundry, despliega un modelo multimodal y pruébalo en el playground subiendo una foto y pidiéndole que la describa."
+    },
+    {
+      "id": "lab-2.3-02",
+      "texto": "Con el SDK, envía una imagen de tu equipo codificada en base64 y comprueba la respuesta."
+    },
+    {
+      "id": "lab-2.3-03",
+      "texto": "Despliega un modelo de generación de imágenes, genera una imagen con images.generate y guárdala como PNG."
+    },
+    {
+      "id": "lab-2.3-04",
+      "texto": "Repite la generación con quality baja y alta, y con distintos size, y compara tiempo, costo y resultado."
+    },
+    {
+      "id": "lab-2.3-05",
+      "texto": "Crea un recurso de Vision y analiza una foto pidiendo CAPTION, TAGS y READ con ImageAnalysisClient."
+    },
+    {
+      "id": "lab-2.3-06",
+      "texto": "Pide OBJECTS sobre una foto con varios elementos e imprime el nombre y la confianza de cada objeto detectado."
+    }
+  ]
 }

@@ -44,7 +44,8 @@ function formatearRespuestaUsuario(exercise, respuesta) {
         })
         .join(" · ");
     }
-    case "dropdown": {
+    case "dropdown":
+    case "code-fill": {
       const blanks = respuesta || [];
       return blanks.map((b) => b.selected || "(vacío)").join(", ");
     }
@@ -83,6 +84,7 @@ function formatearRespuestaEsperada(exercise) {
         .join(" · ");
     }
     case "dropdown":
+    case "code-fill":
       return (exercise.blanks || []).map((b) => b.correctOption).join(", ");
     case "texto-libre":
       return (exercise.respuestasAceptadas || [])[0] || "";

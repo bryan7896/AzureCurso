@@ -1,18 +1,22 @@
 // tipos-ejercicio/single-select.js
-// Selección múltiple con ÚNICA respuesta correcta.
+// Selección múltiple con ÚNICA respuesta correcta. Las opciones se barajan
+// en cada render (antes la correcta siempre salía primero).
 
 function renderSingleSelect(exercise, container, onListo) {
   let seleccion = null;
+  const opciones = opcionesBarajadas(exercise.options, exercise);
+  const mono = !!exercise.opcionesCodigo;
+  const dyn = prepararContenedor(container, exercise);
 
   const pintar = () => {
-    container.innerHTML = `
-      <div class="pregunta-prompt">${escHTML(exercise.prompt)}</div>
+    dyn.innerHTML = `
       <div class="opciones-lista">
-        ${(exercise.options || [])
+        ${opciones
           .map(
             (o) => `
-          <button type="button" class="opcion-btn ${seleccion === o.id ? "seleccionada" : ""}" data-id="${escHTML(o.id)}">
-            ${escHTML(o.text)}
+          <button type="button" class="opcion-btn ${mono ? "opcion-codigo" : ""} ${seleccion === o.id ? "seleccionada" : ""}" data-id="${escAttr(o.id)}">
+            ${o.icono ? iconoHTML(o.icono, { tam: "sm" }) : ""}
+            <span class="opcion-texto">${mono ? `<code>${escHTML(o.text)}</code>` : fmtTxt(o.text)}</span>
           </button>`
           )
           .join("")}
@@ -22,13 +26,13 @@ function renderSingleSelect(exercise, container, onListo) {
       </div>
     `;
 
-    container.querySelectorAll(".opcion-btn").forEach((btn) => {
+    dyn.querySelectorAll(".opcion-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         seleccion = btn.dataset.id;
         pintar();
       });
     });
-    container.querySelector("#btnComprobar")?.addEventListener("click", () => {
+    dyn.querySelector("#btnComprobar")?.addEventListener("click", () => {
       if (seleccion) onListo(seleccion);
     });
   };

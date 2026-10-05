@@ -1,10 +1,64 @@
 {
   "levelId": "2.1",
   "learningContent": {
-    "title": "",
-    "estimatedMinutes": 0,
-    "sections": []
+    "title": "Generative AI + Agents",
+    "estimatedMinutes": 75,
+    "sections": [
+      {
+        "heading": "Prompts: sistema y usuario",
+        "body": "Un modelo generativo responde a lo que le envías. Hay **dos tipos de instrucciones** que conviene separar:\n\n• **Prompt de sistema** (`instructions`): fija el rol, el tono y las reglas para *toda* la conversación. Ej.: «Eres el asistente de Contoso, responde en español y en máximo 3 frases».\n• **Prompt de usuario** (`input`): la tarea concreta del momento.\n\nTécnicas que mejoran un prompt: ser **específico** (público, longitud, formato), dar **contexto o datos reales** (reduce las alucinaciones), mostrar **ejemplos** (*few-shot*), pedir un **formato de salida** y, en problemas de varios pasos, pedir que razone **paso a paso**.\n\nDos parámetros que cambian el estilo, no el contenido: **temperature** (baja = más predecible, alta = más variada) y **top_p** (muestreo de núcleo). **max_output_tokens** limita la longitud de la respuesta.\n\nOjo: los modelos **no recuerdan** entre llamadas; el historial hay que reenviarlo o mantenerlo en una conversación. Y un prompt de sistema **no es infalible**: existe la *inyección de prompt*."
+      },
+      {
+        "heading": "Desplegar y probar un modelo en el portal",
+        "body": "En Microsoft Foundry el flujo básico es:\n\n1. Abrir el **catálogo de modelos** y elegir uno (cada model card dice qué tipos de deployment admite).\n2. Seleccionar **Deploy**. Por defecto el deployment se llama como el modelo; **ese nombre es el que usarás en el parámetro `model`**.\n3. Al terminar caes en el **playground**, una interfaz web para probar prompts y parámetros sin escribir código.\n4. En la pestaña **Code** ves cómo llamar a ese deployment desde tu aplicación. En la página de detalles del deployment ves el endpoint, las claves y puedes ajustarlo o eliminarlo.\n\nPara autenticarte con **Microsoft Entra ID** tu identidad necesita un rol de Azure (por ejemplo *Foundry User*). Autenticarte no basta: también debes estar autorizado.\n\nSi ves `DeploymentNotFound`, casi siempre el valor de `model` no coincide con el nombre de ningún deployment."
+      },
+      {
+        "heading": "Cliente de chat con el Foundry SDK",
+        "body": "Instalación y sesión (el SDK 2.x **no es compatible** con 1.x):\n\n```bash\npip install \"azure-ai-projects>=2.3.0\" azure-identity\naz login\n```\n\nEl patrón es siempre el mismo: **cliente del proyecto → cliente OpenAI → llamada**.\n\n```python\nfrom azure.identity import DefaultAzureCredential\nfrom azure.ai.projects import AIProjectClient\n\nproject = AIProjectClient(\n    endpoint=\"https://<recurso>.services.ai.azure.com/api/projects/<proyecto>\",\n    credential=DefaultAzureCredential(),\n)\nclient = project.get_openai_client()\n\nresponse = client.responses.create(\n    model=\"my-deployment\",   # nombre de TU deployment\n    instructions=\"Responde en español, en una frase.\",\n    input=\"¿Qué es Azure?\",\n    max_output_tokens=120,\n)\nprint(response.output_text)\n```\n\n`DefaultAzureCredential` prueba varias fuentes (variables de entorno, identidad administrada, Azure CLI…): el mismo código sirve en tu equipo y en producción. **Nunca** pongas una clave de API en el código.\n\nPara continuar un diálogo: `previous_response_id=first.id`. Para recibir el texto mientras se genera: `stream=True` y leer los eventos `response.output_text.delta`."
+      },
+      {
+        "heading": "Agentes: modelo + instrucciones + herramientas",
+        "body": "Un **agente** combina un **modelo desplegado**, **instrucciones** y **herramientas**; el modelo decide cuándo usarlas (*tool calling*). Se crea y se prueba en el portal (Foundry Agent Service).\n\n**Herramientas integradas y cuándo usarlas:**\n• **Code Interpreter** → ejecutar Python en un entorno aislado: calcular, analizar un CSV, graficar. Tiene costo adicional y no está en todas las regiones.\n• **File Search** → responder con tus archivos (se indexan en un *vector store*).\n• **Web Search** → información actual de la web.\n• **Azure AI Search** → consultar un índice de tu organización (mediante una conexión del proyecto).\n• **Herramientas personalizadas** → Azure Functions, servidores **MCP** o APIs OpenAPI para llamar a tus sistemas.\n\nNo todo necesita un agente: para traducir una frase suelta basta llamar al modelo."
+      },
+      {
+        "heading": "Agentes desde código",
+        "body": "Con el SDK defines el agente como **código versionable**:\n\n```python\nfrom azure.ai.projects.models import PromptAgentDefinition, CodeInterpreterTool\n\nagent = project.agents.create_version(\n    agent_name=\"data-agent\",\n    definition=PromptAgentDefinition(\n        model=\"my-deployment\",\n        instructions=\"Use Code Interpreter when asked to visualize numbers.\",\n        tools=[CodeInterpreterTool()],\n    ),\n)\n```\n\nCada `create_version` guarda una **versión nueva**. Otras herramientas: `FileSearchTool(vector_store_ids=[...])` y `WebSearchTool()`.\n\nPara conversar, liga el cliente al agente y **crea la conversación una sola vez**:\n\n```python\nopenai = project.get_openai_client(agent_name=\"data-agent\")\nconversation = openai.conversations.create()\n\nr1 = openai.responses.create(conversation=conversation.id, input=\"My name is Ana.\")\nr2 = openai.responses.create(conversation=conversation.id, input=\"What is my name?\")\nprint(r2.output_text)\n```\n\nSi creas una conversación nueva en cada mensaje, el agente pierde el contexto."
+      }
+    ]
   },
   "practiceExercises": [],
-  "achievements": []
+  "achievements": [
+    {
+      "id": "lab-2.1-01",
+      "texto": "En el portal de Foundry, despliega un modelo desde el catálogo y pruébalo en el playground con tres prompts distintos."
+    },
+    {
+      "id": "lab-2.1-02",
+      "texto": "En el playground, repite el mismo prompt con temperature 0.2 y con 1.0 y compara la variedad de las respuestas."
+    },
+    {
+      "id": "lab-2.1-03",
+      "texto": "Escribe un prompt de sistema (rol, idioma, tono, límite de longitud) y comprueba que se respeta durante toda la conversación."
+    },
+    {
+      "id": "lab-2.1-04",
+      "texto": "Abre la pestaña Code del playground, copia el ejemplo y ejecútalo en tu equipo tras hacer az login."
+    },
+    {
+      "id": "lab-2.1-05",
+      "texto": "Haz dos llamadas con el SDK enlazadas con previous_response_id y confirma que el modelo recuerda la primera."
+    },
+    {
+      "id": "lab-2.1-06",
+      "texto": "Crea un agente en el portal, elige un deployment, escribe sus instrucciones y pruébalo en el playground de agentes."
+    },
+    {
+      "id": "lab-2.1-07",
+      "texto": "Agrega File Search con un PDF propio y comprueba que el agente responde con su contenido."
+    },
+    {
+      "id": "lab-2.1-08",
+      "texto": "Crea un agente desde código con create_version y mantén una conversación de varios mensajes con él."
+    }
+  ]
 }

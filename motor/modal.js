@@ -8,7 +8,7 @@
 // correcta), se pasa esReflexion:true y el modal muestra un estado neutral
 // ("guardado") en vez de ✅/❌.
 
-function mostrarModalFeedback({ exercise, correcto, esReflexion, onContinuar, onRepasar }) {
+function mostrarModalFeedback({ exercise, correcto, esReflexion, respuestaUsuario, onContinuar, onRepasar }) {
   const existente = document.querySelector(".modal-overlay");
   if (existente) existente.remove();
 
@@ -24,7 +24,8 @@ function mostrarModalFeedback({ exercise, correcto, esReflexion, onContinuar, on
         <span class="feedback-icono">${icono}</span>
         <span class="feedback-titulo">${titulo}</span>
       </div>
-      <p class="feedback-explicacion">${escHTML(exercise?.explanation || (esReflexion ? "Podrás revisar todas tus reflexiones desde la pantalla de Conceptos." : ""))}</p>
+      ${exercise?.type === "code-fill" && !esReflexion ? `<div class="feedback-codigo">${renderSolucionCodeFill(exercise, respuestaUsuario)}</div>` : ""}
+      <p class="feedback-explicacion">${fmtTxt(exercise?.explanation || (esReflexion ? "Podrás revisar todas tus reflexiones desde la pantalla de Conceptos." : ""))}</p>
       <div class="modal-botones">
         <button class="btn" id="btnRepasar">🔁 Repasar</button>
         <button class="btn btn-solido" id="btnContinuar">Continuar ▶</button>

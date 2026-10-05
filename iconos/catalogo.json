@@ -1,0 +1,285 @@
+{
+ "version": "2026-10-04",
+ "nota": "Los nombres de 'nombre' son los vigentes; 'archivoOrigen' conserva el nombre antiguo del archivo de Microsoft.",
+ "iconos": [
+  {
+   "id": "foundry",
+   "nombre": "Microsoft Foundry",
+   "archivoOrigen": "AI Foundry",
+   "grupo": "plataforma",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "foundry-project",
+   "nombre": "Foundry Project",
+   "archivoOrigen": "Foundry Project",
+   "grupo": "plataforma",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "foundry-models",
+   "nombre": "Foundry Models",
+   "archivoOrigen": "Foundry Models",
+   "grupo": "plataforma",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "foundry-agent-service",
+   "nombre": "Foundry Agent Service",
+   "archivoOrigen": "Foundry Agent Service",
+   "grupo": "plataforma",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "foundry-local",
+   "nombre": "Foundry Local",
+   "archivoOrigen": "Foundry Local",
+   "grupo": "plataforma",
+   "prioridad": 1,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "foundry-iq",
+   "nombre": "Foundry IQ",
+   "archivoOrigen": "Azure AI Foundry IQ",
+   "grupo": "plataforma",
+   "prioridad": 1,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "foundry-tools",
+   "nombre": "Foundry Tools (antes Azure AI Services)",
+   "archivoOrigen": "Cognitive Services",
+   "grupo": "herramientas",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "openai",
+   "nombre": "Azure OpenAI in Foundry Models",
+   "archivoOrigen": "Azure OpenAI",
+   "grupo": "herramientas",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "language",
+   "nombre": "Azure Language in Foundry Tools",
+   "archivoOrigen": "Language",
+   "grupo": "herramientas",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "speech",
+   "nombre": "Azure Speech in Foundry Tools",
+   "archivoOrigen": "Speech Services",
+   "grupo": "herramientas",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "translator",
+   "nombre": "Azure Translator in Foundry Tools",
+   "archivoOrigen": "Translator Text",
+   "grupo": "herramientas",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "vision",
+   "nombre": "Vision (Foundry Tools)",
+   "archivoOrigen": "Computer Vision",
+   "grupo": "herramientas",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "face",
+   "nombre": "Face (Foundry Tools)",
+   "archivoOrigen": "Face APIs",
+   "grupo": "herramientas",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "custom-vision",
+   "nombre": "Custom Vision",
+   "archivoOrigen": "Custom Vision",
+   "grupo": "herramientas",
+   "prioridad": 1,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "doc-intelligence",
+   "nombre": "Document Intelligence",
+   "archivoOrigen": "Form Recognizers",
+   "grupo": "herramientas",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "content-safety",
+   "nombre": "Content Safety",
+   "archivoOrigen": "Content Safety",
+   "grupo": "herramientas",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "ai-search",
+   "nombre": "Azure AI Search",
+   "archivoOrigen": "Cognitive Search",
+   "grupo": "herramientas",
+   "prioridad": 3,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "bot-service",
+   "nombre": "Azure AI Bot Service",
+   "archivoOrigen": "Bot Services",
+   "grupo": "herramientas",
+   "prioridad": 1,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "machine-learning",
+   "nombre": "Azure Machine Learning",
+   "archivoOrigen": "Azure Machine Learning",
+   "grupo": "ml",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "managed-identity",
+   "nombre": "Managed Identities",
+   "archivoOrigen": "Entra Managed Identities",
+   "grupo": "seguridad",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "key-vault",
+   "nombre": "Key Vault",
+   "archivoOrigen": "Key Vaults",
+   "grupo": "seguridad",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "storage-account",
+   "nombre": "Storage Account",
+   "archivoOrigen": "Storage Accounts",
+   "grupo": "infraestructura",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Azure Architecture Icons (julio 2026)"
+  },
+  {
+   "id": "entra-id",
+   "nombre": "Microsoft Entra ID",
+   "archivoOrigen": "Microsoft Entra ID (portal)",
+   "grupo": "seguridad",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Portal de Azure (copia guardada 2026-10-04)"
+  },
+  {
+   "id": "resource-group",
+   "nombre": "Resource Group",
+   "archivoOrigen": "Grupos de recursos (portal)",
+   "grupo": "infraestructura",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Portal de Azure (copia guardada 2026-10-04)"
+  },
+  {
+   "id": "virtual-machine",
+   "nombre": "Virtual Machine",
+   "archivoOrigen": "Máquinas virtuales (portal)",
+   "grupo": "infraestructura",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Portal de Azure (copia guardada 2026-10-04)"
+  },
+  {
+   "id": "app-service",
+   "nombre": "App Service",
+   "archivoOrigen": "App Services (portal)",
+   "grupo": "infraestructura",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Portal de Azure (copia guardada 2026-10-04)"
+  },
+  {
+   "id": "monitor",
+   "nombre": "Azure Monitor",
+   "archivoOrigen": "Supervisar (portal)",
+   "grupo": "infraestructura",
+   "prioridad": 1,
+   "oficial": true,
+   "fuente": "Portal de Azure (copia guardada 2026-10-04)"
+  },
+  {
+   "id": "defender",
+   "nombre": "Microsoft Defender for Cloud",
+   "archivoOrigen": "Defender for Cloud (portal)",
+   "grupo": "seguridad",
+   "prioridad": 1,
+   "oficial": true,
+   "fuente": "Portal de Azure (copia guardada 2026-10-04)"
+  },
+  {
+   "id": "cloud-shell",
+   "nombre": "Cloud Shell",
+   "archivoOrigen": "Cloud Shell (portal)",
+   "grupo": "portal",
+   "prioridad": 1,
+   "oficial": true,
+   "fuente": "Portal de Azure (copia guardada 2026-10-04)"
+  },
+  {
+   "id": "copilot",
+   "nombre": "Microsoft Copilot",
+   "archivoOrigen": "Copilot (portal)",
+   "grupo": "portal",
+   "prioridad": 2,
+   "oficial": true,
+   "fuente": "Portal de Azure (copia guardada 2026-10-04)"
+  },
+  {
+   "id": "content-understanding",
+   "nombre": "Azure Content Understanding in Foundry Tools",
+   "archivoOrigen": "(no existe en el paquete oficial V24)",
+   "grupo": "herramientas",
+   "prioridad": 3,
+   "oficial": false,
+   "fuente": "Ilustración propia (sin icono oficial en el paquete de julio 2026)"
+  }
+ ]
+}

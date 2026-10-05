@@ -1,4 +1,2176 @@
 {
   "levelId": "1.3",
-  "exercises": []
+  "exercises": [
+    {
+      "id": "es-01",
+      "type": "matching",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada carga de trabajo con un ejemplo:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "IA generativa"
+        },
+        {
+          "id": "l2",
+          "text": "IA agéntica"
+        },
+        {
+          "id": "l3",
+          "text": "Análisis de texto"
+        },
+        {
+          "id": "l4",
+          "text": "Voz"
+        },
+        {
+          "id": "l5",
+          "text": "Visión artificial"
+        },
+        {
+          "id": "l6",
+          "text": "Extracción de información"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Redactar la respuesta a un cliente"
+        },
+        {
+          "id": "r2",
+          "text": "Planificar y ejecutar los pasos de una reserva con herramientas"
+        },
+        {
+          "id": "r3",
+          "text": "Medir el sentimiento de miles de reseñas"
+        },
+        {
+          "id": "r4",
+          "text": "Transcribir una llamada grabada"
+        },
+        {
+          "id": "r5",
+          "text": "Detectar defectos en piezas con una cámara"
+        },
+        {
+          "id": "r6",
+          "text": "Obtener proveedor, fecha y total de facturas"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        },
+        {
+          "leftId": "l5",
+          "rightId": "r5"
+        },
+        {
+          "leftId": "l6",
+          "rightId": "r6"
+        }
+      ],
+      "explanation": "Reconocer la carga de trabajo es el primer paso para elegir la solución."
+    },
+    {
+      "id": "es-02",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Un chatbot redacta respuestas nuevas a las preguntas de los clientes. ¿Qué carga de trabajo es?",
+      "options": [
+        {
+          "id": "a",
+          "text": "IA generativa"
+        },
+        {
+          "id": "b",
+          "text": "Extracción de información"
+        },
+        {
+          "id": "c",
+          "text": "Visión artificial"
+        },
+        {
+          "id": "d",
+          "text": "Reconocimiento de voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Producir contenido nuevo a partir de un prompt es IA generativa."
+    },
+    {
+      "id": "es-03",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Ante «reserva mi vuelo», un sistema decide los pasos, consulta disponibilidad con herramientas y completa la reserva por su cuenta. ¿Qué carga de trabajo es?",
+      "options": [
+        {
+          "id": "a",
+          "text": "IA agéntica"
+        },
+        {
+          "id": "b",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "c",
+          "text": "Síntesis de voz"
+        },
+        {
+          "id": "d",
+          "text": "Clasificación de imágenes"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Un agente persigue un objetivo, decide y actúa usando herramientas."
+    },
+    {
+      "id": "es-04",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Una marca analiza reseñas escritas para puntuar la opinión de sus clientes. ¿Qué carga de trabajo es?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Análisis de texto"
+        },
+        {
+          "id": "b",
+          "text": "Visión artificial"
+        },
+        {
+          "id": "c",
+          "text": "IA agéntica"
+        },
+        {
+          "id": "d",
+          "text": "Síntesis de voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El sentimiento es una técnica de análisis de texto."
+    },
+    {
+      "id": "es-05",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Un servicio convierte llamadas grabadas en texto. ¿Qué carga de trabajo es?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Voz (reconocimiento de voz)"
+        },
+        {
+          "id": "b",
+          "text": "Análisis de texto"
+        },
+        {
+          "id": "c",
+          "text": "Visión artificial"
+        },
+        {
+          "id": "d",
+          "text": "Extracción de información de documentos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Transcribir audio es voz a texto."
+    },
+    {
+      "id": "es-06",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Una fábrica detecta defectos en piezas con una cámara en la línea de producción. ¿Qué carga de trabajo es?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Visión artificial"
+        },
+        {
+          "id": "b",
+          "text": "Voz"
+        },
+        {
+          "id": "c",
+          "text": "Análisis de texto"
+        },
+        {
+          "id": "d",
+          "text": "IA agéntica"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Interpretar imágenes es visión artificial."
+    },
+    {
+      "id": "es-07",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Una aseguradora obtiene proveedor, fecha y total de miles de facturas en PDF. ¿Qué carga de trabajo es?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Extracción de información"
+        },
+        {
+          "id": "b",
+          "text": "IA agéntica"
+        },
+        {
+          "id": "c",
+          "text": "Síntesis de voz"
+        },
+        {
+          "id": "d",
+          "text": "Detección de objetos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Convertir documentos en campos estructurados es extracción de información."
+    },
+    {
+      "id": "es-08",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Un equipo crea un logotipo nuevo a partir de una descripción escrita. ¿Qué carga de trabajo es?",
+      "options": [
+        {
+          "id": "a",
+          "text": "IA generativa (generación de imágenes)"
+        },
+        {
+          "id": "b",
+          "text": "Visión artificial de análisis"
+        },
+        {
+          "id": "c",
+          "text": "Extracción de información"
+        },
+        {
+          "id": "d",
+          "text": "Análisis de texto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Crear contenido visual nuevo es generación, no análisis."
+    },
+    {
+      "id": "es-09",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "¿Cuál de estas tareas es de IA generativa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Redactar un resumen de una orden de compra"
+        },
+        {
+          "id": "b",
+          "text": "Extraer el número de orden tal como aparece escrito"
+        },
+        {
+          "id": "c",
+          "text": "Leer con OCR el texto impreso de la orden"
+        },
+        {
+          "id": "d",
+          "text": "Detectar en qué idioma está escrita la orden"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Redactar contenido nuevo es generativo; extraer valores literales o leer texto no lo es."
+    },
+    {
+      "id": "es-10",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "¿Qué distingue a un agente de IA de un chatbot que solo responde preguntas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El agente puede decidir pasos y usar herramientas para actuar hacia un objetivo"
+        },
+        {
+          "id": "b",
+          "text": "El agente no necesita ningún modelo de lenguaje porque sigue reglas fijas escritas por un programador"
+        },
+        {
+          "id": "c",
+          "text": "El agente solo funciona sin instrucciones"
+        },
+        {
+          "id": "d",
+          "text": "El agente siempre responde con voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La autonomía y el uso de herramientas definen la IA agéntica."
+    },
+    {
+      "id": "es-11",
+      "type": "single-select",
+      "subtopic": "Cargas combinadas",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Una app describe en voz alta lo que ve la cámara. ¿Qué cargas de trabajo combina?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Visión artificial, generación de lenguaje y síntesis de voz"
+        },
+        {
+          "id": "b",
+          "text": "Solo análisis de sentimiento de texto"
+        },
+        {
+          "id": "c",
+          "text": "Solo extracción de información de facturas"
+        },
+        {
+          "id": "d",
+          "text": "Solo reconocimiento de voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Muchas soluciones reales mezclan varias cargas de trabajo."
+    },
+    {
+      "id": "es-12",
+      "type": "multi-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Selecciona las tareas de IA generativa:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Redactar un correo a partir de unas ideas"
+        },
+        {
+          "id": "b",
+          "text": "Resumir un informe largo"
+        },
+        {
+          "id": "c",
+          "text": "Crear una ilustración a partir de una descripción"
+        },
+        {
+          "id": "d",
+          "text": "Detectar el idioma de un comentario"
+        },
+        {
+          "id": "e",
+          "text": "Leer con OCR el texto de un cartel"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Detectar idioma y hacer OCR analizan contenido existente; las otras tres crean contenido nuevo."
+    },
+    {
+      "id": "es-13",
+      "type": "true-false",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "statement": "Un agente de IA solo puede responder con texto: nunca puede ejecutar acciones.",
+      "correctAnswer": false,
+      "explanation": "Con herramientas, un agente puede consultar datos, ejecutar código o llamar a servicios."
+    },
+    {
+      "id": "es-14",
+      "type": "true-false",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 2,
+      "statement": "Reconocer voz y sintetizar voz son exactamente la misma capacidad.",
+      "correctAnswer": false,
+      "explanation": "Reconocer es de voz a texto; sintetizar es de texto a voz."
+    },
+    {
+      "id": "es-15",
+      "type": "matching",
+      "subtopic": "Iconografía",
+      "skill": "escenarios",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada icono con lo que ofrece:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "Foundry Agent Service",
+          "icono": "foundry-agent-service",
+          "soloIcono": true
+        },
+        {
+          "id": "l2",
+          "text": "Azure OpenAI in Foundry Models",
+          "icono": "openai",
+          "soloIcono": true
+        },
+        {
+          "id": "l3",
+          "text": "Document Intelligence",
+          "icono": "doc-intelligence",
+          "soloIcono": true
+        },
+        {
+          "id": "l4",
+          "text": "Azure Language in Foundry Tools",
+          "icono": "language",
+          "soloIcono": true
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Agentes que razonan y usan herramientas"
+        },
+        {
+          "id": "r2",
+          "text": "Generar texto, imágenes y audio con modelos GPT"
+        },
+        {
+          "id": "r3",
+          "text": "Extraer campos y tablas de formularios"
+        },
+        {
+          "id": "r4",
+          "text": "Analizar texto: sentimiento, entidades, frases clave"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        }
+      ],
+      "explanation": "Asociar cada icono con su carga de trabajo ayuda a recordar para qué sirve cada servicio."
+    },
+    {
+      "id": "es-16",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Un banco quiere un asistente que consulte saldos por API interna y haga transferencias tras pedir confirmación. ¿Qué carga de trabajo es?",
+      "options": [
+        {
+          "id": "a",
+          "text": "IA agéntica"
+        },
+        {
+          "id": "b",
+          "text": "Visión artificial"
+        },
+        {
+          "id": "c",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "d",
+          "text": "Reconocimiento de voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Consulta herramientas y ejecuta acciones: es un agente."
+    },
+    {
+      "id": "es-22",
+      "type": "true-false",
+      "subtopic": "Cargas combinadas",
+      "skill": "escenarios",
+      "peso": 2,
+      "statement": "Una solución real puede combinar varias cargas de trabajo, por ejemplo voz, visión e IA generativa.",
+      "correctAnswer": true,
+      "explanation": "Muchas aplicaciones encadenan capacidades de distintos tipos."
+    },
+    {
+      "id": "es-17",
+      "type": "dropdown",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 3,
+      "textWithBlanks": "Un sistema que decide y ejecuta pasos con herramientas es IA {{b1}}; uno que redacta contenido nuevo a partir de un prompt es IA {{b2}}.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "agéntica",
+            "generativa",
+            "extractiva"
+          ],
+          "correctOption": "agéntica"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "generativa",
+            "agéntica",
+            "de visión"
+          ],
+          "correctOption": "generativa"
+        }
+      ],
+      "explanation": "Agéntica = actúa; generativa = crea contenido."
+    },
+    {
+      "id": "es-18",
+      "type": "single-select",
+      "subtopic": "Cargas combinadas",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Un centro de atención transcribe llamadas, traduce lo dicho y redacta un resumen. ¿Qué cargas de trabajo combina?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Voz, traducción de texto e IA generativa"
+        },
+        {
+          "id": "b",
+          "text": "Solo visión artificial"
+        },
+        {
+          "id": "c",
+          "text": "Solo extracción de información de imágenes"
+        },
+        {
+          "id": "d",
+          "text": "Solo IA agéntica sin voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Es una solución compuesta por varias capacidades."
+    },
+    {
+      "id": "es-19",
+      "type": "single-select",
+      "subtopic": "Cargas de trabajo",
+      "skill": "escenarios",
+      "peso": 2,
+      "prompt": "Un flujo lee cada día cientos de recibos escaneados y registra sus datos en contabilidad. ¿Qué carga de trabajo domina?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Extracción de información"
+        },
+        {
+          "id": "b",
+          "text": "IA generativa de imágenes"
+        },
+        {
+          "id": "c",
+          "text": "Síntesis de voz"
+        },
+        {
+          "id": "d",
+          "text": "Detección de idioma"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El objetivo es obtener campos estructurados de documentos."
+    },
+    {
+      "id": "es-20",
+      "type": "single-select",
+      "subtopic": "IA responsable",
+      "skill": "escenarios",
+      "peso": 3,
+      "prompt": "Un agente puede ejecutar acciones con consecuencias reales (pagos, borrados). ¿Qué práctica es especialmente importante?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Limitar sus permisos y exigir supervisión humana o confirmación en las acciones críticas"
+        },
+        {
+          "id": "b",
+          "text": "Darle acceso total a todos los sistemas para que no se bloquee nunca y pueda actuar sin confirmación"
+        },
+        {
+          "id": "c",
+          "text": "Ocultar al usuario qué acciones realizó"
+        },
+        {
+          "id": "d",
+          "text": "Desactivar cualquier registro de lo que hace"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Responsabilidad y seguridad cobran más peso cuando la IA actúa."
+    },
+    {
+      "id": "es-21",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "escenarios",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Foundry Agent Service"
+        },
+        {
+          "id": "b",
+          "text": "Foundry Models"
+        },
+        {
+          "id": "c",
+          "text": "Azure OpenAI in Foundry Models"
+        },
+        {
+          "id": "d",
+          "text": "Document Intelligence"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Foundry Agent Service es donde construyes y ejecutas agentes.",
+      "imagen": "foundry-agent-service"
+    },
+    {
+      "id": "tx-01",
+      "type": "matching",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada técnica de análisis de texto con su ejemplo:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "Extracción de frases clave"
+        },
+        {
+          "id": "l2",
+          "text": "Reconocimiento de entidades"
+        },
+        {
+          "id": "l3",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "l4",
+          "text": "Resumen"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Identificar los temas principales de un artículo"
+        },
+        {
+          "id": "r2",
+          "text": "Detectar personas, lugares y organizaciones mencionadas"
+        },
+        {
+          "id": "r3",
+          "text": "Saber si una reseña es positiva o negativa"
+        },
+        {
+          "id": "r4",
+          "text": "Condensar un informe largo en sus ideas principales"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        }
+      ],
+      "explanation": "Cada técnica responde a una pregunta distinta sobre el texto."
+    },
+    {
+      "id": "tx-02",
+      "type": "single-select",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 3,
+      "prompt": "Quieres detectar nombres de productos, ciudades y marcas en miles de comentarios. ¿Qué técnica usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Reconocimiento de entidades"
+        },
+        {
+          "id": "b",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "c",
+          "text": "Detección de idioma"
+        },
+        {
+          "id": "d",
+          "text": "Resumen"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los nombres propios son entidades."
+    },
+    {
+      "id": "tx-03",
+      "type": "single-select",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 3,
+      "prompt": "Necesitas ocultar teléfonos y correos electrónicos antes de almacenar mensajes. ¿Qué capacidad usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Detección y redacción de información personal (PII)"
+        },
+        {
+          "id": "b",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "c",
+          "text": "Extracción de frases clave"
+        },
+        {
+          "id": "d",
+          "text": "Traducción automática"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La detección de PII identifica y puede enmascarar datos personales."
+    },
+    {
+      "id": "tx-04",
+      "type": "single-select",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 3,
+      "prompt": "Un chat recibe mensajes en varios idiomas y debe enviarlos al equipo adecuado. ¿Qué capacidad usas primero?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Detección de idioma"
+        },
+        {
+          "id": "b",
+          "text": "Resumen"
+        },
+        {
+          "id": "c",
+          "text": "Reconocimiento de entidades"
+        },
+        {
+          "id": "d",
+          "text": "Síntesis de voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Saber el idioma permite enrutar o traducir."
+    },
+    {
+      "id": "tx-05",
+      "type": "single-select",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 2,
+      "prompt": "¿Qué diferencia hay entre un resumen extractivo y uno abstractivo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El extractivo selecciona frases del texto original; el abstractivo redacta frases nuevas"
+        },
+        {
+          "id": "b",
+          "text": "El extractivo traduce el texto a otro idioma y el abstractivo solo corrige la ortografía del original"
+        },
+        {
+          "id": "c",
+          "text": "El extractivo usa voz y el abstractivo usa imágenes"
+        },
+        {
+          "id": "d",
+          "text": "No hay diferencia: son sinónimos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El abstractivo se parece más a lo que hace un modelo generativo."
+    },
+    {
+      "id": "tx-06",
+      "type": "true-false",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 3,
+      "statement": "Para analizar el sentimiento con Azure Language debes entrenar primero tu propio modelo.",
+      "correctAnswer": false,
+      "explanation": "Las capacidades vienen preconfiguradas: envías el texto y recibes el resultado."
+    },
+    {
+      "id": "tx-07",
+      "type": "single-select",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 3,
+      "prompt": "¿Qué valores devuelve el análisis de sentimiento?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Positivo, neutro, negativo o mixto, con puntuaciones de confianza"
+        },
+        {
+          "id": "b",
+          "text": "Una nota de 1 a 5 estrellas, calculada a partir de la longitud del texto"
+        },
+        {
+          "id": "c",
+          "text": "Verdadero o falso"
+        },
+        {
+          "id": "d",
+          "text": "El idioma del autor"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Es una clasificación con niveles de confianza."
+    },
+    {
+      "id": "tx-08",
+      "type": "single-select",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 2,
+      "prompt": "Quieres traducir un manual completo de español a japonés. ¿Qué servicio encaja?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure Translator in Foundry Tools"
+        },
+        {
+          "id": "b",
+          "text": "Azure Speech, con voz a texto"
+        },
+        {
+          "id": "c",
+          "text": "Vision, con la característica READ"
+        },
+        {
+          "id": "d",
+          "text": "Document Intelligence, con el modelo de facturas"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Traducir texto entre idiomas es la función de Translator."
+    },
+    {
+      "id": "tx-09",
+      "type": "multi-select",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 3,
+      "prompt": "Selecciona las técnicas de análisis de texto:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Extracción de frases clave"
+        },
+        {
+          "id": "b",
+          "text": "Reconocimiento de entidades"
+        },
+        {
+          "id": "c",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "d",
+          "text": "Detección de objetos en imágenes"
+        },
+        {
+          "id": "e",
+          "text": "Síntesis de voz"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Detectar objetos es visión y sintetizar voz es voz."
+    },
+    {
+      "id": "tx-10",
+      "type": "single-select",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 2,
+      "prompt": "Un modelo generativo también puede analizar sentimiento, pero ¿qué ventaja ofrece un servicio dedicado como Azure Language?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Devuelve resultados estructurados y consistentes, con puntuaciones de confianza, sin diseñar prompts"
+        },
+        {
+          "id": "b",
+          "text": "Escribe mejores poemas que cualquier modelo generativo y además no necesita un recurso en Azure ni conexión a Internet"
+        },
+        {
+          "id": "c",
+          "text": "Reemplaza la necesidad de un recurso de Azure"
+        },
+        {
+          "id": "d",
+          "text": "Genera imágenes además de analizar texto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Para tareas estándar, un servicio dedicado es más predecible."
+    },
+    {
+      "id": "tx-13",
+      "type": "true-false",
+      "subtopic": "Análisis de texto",
+      "skill": "texto",
+      "peso": 2,
+      "statement": "El reconocimiento de entidades puede identificar personas, lugares y organizaciones mencionadas en un texto.",
+      "correctAnswer": true,
+      "explanation": "Esas son entidades nombradas, la base del NER."
+    },
+    {
+      "id": "tx-11",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "texto",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure Language in Foundry Tools"
+        },
+        {
+          "id": "b",
+          "text": "Azure Speech in Foundry Tools"
+        },
+        {
+          "id": "c",
+          "text": "Azure Translator in Foundry Tools"
+        },
+        {
+          "id": "d",
+          "text": "Vision (Foundry Tools)"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Azure Language analiza texto: sentimiento, entidades, frases clave, resumen y más.",
+      "imagen": "language"
+    },
+    {
+      "id": "tx-12",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "texto",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure Translator in Foundry Tools"
+        },
+        {
+          "id": "b",
+          "text": "Azure Language in Foundry Tools"
+        },
+        {
+          "id": "c",
+          "text": "Azure Speech in Foundry Tools"
+        },
+        {
+          "id": "d",
+          "text": "Document Intelligence"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Translator traduce texto entre idiomas.",
+      "imagen": "translator"
+    },
+    {
+      "id": "vz-01",
+      "type": "matching",
+      "subtopic": "Voz",
+      "skill": "voz",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada capacidad de voz con su ejemplo:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "Voz a texto"
+        },
+        {
+          "id": "l2",
+          "text": "Texto a voz"
+        },
+        {
+          "id": "l3",
+          "text": "Traducción de voz"
+        },
+        {
+          "id": "l4",
+          "text": "Diarización"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Transcribir una reunión grabada"
+        },
+        {
+          "id": "r2",
+          "text": "Leer en voz alta un mensaje recibido"
+        },
+        {
+          "id": "r3",
+          "text": "Mostrar subtitulado en inglés de un orador que habla en español"
+        },
+        {
+          "id": "r4",
+          "text": "Distinguir quién habla en cada momento de una llamada"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        }
+      ],
+      "explanation": "Reconocimiento, síntesis, traducción y separación de hablantes son las capacidades de voz típicas."
+    },
+    {
+      "id": "vz-02",
+      "type": "single-select",
+      "subtopic": "Voz",
+      "skill": "voz",
+      "peso": 3,
+      "prompt": "Una app de accesibilidad debe leer en voz alta los mensajes. ¿Qué capacidad usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Texto a voz (síntesis de voz)"
+        },
+        {
+          "id": "b",
+          "text": "Voz a texto"
+        },
+        {
+          "id": "c",
+          "text": "Detección de entidades"
+        },
+        {
+          "id": "d",
+          "text": "Traducción de texto escrito"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Convertir texto en audio hablado es síntesis."
+    },
+    {
+      "id": "vz-03",
+      "type": "single-select",
+      "subtopic": "Voz",
+      "skill": "voz",
+      "peso": 3,
+      "prompt": "Quieres generar subtítulos en directo de una conferencia. ¿Qué capacidad usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Voz a texto en tiempo real"
+        },
+        {
+          "id": "b",
+          "text": "Texto a voz con SSML"
+        },
+        {
+          "id": "c",
+          "text": "Reconocimiento de entidades"
+        },
+        {
+          "id": "d",
+          "text": "Detección de objetos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los subtítulos en vivo transcriben el audio mientras se emite."
+    },
+    {
+      "id": "vz-04",
+      "type": "single-select",
+      "subtopic": "Voz",
+      "skill": "voz",
+      "peso": 3,
+      "prompt": "Debes transcribir miles de grabaciones largas ya guardadas, sin urgencia. ¿Qué modo conviene?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Transcripción por lotes (batch)"
+        },
+        {
+          "id": "b",
+          "text": "Reconocimiento de una sola frase"
+        },
+        {
+          "id": "c",
+          "text": "Texto a voz con voces neuronales"
+        },
+        {
+          "id": "d",
+          "text": "Traducción de texto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El procesamiento por lotes maneja grandes volúmenes de audio guardado."
+    },
+    {
+      "id": "vz-05",
+      "type": "single-select",
+      "subtopic": "Voz",
+      "skill": "voz",
+      "peso": 3,
+      "prompt": "El reconocimiento falla con términos técnicos propios de tu empresa. ¿Qué puedes hacer?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Personalizar el reconocimiento con vocabulario o datos propios (custom speech)"
+        },
+        {
+          "id": "b",
+          "text": "Bajar la temperature del servicio de voz hasta que reconozca los términos por probabilidad"
+        },
+        {
+          "id": "c",
+          "text": "Cambiar la voz de síntesis"
+        },
+        {
+          "id": "d",
+          "text": "Enviar el audio al revés"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Adaptar el modelo mejora el reconocimiento de términos específicos."
+    },
+    {
+      "id": "vz-06",
+      "type": "single-select",
+      "subtopic": "Voz",
+      "skill": "voz",
+      "peso": 2,
+      "prompt": "¿Qué es SSML?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un lenguaje de marcado para controlar cómo suena la voz sintetizada: pausas, velocidad, énfasis, voz"
+        },
+        {
+          "id": "b",
+          "text": "Un formato de audio comprimido que reduce el tamaño de las grabaciones sin perder calidad perceptible alguna"
+        },
+        {
+          "id": "c",
+          "text": "Un tipo de deployment"
+        },
+        {
+          "id": "d",
+          "text": "Una clave de autenticación"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "SSML es XML que se usa con texto a voz para indicar pausas, velocidad, énfasis y qué voz debe leer cada parte."
+    },
+    {
+      "id": "vz-07",
+      "type": "true-false",
+      "subtopic": "Voz",
+      "skill": "voz",
+      "peso": 3,
+      "statement": "La síntesis de voz moderna usa voces neuronales que suenan naturales y pueden hablar varios idiomas.",
+      "correctAnswer": true,
+      "explanation": "Hay muchas voces y estilos disponibles."
+    },
+    {
+      "id": "vz-08",
+      "type": "single-select",
+      "subtopic": "Voz",
+      "skill": "voz",
+      "peso": 3,
+      "prompt": "Un orador habla en español y quieres que otra persona lea su discurso en inglés casi en tiempo real. ¿Qué capacidad usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Traducción de voz"
+        },
+        {
+          "id": "b",
+          "text": "Solo texto a voz"
+        },
+        {
+          "id": "c",
+          "text": "Solo reconocimiento de entidades"
+        },
+        {
+          "id": "d",
+          "text": "Solo OCR"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Reconoce lo hablado y lo traduce a otro idioma."
+    },
+    {
+      "id": "vz-09",
+      "type": "single-select",
+      "subtopic": "Voz",
+      "skill": "voz",
+      "peso": 2,
+      "prompt": "Quieres identificar quién habla en cada intervención de una reunión grabada. ¿Qué capacidad necesitas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Diarización de hablantes"
+        },
+        {
+          "id": "b",
+          "text": "Síntesis de voz"
+        },
+        {
+          "id": "c",
+          "text": "Detección de idioma escrito"
+        },
+        {
+          "id": "d",
+          "text": "Resumen de documentos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La diarización separa las intervenciones por hablante."
+    },
+    {
+      "id": "vz-10",
+      "type": "single-select",
+      "subtopic": "IA responsable",
+      "skill": "voz",
+      "peso": 3,
+      "prompt": "Un sistema graba y transcribe llamadas de clientes. ¿Qué principio es especialmente relevante?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Privacidad y seguridad, además de informar y obtener consentimiento"
+        },
+        {
+          "id": "b",
+          "text": "Ninguno: el audio no se considera un dato personal aunque contenga nombres o números de tarjeta"
+        },
+        {
+          "id": "c",
+          "text": "Solo la velocidad de transcripción"
+        },
+        {
+          "id": "d",
+          "text": "Solo el volumen del audio"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Las grabaciones contienen datos personales."
+    },
+    {
+      "id": "vz-11",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "voz",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure Speech in Foundry Tools"
+        },
+        {
+          "id": "b",
+          "text": "Azure Language in Foundry Tools"
+        },
+        {
+          "id": "c",
+          "text": "Azure Translator in Foundry Tools"
+        },
+        {
+          "id": "d",
+          "text": "Content Safety"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Azure Speech reconoce y sintetiza voz, y también traduce lo hablado.",
+      "imagen": "speech"
+    },
+    {
+      "id": "vz-12",
+      "type": "true-false",
+      "subtopic": "Voz",
+      "skill": "voz",
+      "peso": 2,
+      "statement": "Para convertir un texto en voz natural hay que grabar primero a una persona leyéndolo.",
+      "correctAnswer": false,
+      "explanation": "La síntesis genera la voz con un modelo; no requiere grabaciones nuevas del texto."
+    },
+    {
+      "id": "vs-01",
+      "type": "matching",
+      "subtopic": "Visión artificial",
+      "skill": "vision",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada tarea de visión con su ejemplo:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "Clasificación de imágenes"
+        },
+        {
+          "id": "l2",
+          "text": "Detección de objetos"
+        },
+        {
+          "id": "l3",
+          "text": "OCR"
+        },
+        {
+          "id": "l4",
+          "text": "Descripción de imágenes"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Decidir si una foto muestra un perro o un gato"
+        },
+        {
+          "id": "r2",
+          "text": "Localizar cada vehículo de una imagen con un recuadro"
+        },
+        {
+          "id": "r3",
+          "text": "Leer el texto impreso en una etiqueta"
+        },
+        {
+          "id": "r4",
+          "text": "Generar una frase que describa la escena de una foto"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        }
+      ],
+      "explanation": "Cada tarea responde a una pregunta distinta sobre la imagen."
+    },
+    {
+      "id": "vs-02",
+      "type": "single-select",
+      "subtopic": "Visión artificial",
+      "skill": "vision",
+      "peso": 3,
+      "prompt": "¿Qué diferencia hay entre clasificar una imagen y detectar objetos en ella?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Clasificar asigna una categoría a toda la imagen; detectar localiza cada objeto con su posición"
+        },
+        {
+          "id": "b",
+          "text": "Clasificar localiza cada objeto con su posición y detectar solo asigna una categoría a la imagen entera"
+        },
+        {
+          "id": "c",
+          "text": "No hay diferencia: son sinónimos"
+        },
+        {
+          "id": "d",
+          "text": "Clasificar es de audio y detectar es de texto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La detección añade la ubicación de cada objeto."
+    },
+    {
+      "id": "vs-03",
+      "type": "single-select",
+      "subtopic": "Visión artificial",
+      "skill": "vision",
+      "peso": 3,
+      "prompt": "Una tienda cuenta cuántas personas entran por la puerta usando una cámara. ¿Qué capacidad usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Detección de personas u objetos en imágenes"
+        },
+        {
+          "id": "b",
+          "text": "Extracción de frases clave"
+        },
+        {
+          "id": "c",
+          "text": "Síntesis de voz"
+        },
+        {
+          "id": "d",
+          "text": "Detección de idioma"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Contar requiere localizar cada persona."
+    },
+    {
+      "id": "vs-04",
+      "type": "single-select",
+      "subtopic": "Visión artificial",
+      "skill": "vision",
+      "peso": 3,
+      "prompt": "Un sistema debe leer matrículas impresas en fotografías de vehículos. ¿Qué capacidad usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "OCR (reconocimiento óptico de caracteres)"
+        },
+        {
+          "id": "b",
+          "text": "Generación de imágenes"
+        },
+        {
+          "id": "c",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "d",
+          "text": "Síntesis de voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Convertir el texto de una imagen en texto digital es OCR."
+    },
+    {
+      "id": "vs-05",
+      "type": "single-select",
+      "subtopic": "Visión artificial",
+      "skill": "vision",
+      "peso": 3,
+      "prompt": "Quieres una frase que describa automáticamente cada foto de un catálogo. ¿Qué capacidad usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Descripción de imágenes (captioning)"
+        },
+        {
+          "id": "b",
+          "text": "OCR"
+        },
+        {
+          "id": "c",
+          "text": "Detección de idioma"
+        },
+        {
+          "id": "d",
+          "text": "Transcripción de audio"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El caption resume el contenido de la imagen en una frase."
+    },
+    {
+      "id": "vs-06",
+      "type": "single-select",
+      "subtopic": "Visión artificial",
+      "skill": "vision",
+      "peso": 3,
+      "prompt": "Quieres hacer preguntas libres sobre una foto y recibir respuestas en lenguaje natural. ¿Qué enfoque encaja mejor?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo multimodal con la foto y la pregunta en el prompt"
+        },
+        {
+          "id": "b",
+          "text": "Solo OCR sobre la foto"
+        },
+        {
+          "id": "c",
+          "text": "Solo detección de idioma"
+        },
+        {
+          "id": "d",
+          "text": "Texto a voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Las preguntas abiertas se resuelven con un modelo que razona sobre la imagen."
+    },
+    {
+      "id": "vs-07",
+      "type": "single-select",
+      "subtopic": "IA responsable",
+      "skill": "vision",
+      "peso": 3,
+      "prompt": "Un sistema usará reconocimiento facial para identificar personas. ¿Qué debe considerar?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Riesgos de privacidad, sesgo y consentimiento; algunas funciones tienen acceso limitado"
+        },
+        {
+          "id": "b",
+          "text": "Nada: es una tecnología sin riesgos de privacidad ni de sesgo, que puede usarse libremente en cualquier lugar"
+        },
+        {
+          "id": "c",
+          "text": "Solo la resolución de la cámara"
+        },
+        {
+          "id": "d",
+          "text": "Solo el color de la imagen"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Reconocer personas es sensible y está sujeto a controles de IA responsable."
+    },
+    {
+      "id": "vs-08",
+      "type": "true-false",
+      "subtopic": "Visión artificial",
+      "skill": "vision",
+      "peso": 3,
+      "statement": "Generar una imagen nueva a partir de una descripción es lo mismo que analizar una imagen existente.",
+      "correctAnswer": false,
+      "explanation": "Generar crea contenido nuevo; analizar interpreta contenido existente."
+    },
+    {
+      "id": "vs-09",
+      "type": "single-select",
+      "subtopic": "Visión artificial",
+      "skill": "vision",
+      "peso": 2,
+      "prompt": "Tus piezas son muy específicas y el análisis prediseñado no las reconoce. ¿Qué haces?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Entrenar un modelo personalizado con imágenes etiquetadas de tus piezas"
+        },
+        {
+          "id": "b",
+          "text": "Subir la temperature del servicio de visión para que acepte categorías que nunca ha visto"
+        },
+        {
+          "id": "c",
+          "text": "Usar OCR para reconocerlas"
+        },
+        {
+          "id": "d",
+          "text": "Escribir un prompt más largo para el modelo de voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Con categorías propias hace falta entrenar con ejemplos."
+    },
+    {
+      "id": "vs-10",
+      "type": "multi-select",
+      "subtopic": "Visión artificial",
+      "skill": "vision",
+      "peso": 3,
+      "prompt": "Selecciona las tareas de visión artificial:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Detectar objetos en una foto"
+        },
+        {
+          "id": "b",
+          "text": "Leer texto con OCR"
+        },
+        {
+          "id": "c",
+          "text": "Describir una imagen con una frase"
+        },
+        {
+          "id": "d",
+          "text": "Detectar el sentimiento de una reseña escrita"
+        },
+        {
+          "id": "e",
+          "text": "Transcribir una grabación de audio"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "El sentimiento es de texto y la transcripción es de voz."
+    },
+    {
+      "id": "vs-13",
+      "type": "true-false",
+      "subtopic": "Visión artificial",
+      "skill": "vision",
+      "peso": 2,
+      "statement": "La detección de objetos devuelve la posición de cada objeto dentro de la imagen.",
+      "correctAnswer": true,
+      "explanation": "Esa es la diferencia clave con la clasificación, que solo asigna una categoría a toda la imagen."
+    },
+    {
+      "id": "vs-11",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "vision",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Vision (Foundry Tools)"
+        },
+        {
+          "id": "b",
+          "text": "Face (Foundry Tools)"
+        },
+        {
+          "id": "c",
+          "text": "Document Intelligence"
+        },
+        {
+          "id": "d",
+          "text": "Content Safety"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Vision analiza imágenes: descripciones, etiquetas, objetos, texto (OCR) y personas.",
+      "imagen": "vision"
+    },
+    {
+      "id": "vs-12",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "vision",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Face (Foundry Tools)"
+        },
+        {
+          "id": "b",
+          "text": "Vision (Foundry Tools)"
+        },
+        {
+          "id": "c",
+          "text": "Document Intelligence"
+        },
+        {
+          "id": "d",
+          "text": "Azure AI Search"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Face trabaja con rostros; sus funciones de identificación tienen acceso restringido por razones de IA responsable.",
+      "imagen": "face"
+    },
+    {
+      "id": "ex-01",
+      "type": "single-select",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 3,
+      "prompt": "¿Qué es la extracción de información?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Convertir contenido no estructurado, como documentos, imágenes, audio o video, en datos estructurados"
+        },
+        {
+          "id": "b",
+          "text": "Crear contenido nuevo a partir de un prompt, como un resumen o una imagen original, sin usar datos existentes"
+        },
+        {
+          "id": "c",
+          "text": "Traducir texto entre idiomas"
+        },
+        {
+          "id": "d",
+          "text": "Predecir ventas futuras con datos históricos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Su resultado son campos y valores que un programa puede usar."
+    },
+    {
+      "id": "ex-02",
+      "type": "multi-select",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 3,
+      "prompt": "Selecciona los tipos de contenido de los que se puede extraer información:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Documentos y formularios"
+        },
+        {
+          "id": "b",
+          "text": "Imágenes"
+        },
+        {
+          "id": "c",
+          "text": "Audio"
+        },
+        {
+          "id": "d",
+          "text": "Video"
+        },
+        {
+          "id": "e",
+          "text": "Solo hojas de cálculo ya estructuradas"
+        },
+        {
+          "id": "f",
+          "text": "Solo texto plano de una sola línea"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "explanation": "La extracción actual cubre texto, imágenes, audio y video."
+    },
+    {
+      "id": "ex-03",
+      "type": "single-select",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 3,
+      "prompt": "Una empresa recibe facturas de cientos de proveedores en PDF y necesita proveedor, fecha y total. ¿Qué solución encaja?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un servicio de extracción de documentos con un analyzer prebuilt de facturas"
+        },
+        {
+          "id": "b",
+          "text": "Un modelo de generación de imágenes que dibuje de nuevo cada factura con los datos legibles"
+        },
+        {
+          "id": "c",
+          "text": "Un servicio de síntesis de voz"
+        },
+        {
+          "id": "d",
+          "text": "Un chatbot que charle con el proveedor"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los analyzers prebuilt devuelven los campos de facturas sin entrenar nada."
+    },
+    {
+      "id": "ex-04",
+      "type": "single-select",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 3,
+      "prompt": "Un call center quiere obtener de cada llamada grabada la transcripción, un resumen y el sentimiento. ¿Qué capacidad usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Extracción de información de audio"
+        },
+        {
+          "id": "b",
+          "text": "Detección de objetos"
+        },
+        {
+          "id": "c",
+          "text": "OCR"
+        },
+        {
+          "id": "d",
+          "text": "Generación de imágenes"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El audio también se convierte en datos estructurados."
+    },
+    {
+      "id": "ex-05",
+      "type": "single-select",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 3,
+      "prompt": "Una plataforma quiere obtener de un video sus escenas, su transcripción y fotogramas clave. ¿Qué capacidad usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Extracción de información de video"
+        },
+        {
+          "id": "b",
+          "text": "Reconocimiento de entidades en texto escrito"
+        },
+        {
+          "id": "c",
+          "text": "Traducción de texto"
+        },
+        {
+          "id": "d",
+          "text": "Detección de idioma"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El video combina imagen y audio."
+    },
+    {
+      "id": "ex-06",
+      "type": "single-select",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 3,
+      "prompt": "¿Qué diferencia hay entre extraer un valor y generar un valor con IA?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Extraer toma lo que aparece escrito en el contenido; generar redacta o infiere el valor, como un resumen"
+        },
+        {
+          "id": "b",
+          "text": "Extraer redacta resúmenes nuevos con IA y generar copia el texto tal cual aparece en el documento original"
+        },
+        {
+          "id": "c",
+          "text": "No hay diferencia"
+        },
+        {
+          "id": "d",
+          "text": "Extraer solo sirve para audio"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Un total escrito en la factura se extrae; un resumen del documento se genera."
+    },
+    {
+      "id": "ex-07",
+      "type": "single-select",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 3,
+      "prompt": "¿Qué ventaja tiene un servicio multimodal de extracción como Content Understanding?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Procesa documentos, imágenes, audio y video con una API coherente"
+        },
+        {
+          "id": "b",
+          "text": "Solo funciona con imágenes en blanco y negro de baja resolución y no admite ningún otro formato"
+        },
+        {
+          "id": "c",
+          "text": "Reemplaza a todos los modelos de lenguaje"
+        },
+        {
+          "id": "d",
+          "text": "Solo procesa archivos de texto sin formato"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Un único enfoque para varias modalidades."
+    },
+    {
+      "id": "ex-08",
+      "type": "single-select",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 2,
+      "prompt": "Un buzón recibe facturas, recibos y contratos mezclados. ¿Cómo lo resuelves?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Con una clasificación que identifica el tipo de documento y lo envía al analyzer adecuado"
+        },
+        {
+          "id": "b",
+          "text": "Revisándolos todos a mano antes de procesarlos, para decidir cuál analyzer corresponde a cada archivo"
+        },
+        {
+          "id": "c",
+          "text": "Con un único analyzer de audio para todos"
+        },
+        {
+          "id": "d",
+          "text": "Convirtiéndolos todos en imágenes pequeñas"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Clasificar y enrutar automatiza el proceso."
+    },
+    {
+      "id": "ex-09",
+      "type": "single-select",
+      "subtopic": "IA responsable",
+      "skill": "extraccion",
+      "peso": 3,
+      "prompt": "Un sistema extrae importes de facturas, pero a veces su confianza es baja. ¿Qué práctica recomienda la IA responsable?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Enviar los casos de baja confianza a revisión humana"
+        },
+        {
+          "id": "b",
+          "text": "Aceptar siempre el resultado sin revisar"
+        },
+        {
+          "id": "c",
+          "text": "Eliminar las facturas dudosas sin avisar"
+        },
+        {
+          "id": "d",
+          "text": "Subir la temperature del modelo"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La supervisión humana reduce errores en decisiones importantes."
+    },
+    {
+      "id": "ex-10",
+      "type": "true-false",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 3,
+      "statement": "Extraer los campos de una factura es lo mismo que generar una imagen nueva.",
+      "correctAnswer": false,
+      "explanation": "Extraer analiza contenido existente; generar imágenes crea contenido nuevo."
+    },
+    {
+      "id": "ex-11",
+      "type": "single-select",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 2,
+      "prompt": "¿Para qué sirve convertir documentos en Markdown estructurado en soluciones de RAG?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Para indexarlos y recuperar fragmentos relevantes que fundamenten las respuestas del modelo"
+        },
+        {
+          "id": "b",
+          "text": "Para que el modelo pueda borrarlos automáticamente de tu almacenamiento al terminar de responder"
+        },
+        {
+          "id": "c",
+          "text": "Para cifrarlos sin necesidad de claves"
+        },
+        {
+          "id": "d",
+          "text": "Para reducir el idioma a un solo alfabeto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El contenido estructurado se indexa y se usa como conocimiento."
+    },
+    {
+      "id": "ex-12",
+      "type": "dropdown",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 3,
+      "textWithBlanks": "Extraer el total de una factura es {{b1}} de información; redactar un resumen de la factura es {{b2}}.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "extracción",
+            "generación",
+            "clasificación"
+          ],
+          "correctOption": "extracción"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "generación",
+            "extracción",
+            "detección"
+          ],
+          "correctOption": "generación"
+        }
+      ],
+      "explanation": "Un valor presente en el documento se extrae; un resumen se genera."
+    },
+    {
+      "id": "ex-13",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "extraccion",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Document Intelligence"
+        },
+        {
+          "id": "b",
+          "text": "Vision (Foundry Tools)"
+        },
+        {
+          "id": "c",
+          "text": "Azure AI Search"
+        },
+        {
+          "id": "d",
+          "text": "Foundry Agent Service"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Document Intelligence extrae texto, campos y tablas de formularios y documentos.",
+      "imagen": "doc-intelligence"
+    },
+    {
+      "id": "ex-14",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "extraccion",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure AI Search"
+        },
+        {
+          "id": "b",
+          "text": "Document Intelligence"
+        },
+        {
+          "id": "c",
+          "text": "Foundry Models"
+        },
+        {
+          "id": "d",
+          "text": "Content Safety"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Azure AI Search indexa y recupera información; en RAG aporta el conocimiento al modelo.",
+      "imagen": "ai-search"
+    },
+    {
+      "id": "ex-16",
+      "type": "true-false",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 2,
+      "statement": "Convertir documentos en datos estructurados permite automatizar procesos como el registro contable.",
+      "correctAnswer": true,
+      "explanation": "Los datos estructurados pueden entrar directamente a otros sistemas."
+    },
+    {
+      "id": "ex-15",
+      "type": "true-false",
+      "subtopic": "Extracción",
+      "skill": "extraccion",
+      "peso": 3,
+      "statement": "Un analyzer de video solo puede analizar el audio, nunca las imágenes.",
+      "correctAnswer": false,
+      "explanation": "También extrae información de las imágenes: fotogramas clave y escenas."
+    }
+  ]
 }

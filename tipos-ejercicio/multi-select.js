@@ -1,19 +1,25 @@
 // tipos-ejercicio/multi-select.js
-// Selección múltiple con VARIAS respuestas correctas.
+// Selección múltiple con VARIAS respuestas correctas (opciones barajadas).
 
 function renderMultiSelect(exercise, container, onListo) {
   const seleccion = new Set();
+  const opciones = opcionesBarajadas(exercise.options, exercise);
+  const mono = !!exercise.opcionesCodigo;
+  const cuantas = (exercise.correctOptionIds || []).length;
+  const nota = exercise.ocultarCantidad ? "Selecciona todas las que apliquen." : `Selecciona las ${cuantas} que apliquen.`;
+  const dyn = prepararContenedor(container, exercise);
 
   const pintar = () => {
-    container.innerHTML = `
-      <div class="pregunta-prompt">${escHTML(exercise.prompt)}</div>
-      <p class="ajustes-nota">Selecciona todas las que apliquen.</p>
+    dyn.innerHTML = `
+      <p class="ajustes-nota">${nota}</p>
       <div class="opciones-lista">
-        ${(exercise.options || [])
+        ${opciones
           .map(
             (o) => `
-          <button type="button" class="opcion-btn opcion-multi ${seleccion.has(o.id) ? "seleccionada" : ""}" data-id="${escHTML(o.id)}">
-            <span class="opcion-check">${seleccion.has(o.id) ? "☑" : "☐"}</span> ${escHTML(o.text)}
+          <button type="button" class="opcion-btn opcion-multi ${mono ? "opcion-codigo" : ""} ${seleccion.has(o.id) ? "seleccionada" : ""}" data-id="${escAttr(o.id)}">
+            <span class="opcion-check">${seleccion.has(o.id) ? "☑" : "☐"}</span>
+            ${o.icono ? iconoHTML(o.icono, { tam: "sm" }) : ""}
+            <span class="opcion-texto">${mono ? `<code>${escHTML(o.text)}</code>` : fmtTxt(o.text)}</span>
           </button>`
           )
           .join("")}
@@ -23,7 +29,7 @@ function renderMultiSelect(exercise, container, onListo) {
       </div>
     `;
 
-    container.querySelectorAll(".opcion-btn").forEach((btn) => {
+    dyn.querySelectorAll(".opcion-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
         const id = btn.dataset.id;
         if (seleccion.has(id)) seleccion.delete(id);
@@ -31,7 +37,7 @@ function renderMultiSelect(exercise, container, onListo) {
         pintar();
       });
     });
-    container.querySelector("#btnComprobar")?.addEventListener("click", () => {
+    dyn.querySelector("#btnComprobar")?.addEventListener("click", () => {
       if (seleccion.size) onListo([...seleccion]);
     });
   };

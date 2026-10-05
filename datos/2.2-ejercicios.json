@@ -1,4 +1,1911 @@
 {
   "levelId": "2.2",
-  "exercises": []
+  "exercises": [
+    {
+      "id": "t-01",
+      "type": "code-fill",
+      "subtopic": "Sentimiento",
+      "skill": "texto-app",
+      "peso": 3,
+      "prompt": "Quieres saber si una reseña es positiva o negativa. Completa el cliente de análisis de texto.",
+      "code": {
+        "lang": "python",
+        "title": "sentiment.py",
+        "source": "from azure.ai.textanalytics import TextAnalyticsClient\nfrom azure.core.credentials import AzureKeyCredential\n\nclient = TextAnalyticsClient(\n    endpoint=\"https://contoso.cognitiveservices.azure.com/\",\n    credential=AzureKeyCredential(\"<your-key>\"),\n)\n\nresult = client.{{b1}}(documents=[\"The hotel was spotless and the staff were wonderful.\"])\nfor doc in result:\n    print(doc.{{b2}})",
+        "highlight": [
+          9
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "analyze_sentiment",
+            "extract_key_phrases",
+            "recognize_entities",
+            "detect_language"
+          ],
+          "correctOption": "analyze_sentiment"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "sentiment",
+            "key_phrases",
+            "entities",
+            "primary_language"
+          ],
+          "correctOption": "sentiment"
+        }
+      ],
+      "explanation": "analyze_sentiment evalúa la opinión y el resultado de cada documento expone sentiment (positive, neutral, negative o mixed)."
+    },
+    {
+      "id": "t-02",
+      "type": "code-fill",
+      "subtopic": "Frases clave",
+      "skill": "texto-app",
+      "peso": 3,
+      "prompt": "Extrae los temas principales de un artículo.",
+      "code": {
+        "lang": "python",
+        "title": "keyphrases.py",
+        "source": "from azure.ai.textanalytics import TextAnalyticsClient\nfrom azure.core.credentials import AzureKeyCredential\n\nclient = TextAnalyticsClient(\n    endpoint=\"https://contoso.cognitiveservices.azure.com/\",\n    credential=AzureKeyCredential(\"<your-key>\"),\n)\n\nresult = client.{{b1}}(documents=[article_text])[0]\nfor phrase in result.{{b2}}:\n    print(phrase)",
+        "highlight": [
+          9
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "extract_key_phrases",
+            "analyze_sentiment",
+            "recognize_entities",
+            "detect_language"
+          ],
+          "correctOption": "extract_key_phrases"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "key_phrases",
+            "sentiment",
+            "entities",
+            "phrases_found"
+          ],
+          "correctOption": "key_phrases"
+        }
+      ],
+      "explanation": "extract_key_phrases devuelve los puntos principales del texto en result.key_phrases."
+    },
+    {
+      "id": "t-03",
+      "type": "code-fill",
+      "subtopic": "Entidades",
+      "skill": "texto-app",
+      "peso": 3,
+      "prompt": "Identifica personas, lugares y organizaciones mencionados en un texto.",
+      "code": {
+        "lang": "python",
+        "title": "entities.py",
+        "source": "from azure.ai.textanalytics import TextAnalyticsClient\nfrom azure.core.credentials import AzureKeyCredential\n\nclient = TextAnalyticsClient(\n    endpoint=\"https://contoso.cognitiveservices.azure.com/\",\n    credential=AzureKeyCredential(\"<your-key>\"),\n)\n\nresult = client.{{b1}}(documents=[text])[0]\nfor entity in result.entities:\n    print(entity.text, entity.{{b2}})",
+        "highlight": [
+          9
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "recognize_entities",
+            "extract_key_phrases",
+            "analyze_sentiment",
+            "detect_language"
+          ],
+          "correctOption": "recognize_entities"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "category",
+            "sentiment",
+            "language",
+            "phrase"
+          ],
+          "correctOption": "category"
+        }
+      ],
+      "explanation": "recognize_entities detecta entidades nombradas (NER) y cada una trae su texto y su categoría, por ejemplo Person o Location."
+    },
+    {
+      "id": "t-04",
+      "type": "code-fill",
+      "subtopic": "Idioma",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "Antes de procesar un comentario necesitas saber en qué idioma está escrito.",
+      "code": {
+        "lang": "python",
+        "title": "language.py",
+        "source": "from azure.ai.textanalytics import TextAnalyticsClient\nfrom azure.core.credentials import AzureKeyCredential\n\nclient = TextAnalyticsClient(\n    endpoint=\"https://contoso.cognitiveservices.azure.com/\",\n    credential=AzureKeyCredential(\"<your-key>\"),\n)\n\nresult = client.{{b1}}(documents=[comment])[0]\nprint(result.{{b2}}.name)",
+        "highlight": [
+          9
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "detect_language",
+            "analyze_sentiment",
+            "recognize_entities",
+            "extract_key_phrases"
+          ],
+          "correctOption": "detect_language"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "primary_language",
+            "entities",
+            "key_phrases",
+            "sentiment"
+          ],
+          "correctOption": "primary_language"
+        }
+      ],
+      "explanation": "detect_language devuelve el idioma principal del texto con su nombre y código."
+    },
+    {
+      "id": "t-05",
+      "type": "code-fill",
+      "subtopic": "Cliente",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "Crea el cliente de Azure Language autenticándote con la clave del recurso.",
+      "code": {
+        "lang": "python",
+        "title": "client.py",
+        "source": "from azure.ai.textanalytics import TextAnalyticsClient\nfrom azure.core.credentials import {{b1}}\n\nclient = TextAnalyticsClient(\n    endpoint=\"https://contoso.cognitiveservices.azure.com/\",\n    credential={{b1}}(\"<your-key>\"),\n)"
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "AzureKeyCredential",
+            "SpeechConfig",
+            "AIProjectClient",
+            "AudioConfig"
+          ],
+          "correctOption": "AzureKeyCredential"
+        }
+      ],
+      "explanation": "AzureKeyCredential envuelve la clave del recurso para el cliente de texto. El endpoint tiene la forma https://<recurso>.cognitiveservices.azure.com/."
+    },
+    {
+      "id": "t-06",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "texto-app",
+      "peso": 3,
+      "prompt": "Una tienda quiere saber qué productos, ciudades y marcas se mencionan en miles de reseñas. ¿Qué capacidad usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Reconocimiento de entidades (NER)"
+        },
+        {
+          "id": "b",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "c",
+          "text": "Detección de idioma"
+        },
+        {
+          "id": "d",
+          "text": "Resumen de documentos"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Productos, ciudades y marcas son entidades nombradas."
+    },
+    {
+      "id": "t-07",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "texto-app",
+      "peso": 3,
+      "prompt": "Quieres medir si los clientes están contentos con cada reseña. ¿Qué capacidad usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "b",
+          "text": "Extracción de frases clave"
+        },
+        {
+          "id": "c",
+          "text": "Reconocimiento de entidades"
+        },
+        {
+          "id": "d",
+          "text": "Traducción de texto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El sentimiento clasifica la opinión como positiva, neutra, negativa o mixta."
+    },
+    {
+      "id": "t-08",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "texto-app",
+      "peso": 3,
+      "prompt": "Necesitas identificar los temas principales de miles de artículos sin leerlos. ¿Qué capacidad usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Extracción de frases clave"
+        },
+        {
+          "id": "b",
+          "text": "Detección de idioma"
+        },
+        {
+          "id": "c",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "d",
+          "text": "Reconocimiento de voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Las frases clave resumen los conceptos centrales de cada texto."
+    },
+    {
+      "id": "t-09",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "texto-app",
+      "peso": 3,
+      "prompt": "Antes de guardar mensajes de clientes quieres ocultar nombres, teléfonos y correos. ¿Qué capacidad usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Detección y redacción de información personal (PII)"
+        },
+        {
+          "id": "b",
+          "text": "Análisis de sentimiento"
+        },
+        {
+          "id": "c",
+          "text": "Detección de idioma"
+        },
+        {
+          "id": "d",
+          "text": "Extracción de frases clave"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La detección de PII identifica y puede enmascarar datos personales."
+    },
+    {
+      "id": "t-10",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "Tienes informes de 30 páginas y quieres una versión corta de cada uno. ¿Qué capacidad usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Resumen automático de texto"
+        },
+        {
+          "id": "b",
+          "text": "Detección de idioma"
+        },
+        {
+          "id": "c",
+          "text": "Reconocimiento de entidades"
+        },
+        {
+          "id": "d",
+          "text": "Análisis de sentimiento"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El resumen condensa un documento largo en sus ideas principales."
+    },
+    {
+      "id": "t-11",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "Un chat recibe mensajes en varios idiomas y debe enviarlos al equipo correcto. ¿Qué capacidad usas primero?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Detección de idioma"
+        },
+        {
+          "id": "b",
+          "text": "Resumen automático"
+        },
+        {
+          "id": "c",
+          "text": "Extracción de frases clave"
+        },
+        {
+          "id": "d",
+          "text": "Análisis de sentimiento"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Saber el idioma permite enrutar o traducir después."
+    },
+    {
+      "id": "t-12",
+      "type": "true-false",
+      "subtopic": "Concepto",
+      "skill": "texto-app",
+      "peso": 3,
+      "statement": "Para analizar el sentimiento con Azure Language debes entrenar primero tu propio modelo.",
+      "correctAnswer": false,
+      "explanation": "Estas capacidades vienen preconfiguradas: envías el texto y recibes el resultado."
+    },
+    {
+      "id": "t-13",
+      "type": "single-select",
+      "subtopic": "Resultados",
+      "skill": "texto-app",
+      "peso": 3,
+      "prompt": "¿Qué valores puede devolver el análisis de sentimiento de un documento?",
+      "options": [
+        {
+          "id": "a",
+          "text": "positive, neutral, negative o mixed"
+        },
+        {
+          "id": "b",
+          "text": "De 1 a 5 estrellas"
+        },
+        {
+          "id": "c",
+          "text": "Verdadero o falso"
+        },
+        {
+          "id": "d",
+          "text": "Un porcentaje de humor entre 0 y 100"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "También incluye puntuaciones de confianza por cada etiqueta."
+    },
+    {
+      "id": "t-14",
+      "type": "single-select",
+      "subtopic": "Resultados",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "Llamas a analyze_sentiment con una lista de tres documentos. ¿Qué recibes?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una lista con un resultado por documento, en el mismo orden"
+        },
+        {
+          "id": "b",
+          "text": "Un único resultado con el promedio de los tres documentos, sin detalle individual por cada uno"
+        },
+        {
+          "id": "c",
+          "text": "Solo el resultado del primer documento"
+        },
+        {
+          "id": "d",
+          "text": "Un archivo de audio con las tres opiniones"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El servicio procesa por lotes y devuelve un resultado por documento."
+    },
+    {
+      "id": "t-15",
+      "type": "true-false",
+      "subtopic": "Resultados",
+      "skill": "texto-app",
+      "peso": 2,
+      "statement": "Algunos documentos de un lote pueden devolver un error, por eso conviene revisar is_error antes de leer sus campos.",
+      "correctAnswer": true,
+      "explanation": "Un documento con problemas devuelve un objeto de error en lugar de un resultado válido."
+    },
+    {
+      "id": "t-24",
+      "type": "true-false",
+      "subtopic": "Concepto",
+      "skill": "texto-app",
+      "peso": 2,
+      "statement": "extract_key_phrases devuelve el sentimiento de cada frase del texto.",
+      "correctAnswer": false,
+      "explanation": "extract_key_phrases devuelve los temas principales; el sentimiento lo calcula analyze_sentiment."
+    },
+    {
+      "id": "t-16",
+      "type": "single-select",
+      "subtopic": "Cliente",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "¿Qué necesitas para crear un TextAnalyticsClient?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El endpoint del recurso de Language y una credencial (clave o Entra ID)"
+        },
+        {
+          "id": "b",
+          "text": "El nombre del deployment de un modelo de chat y el id de una conversación previa del usuario"
+        },
+        {
+          "id": "c",
+          "text": "Un archivo de audio de ejemplo"
+        },
+        {
+          "id": "d",
+          "text": "El id de una conversación"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Es un recurso distinto al de los modelos de chat; usa su propio endpoint."
+    },
+    {
+      "id": "t-17",
+      "type": "single-select",
+      "subtopic": "Resultados",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "¿Qué añade show_opinion_mining=True al analizar sentimiento?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El sentimiento por aspecto, por ejemplo «habitación» negativa y «personal» positiva"
+        },
+        {
+          "id": "b",
+          "text": "La traducción automática del texto a otro idioma, conservando el sentimiento y el tono original"
+        },
+        {
+          "id": "c",
+          "text": "El audio de las opiniones"
+        },
+        {
+          "id": "d",
+          "text": "La eliminación de datos personales"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Opinion mining relaciona cada aspecto con las valoraciones que lo describen."
+    },
+    {
+      "id": "t-18",
+      "type": "single-select",
+      "subtopic": "Resultados",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "¿Qué indican las confidence_scores de un resultado de sentimiento?",
+      "options": [
+        {
+          "id": "a",
+          "text": "La confianza del servicio en cada etiqueta (positive, neutral, negative)"
+        },
+        {
+          "id": "b",
+          "text": "El número de palabras y de frases analizadas por el servicio en cada documento enviado"
+        },
+        {
+          "id": "c",
+          "text": "El costo estimado de la llamada"
+        },
+        {
+          "id": "d",
+          "text": "La velocidad de respuesta del servicio"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Valores cercanos a 1 indican alta certeza en esa etiqueta."
+    },
+    {
+      "id": "t-19",
+      "type": "dropdown",
+      "subtopic": "Qué función usar",
+      "skill": "texto-app",
+      "peso": 3,
+      "textWithBlanks": "Para saber si un comentario es positivo usas {{b1}}; para extraer personas y lugares usas {{b2}}.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "analyze_sentiment",
+            "recognize_entities",
+            "extract_key_phrases",
+            "detect_language"
+          ],
+          "correctOption": "analyze_sentiment"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "recognize_entities",
+            "analyze_sentiment",
+            "extract_key_phrases",
+            "detect_language"
+          ],
+          "correctOption": "recognize_entities"
+        }
+      ],
+      "explanation": "Sentimiento = opinión; entidades = nombres de personas, lugares, organizaciones…"
+    },
+    {
+      "id": "t-20",
+      "type": "multi-select",
+      "subtopic": "Concepto",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "Selecciona las tareas que pertenecen al análisis de texto de Azure Language:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Detectar el sentimiento de una reseña"
+        },
+        {
+          "id": "b",
+          "text": "Extraer frases clave de un artículo"
+        },
+        {
+          "id": "c",
+          "text": "Reconocer entidades como personas y lugares"
+        },
+        {
+          "id": "d",
+          "text": "Describir qué objetos aparecen en una fotografía"
+        },
+        {
+          "id": "e",
+          "text": "Convertir una grabación en su transcripción"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Describir imágenes es visión; transcribir audio es voz."
+    },
+    {
+      "id": "t-21",
+      "type": "matching",
+      "subtopic": "Cliente",
+      "skill": "texto-app",
+      "peso": 2,
+      "mode": "sequence",
+      "prompt": "Ordena el código para analizar el sentimiento de un texto:",
+      "items": [
+        {
+          "id": "1",
+          "text": "client = TextAnalyticsClient(endpoint=ENDPOINT, credential=AzureKeyCredential(KEY))",
+          "code": true
+        },
+        {
+          "id": "2",
+          "text": "docs = [\"The service was slow but the food was great.\"]",
+          "code": true
+        },
+        {
+          "id": "3",
+          "text": "result = client.analyze_sentiment(documents=docs)",
+          "code": true
+        },
+        {
+          "id": "4",
+          "text": "print(result[0].sentiment)",
+          "code": true
+        }
+      ],
+      "correctOrder": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "explanation": "Cliente → documentos → llamada → lectura del resultado.",
+      "lang": "python"
+    },
+    {
+      "id": "t-22",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure Language in Foundry Tools"
+        },
+        {
+          "id": "b",
+          "text": "Azure Speech in Foundry Tools"
+        },
+        {
+          "id": "c",
+          "text": "Azure Translator in Foundry Tools"
+        },
+        {
+          "id": "d",
+          "text": "Vision (Foundry Tools)"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Azure Language analiza texto: sentimiento, entidades, frases clave, resumen y más.",
+      "imagen": "language"
+    },
+    {
+      "id": "t-23",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "texto-app",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure Translator in Foundry Tools"
+        },
+        {
+          "id": "b",
+          "text": "Azure Language in Foundry Tools"
+        },
+        {
+          "id": "c",
+          "text": "Azure Speech in Foundry Tools"
+        },
+        {
+          "id": "d",
+          "text": "Document Intelligence"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Translator traduce texto entre idiomas; Language analiza el contenido sin traducirlo.",
+      "imagen": "translator"
+    },
+    {
+      "id": "m-01",
+      "type": "single-select",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 3,
+      "prompt": "¿Qué debe poder hacer un modelo para responder a un prompt hablado sin transcribirlo antes?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Aceptar audio como entrada (modelo multimodal con audio)"
+        },
+        {
+          "id": "b",
+          "text": "Generar solo imágenes a partir de texto"
+        },
+        {
+          "id": "c",
+          "text": "Traducir texto escrito entre dos idiomas y devolver la traducción en formato de tabla"
+        },
+        {
+          "id": "d",
+          "text": "Clasificar fotografías por categorías"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los modelos de audio aceptan voz directamente como parte del mensaje."
+    },
+    {
+      "id": "m-02",
+      "type": "code-fill",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 3,
+      "prompt": "Envía una pregunta grabada a un modelo con audio y pide respuesta en texto y en audio.",
+      "code": {
+        "lang": "python",
+        "title": "spoken_prompt.py",
+        "source": "completion = client.chat.completions.create(\n    model=\"my-audio-deployment\",\n    modalities=[\"text\", \"{{b1}}\"],\n    audio={\"voice\": \"alloy\", \"format\": \"wav\"},\n    messages=[{\n        \"role\": \"user\",\n        \"content\": [\n            {\"type\": \"text\", \"text\": \"Answer the question in the recording.\"},\n            {\"type\": \"{{b2}}\", \"input_audio\": {\"data\": audio_b64, \"format\": \"wav\"}},\n        ],\n    }],\n)",
+        "highlight": [
+          3,
+          8
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "audio",
+            "video",
+            "speech",
+            "image"
+          ],
+          "correctOption": "audio"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "input_audio",
+            "audio_file",
+            "wav",
+            "voice"
+          ],
+          "correctOption": "input_audio"
+        }
+      ],
+      "explanation": "modalities indica qué tipos de salida quieres y el contenido input_audio lleva la grabación codificada en base64."
+    },
+    {
+      "id": "m-03",
+      "type": "single-select",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 3,
+      "prompt": "En el ejemplo de audio, ¿cómo viaja la grabación dentro del mensaje?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Codificada en base64 dentro de input_audio, con su formato indicado (por ejemplo wav)"
+        },
+        {
+          "id": "b",
+          "text": "Como una URL pública de YouTube o de otra plataforma de vídeo, que el servicio descarga por su cuenta"
+        },
+        {
+          "id": "c",
+          "text": "Como una imagen convertida a escala de grises"
+        },
+        {
+          "id": "d",
+          "text": "Como texto transcrito por el usuario"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El audio se lee del archivo, se codifica en base64 y se envía junto con su formato."
+    },
+    {
+      "id": "m-04",
+      "type": "single-select",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 3,
+      "prompt": "Una app de coche debe conversar con el conductor por voz, con latencia muy baja. ¿Qué enfoque encaja mejor?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una API de audio en tiempo real con un modelo que admita voz"
+        },
+        {
+          "id": "b",
+          "text": "Chat completions solo con texto y sin audio, transcribiendo cada grabación en un proceso por lotes nocturno"
+        },
+        {
+          "id": "c",
+          "text": "Transcribir una vez al día todas las grabaciones"
+        },
+        {
+          "id": "d",
+          "text": "Un modelo de visión que lea el tablero"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Las conversaciones de baja latencia usan APIs en tiempo real con modelos de audio."
+    },
+    {
+      "id": "m-05",
+      "type": "single-select",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 3,
+      "prompt": "¿Qué diferencia hay entre usar un modelo multimodal con audio y encadenar voz a texto → modelo → texto a voz?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El multimodal procesa el audio directamente; el encadenado transcribe, consulta un modelo y luego sintetiza la respuesta"
+        },
+        {
+          "id": "b",
+          "text": "El encadenado no usa ningún modelo de lenguaje, solo servicios de voz que responden con frases fijas almacenadas de antemano en el recurso"
+        },
+        {
+          "id": "c",
+          "text": "El multimodal solo funciona con imágenes"
+        },
+        {
+          "id": "d",
+          "text": "No hay diferencia: ambos son el mismo servicio"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Son dos arquitecturas válidas: un solo modelo con audio, o varios servicios en cadena."
+    },
+    {
+      "id": "m-06",
+      "type": "matching",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 3,
+      "mode": "sequence",
+      "prompt": "Ordena los pasos de un asistente de voz encadenado:",
+      "items": [
+        {
+          "id": "1",
+          "text": "Capturar el audio del micrófono"
+        },
+        {
+          "id": "2",
+          "text": "Convertir el audio en texto (voz a texto)"
+        },
+        {
+          "id": "3",
+          "text": "Enviar el texto al modelo de lenguaje"
+        },
+        {
+          "id": "4",
+          "text": "Convertir la respuesta en voz (texto a voz)"
+        },
+        {
+          "id": "5",
+          "text": "Reproducir el audio por el altavoz"
+        }
+      ],
+      "correctOrder": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "explanation": "Es la arquitectura clásica en cadena."
+    },
+    {
+      "id": "m-07",
+      "type": "true-false",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 2,
+      "statement": "Con un modelo multimodal de audio puedes recibir la respuesta como audio si incluyes «audio» en modalities.",
+      "correctAnswer": true,
+      "explanation": "modalities define si la salida será texto, audio o ambas."
+    },
+    {
+      "id": "m-08",
+      "type": "single-select",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 2,
+      "prompt": "Antes de enviar un archivo wav a un modelo con audio mediante chat completions, ¿qué paso previo hace el código?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Leer el archivo y codificarlo en base64"
+        },
+        {
+          "id": "b",
+          "text": "Convertirlo a un documento PDF"
+        },
+        {
+          "id": "c",
+          "text": "Subirlo a una cuenta de almacenamiento pública"
+        },
+        {
+          "id": "d",
+          "text": "Cambiarle la extensión a .txt"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El ejemplo envía los bytes del audio como una cadena base64."
+    },
+    {
+      "id": "m-09",
+      "type": "single-select",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 2,
+      "prompt": "Solo necesitas transcribir una grabación a texto. ¿Qué opción es la más directa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un servicio de voz a texto, como Azure Speech"
+        },
+        {
+          "id": "b",
+          "text": "Un modelo de generación de imágenes"
+        },
+        {
+          "id": "c",
+          "text": "Un agente con Code Interpreter"
+        },
+        {
+          "id": "d",
+          "text": "Un índice de Azure AI Search"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Para transcribir basta voz a texto; no hace falta un modelo conversacional."
+    },
+    {
+      "id": "m-10",
+      "type": "dropdown",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 2,
+      "textWithBlanks": "Un modelo {{b1}} con audio recibe voz como entrada y puede devolver {{b2}}.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "multimodal",
+            "solo de texto",
+            "de clasificación de imágenes"
+          ],
+          "correctOption": "multimodal"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "texto o audio",
+            "solo imágenes",
+            "solo números"
+          ],
+          "correctOption": "texto o audio"
+        }
+      ],
+      "explanation": "Multimodal = varios tipos de datos; con audio, la salida puede ser texto, audio o ambos."
+    },
+    {
+      "id": "m-11",
+      "type": "single-select",
+      "subtopic": "Privacidad",
+      "skill": "voz-multimodal",
+      "peso": 3,
+      "prompt": "Vas a procesar grabaciones de clientes con un modelo. ¿Qué consideras antes?",
+      "options": [
+        {
+          "id": "a",
+          "text": "La privacidad y el consentimiento: las grabaciones pueden contener datos personales"
+        },
+        {
+          "id": "b",
+          "text": "Nada: el audio nunca contiene datos personales, así que no hace falta pensar en privacidad ni en consentimiento"
+        },
+        {
+          "id": "c",
+          "text": "Solo el tamaño en MB de cada archivo"
+        },
+        {
+          "id": "d",
+          "text": "Únicamente el idioma del cliente"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Es un caso típico de los principios de IA responsable: privacidad, seguridad y transparencia."
+    },
+    {
+      "id": "m-12",
+      "type": "multi-select",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 2,
+      "prompt": "Selecciona ejemplos de aplicaciones que se benefician de un modelo multimodal con audio:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un asistente que responde por voz a preguntas habladas"
+        },
+        {
+          "id": "b",
+          "text": "Una traducción conversacional hablada"
+        },
+        {
+          "id": "c",
+          "text": "Calcular el IVA de una factura en una hoja de cálculo"
+        },
+        {
+          "id": "d",
+          "text": "Comprimir imágenes por lotes"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b"
+      ],
+      "explanation": "Los otros dos casos no involucran voz."
+    },
+    {
+      "id": "m-15",
+      "type": "true-false",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 3,
+      "statement": "Un modelo multimodal con audio solo puede devolver texto: no puede generar respuestas habladas.",
+      "correctAnswer": false,
+      "explanation": "Si pides «audio» en modalities, el modelo puede devolver la respuesta como voz (además del texto)."
+    },
+    {
+      "id": "m-13",
+      "type": "true-false",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 2,
+      "statement": "Puedes probar un modelo con audio en el playground del portal sin escribir código.",
+      "correctAnswer": true,
+      "explanation": "Igual que otros modelos desplegados, se prueba primero en el playground."
+    },
+    {
+      "id": "m-14",
+      "type": "single-select",
+      "subtopic": "Audio multimodal",
+      "skill": "voz-multimodal",
+      "peso": 2,
+      "prompt": "En la llamada de audio, ¿qué hace audio={\"voice\": \"alloy\", \"format\": \"wav\"}?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Define la voz y el formato del audio de la respuesta"
+        },
+        {
+          "id": "b",
+          "text": "Cambia el idioma del texto de entrada y traduce automáticamente cada pregunta al inglés"
+        },
+        {
+          "id": "c",
+          "text": "Limita cuántos tokens tiene la respuesta"
+        },
+        {
+          "id": "d",
+          "text": "Elige el deployment que atenderá la solicitud"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Solo se necesita cuando pides audio en modalities.",
+      "code": {
+        "lang": "python",
+        "title": "spoken.py",
+        "source": "completion = client.chat.completions.create(\n    model=\"my-audio-deployment\",\n    modalities=[\"text\", \"audio\"],\n    audio={\"voice\": \"alloy\", \"format\": \"wav\"},\n    messages=messages,\n)",
+        "highlight": [
+          4
+        ]
+      }
+    },
+    {
+      "id": "s-01",
+      "type": "code-fill",
+      "subtopic": "Texto a voz",
+      "skill": "voz-app",
+      "peso": 3,
+      "prompt": "Tu app debe pronunciar un mensaje de bienvenida en voz alta. Completa el código.",
+      "code": {
+        "lang": "python",
+        "title": "welcome.py",
+        "source": "import azure.cognitiveservices.speech as speechsdk\n\nspeech_config = speechsdk.SpeechConfig(subscription=KEY, region=REGION)\nspeech_config.speech_synthesis_voice_name = \"en-US-AvaMultilingualNeural\"\nsynthesizer = speechsdk.{{b1}}(speech_config=speech_config)\n\nresult = synthesizer.{{b2}}(\"Hello, welcome to Contoso.\").get()",
+        "highlight": [
+          5,
+          6
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "SpeechSynthesizer",
+            "SpeechRecognizer",
+            "SpeechTranslator",
+            "VoiceAssistant"
+          ],
+          "correctOption": "SpeechSynthesizer"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "speak_text_async",
+            "recognize_once_async",
+            "synthesize_text",
+            "say_aloud"
+          ],
+          "correctOption": "speak_text_async"
+        }
+      ],
+      "explanation": "Texto a voz usa SpeechSynthesizer y speak_text_async; .get() espera el resultado. Sin audio_config, la voz sale por el altavoz predeterminado."
+    },
+    {
+      "id": "s-02",
+      "type": "code-fill",
+      "subtopic": "Voz a texto",
+      "skill": "voz-app",
+      "peso": 3,
+      "prompt": "Transcribe lo que dice el usuario por el micrófono.",
+      "code": {
+        "lang": "python",
+        "title": "dictation.py",
+        "source": "import azure.cognitiveservices.speech as speechsdk\n\nspeech_config = speechsdk.SpeechConfig(subscription=KEY, region=REGION)\naudio_config = speechsdk.audio.AudioConfig({{b1}}=True)\nrecognizer = speechsdk.{{b2}}(speech_config=speech_config, audio_config=audio_config)\n\nresult = recognizer.{{b3}}().get()\nprint(result.{{b4}})"
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "use_default_microphone",
+            "use_default_speaker",
+            "microphone_name",
+            "record"
+          ],
+          "correctOption": "use_default_microphone"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "SpeechRecognizer",
+            "SpeechSynthesizer",
+            "SpeechTranslator",
+            "AudioRecorder"
+          ],
+          "correctOption": "SpeechRecognizer"
+        },
+        {
+          "id": "b3",
+          "options": [
+            "recognize_once_async",
+            "speak_text_async",
+            "listen_forever",
+            "transcribe_file"
+          ],
+          "correctOption": "recognize_once_async"
+        },
+        {
+          "id": "b4",
+          "options": [
+            "text",
+            "audio",
+            "voice",
+            "reason"
+          ],
+          "correctOption": "text"
+        }
+      ],
+      "explanation": "Voz a texto: AudioConfig con el micrófono, SpeechRecognizer y recognize_once_async(); la transcripción está en result.text."
+    },
+    {
+      "id": "s-03",
+      "type": "code-fill",
+      "subtopic": "Voz a texto",
+      "skill": "voz-app",
+      "peso": 3,
+      "prompt": "Transcribe una grabación guardada en un archivo wav.",
+      "code": {
+        "lang": "python",
+        "title": "transcribe.py",
+        "source": "import azure.cognitiveservices.speech as speechsdk\n\nspeech_config = speechsdk.SpeechConfig(subscription=KEY, region=REGION)\naudio_config = speechsdk.AudioConfig({{b1}}=\"call.wav\")\nrecognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)\n\nresult = recognizer.recognize_once_async().get()\nprint(result.text)",
+        "highlight": [
+          3
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "filename",
+            "file",
+            "path",
+            "source"
+          ],
+          "correctOption": "filename"
+        }
+      ],
+      "explanation": "AudioConfig(filename=...) usa un archivo como entrada en lugar del micrófono."
+    },
+    {
+      "id": "s-04",
+      "type": "code-fill",
+      "subtopic": "Texto a voz",
+      "skill": "voz-app",
+      "peso": 3,
+      "prompt": "Guarda la voz sintetizada en un archivo en lugar de reproducirla.",
+      "code": {
+        "lang": "python",
+        "title": "save_audio.py",
+        "source": "import azure.cognitiveservices.speech as speechsdk\n\nspeech_config = speechsdk.SpeechConfig(subscription=KEY, region=REGION)\naudio_config = speechsdk.audio.AudioOutputConfig({{b1}}=\"output.wav\")\nsynthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)\n\nsynthesizer.speak_text_async(\"Hello, world!\").get()",
+        "highlight": [
+          3
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "filename",
+            "use_default_speaker",
+            "path",
+            "output"
+          ],
+          "correctOption": "filename"
+        }
+      ],
+      "explanation": "AudioOutputConfig define el destino: un archivo o el altavoz predeterminado."
+    },
+    {
+      "id": "s-05",
+      "type": "code-fill",
+      "subtopic": "Voz a texto",
+      "skill": "voz-app",
+      "peso": 3,
+      "prompt": "Comprueba que la voz se reconoció correctamente antes de usar el texto.",
+      "code": {
+        "lang": "python",
+        "title": "check_result.py",
+        "source": "result = recognizer.recognize_once_async().get()\n\nif result.reason == speechsdk.ResultReason.{{b1}}:\n    print(\"Recognized:\", result.text)\nelif result.reason == speechsdk.ResultReason.NoMatch:\n    print(\"No speech could be recognized\")",
+        "highlight": [
+          3
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "RecognizedSpeech",
+            "SynthesizingAudioCompleted",
+            "Canceled",
+            "Started"
+          ],
+          "correctOption": "RecognizedSpeech"
+        }
+      ],
+      "explanation": "RecognizedSpeech indica reconocimiento exitoso; NoMatch, que no se detectó voz; Canceled, que hubo un error."
+    },
+    {
+      "id": "s-06",
+      "type": "code-fill",
+      "subtopic": "Configuración",
+      "skill": "voz-app",
+      "peso": 2,
+      "prompt": "Elige otra voz y el idioma que debe reconocerse.",
+      "code": {
+        "lang": "python",
+        "title": "config.py",
+        "source": "speech_config.{{b1}} = \"es-CO-SalomeNeural\"\nspeech_config.{{b2}} = \"es-CO\""
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "speech_synthesis_voice_name",
+            "speech_recognition_language",
+            "voice_style",
+            "audio_format"
+          ],
+          "correctOption": "speech_synthesis_voice_name"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "speech_recognition_language",
+            "speech_synthesis_voice_name",
+            "region",
+            "endpoint"
+          ],
+          "correctOption": "speech_recognition_language"
+        }
+      ],
+      "explanation": "La voz de salida se fija con speech_synthesis_voice_name y el idioma de entrada con speech_recognition_language."
+    },
+    {
+      "id": "s-07",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "voz-app",
+      "peso": 3,
+      "prompt": "Un call center quiere transcribir las llamadas de sus clientes. ¿Qué capacidad de Azure Speech usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Voz a texto (speech to text)"
+        },
+        {
+          "id": "b",
+          "text": "Texto a voz (text to speech)"
+        },
+        {
+          "id": "c",
+          "text": "Detección de entidades en texto escrito"
+        },
+        {
+          "id": "d",
+          "text": "Análisis de sentimiento de reseñas"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Transcribir = convertir voz en texto."
+    },
+    {
+      "id": "s-08",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "voz-app",
+      "peso": 3,
+      "prompt": "Una app de accesibilidad debe leer en voz alta los mensajes recibidos. ¿Qué capacidad usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Texto a voz (text to speech)"
+        },
+        {
+          "id": "b",
+          "text": "Voz a texto (speech to text)"
+        },
+        {
+          "id": "c",
+          "text": "Reconocimiento de objetos"
+        },
+        {
+          "id": "d",
+          "text": "Detección de idioma escrito"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Leer en voz alta = sintetizar voz."
+    },
+    {
+      "id": "s-09",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "voz-app",
+      "peso": 3,
+      "prompt": "Un orador habla en español y la audiencia debe leer sus palabras en inglés casi en tiempo real. ¿Qué capacidad usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Traducción de voz (speech translation)"
+        },
+        {
+          "id": "b",
+          "text": "Traducción de texto de Azure Translator, sobre documentos ya escritos"
+        },
+        {
+          "id": "c",
+          "text": "Solo texto a voz"
+        },
+        {
+          "id": "d",
+          "text": "Reconocimiento de entidades"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Speech puede reconocer y traducir lo hablado a otro idioma; Translator traduce texto escrito."
+    },
+    {
+      "id": "s-10",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "voz-app",
+      "peso": 2,
+      "prompt": "Quieres controlar las pausas, la velocidad y el énfasis de una voz sintetizada. ¿Qué usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "SSML (Speech Synthesis Markup Language)"
+        },
+        {
+          "id": "b",
+          "text": "Un prompt de sistema más largo"
+        },
+        {
+          "id": "c",
+          "text": "Un almacén vectorial"
+        },
+        {
+          "id": "d",
+          "text": "El parámetro max_output_tokens"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "SSML es XML que describe cómo debe sonar el texto."
+    },
+    {
+      "id": "s-11",
+      "type": "matching",
+      "subtopic": "SDK de Speech",
+      "skill": "voz-app",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada clase del SDK de Speech con su función:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "SpeechConfig"
+        },
+        {
+          "id": "l2",
+          "text": "SpeechRecognizer"
+        },
+        {
+          "id": "l3",
+          "text": "SpeechSynthesizer"
+        },
+        {
+          "id": "l4",
+          "text": "AudioConfig"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Guarda la clave, la región, el idioma y la voz"
+        },
+        {
+          "id": "r2",
+          "text": "Convierte voz en texto"
+        },
+        {
+          "id": "r3",
+          "text": "Convierte texto en voz"
+        },
+        {
+          "id": "r4",
+          "text": "Define el origen del audio: micrófono o archivo"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        }
+      ],
+      "explanation": "Casi toda app de voz combina estas cuatro piezas."
+    },
+    {
+      "id": "s-12",
+      "type": "single-select",
+      "subtopic": "SSML",
+      "skill": "voz-app",
+      "peso": 2,
+      "prompt": "¿Qué hace la etiqueta `<break time=\"500ms\"/>` en este SSML?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Inserta una pausa de 500 milisegundos"
+        },
+        {
+          "id": "b",
+          "text": "Cambia la voz por otra de mayor volumen"
+        },
+        {
+          "id": "c",
+          "text": "Repite la frase anterior durante medio segundo"
+        },
+        {
+          "id": "d",
+          "text": "Detiene la síntesis para siempre"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Las etiquetas SSML controlan prosodia, pausas, voces y más.",
+      "code": {
+        "lang": "ssml",
+        "title": "speech.ssml",
+        "source": "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\" xml:lang=\"en-US\">\n  <voice name=\"en-US-AvaMultilingualNeural\">\n    Hello <break time=\"500ms\"/> and welcome.\n  </voice>\n</speak>",
+        "highlight": [
+          3
+        ]
+      }
+    },
+    {
+      "id": "s-13",
+      "type": "code-fill",
+      "subtopic": "SSML",
+      "skill": "voz-app",
+      "peso": 2,
+      "prompt": "Sintetiza un documento SSML (con voz y pausas) en lugar de texto plano.",
+      "code": {
+        "lang": "python",
+        "title": "ssml_app.py",
+        "source": "result = synthesizer.{{b1}}(ssml_text).get()"
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "speak_ssml_async",
+            "speak_text_async",
+            "recognize_once_async",
+            "start_continuous_recognition"
+          ],
+          "correctOption": "speak_ssml_async"
+        }
+      ],
+      "explanation": "speak_ssml_async interpreta las etiquetas; speak_text_async leería las etiquetas como texto normal."
+    },
+    {
+      "id": "s-14",
+      "type": "true-false",
+      "subtopic": "Voz a texto",
+      "skill": "voz-app",
+      "peso": 3,
+      "statement": "recognize_once_async reconoce una sola frase; para audio largo se usa el reconocimiento continuo.",
+      "correctAnswer": true,
+      "explanation": "Para varias frases o grabaciones largas se emplea start_continuous_recognition."
+    },
+    {
+      "id": "s-15",
+      "type": "single-select",
+      "subtopic": "Voz a texto",
+      "skill": "voz-app",
+      "peso": 2,
+      "prompt": "Tu recognizer devuelve NoMatch. ¿Qué significa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El servicio no pudo reconocer voz en el audio recibido"
+        },
+        {
+          "id": "b",
+          "text": "La clave del recurso expiró y hay que generar una nueva desde el portal antes de reintentar"
+        },
+        {
+          "id": "c",
+          "text": "El micrófono no está conectado al servidor de Azure"
+        },
+        {
+          "id": "d",
+          "text": "El modelo no tiene un deployment"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "NoMatch es un resultado válido: no se detectó voz reconocible."
+    },
+    {
+      "id": "s-16",
+      "type": "single-select",
+      "subtopic": "SDK de Speech",
+      "skill": "voz-app",
+      "peso": 2,
+      "prompt": "¿Qué hace .get() en recognizer.recognize_once_async().get()?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Espera a que termine la operación asíncrona y devuelve su resultado"
+        },
+        {
+          "id": "b",
+          "text": "Obtiene una clave de API nueva cada vez que se llama, para renovar la autenticación del recurso"
+        },
+        {
+          "id": "c",
+          "text": "Descarga el modelo de voz al equipo"
+        },
+        {
+          "id": "d",
+          "text": "Cierra la conexión con el micrófono"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "recognize_once_async() devuelve un futuro; .get() lo resuelve."
+    },
+    {
+      "id": "s-17",
+      "type": "single-select",
+      "subtopic": "Errores",
+      "skill": "voz-app",
+      "peso": 3,
+      "prompt": "Tu app de dictado devuelve Canceled con un error de autenticación. ¿Qué revisas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Que la clave y la región (o el endpoint) del recurso de Speech sean correctos"
+        },
+        {
+          "id": "b",
+          "text": "Que el texto a sintetizar tenga menos de cien palabras, porque el servicio rechaza textos más largos"
+        },
+        {
+          "id": "c",
+          "text": "Que la voz elegida sea masculina"
+        },
+        {
+          "id": "d",
+          "text": "Que la grabación sea un archivo mp4"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Un error de autenticación apunta a credenciales o región incorrectas."
+    },
+    {
+      "id": "s-18",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "voz-app",
+      "peso": 2,
+      "prompt": "Debes transcribir miles de grabaciones largas ya almacenadas. ¿Qué modo conviene?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Transcripción por lotes (batch transcription)"
+        },
+        {
+          "id": "b",
+          "text": "Reconocimiento de una sola frase con el micrófono"
+        },
+        {
+          "id": "c",
+          "text": "Texto a voz con SSML"
+        },
+        {
+          "id": "d",
+          "text": "Análisis de sentimiento sobre el audio"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La transcripción por lotes procesa grandes volúmenes de audio guardado."
+    },
+    {
+      "id": "s-19",
+      "type": "multi-select",
+      "subtopic": "Qué función usar",
+      "skill": "voz-app",
+      "peso": 2,
+      "prompt": "Selecciona las capacidades de Azure Speech:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Voz a texto"
+        },
+        {
+          "id": "b",
+          "text": "Texto a voz"
+        },
+        {
+          "id": "c",
+          "text": "Traducción de voz"
+        },
+        {
+          "id": "d",
+          "text": "Detección de objetos en imágenes"
+        },
+        {
+          "id": "e",
+          "text": "Análisis de sentimiento de texto escrito"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Detectar objetos es visión; el sentimiento de texto es Azure Language."
+    },
+    {
+      "id": "s-20",
+      "type": "dropdown",
+      "subtopic": "SDK de Speech",
+      "skill": "voz-app",
+      "peso": 3,
+      "textWithBlanks": "Para convertir voz en texto usas {{b1}}; para convertir texto en voz usas {{b2}}.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "SpeechRecognizer",
+            "SpeechSynthesizer",
+            "SpeechConfig"
+          ],
+          "correctOption": "SpeechRecognizer"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "SpeechSynthesizer",
+            "SpeechRecognizer",
+            "AudioConfig"
+          ],
+          "correctOption": "SpeechSynthesizer"
+        }
+      ],
+      "explanation": "Recognizer escucha; Synthesizer habla."
+    },
+    {
+      "id": "s-21",
+      "type": "true-false",
+      "subtopic": "Texto a voz",
+      "skill": "voz-app",
+      "peso": 2,
+      "statement": "Si creas el SpeechSynthesizer sin audio_config, la voz se reproduce por el altavoz predeterminado.",
+      "correctAnswer": true,
+      "explanation": "Esa es la salida por defecto del sintetizador."
+    },
+    {
+      "id": "s-22",
+      "type": "matching",
+      "subtopic": "Texto a voz",
+      "skill": "voz-app",
+      "peso": 3,
+      "mode": "sequence",
+      "prompt": "Ordena el código de una app que lee un texto en voz alta:",
+      "items": [
+        {
+          "id": "1",
+          "text": "speech_config = speechsdk.SpeechConfig(subscription=KEY, region=REGION)",
+          "code": true
+        },
+        {
+          "id": "2",
+          "text": "speech_config.speech_synthesis_voice_name = \"en-US-AvaMultilingualNeural\"",
+          "code": true
+        },
+        {
+          "id": "3",
+          "text": "synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config)",
+          "code": true
+        },
+        {
+          "id": "4",
+          "text": "result = synthesizer.speak_text_async(\"Hello\").get()",
+          "code": true
+        },
+        {
+          "id": "5",
+          "text": "print(result.reason)",
+          "code": true
+        }
+      ],
+      "correctOrder": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "explanation": "Configuración → voz → sintetizador → síntesis → revisar el resultado.",
+      "lang": "python"
+    },
+    {
+      "id": "s-23",
+      "type": "matching",
+      "subtopic": "Voz a texto",
+      "skill": "voz-app",
+      "peso": 3,
+      "mode": "sequence",
+      "prompt": "Ordena el código de una app que transcribe voz del micrófono:",
+      "items": [
+        {
+          "id": "1",
+          "text": "speech_config = speechsdk.SpeechConfig(subscription=KEY, region=REGION)",
+          "code": true
+        },
+        {
+          "id": "2",
+          "text": "audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)",
+          "code": true
+        },
+        {
+          "id": "3",
+          "text": "recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)",
+          "code": true
+        },
+        {
+          "id": "4",
+          "text": "result = recognizer.recognize_once_async().get()",
+          "code": true
+        },
+        {
+          "id": "5",
+          "text": "print(result.text)",
+          "code": true
+        }
+      ],
+      "correctOrder": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "explanation": "Configuración → micrófono → reconocedor → reconocimiento → texto.",
+      "lang": "python"
+    },
+    {
+      "id": "s-24",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "voz-app",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure Speech in Foundry Tools"
+        },
+        {
+          "id": "b",
+          "text": "Azure Language in Foundry Tools"
+        },
+        {
+          "id": "c",
+          "text": "Azure Translator in Foundry Tools"
+        },
+        {
+          "id": "d",
+          "text": "Content Safety"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Azure Speech reconoce y sintetiza voz, y también traduce lo hablado.",
+      "imagen": "speech"
+    },
+    {
+      "id": "s-26",
+      "type": "true-false",
+      "subtopic": "Configuración",
+      "skill": "voz-app",
+      "peso": 3,
+      "statement": "Para que la app reconozca voz en español basta con cambiar la voz de síntesis con speech_synthesis_voice_name.",
+      "correctAnswer": false,
+      "explanation": "La voz de síntesis afecta a lo que la app dice; el idioma que reconoce se fija con speech_recognition_language."
+    },
+    {
+      "id": "s-27",
+      "type": "true-false",
+      "subtopic": "SSML",
+      "skill": "voz-app",
+      "peso": 2,
+      "statement": "SSML se usa para entrenar un modelo propio de reconocimiento de voz.",
+      "correctAnswer": false,
+      "explanation": "SSML describe cómo debe sonar un texto sintetizado (pausas, voces, velocidad); no entrena modelos."
+    },
+    {
+      "id": "s-25",
+      "type": "single-select",
+      "subtopic": "SDK de Speech",
+      "skill": "voz-app",
+      "peso": 2,
+      "prompt": "¿Qué dos datos suele recibir SpeechConfig para conectarse al recurso?",
+      "options": [
+        {
+          "id": "a",
+          "text": "La clave (o credencial) y la región o el endpoint del recurso"
+        },
+        {
+          "id": "b",
+          "text": "El nombre del deployment de un modelo de chat y el id de la conversación que se está usando"
+        },
+        {
+          "id": "c",
+          "text": "El nombre del archivo de audio y su duración"
+        },
+        {
+          "id": "d",
+          "text": "La lista de entidades que debe detectar"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Sin credenciales y región/endpoint el SDK no puede llegar al servicio."
+    }
+  ]
 }

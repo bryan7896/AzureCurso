@@ -1,10 +1,52 @@
 {
   "levelId": "2.4",
   "learningContent": {
-    "title": "",
-    "estimatedMinutes": 0,
-    "sections": []
+    "title": "Information Extraction + Content Understanding",
+    "estimatedMinutes": 70,
+    "sections": [
+      {
+        "heading": "Qué es Content Understanding",
+        "body": "**Azure Content Understanding in Foundry Tools** convierte contenido no estructurado —**documentos, imágenes, audio y video**— en datos estructurados, con una API coherente para todos. Su unidad de trabajo es el **analyzer**: define qué tipo de contenido procesa y qué información extrae.\n\n**Tipos de analyzer:**\n• **Base**: uno por modalidad (`prebuilt-document`, `prebuilt-image`, `prebuilt-audio`, `prebuilt-video`); sirven de padre de los personalizados.\n• **De extracción de contenido**: `prebuilt-read`, `prebuilt-layout` (texto, tablas y estructura).\n• **De búsqueda (RAG)**: `prebuilt-documentSearch`, `prebuilt-imageSearch`, `prebuilt-audioSearch`, `prebuilt-videoSearch` (contenido en Markdown/transcripción listo para indexar).\n• **De dominio**: `prebuilt-invoice`, `prebuilt-receipt`, `prebuilt-idDocument`… devuelven campos concretos sin entrenar nada.\n• **Personalizados**: los defines tú.\n\n**Requisitos:** un recurso de Microsoft Foundry y los **modelos requeridos desplegados** (por ejemplo, `prebuilt-invoice` usa un modelo de lenguaje y uno de embeddings), con los valores predeterminados de Content Understanding configurados."
+      },
+      {
+        "heading": "Analyzers personalizados y field schema",
+        "body": "Un analyzer personalizado = **analyzer base + field schema**. El field schema describe cada campo: **nombre, tipo, método y descripción**.\n\n```json\n{\n  \"description\": \"Receipt analyzer\",\n  \"baseAnalyzerId\": \"prebuilt-document\",\n  \"fieldSchema\": {\n    \"fields\": {\n      \"VendorName\": {\n        \"type\": \"string\",\n        \"method\": \"extract\",\n        \"description\": \"Vendor issuing the receipt\"\n      },\n      \"Summary\": {\n        \"type\": \"string\",\n        \"method\": \"generate\",\n        \"description\": \"Short summary of the document\"\n      }\n    }\n  }\n}\n```\n\n**Los tres métodos:**\n• `extract` → el valor aparece **tal cual** en el contenido (proveedor, fecha, total).\n• `generate` → el modelo **redacta o infiere** el valor (resumen, descripción).\n• `classify` → elige **una categoría** de una lista que defines (tipo de documento, sentimiento).\n\nLa **descripción** de cada campo guía al modelo: afínala probando con documentos de muestra. También puedes **clasificar y enrutar**: un analyzer que identifica el tipo de archivo y lo envía al analyzer de su categoría."
+      },
+      {
+        "heading": "Audio y video",
+        "body": "Los analyzers de **audio** transcriben y separan a los hablantes (*diarización*); los prebuilt generan la transcripción en formato **WEBVTT**, con transcripción multilingüe. Un analyzer personalizado de audio parte de `prebuilt-audio` y puede extraer, por ejemplo, un resumen (`generate`) y el sentimiento de la llamada (`classify`).\n\nLos analyzers de **video** devuelven la **transcripción**, **fotogramas clave** y la **división en escenas o segmentos**; con categorías (`contentCategories` y `enableSegment`) puedes segmentar, por ejemplo, un partido en jugadas, anuncios y comentarios.\n\nCon grabaciones de personas aplican **privacidad, seguridad y consentimiento**: contienen datos personales.\n\n**Content Understanding vs Azure Speech:** Speech transcribe; Content Understanding, además, extrae campos estructurados (resumen, sentimiento…) en un solo paso."
+      },
+      {
+        "heading": "Usarlo desde Python",
+        "body": "La operación es **asíncrona y de larga duración**: `begin_analyze` devuelve un *poller* y `result()` espera el resultado.\n\n```bash\npip install azure-ai-contentunderstanding azure-identity\n```\n\n```python\nfrom azure.identity import DefaultAzureCredential\nfrom azure.ai.contentunderstanding import ContentUnderstandingClient\nfrom azure.ai.contentunderstanding.models import AnalysisInput\n\nclient = ContentUnderstandingClient(\n    endpoint=\"https://<recurso>.services.ai.azure.com/\",\n    credential=DefaultAzureCredential(),\n)\n\npoller = client.begin_analyze(\n    analyzer_id=\"prebuilt-invoice\",\n    inputs=[AnalysisInput(url=\"https://contoso.com/files/invoice.pdf\")],\n)\nresult = poller.result()\ncontent = result.contents[0]\nprint(content.fields)       # campos extraídos\n# con prebuilt-documentSearch: content.markdown\n```\n\n`azure-identity` se instala aparte. En producción usa **identidad administrada** (sin claves en el código). Content Understanding también encaja en soluciones **RAG**: convierte tus archivos en Markdown estructurado que luego indexas (por ejemplo en Azure AI Search) para fundamentar las respuestas del modelo."
+      }
+    ]
   },
   "practiceExercises": [],
-  "achievements": []
+  "achievements": [
+    {
+      "id": "lab-2.4-01",
+      "texto": "Crea (o reutiliza) un recurso de Microsoft Foundry, despliega los modelos que pide Content Understanding y configura sus valores predeterminados."
+    },
+    {
+      "id": "lab-2.4-02",
+      "texto": "Analiza una factura con prebuilt-invoice y revisa los campos que devuelve."
+    },
+    {
+      "id": "lab-2.4-03",
+      "texto": "Convierte un PDF a Markdown con prebuilt-documentSearch y revisa cómo representa las tablas."
+    },
+    {
+      "id": "lab-2.4-04",
+      "texto": "Crea un analyzer personalizado con tres campos: uno extract, uno generate y uno classify."
+    },
+    {
+      "id": "lab-2.4-05",
+      "texto": "Analiza una grabación de audio y revisa la transcripción separada por hablante."
+    },
+    {
+      "id": "lab-2.4-06",
+      "texto": "Analiza un video corto y revisa su transcripción, los fotogramas clave y los segmentos."
+    }
+  ]
 }

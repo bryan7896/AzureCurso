@@ -1,5 +1,5 @@
 // service-worker.js (generado por build.py — no editar a mano)
-const CACHE_NAME = "ai901-trainer-v1";
+const CACHE_NAME = "ai901-trainer-v2";
 const ASSETS = [
   "./",
   "./index.html",

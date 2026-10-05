@@ -1,4 +1,1651 @@
 {
   "levelId": "2.3",
-  "exercises": []
+  "exercises": [
+    {
+      "id": "v-01",
+      "type": "code-fill",
+      "subtopic": "Imagen en el prompt",
+      "skill": "entrada-visual",
+      "peso": 3,
+      "prompt": "Envía una foto junto con una pregunta a un modelo multimodal. Completa el contenido del mensaje.",
+      "code": {
+        "lang": "python",
+        "title": "vision_prompt.py",
+        "source": "response = client.responses.create(\n    model=\"my-deployment\",\n    input=[\n        {\n            \"role\": \"user\",\n            \"content\": [\n                {\"type\": \"input_text\", \"text\": \"What is shown in this photo?\"},\n                {\"type\": \"{{b1}}\", \"image_url\": \"https://contoso.com/photos/dog.jpg\"},\n            ],\n        }\n    ],\n)\nprint(response.{{b2}})",
+        "highlight": [
+          8
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "input_image",
+            "image",
+            "picture",
+            "attachment"
+          ],
+          "correctOption": "input_image"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "output_text",
+            "caption",
+            "description",
+            "result"
+          ],
+          "correctOption": "output_text"
+        }
+      ],
+      "explanation": "Un modelo multimodal recibe en un mismo mensaje partes de texto (input_text) y de imagen (input_image). La respuesta se lee en output_text."
+    },
+    {
+      "id": "v-02",
+      "type": "code-fill",
+      "subtopic": "Imagen en el prompt",
+      "skill": "entrada-visual",
+      "peso": 3,
+      "prompt": "La imagen está en tu equipo, no en Internet. Codifícala y envíala al modelo.",
+      "code": {
+        "lang": "python",
+        "title": "local_image.py",
+        "source": "import base64\n\nwith open(\"receipt.jpg\", \"rb\") as f:\n    b64 = base64.{{b1}}(f.read()).decode(\"utf-8\")\n\nresponse = client.responses.create(\n    model=\"my-deployment\",\n    input=[{\"role\": \"user\", \"content\": [\n        {\"type\": \"input_text\", \"text\": \"List the items on this receipt.\"},\n        {\"type\": \"input_image\", \"image_url\": f\"data:image/jpeg;base64,{b64}\"},\n    ]}],\n)",
+        "highlight": [
+          4
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "b64encode",
+            "b64decode",
+            "encode",
+            "urlsafe_text"
+          ],
+          "correctOption": "b64encode"
+        }
+      ],
+      "explanation": "Una imagen local se envía codificada en base64 dentro de una URL de datos (data:image/jpeg;base64,...). b64decode haría lo contrario."
+    },
+    {
+      "id": "v-03",
+      "type": "single-select",
+      "subtopic": "Modelos",
+      "skill": "entrada-visual",
+      "peso": 3,
+      "prompt": "Quieres que un modelo describa una foto que envías dentro del prompt. ¿Qué debe cumplir el modelo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Ser multimodal y admitir imágenes como entrada"
+        },
+        {
+          "id": "b",
+          "text": "Estar entrenado solo con texto, para no distraerse"
+        },
+        {
+          "id": "c",
+          "text": "Ser un modelo exclusivo de generación de imágenes"
+        },
+        {
+          "id": "d",
+          "text": "Estar desplegado con la mayor temperature posible"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "No todos los modelos entienden imágenes: hace falta uno multimodal con entrada visual."
+    },
+    {
+      "id": "v-04",
+      "type": "true-false",
+      "subtopic": "Modelos",
+      "skill": "entrada-visual",
+      "peso": 3,
+      "statement": "Un modelo que solo trabaja con texto puede interpretar una imagen si se la envías en el prompt.",
+      "correctAnswer": false,
+      "explanation": "Si el modelo no admite imágenes, rechazará la solicitud o ignorará esa parte del mensaje."
+    },
+    {
+      "id": "v-05",
+      "type": "single-select",
+      "subtopic": "Imagen en el prompt",
+      "skill": "entrada-visual",
+      "peso": 3,
+      "prompt": "¿Cómo envías al modelo una imagen guardada en tu equipo, que no es pública?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Codificándola en base64 y pasándola como URL de datos en image_url"
+        },
+        {
+          "id": "b",
+          "text": "Escribiendo la ruta del archivo de tu equipo dentro del texto del prompt"
+        },
+        {
+          "id": "c",
+          "text": "Pegando sus píxeles como una lista de números en input_text"
+        },
+        {
+          "id": "d",
+          "text": "Subiéndola al playground y esperando que el modelo la recuerde"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El servicio no puede leer tu disco: la imagen viaja dentro de la propia solicitud (base64) o desde una URL accesible."
+    },
+    {
+      "id": "v-06",
+      "type": "single-select",
+      "subtopic": "Imagen en el prompt",
+      "skill": "entrada-visual",
+      "peso": 2,
+      "prompt": "¿En qué parte de la solicitud va la imagen?",
+      "options": [
+        {
+          "id": "a",
+          "text": "En el contenido del mensaje de usuario, como una parte más junto al texto"
+        },
+        {
+          "id": "b",
+          "text": "En el nombre del deployment, separada por un punto"
+        },
+        {
+          "id": "c",
+          "text": "En el endpoint del proyecto, como parámetro de la URL"
+        },
+        {
+          "id": "d",
+          "text": "En las claves de autenticación del recurso"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El contenido de un mensaje puede mezclar partes de texto y de imagen."
+    },
+    {
+      "id": "v-07",
+      "type": "true-false",
+      "subtopic": "Imagen en el prompt",
+      "skill": "entrada-visual",
+      "peso": 2,
+      "statement": "Si la URL de la imagen es privada y exige iniciar sesión, el modelo podrá descargarla igualmente.",
+      "correctAnswer": false,
+      "explanation": "El servicio solo puede acceder a URLs públicas; si es privada, envía la imagen en base64."
+    },
+    {
+      "id": "v-08",
+      "type": "single-select",
+      "subtopic": "Imagen en el prompt",
+      "skill": "entrada-visual",
+      "peso": 2,
+      "prompt": "¿Qué efecto tiene enviar imágenes sobre el consumo?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cada imagen se convierte en tokens de entrada, así que cuenta y cuesta como tokens"
+        },
+        {
+          "id": "b",
+          "text": "Las imágenes son gratuitas porque no son texto"
+        },
+        {
+          "id": "c",
+          "text": "Solo se cobran si el modelo responde con otra imagen"
+        },
+        {
+          "id": "d",
+          "text": "Se cobran por separado, fuera del uso de tokens de la cuenta"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Las imágenes también consumen tokens de entrada; conviene enviar solo las necesarias."
+    },
+    {
+      "id": "v-09",
+      "type": "single-select",
+      "subtopic": "Prompts visuales",
+      "skill": "entrada-visual",
+      "peso": 3,
+      "prompt": "Subes un gráfico de ventas. ¿Qué texto acompaña mejor a la imagen para obtener una buena respuesta?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una instrucción concreta: qué comparar y en qué formato quieres la respuesta"
+        },
+        {
+          "id": "b",
+          "text": "Solo la palabra «analiza», sin más contexto ni formato"
+        },
+        {
+          "id": "c",
+          "text": "Ninguno: el modelo adivina siempre lo que quieres"
+        },
+        {
+          "id": "d",
+          "text": "Un texto muy largo con la historia de la empresa, sin relación con el gráfico"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Con imágenes también aplican las buenas prácticas de prompts: tarea concreta y formato esperado."
+    },
+    {
+      "id": "v-10",
+      "type": "single-select",
+      "subtopic": "Privacidad",
+      "skill": "entrada-visual",
+      "peso": 3,
+      "prompt": "Vas a procesar fotos donde aparecen personas. ¿Qué consideras antes?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Privacidad y consentimiento, y evitar usar el modelo para identificar a las personas"
+        },
+        {
+          "id": "b",
+          "text": "Nada, porque las fotos nunca contienen datos personales ni permiten identificar a nadie por su apariencia"
+        },
+        {
+          "id": "c",
+          "text": "Solo la resolución de la imagen y su formato"
+        },
+        {
+          "id": "d",
+          "text": "Únicamente cuántos tokens consumirá cada foto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los rostros son datos personales: aplican privacidad, consentimiento y los principios de IA responsable."
+    },
+    {
+      "id": "v-11",
+      "type": "dropdown",
+      "subtopic": "Imagen en el prompt",
+      "skill": "entrada-visual",
+      "peso": 3,
+      "textWithBlanks": "El contenido de un mensaje con foto incluye una parte de tipo {{b1}} para la pregunta y otra de tipo {{b2}} para la imagen.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "input_text",
+            "input_image",
+            "input_audio"
+          ],
+          "correctOption": "input_text"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "input_image",
+            "input_text",
+            "input_video"
+          ],
+          "correctOption": "input_image"
+        }
+      ],
+      "explanation": "Texto e imagen viajan como partes distintas del mismo mensaje."
+    },
+    {
+      "id": "v-12",
+      "type": "multi-select",
+      "subtopic": "Modelos",
+      "skill": "entrada-visual",
+      "peso": 2,
+      "prompt": "Un modelo multimodal con imágenes sirve para estas tareas. Selecciona las 3 correctas:",
+      "options": [
+        {
+          "id": "a",
+          "text": "Describir qué aparece en una fotografía"
+        },
+        {
+          "id": "b",
+          "text": "Explicar qué muestra un gráfico"
+        },
+        {
+          "id": "c",
+          "text": "Leer el texto de un cartel"
+        },
+        {
+          "id": "d",
+          "text": "Entrenar otro modelo con tus imágenes"
+        },
+        {
+          "id": "e",
+          "text": "Cambiar el tamaño de los archivos de imagen en disco"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Interpretar contenido visual es su fortaleza; no entrena modelos ni procesa archivos en disco."
+    },
+    {
+      "id": "v-16",
+      "type": "true-false",
+      "subtopic": "Imagen en el prompt",
+      "skill": "entrada-visual",
+      "peso": 2,
+      "statement": "Un modelo multimodal con imágenes puede recibir texto e imagen dentro del mismo mensaje de usuario.",
+      "correctAnswer": true,
+      "explanation": "El contenido del mensaje es una lista de partes: texto, imagen o ambas."
+    },
+    {
+      "id": "v-13",
+      "type": "single-select",
+      "subtopic": "Modelos",
+      "skill": "entrada-visual",
+      "peso": 3,
+      "prompt": "¿Qué diferencia hay entre enviar una foto a un modelo multimodal y usar Azure Vision?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El modelo razona y responde con libertad según tu prompt; Vision devuelve resultados estructurados (descripción, etiquetas, texto) sin prompt"
+        },
+        {
+          "id": "b",
+          "text": "Vision responde preguntas libres con razonamiento y el modelo multimodal solo devuelve etiquetas fijas, sin interpretar la imagen según el prompt"
+        },
+        {
+          "id": "c",
+          "text": "No hay diferencia: son el mismo servicio con distinto nombre"
+        },
+        {
+          "id": "d",
+          "text": "El modelo multimodal solo acepta texto y Vision solo acepta audio"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Multimodal = flexible y conversacional; Vision = salida estructurada y predecible."
+    },
+    {
+      "id": "v-14",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "entrada-visual",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Vision (Foundry Tools)"
+        },
+        {
+          "id": "b",
+          "text": "Face (Foundry Tools)"
+        },
+        {
+          "id": "c",
+          "text": "Document Intelligence"
+        },
+        {
+          "id": "d",
+          "text": "Foundry Agent Service (agentes)"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Vision analiza imágenes: descripciones, etiquetas, objetos, texto (OCR) y personas.",
+      "imagen": "vision"
+    },
+    {
+      "id": "v-15",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "entrada-visual",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Face (Foundry Tools)"
+        },
+        {
+          "id": "b",
+          "text": "Vision (Foundry Tools)"
+        },
+        {
+          "id": "c",
+          "text": "Document Intelligence"
+        },
+        {
+          "id": "d",
+          "text": "Content Safety"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Face trabaja con rostros; sus funciones de identificación tienen acceso restringido por razones de IA responsable.",
+      "imagen": "face"
+    },
+    {
+      "id": "i-01",
+      "type": "code-fill",
+      "subtopic": "Generación",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "prompt": "Genera una imagen a partir de una descripción y guárdala en un archivo.",
+      "code": {
+        "lang": "python",
+        "title": "generate_image.py",
+        "source": "import base64\n\nresult = client.{{b1}}.generate(\n    model=\"my-image-deployment\",\n    prompt=\"A watercolor painting of a lighthouse at sunrise\",\n    size=\"1024x1024\",\n    quality=\"medium\",\n)\nimage_bytes = base64.{{b2}}(result.data[0].{{b3}})\n\nwith open(\"lighthouse.png\", \"wb\") as f:\n    f.write(image_bytes)",
+        "highlight": [
+          3,
+          9
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "images",
+            "pictures",
+            "completions",
+            "responses"
+          ],
+          "correctOption": "images"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "b64decode",
+            "b64encode",
+            "urlopen",
+            "decode_url"
+          ],
+          "correctOption": "b64decode"
+        },
+        {
+          "id": "b3",
+          "options": [
+            "b64_json",
+            "url",
+            "text",
+            "image_file"
+          ],
+          "correctOption": "b64_json"
+        }
+      ],
+      "explanation": "client.images.generate crea la imagen. Los modelos GPT-image devuelven la imagen codificada en base64 (b64_json), así que se decodifica para guardarla."
+    },
+    {
+      "id": "i-02",
+      "type": "single-select",
+      "subtopic": "Generación",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "prompt": "¿Cómo devuelven la imagen los modelos de la familia GPT-image?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Codificada en base64 dentro de la respuesta (b64_json)"
+        },
+        {
+          "id": "b",
+          "text": "Como un enlace público que dura siempre en la nube de Azure"
+        },
+        {
+          "id": "c",
+          "text": "Como un archivo adjunto enviado al correo del autor"
+        },
+        {
+          "id": "d",
+          "text": "Como una lista de colores, que debes dibujar tú mismo"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "No hay URL: decodificas el base64 para obtener el archivo."
+    },
+    {
+      "id": "i-03",
+      "type": "single-select",
+      "subtopic": "Generación",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "prompt": "Al llamar a images.generate, ¿qué va en el parámetro model?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El nombre de tu deployment del modelo de imágenes"
+        },
+        {
+          "id": "b",
+          "text": "El nombre del archivo donde se guardará la imagen"
+        },
+        {
+          "id": "c",
+          "text": "El nombre del recurso de Azure, sin deployment"
+        },
+        {
+          "id": "d",
+          "text": "El texto de la descripción que quieres dibujar"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Como con los modelos de chat, model enruta a tu deployment."
+    },
+    {
+      "id": "i-04",
+      "type": "single-select",
+      "subtopic": "Generación",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "prompt": "Mientras iteras con prompts quieres borradores rápidos y baratos. ¿Qué ajustas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una calidad baja (quality) y un tamaño más pequeño (size)"
+        },
+        {
+          "id": "b",
+          "text": "Una calidad alta y el tamaño máximo para ver todos los detalles"
+        },
+        {
+          "id": "c",
+          "text": "Más temperature, que acelera la generación"
+        },
+        {
+          "id": "d",
+          "text": "El número de tokens del prompt de sistema"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "El costo y el tiempo crecen con la calidad y el tamaño."
+    },
+    {
+      "id": "i-05",
+      "type": "single-select",
+      "subtopic": "Generación",
+      "skill": "generar-imagen",
+      "peso": 2,
+      "prompt": "¿Qué indica el parámetro n en images.generate?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Cuántas imágenes se generan en la misma solicitud"
+        },
+        {
+          "id": "b",
+          "text": "El número de palabras de la descripción"
+        },
+        {
+          "id": "c",
+          "text": "La cantidad de colores que puede usar la imagen"
+        },
+        {
+          "id": "d",
+          "text": "El número de reintentos si falla la llamada"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Más imágenes por solicitud significa más costo."
+    },
+    {
+      "id": "i-06",
+      "type": "single-select",
+      "subtopic": "Prompts visuales",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "prompt": "¿Qué descripción dará una imagen más fiel a lo que imaginas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Una acuarela de un faro al amanecer, vista desde el mar, con luz cálida y cielo anaranjado"
+        },
+        {
+          "id": "b",
+          "text": "Un faro cualquiera, de cualquier estilo y en cualquier momento del día, sin más indicaciones"
+        },
+        {
+          "id": "c",
+          "text": "Algo bonito de la costa, como tú prefieras y sin detalles"
+        },
+        {
+          "id": "d",
+          "text": "Una imagen bonita y bien hecha de lo que tú consideres más adecuado para el cartel"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Un buen prompt visual indica sujeto, estilo, composición e iluminación."
+    },
+    {
+      "id": "i-07",
+      "type": "true-false",
+      "subtopic": "Modelos",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "statement": "Un modelo de generación de imágenes sirve también para analizar una foto y describirla con texto.",
+      "correctAnswer": false,
+      "explanation": "Generar imágenes y entender imágenes son capacidades distintas: para describir una foto usa un modelo multimodal o Azure Vision."
+    },
+    {
+      "id": "i-08",
+      "type": "single-select",
+      "subtopic": "Generación",
+      "skill": "generar-imagen",
+      "peso": 2,
+      "prompt": "Quieres cambiar el fondo de una imagen que ya tienes. ¿Qué operación usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "La edición de imágenes (images.edit), enviando la imagen original y un prompt"
+        },
+        {
+          "id": "b",
+          "text": "images.generate sin enviar la imagen original, describiendo con palabras el fondo que quieres cambiar"
+        },
+        {
+          "id": "c",
+          "text": "El análisis de sentimiento del texto de la imagen"
+        },
+        {
+          "id": "d",
+          "text": "La detección de idioma del nombre del archivo"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "La edición parte de una imagen existente y la modifica según tu prompt."
+    },
+    {
+      "id": "i-09",
+      "type": "single-select",
+      "subtopic": "IA responsable",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "prompt": "Antes de publicar imágenes generadas por IA, ¿qué conviene hacer?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Revisar el contenido, aplicar filtros de seguridad y avisar que son generadas por IA"
+        },
+        {
+          "id": "b",
+          "text": "Nada: las imágenes generadas nunca pueden ser inapropiadas"
+        },
+        {
+          "id": "c",
+          "text": "Ocultar que fueron generadas para que parezcan fotografías reales"
+        },
+        {
+          "id": "d",
+          "text": "Quitar los filtros de contenido para ahorrar tiempo"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Seguridad, supervisión y transparencia son principios de IA responsable."
+    },
+    {
+      "id": "i-10",
+      "type": "single-select",
+      "subtopic": "IA responsable",
+      "skill": "generar-imagen",
+      "peso": 2,
+      "prompt": "¿Qué papel cumplen los filtros de contenido en la generación de imágenes?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Revisan el prompt y la imagen resultante para bloquear contenido dañino"
+        },
+        {
+          "id": "b",
+          "text": "Aumentan la resolución de cada imagen generada"
+        },
+        {
+          "id": "c",
+          "text": "Traducen los prompts a otros idiomas"
+        },
+        {
+          "id": "d",
+          "text": "Eligen el modelo más barato para cada solicitud"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Los filtros de contenido ayudan a evitar resultados inapropiados."
+    },
+    {
+      "id": "i-11",
+      "type": "matching",
+      "subtopic": "Generación",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "mode": "sequence",
+      "prompt": "Ordena el código que genera una imagen y la guarda:",
+      "items": [
+        {
+          "id": "1",
+          "text": "import base64",
+          "code": true
+        },
+        {
+          "id": "2",
+          "text": "result = client.images.generate(model=\"my-image-deployment\", prompt=\"A red kite in the sky\")",
+          "code": true
+        },
+        {
+          "id": "3",
+          "text": "image_bytes = base64.b64decode(result.data[0].b64_json)",
+          "code": true
+        },
+        {
+          "id": "4",
+          "text": "open(\"kite.png\", \"wb\").write(image_bytes)",
+          "code": true
+        }
+      ],
+      "correctOrder": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "explanation": "Se genera, se decodifica el base64 y se escribe el archivo.",
+      "lang": "python"
+    },
+    {
+      "id": "i-12",
+      "type": "dropdown",
+      "subtopic": "Concepto",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "textWithBlanks": "Crear una imagen a partir de un texto se llama {{b1}}; describir con texto lo que aparece en una imagen se llama {{b2}}.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "generación de imágenes (text to image)",
+            "clasificación de audio",
+            "traducción automática"
+          ],
+          "correctOption": "generación de imágenes (text to image)"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "descripción de imágenes (captioning)",
+            "síntesis de voz",
+            "extracción de entidades"
+          ],
+          "correctOption": "descripción de imágenes (captioning)"
+        }
+      ],
+      "explanation": "Son procesos inversos: texto→imagen e imagen→texto."
+    },
+    {
+      "id": "i-13",
+      "type": "single-select",
+      "subtopic": "Qué usar",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "prompt": "Un equipo de marketing quiere una ilustración nueva para un cartel a partir de una descripción. ¿Qué usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo de generación de imágenes"
+        },
+        {
+          "id": "b",
+          "text": "Vision, con la característica CAPTION"
+        },
+        {
+          "id": "c",
+          "text": "Azure Language, con reconocimiento de entidades"
+        },
+        {
+          "id": "d",
+          "text": "Azure Speech, con texto a voz"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Crear una imagen nueva es generación; CAPTION describe imágenes ya existentes."
+    },
+    {
+      "id": "i-14",
+      "type": "multi-select",
+      "subtopic": "Generación",
+      "skill": "generar-imagen",
+      "peso": 2,
+      "prompt": "Selecciona los parámetros típicos de images.generate:",
+      "options": [
+        {
+          "id": "a",
+          "text": "prompt"
+        },
+        {
+          "id": "b",
+          "text": "size"
+        },
+        {
+          "id": "c",
+          "text": "quality"
+        },
+        {
+          "id": "d",
+          "text": "voice"
+        },
+        {
+          "id": "e",
+          "text": "max_output_tokens"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "voice es de audio y max_output_tokens es de texto."
+    },
+    {
+      "id": "i-15",
+      "type": "true-false",
+      "subtopic": "Generación",
+      "skill": "generar-imagen",
+      "peso": 3,
+      "statement": "Con los modelos GPT-image, la respuesta incluye una URL pública y temporal para descargar la imagen.",
+      "correctAnswer": false,
+      "explanation": "Siempre llegan en base64; no hay URL de descarga."
+    },
+    {
+      "id": "i-17",
+      "type": "true-false",
+      "subtopic": "Generación",
+      "skill": "generar-imagen",
+      "peso": 2,
+      "statement": "Para guardar en un archivo una imagen generada con GPT-image debes decodificar primero su contenido base64.",
+      "correctAnswer": true,
+      "explanation": "La respuesta trae la imagen codificada (b64_json); b64decode devuelve los bytes del archivo."
+    },
+    {
+      "id": "i-16",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "generar-imagen",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Azure OpenAI in Foundry Models"
+        },
+        {
+          "id": "b",
+          "text": "Azure Speech in Foundry Tools"
+        },
+        {
+          "id": "c",
+          "text": "Azure Content Understanding in Foundry Tools"
+        },
+        {
+          "id": "d",
+          "text": "Content Safety"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Azure OpenAI in Foundry Models da acceso a modelos de OpenAI (texto, imágenes, audio) con los controles de Azure.",
+      "imagen": "openai"
+    },
+    {
+      "id": "z-01",
+      "type": "code-fill",
+      "subtopic": "Descripción",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "Genera una frase que describa una imagen publicada en Internet.",
+      "code": {
+        "lang": "python",
+        "title": "caption.py",
+        "source": "from azure.ai.vision.imageanalysis import ImageAnalysisClient\nfrom azure.ai.vision.imageanalysis.models import VisualFeatures\nfrom azure.core.credentials import AzureKeyCredential\n\nclient = ImageAnalysisClient(\n    endpoint=\"https://contoso.cognitiveservices.azure.com/\",\n    credential=AzureKeyCredential(\"<your-key>\"),\n)\n\nresult = client.{{b1}}(\n    image_url=\"https://contoso.com/photos/street.jpg\",\n    visual_features=[VisualFeatures.{{b2}}],\n)\nprint(result.caption.text)",
+        "highlight": [
+          9,
+          10
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "analyze_from_url",
+            "analyze",
+            "describe_image",
+            "read_image"
+          ],
+          "correctOption": "analyze_from_url"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "CAPTION",
+            "TAGS",
+            "READ",
+            "OBJECTS"
+          ],
+          "correctOption": "CAPTION"
+        }
+      ],
+      "explanation": "analyze_from_url recibe una URL pública; la característica CAPTION devuelve una frase en result.caption."
+    },
+    {
+      "id": "z-02",
+      "type": "code-fill",
+      "subtopic": "Etiquetas",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "Etiqueta una foto guardada en tu equipo.",
+      "code": {
+        "lang": "python",
+        "title": "tags.py",
+        "source": "with open(\"street.jpg\", \"rb\") as f:\n    image_data = f.read()\n\nresult = client.{{b1}}(image_data=image_data, visual_features=[VisualFeatures.TAGS])\nfor tag in result.tags.{{b2}}:\n    print(tag.name, tag.confidence)",
+        "highlight": [
+          4
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "analyze",
+            "analyze_from_url",
+            "tag_image",
+            "get_tags"
+          ],
+          "correctOption": "analyze"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "list",
+            "text",
+            "blocks",
+            "lines"
+          ],
+          "correctOption": "list"
+        }
+      ],
+      "explanation": "analyze recibe los bytes de la imagen; result.tags.list contiene cada etiqueta con su nombre y confianza."
+    },
+    {
+      "id": "z-03",
+      "type": "code-fill",
+      "subtopic": "Texto (OCR)",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "Lee el texto que aparece en una fotografía de una etiqueta.",
+      "code": {
+        "lang": "python",
+        "title": "ocr.py",
+        "source": "result = client.analyze(image_data=image_data, visual_features=[VisualFeatures.{{b1}}])\n\nif result.read is not None:\n    for block in result.read.blocks:\n        for line in block.lines:\n            print(line.{{b2}})",
+        "highlight": [
+          1
+        ]
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "READ",
+            "CAPTION",
+            "TAGS",
+            "PEOPLE"
+          ],
+          "correctOption": "READ"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "text",
+            "name",
+            "caption",
+            "confidence"
+          ],
+          "correctOption": "text"
+        }
+      ],
+      "explanation": "La característica READ aplica OCR: devuelve bloques y líneas de texto, cada una con su text."
+    },
+    {
+      "id": "z-04",
+      "type": "code-fill",
+      "subtopic": "Objetos",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "Detecta los objetos de una imagen y muestra el nombre de cada uno.",
+      "code": {
+        "lang": "python",
+        "title": "objects.py",
+        "source": "result = client.analyze(image_data=image_data, visual_features=[VisualFeatures.OBJECTS])\n\nfor detected in result.objects.{{b1}}:\n    print(detected.tags[0].{{b2}})"
+      },
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "list",
+            "caption",
+            "read",
+            "blocks"
+          ],
+          "correctOption": "list"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "name",
+            "text",
+            "caption",
+            "region"
+          ],
+          "correctOption": "name"
+        }
+      ],
+      "explanation": "OBJECTS detecta objetos y su ubicación; el nombre está en la primera etiqueta de cada objeto detectado."
+    },
+    {
+      "id": "z-05",
+      "type": "matching",
+      "subtopic": "Características",
+      "skill": "vision-app",
+      "peso": 3,
+      "mode": "pairs",
+      "prompt": "Relaciona cada característica de Image Analysis con lo que hace:",
+      "leftItems": [
+        {
+          "id": "l1",
+          "text": "CAPTION"
+        },
+        {
+          "id": "l2",
+          "text": "TAGS"
+        },
+        {
+          "id": "l3",
+          "text": "OBJECTS"
+        },
+        {
+          "id": "l4",
+          "text": "READ"
+        },
+        {
+          "id": "l5",
+          "text": "PEOPLE"
+        }
+      ],
+      "rightItems": [
+        {
+          "id": "r1",
+          "text": "Una frase que describe toda la imagen"
+        },
+        {
+          "id": "r2",
+          "text": "Etiquetas de objetos, escenas y acciones"
+        },
+        {
+          "id": "r3",
+          "text": "Detecta objetos y dónde están"
+        },
+        {
+          "id": "r4",
+          "text": "Extrae el texto impreso o manuscrito (OCR)"
+        },
+        {
+          "id": "r5",
+          "text": "Detecta personas y su ubicación"
+        }
+      ],
+      "correctPairs": [
+        {
+          "leftId": "l1",
+          "rightId": "r1"
+        },
+        {
+          "leftId": "l2",
+          "rightId": "r2"
+        },
+        {
+          "leftId": "l3",
+          "rightId": "r3"
+        },
+        {
+          "leftId": "l4",
+          "rightId": "r4"
+        },
+        {
+          "leftId": "l5",
+          "rightId": "r5"
+        }
+      ],
+      "explanation": "Cada característica se pide en visual_features; puedes combinar varias en una sola llamada."
+    },
+    {
+      "id": "z-06",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "Una app de accesibilidad debe describir en voz alta lo que muestra una foto. ¿Qué característica de Vision necesita para el texto?",
+      "options": [
+        {
+          "id": "a",
+          "text": "CAPTION"
+        },
+        {
+          "id": "b",
+          "text": "READ"
+        },
+        {
+          "id": "c",
+          "text": "PEOPLE"
+        },
+        {
+          "id": "d",
+          "text": "SMART_CROPS"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "CAPTION genera la frase descriptiva; luego Speech podría leerla en voz alta."
+    },
+    {
+      "id": "z-07",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "Un sistema de inventario debe leer el texto impreso en las etiquetas de las cajas. ¿Qué característica usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "READ (OCR)"
+        },
+        {
+          "id": "b",
+          "text": "CAPTION (descripción)"
+        },
+        {
+          "id": "c",
+          "text": "TAGS (etiquetas)"
+        },
+        {
+          "id": "d",
+          "text": "OBJECTS (objetos y posición)"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Leer texto en imágenes es OCR."
+    },
+    {
+      "id": "z-08",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "Un sitio quiere etiquetar automáticamente miles de fotos para poder buscarlas. ¿Qué característica usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "TAGS"
+        },
+        {
+          "id": "b",
+          "text": "READ"
+        },
+        {
+          "id": "c",
+          "text": "PEOPLE"
+        },
+        {
+          "id": "d",
+          "text": "SMART_CROPS"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Las etiquetas describen contenido y facilitan la búsqueda."
+    },
+    {
+      "id": "z-09",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "Necesitas dibujar un recuadro alrededor de cada objeto de la imagen. ¿Qué característica usa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "OBJECTS, que devuelve la ubicación de cada objeto"
+        },
+        {
+          "id": "b",
+          "text": "TAGS, que devuelve solo etiquetas sin posición"
+        },
+        {
+          "id": "c",
+          "text": "CAPTION, que devuelve una frase sin posiciones"
+        },
+        {
+          "id": "d",
+          "text": "READ, que devuelve solo líneas de texto"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Solo OBJECTS (y PEOPLE para personas) devuelven la posición."
+    },
+    {
+      "id": "z-10",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "vision-app",
+      "peso": 2,
+      "prompt": "Quieres generar miniaturas recortadas automáticamente alrededor de lo importante de cada foto. ¿Qué característica usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "SMART_CROPS"
+        },
+        {
+          "id": "b",
+          "text": "READ (texto en la imagen)"
+        },
+        {
+          "id": "c",
+          "text": "TAGS (etiquetas)"
+        },
+        {
+          "id": "d",
+          "text": "CAPTION (descripción)"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "SMART_CROPS sugiere recortes con las proporciones que indiques."
+    },
+    {
+      "id": "z-11",
+      "type": "single-select",
+      "subtopic": "Qué función usar",
+      "skill": "vision-app",
+      "peso": 2,
+      "prompt": "Quieres una descripción por cada región relevante de la imagen, no solo una general. ¿Qué característica usas?",
+      "options": [
+        {
+          "id": "a",
+          "text": "DENSE_CAPTIONS"
+        },
+        {
+          "id": "b",
+          "text": "CAPTION (descripción general)"
+        },
+        {
+          "id": "c",
+          "text": "READ (texto en la imagen)"
+        },
+        {
+          "id": "d",
+          "text": "PEOPLE (personas)"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Las descripciones densas detallan varias regiones."
+    },
+    {
+      "id": "z-12",
+      "type": "single-select",
+      "subtopic": "Cliente",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "¿Qué necesitas para crear un ImageAnalysisClient?",
+      "options": [
+        {
+          "id": "a",
+          "text": "El endpoint del recurso de Vision y una credencial (clave o Entra ID)"
+        },
+        {
+          "id": "b",
+          "text": "El nombre del deployment de un modelo de chat y su temperatura"
+        },
+        {
+          "id": "c",
+          "text": "Un archivo de audio de prueba, su idioma y el nombre del hablante principal"
+        },
+        {
+          "id": "d",
+          "text": "El id de una conversación con un agente"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Es un recurso distinto al de los modelos de chat."
+    },
+    {
+      "id": "z-13",
+      "type": "true-false",
+      "subtopic": "Concepto",
+      "skill": "vision-app",
+      "peso": 3,
+      "statement": "Para obtener descripciones de imágenes con Image Analysis debes entrenar primero un modelo propio.",
+      "correctAnswer": false,
+      "explanation": "Estas capacidades vienen preentrenadas: envías la imagen y recibes el resultado."
+    },
+    {
+      "id": "z-14",
+      "type": "single-select",
+      "subtopic": "Instalación",
+      "skill": "vision-app",
+      "peso": 2,
+      "prompt": "¿Qué paquete de Python instalas para usar Image Analysis?",
+      "options": [
+        {
+          "id": "a",
+          "text": "azure-ai-vision-imageanalysis"
+        },
+        {
+          "id": "b",
+          "text": "azure-cognitiveservices-speech"
+        },
+        {
+          "id": "c",
+          "text": "azure-ai-textanalytics"
+        },
+        {
+          "id": "d",
+          "text": "azure-ai-contentunderstanding"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Cada servicio tiene su propio paquete; este corresponde a Vision."
+    },
+    {
+      "id": "z-15",
+      "type": "single-select",
+      "subtopic": "Cliente",
+      "skill": "vision-app",
+      "peso": 2,
+      "prompt": "¿Cuál es la diferencia entre analyze y analyze_from_url?",
+      "options": [
+        {
+          "id": "a",
+          "text": "analyze recibe los bytes de la imagen; analyze_from_url recibe la URL pública de la imagen"
+        },
+        {
+          "id": "b",
+          "text": "analyze es solo para vídeo y analyze_from_url solo para audio, porque cada uno acepta un tipo de contenido"
+        },
+        {
+          "id": "c",
+          "text": "analyze devuelve texto y analyze_from_url devuelve etiquetas"
+        },
+        {
+          "id": "d",
+          "text": "No hay diferencia: son nombres alternativos de la misma función"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Eliges según dónde esté la imagen: en tu equipo o en una URL accesible."
+    },
+    {
+      "id": "z-16",
+      "type": "true-false",
+      "subtopic": "Concepto",
+      "skill": "vision-app",
+      "peso": 2,
+      "statement": "Puedes pedir varias características, como CAPTION y TAGS, en una sola llamada a analyze.",
+      "correctAnswer": true,
+      "explanation": "visual_features es una lista: se calculan todas en la misma solicitud."
+    },
+    {
+      "id": "z-17",
+      "type": "single-select",
+      "subtopic": "Resultados",
+      "skill": "vision-app",
+      "peso": 2,
+      "prompt": "¿Qué indica caption.confidence?",
+      "options": [
+        {
+          "id": "a",
+          "text": "La confianza del servicio en que la descripción es correcta"
+        },
+        {
+          "id": "b",
+          "text": "El número de palabras de la descripción"
+        },
+        {
+          "id": "c",
+          "text": "La resolución de la imagen analizada"
+        },
+        {
+          "id": "d",
+          "text": "El idioma de la descripción"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Valores cercanos a 1 indican alta certeza."
+    },
+    {
+      "id": "z-18",
+      "type": "single-select",
+      "subtopic": "Qué usar",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "Tus piezas industriales son muy específicas y el análisis prediseñado no las reconoce. ¿Qué haces?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Entrenar un modelo personalizado con imágenes etiquetadas de tus piezas"
+        },
+        {
+          "id": "b",
+          "text": "Subir la temperature del servicio de visión hasta que empiece a reconocer tus piezas por sí solo"
+        },
+        {
+          "id": "c",
+          "text": "Enviar la imagen en minúsculas para que la lea mejor"
+        },
+        {
+          "id": "d",
+          "text": "Usar la característica READ, que reconoce cualquier pieza"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Cuando las categorías son propias hace falta entrenar con ejemplos etiquetados."
+    },
+    {
+      "id": "z-19",
+      "type": "single-select",
+      "subtopic": "IA responsable",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "¿Por qué las funciones de identificación facial tienen acceso limitado?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Por riesgos de privacidad y de uso indebido: Microsoft las restringe según sus principios de IA responsable"
+        },
+        {
+          "id": "b",
+          "text": "Porque requieren una GPU que casi nadie tiene disponible"
+        },
+        {
+          "id": "c",
+          "text": "Porque solo funcionan con fotografías en blanco y negro"
+        },
+        {
+          "id": "d",
+          "text": "Porque Azure no puede detectar rostros en ninguna imagen"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Reconocer personas por su rostro es sensible, por eso su acceso se controla."
+    },
+    {
+      "id": "z-20",
+      "type": "matching",
+      "subtopic": "Descripción",
+      "skill": "vision-app",
+      "peso": 3,
+      "mode": "sequence",
+      "prompt": "Ordena el código que describe una imagen de tu equipo:",
+      "items": [
+        {
+          "id": "1",
+          "text": "client = ImageAnalysisClient(endpoint=ENDPOINT, credential=AzureKeyCredential(KEY))",
+          "code": true
+        },
+        {
+          "id": "2",
+          "text": "image_data = open(\"photo.jpg\", \"rb\").read()",
+          "code": true
+        },
+        {
+          "id": "3",
+          "text": "result = client.analyze(image_data=image_data, visual_features=[VisualFeatures.CAPTION])",
+          "code": true
+        },
+        {
+          "id": "4",
+          "text": "print(result.caption.text)",
+          "code": true
+        }
+      ],
+      "correctOrder": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "explanation": "Cliente → bytes de la imagen → análisis → lectura del resultado.",
+      "lang": "python"
+    },
+    {
+      "id": "z-21",
+      "type": "dropdown",
+      "subtopic": "Características",
+      "skill": "vision-app",
+      "peso": 3,
+      "textWithBlanks": "Para describir una imagen con una frase uso la característica {{b1}}; para leer el texto que contiene uso {{b2}}.",
+      "blanks": [
+        {
+          "id": "b1",
+          "options": [
+            "CAPTION",
+            "READ",
+            "TAGS",
+            "PEOPLE"
+          ],
+          "correctOption": "CAPTION"
+        },
+        {
+          "id": "b2",
+          "options": [
+            "READ",
+            "CAPTION",
+            "OBJECTS",
+            "SMART_CROPS"
+          ],
+          "correctOption": "READ"
+        }
+      ],
+      "explanation": "CAPTION = descripción; READ = OCR."
+    },
+    {
+      "id": "z-22",
+      "type": "multi-select",
+      "subtopic": "Características",
+      "skill": "vision-app",
+      "peso": 2,
+      "prompt": "Selecciona las características de Image Analysis:",
+      "options": [
+        {
+          "id": "a",
+          "text": "CAPTION"
+        },
+        {
+          "id": "b",
+          "text": "TAGS"
+        },
+        {
+          "id": "c",
+          "text": "OBJECTS"
+        },
+        {
+          "id": "d",
+          "text": "READ"
+        },
+        {
+          "id": "e",
+          "text": "SENTIMENT"
+        },
+        {
+          "id": "f",
+          "text": "DIARIZATION"
+        }
+      ],
+      "correctOptionIds": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "explanation": "Sentimiento es de texto y diarización es de audio."
+    },
+    {
+      "id": "z-23",
+      "type": "single-select",
+      "subtopic": "Iconografía",
+      "skill": "vision-app",
+      "peso": 2,
+      "prompt": "¿Qué representa este icono?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Document Intelligence"
+        },
+        {
+          "id": "b",
+          "text": "Vision (Foundry Tools)"
+        },
+        {
+          "id": "c",
+          "text": "Face (Foundry Tools)"
+        },
+        {
+          "id": "d",
+          "text": "Azure AI Search"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Document Intelligence extrae texto, campos y tablas de documentos y formularios.",
+      "imagen": "doc-intelligence"
+    },
+    {
+      "id": "z-24",
+      "type": "single-select",
+      "subtopic": "Qué usar",
+      "skill": "vision-app",
+      "peso": 3,
+      "prompt": "Tu app debe contestar preguntas libres sobre una foto («¿qué ropa lleva?»). ¿Qué enfoque encaja mejor?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Un modelo multimodal con la foto y la pregunta en el prompt"
+        },
+        {
+          "id": "b",
+          "text": "Image Analysis con la característica READ, que responde cualquier pregunta sobre lo que aparece en la foto"
+        },
+        {
+          "id": "c",
+          "text": "Texto a voz con Azure Speech"
+        },
+        {
+          "id": "d",
+          "text": "Detección de idioma con Azure Language"
+        }
+      ],
+      "correctOptionId": "a",
+      "explanation": "Las preguntas abiertas se resuelven con un modelo que razona sobre la imagen."
+    },
+    {
+      "id": "z-25",
+      "type": "true-false",
+      "subtopic": "Resultados",
+      "skill": "vision-app",
+      "peso": 2,
+      "statement": "Cada etiqueta (tag) devuelta por Image Analysis incluye un nombre y una puntuación de confianza.",
+      "correctAnswer": true,
+      "explanation": "Por eso se pueden filtrar etiquetas con confianza baja."
+    }
+  ]
 }
