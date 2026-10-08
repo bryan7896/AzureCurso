@@ -91,3 +91,12 @@ iconos/*.svg + iconos/catalogo.json. Se embeben en index.html (offline). El nomb
 | 2.1 Generative AI + Agents | 101 |  | **Total secciones** | **515** |
 Conceptos: 140 (307 ejercicios). Simulacro: 45 preguntas con el peso real de cada sección.
 `DATA_VERSION` = 2026-10-05-p5.
+
+## Parte 5.1 — Autoevaluación en Conceptos
+- Los ejercicios de escribir (texto libre) ya NO los califica el sistema: escribes lo que recuerdas, pulsas «Ver respuesta», comparas tu texto con la
+  respuesta de referencia y tú decides «✅ La sabía» o «❌ No la sabía». Ese veredicto alimenta el nivel del concepto igual que antes.
+- Las reflexiones siguen igual (se guardan, no puntúan). `respuestasAceptadas[0]` es ahora solo la respuesta de referencia mostrada.
+
+## Parte 5.2 — Progreso retomable
+- Conceptos: si sales a mitad de un concepto, al volver continúas en el ejercicio donde quedaste (la tarjeta muestra «⏸️ En curso: 2/3»).
+- Secciones, Aprendizaje y Simulacro ya conservaban el punto exacto; ahora además se fuerza el guardado al cerrar o minimizar la app.

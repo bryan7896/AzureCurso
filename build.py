@@ -22,7 +22,7 @@ for _stream in (sys.stdout, sys.stderr):
     except Exception:
         pass
 
-VERSION = "1.0.0 (Parte 5 — 1.1, Conceptos y mapa de servicios)"
+VERSION = "1.0.2 (Progreso retomable)"
 NOMBRE_APP = "AI-901 Trainer"
 NOMBRE_CORTO = "AI901Trainer"
 STORAGE_KEY = "ai901_trainer_v1"
@@ -121,7 +121,7 @@ def crear_service_worker():
     lista_datos_js = ",\n  ".join(f'"./{DATOS_DIR}/{nombre}"' for nombre in archivos_datos)
 
     sw = f'''// service-worker.js (generado por build.py — no editar a mano)
-const CACHE_NAME = "ai901-trainer-v2";
+const CACHE_NAME = "ai901-trainer-v3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -525,6 +525,7 @@ def get_main_logic():
       exercise: pendiente.exercise,
       correcto: pendiente.correcto,
       esReflexion: pendiente.esReflexion,
+      autoevaluado: pendiente.autoevaluado,
       respuestaUsuario: respuesta,
       onContinuar: () => manejarAvanceConcepto(confirmarContinuarConcepto(conceptoId, pendiente)),
       onRepasar: () => manejarAvanceConcepto(confirmarRepasarConcepto(conceptoId, pendiente)),

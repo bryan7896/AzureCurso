@@ -50,6 +50,9 @@ function formatearRespuestaUsuario(exercise, respuesta) {
       return blanks.map((b) => b.selected || "(vacío)").join(", ");
     }
     case "texto-libre":
+      if (respuesta && typeof respuesta === "object") {
+        return (respuesta.texto || "(vacío)") + (respuesta.autoevaluado ? (respuesta.sabia ? " [autoevaluada: la sabía]" : " [autoevaluada: no la sabía]") : "");
+      }
       return respuesta || "(vacío)";
     default:
       return String(respuesta ?? "");

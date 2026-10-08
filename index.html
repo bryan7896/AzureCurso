@@ -928,6 +928,25 @@ body.en-simulacro .app-container { padding-bottom: 24px; }
 #mapaCuerpo.autoevaluacion .mapa-tile { cursor: pointer; border-style: dashed; }
 #mapaCuerpo.autoevaluacion .mapa-tile:not(.revelado) .mapa-txt { filter: blur(7px); opacity: 0.55; user-select: none; }
 #mapaCuerpo.autoevaluacion .mapa-tile.revelado { border-style: solid; border-color: var(--success); background: var(--success-soft); }
+
+/* ---------- Autoevaluación (texto libre en Conceptos) ---------- */
+
+.autoeval-comparacion { display: grid; gap: 10px; margin-bottom: 14px; }
+.autoeval-caja {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+.autoeval-referencia { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+.autoeval-etiqueta { font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted, #94a3b8); margin-bottom: 6px; }
+.autoeval-texto { font-size: 1rem; line-height: 1.45; overflow-wrap: anywhere; }
+.autoeval-pregunta { margin: 4px 0 10px; font-weight: 600; text-align: center; }
+.autoeval-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.autoeval-no { border-color: var(--danger); }
+.btn-enlace { background: none; border: none; color: var(--text-muted, #94a3b8); text-decoration: underline; cursor: pointer; padding: 10px; }
+
+.concepto-en-curso { font-size: 0.78rem; color: var(--accent); margin-top: 2px; }
 </style>
 </head>
 <body>
@@ -938,7 +957,7 @@ body.en-simulacro .app-container { padding-bottom: 24px; }
       <div class="marca-logo">AI</div>
       <div>
         <div class="marca-titulo">AI-901 Trainer</div>
-        <div class="marca-sub">1.0.0 (Parte 5 — 1.1, Conceptos y mapa de servicios)</div>
+        <div class="marca-sub">1.0.2 (Progreso retomable)</div>
       </div>
     </div>
     <button class="btn-icono" id="btnAjustes" aria-label="Ajustes">⚙️</button>
@@ -1276,6 +1295,13 @@ let _saveTimer = null;
 export function guardarConDebounce() {
   clearTimeout(_saveTimer);
   _saveTimer = setTimeout(guardar, 400);
+}
+
+// Si la app se cierra o pasa a segundo plano justo después de responder,
+// el guardado con retraso podría no ejecutarse: se fuerza aquí.
+if (typeof window !== "undefined") {
+  window.addEventListener("pagehide", () => guardar());
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") guardar(); });
 }
 
 export function cargarDeStorage() {
@@ -2103,6 +2129,9 @@ function formatearRespuestaUsuario(exercise, respuesta) {
       return blanks.map((b) => b.selected || "(vacío)").join(", ");
     }
     case "texto-libre":
+      if (respuesta && typeof respuesta === "object") {
+        return (respuesta.texto || "(vacío)") + (respuesta.autoevaluado ? (respuesta.sabia ? " [autoevaluada: la sabía]" : " [autoevaluada: no la sabía]") : "");
+      }
       return respuesta || "(vacío)";
     default:
       return String(respuesta ?? "");
@@ -2607,10 +2636,17 @@ function conceptosDeHoy() {
   return { lista: [...vencidos, ...nuevos.slice(0, cupoRestante)], nuevosEnEspera: Math.max(0, nuevos.length - cupoRestante) };
 }
 
+// Devuelve el repaso en curso de un concepto. Si el usuario lo dejó a medias
+// (salió antes de terminar los ejercicios), se RETOMA donde quedó en vez de
+// empezar de cero; solo se crea uno nuevo si no hay ninguno válido.
 function iniciarRepasoConcepto(conceptoId) {
   const progreso = getConceptoState(conceptoId);
   const concepto = (AppState.conceptosCatalogo || []).find((c) => c.id === conceptoId);
   if (!concepto) return null;
+  const r = progreso.repasoActual;
+  const ids = new Set(concepto.ejercicios.map((e) => e.id));
+  const valido = r && Array.isArray(r.cola) && r.indiceActual < r.cola.length && r.cola.every((i) => ids.has(i.exerciseId));
+  if (valido) return r;
   progreso.repasoActual = {
     cola: concepto.ejercicios.map((e) => ({ exerciseId: e.id, excluido: false })),
     indiceActual: 0,
@@ -2637,6 +2673,7 @@ function procesarRespuestaConcepto(conceptoId, respuestaUsuario) {
   return {
     correcto: resultado.correcto,
     esReflexion: !!resultado.esReflexion,
+    autoevaluado: !!resultado.autoevaluado,
     respuestaUsuario,
     exercise: actual.exercise,
     posicion: actual.posicion,
@@ -2747,6 +2784,7 @@ function renderConceptos(callbacks) {
         <div class="concepto-info">
           <div class="concepto-termino">${escHTML(c.termino)}</div>
           <div class="concepto-nombre">${escHTML(c.nombreCompleto)}</div>
+          ${p.repasoActual && p.repasoActual.indiceActual > 0 ? `<div class="concepto-en-curso">⏸️ En curso: ${p.repasoActual.indiceActual}/${p.repasoActual.cola.length}</div>` : ""}
         </div>
       </button>
     `;
@@ -3534,13 +3572,15 @@ function renderSimRepaso(cont) {
 // correcta), se pasa esReflexion:true y el modal muestra un estado neutral
 // ("guardado") en vez de ✅/❌.
 
-function mostrarModalFeedback({ exercise, correcto, esReflexion, respuestaUsuario, onContinuar, onRepasar }) {
+function mostrarModalFeedback({ exercise, correcto, esReflexion, autoevaluado, respuestaUsuario, onContinuar, onRepasar }) {
   const existente = document.querySelector(".modal-overlay");
   if (existente) existente.remove();
 
   const clase = esReflexion ? "feedback-reflexion" : correcto ? "feedback-correcto" : "feedback-incorrecto";
   const icono = esReflexion ? "💭" : correcto ? "✅" : "❌";
-  const titulo = esReflexion ? "Respuesta guardada" : correcto ? "¡Correcto!" : "No era esa";
+  const titulo = esReflexion ? "Respuesta guardada"
+    : autoevaluado ? (correcto ? "¡Bien, la sabías!" : "A repasarla")
+    : correcto ? "¡Correcto!" : "No era esa";
 
   const modal = document.createElement("div");
   modal.className = "modal-overlay modal-activo";
@@ -4370,11 +4410,12 @@ function renderSolucionCodeFill(exercise, respuestaUsuario) {
 //
 // Input de escritura libre, con dos modos:
 //
-//  - modo "recordar" (por defecto, para compatibilidad con datos ya
-//    existentes): se califica comparando contra `respuestasAceptadas`, de
-//    forma flexible (sin importar mayúsculas, tildes ni espacios extra).
-//    El prompt puede ir en cualquier dirección: dar el término y pedir su
-//    significado, o dar el significado/definición y pedir el término/sigla.
+//  - modo "recordar" (por defecto): AUTOEVALUACIÓN. El usuario escribe lo
+//    que recuerda, pulsa "Ver respuesta", compara su texto con la respuesta
+//    de referencia y decide él mismo si la sabía o no. El sistema NO
+//    compara textos (así una respuesta con otras palabras pero correcta no
+//    se marca como error). `respuestasAceptadas[0]` es solo la referencia
+//    que se le muestra. El prompt puede ir en cualquier dirección.
 //
 //  - modo "reflexion": NO tiene respuesta correcta. Es para preguntas
 //    abiertas de análisis ("¿cuál usarías para X y por qué?"). Lo que se
@@ -4384,34 +4425,69 @@ function renderSolucionCodeFill(exercise, respuestaUsuario) {
 
 function renderTextoLibre(exercise, container, onListo) {
   const esReflexion = exercise.modo === "reflexion";
+
+  // Fase 1: escribir. Fase 2 (solo "recordar"): comparar y autoevaluarse.
   const pintar = (valor) => {
     container.innerHTML = `
       ${renderImagenDeEjercicio(exercise)}
       <div class="pregunta-prompt">${fmtTxt(exercise.prompt)}</div>
       ${renderCodigoDeEjercicio(exercise)}
       <div class="texto-libre-area">
-        <input type="text" class="texto-libre-input" placeholder="${esReflexion ? "Escribe tu respuesta o reflexión…" : "Escribe tu respuesta…"}"
+        <input type="text" class="texto-libre-input" placeholder="${esReflexion ? "Escribe tu respuesta o reflexión…" : "Escribe lo que recuerdas…"}"
                autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                value="${escHTML(valor || "")}">
       </div>
       <div class="ejercicio-acciones">
         <button type="button" class="btn btn-solido" id="btnComprobar" ${(valor || "").trim() ? "" : "disabled"}>
-          ${esReflexion ? "💭 Guardar" : "✅ Comprobar"}
+          ${esReflexion ? "💭 Guardar" : "👁️ Ver respuesta"}
         </button>
       </div>
     `;
     const input = container.querySelector(".texto-libre-input");
-    input.addEventListener("input", () => {
-      container.querySelector("#btnComprobar").disabled = !input.value.trim();
-    });
+    const btn = container.querySelector("#btnComprobar");
+    input.addEventListener("input", () => { btn.disabled = !input.value.trim(); });
     input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && input.value.trim()) container.querySelector("#btnComprobar").click();
+      if (e.key === "Enter" && input.value.trim()) btn.click();
     });
-    container.querySelector("#btnComprobar").addEventListener("click", () => {
-      if (input.value.trim()) onListo(input.value.trim());
+    btn.addEventListener("click", () => {
+      const texto = input.value.trim();
+      if (!texto) return;
+      if (esReflexion) onListo(texto);
+      else pintarAutoevaluacion(texto);
     });
     input.focus();
   };
+
+  const pintarAutoevaluacion = (texto) => {
+    const referencia = (exercise.respuestasAceptadas || [])[0] || "";
+    container.innerHTML = `
+      ${renderImagenDeEjercicio(exercise)}
+      <div class="pregunta-prompt">${fmtTxt(exercise.prompt)}</div>
+      ${renderCodigoDeEjercicio(exercise)}
+      <div class="autoeval-comparacion">
+        <div class="autoeval-caja autoeval-tuya">
+          <div class="autoeval-etiqueta">✍️ Tu respuesta</div>
+          <div class="autoeval-texto">${escHTML(texto)}</div>
+        </div>
+        <div class="autoeval-caja autoeval-referencia">
+          <div class="autoeval-etiqueta">📖 Respuesta de referencia</div>
+          <div class="autoeval-texto">${escHTML(referencia)}</div>
+        </div>
+      </div>
+      <p class="autoeval-pregunta">Compáralas con honestidad: ¿captaste la idea?</p>
+      <div class="autoeval-botones">
+        <button type="button" class="btn autoeval-no" id="btnNoSabia">❌ No la sabía</button>
+        <button type="button" class="btn btn-solido autoeval-si" id="btnSabia">✅ La sabía</button>
+      </div>
+      <div class="ejercicio-acciones">
+        <button type="button" class="btn btn-enlace" id="btnEditar">✏️ Cambiar mi respuesta</button>
+      </div>
+    `;
+    container.querySelector("#btnSabia").addEventListener("click", () => onListo({ autoevaluado: true, texto, sabia: true }));
+    container.querySelector("#btnNoSabia").addEventListener("click", () => onListo({ autoevaluado: true, texto, sabia: false }));
+    container.querySelector("#btnEditar").addEventListener("click", () => pintar(texto));
+  };
+
   pintar("");
 }
 
@@ -4419,13 +4495,11 @@ function calificarTextoLibre(exercise, respuesta) {
   if (exercise.modo === "reflexion") {
     // No hay respuesta correcta: se marca "correcto" para no afectar el
     // nivel del concepto, y se señala esReflexion para que el motor de
-    // conceptos guarde el texto en vez de comparalo contra nada.
+    // conceptos guarde el texto.
     return { correcto: true, esReflexion: true };
   }
-  const dado = normalizarTextoLibre(respuesta);
-  const aceptadas = exercise.respuestasAceptadas || [];
-  const correcto = aceptadas.some((a) => normalizarTextoLibre(a) === dado);
-  return { correcto };
+  // Modo "recordar": el veredicto lo da el usuario (autoevaluación).
+  return { correcto: !!(respuesta && respuesta.sabia), autoevaluado: true };
 }
 
 // minúsculas + sin tildes + espacios colapsados y recortados
@@ -4681,6 +4755,7 @@ function normalizarTextoLibre(str) {
       exercise: pendiente.exercise,
       correcto: pendiente.correcto,
       esReflexion: pendiente.esReflexion,
+      autoevaluado: pendiente.autoevaluado,
       respuestaUsuario: respuesta,
       onContinuar: () => manejarAvanceConcepto(confirmarContinuarConcepto(conceptoId, pendiente)),
       onRepasar: () => manejarAvanceConcepto(confirmarRepasarConcepto(conceptoId, pendiente)),

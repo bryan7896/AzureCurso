@@ -117,6 +117,13 @@ export function guardarConDebounce() {
   _saveTimer = setTimeout(guardar, 400);
 }
 
+// Si la app se cierra o pasa a segundo plano justo después de responder,
+// el guardado con retraso podría no ejecutarse: se fuerza aquí.
+if (typeof window !== "undefined") {
+  window.addEventListener("pagehide", () => guardar());
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") guardar(); });
+}
+
 export function cargarDeStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);

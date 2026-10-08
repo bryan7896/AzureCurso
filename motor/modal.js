@@ -8,13 +8,15 @@
 // correcta), se pasa esReflexion:true y el modal muestra un estado neutral
 // ("guardado") en vez de ✅/❌.
 
-function mostrarModalFeedback({ exercise, correcto, esReflexion, respuestaUsuario, onContinuar, onRepasar }) {
+function mostrarModalFeedback({ exercise, correcto, esReflexion, autoevaluado, respuestaUsuario, onContinuar, onRepasar }) {
   const existente = document.querySelector(".modal-overlay");
   if (existente) existente.remove();
 
   const clase = esReflexion ? "feedback-reflexion" : correcto ? "feedback-correcto" : "feedback-incorrecto";
   const icono = esReflexion ? "💭" : correcto ? "✅" : "❌";
-  const titulo = esReflexion ? "Respuesta guardada" : correcto ? "¡Correcto!" : "No era esa";
+  const titulo = esReflexion ? "Respuesta guardada"
+    : autoevaluado ? (correcto ? "¡Bien, la sabías!" : "A repasarla")
+    : correcto ? "¡Correcto!" : "No era esa";
 
   const modal = document.createElement("div");
   modal.className = "modal-overlay modal-activo";

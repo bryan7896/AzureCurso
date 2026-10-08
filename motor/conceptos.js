@@ -60,10 +60,17 @@ function conceptosDeHoy() {
   return { lista: [...vencidos, ...nuevos.slice(0, cupoRestante)], nuevosEnEspera: Math.max(0, nuevos.length - cupoRestante) };
 }
 
+// Devuelve el repaso en curso de un concepto. Si el usuario lo dejó a medias
+// (salió antes de terminar los ejercicios), se RETOMA donde quedó en vez de
+// empezar de cero; solo se crea uno nuevo si no hay ninguno válido.
 function iniciarRepasoConcepto(conceptoId) {
   const progreso = getConceptoState(conceptoId);
   const concepto = (AppState.conceptosCatalogo || []).find((c) => c.id === conceptoId);
   if (!concepto) return null;
+  const r = progreso.repasoActual;
+  const ids = new Set(concepto.ejercicios.map((e) => e.id));
+  const valido = r && Array.isArray(r.cola) && r.indiceActual < r.cola.length && r.cola.every((i) => ids.has(i.exerciseId));
+  if (valido) return r;
   progreso.repasoActual = {
     cola: concepto.ejercicios.map((e) => ({ exerciseId: e.id, excluido: false })),
     indiceActual: 0,
@@ -90,6 +97,7 @@ function procesarRespuestaConcepto(conceptoId, respuestaUsuario) {
   return {
     correcto: resultado.correcto,
     esReflexion: !!resultado.esReflexion,
+    autoevaluado: !!resultado.autoevaluado,
     respuestaUsuario,
     exercise: actual.exercise,
     posicion: actual.posicion,
@@ -200,6 +208,7 @@ function renderConceptos(callbacks) {
         <div class="concepto-info">
           <div class="concepto-termino">${escHTML(c.termino)}</div>
           <div class="concepto-nombre">${escHTML(c.nombreCompleto)}</div>
+          ${p.repasoActual && p.repasoActual.indiceActual > 0 ? `<div class="concepto-en-curso">⏸️ En curso: ${p.repasoActual.indiceActual}/${p.repasoActual.cola.length}</div>` : ""}
         </div>
       </button>
     `;
